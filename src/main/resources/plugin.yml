@@ -2,3 +2,9 @@ name: Daedalus
 version: ${project.version}
 main: fr.zelytra.daedalus.Daedalus
 api-version: 1.16
+
+commands:
+  maze:
+    aliases: lb
+    permission: daedalus.maze
+    description: All maze commands
