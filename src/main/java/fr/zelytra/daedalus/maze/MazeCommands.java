@@ -1,7 +1,11 @@
 package fr.zelytra.daedalus.maze;
 
+
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.utils.Message;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
@@ -12,6 +16,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
 import org.bukkit.entity.Player;
+import org.bukkit.util.BoundingBox;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class MazeCommands implements CommandExecutor {
     @Override
@@ -22,24 +30,68 @@ public class MazeCommands implements CommandExecutor {
         }
         Player player = (Player) sender;
         if (args.length == 2 && args[0].equalsIgnoreCase("generate")) {
+            player.sendMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
+            Bukkit.getScheduler().runTaskAsynchronously(Daedalus.plugin, () -> {
+                Maze maze = new Maze(Integer.parseInt(args[1]), true, player);
+                int[][] m = maze.getMaze();
+                Location location = player.getLocation();
+                location.setY(location.getY() - 1);
+                Bukkit.getScheduler().runTask(Daedalus.plugin, () -> {
+                    int count = 0;
+                    for (int x = 0; x < maze.getSize(); x++) {
+                        for (int z = 0; z < maze.getSize(); z++) {
+                            location.setX(player.getLocation().getX() + x);
+                            location.setZ(player.getLocation().getZ() + z);
 
-            player.sendMessage(Message.getPlayerPrefixe() + " §cStarting generation...");
-            Maze maze = new Maze(Integer.parseInt(args[1]), true, player);
-            int[][] m = maze.getMaze();
-            Location location = player.getLocation();
-
-
-            for (int x = 0; x < maze.getSize(); x++) {
-                for (int z = 0; z < maze.getSize(); z++) {
-                    location.setX(player.getLocation().getX() + x);
-                    location.setZ(player.getLocation().getZ() + z);
-                    if (m[x][z] == 1) {
-                        location.getBlock().setType(Material.BLACK_CONCRETE);
-                    } else {
-                        location.getBlock().setType(Material.WHITE_CONCRETE);
+                            if (m[x][z] == 1) {
+                                location.getBlock().setType(Material.BLACK_CONCRETE);
+                            } else {
+                                location.getBlock().setType(Material.WHITE_CONCRETE);
+                            }
+                            count++;
+                            int progress = (int) (count * 100 / (Math.pow(maze.getSize(), 2)));
+                            logPlayer(player, "§6§lGenerating blocks... [§e" + progress + "%§6]");
+                        }
                     }
-                }
-            }
+                });
+            });
+
+            return true;
+        }
+
+        if (args.length == 2 && args[0].equalsIgnoreCase("landGenerate")) {
+            player.sendMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
+            Bukkit.getScheduler().runTaskAsynchronously(Daedalus.plugin, () -> {
+                ArrayList<BoundingBox> land = new ArrayList<>();
+                land.add(new BoundingBox(11.0, player.getLocation().getY(), 11.0, 22.0, player.getLocation().getY(), 18.0));
+                land.add(new BoundingBox(21.0, player.getLocation().getY(), 21.0, 32.0, player.getLocation().getY(), 36.0));
+                Maze maze = new Maze(Integer.parseInt(args[1]), true, player,land);
+                int[][] m = maze.getMaze();
+                Location location = player.getLocation();
+                location.setY(location.getY() - 1);
+                Bukkit.getScheduler().runTask(Daedalus.plugin, () -> {
+                    int count = 0;
+                    for (int x = 0; x < maze.getSize(); x++) {
+                        for (int z = 0; z < maze.getSize(); z++) {
+                            location.setX(player.getLocation().getX() + x);
+                            location.setZ(player.getLocation().getZ() + z);
+
+                            if (m[x][z] == 1) {
+                                location.getBlock().setType(Material.BLACK_CONCRETE);
+                            }else if (m[x][z] == -1) {
+                                location.getBlock().setType(Material.RED_CONCRETE);
+                            }else if (m[x][z] == -2) {
+                                location.getBlock().setType(Material.YELLOW_CONCRETE);
+                            } else {
+                                location.getBlock().setType(Material.WHITE_CONCRETE);
+                            }
+                            count++;
+                            int progress = (int) (count * 100 / (Math.pow(maze.getSize(), 2)));
+                            logPlayer(player, "§6§lGenerating blocks... [§e" + progress + "%§6]");
+                        }
+                    }
+                });
+            });
 
             return true;
         }
@@ -59,5 +111,12 @@ public class MazeCommands implements CommandExecutor {
             nmsChunk.getSections()[y >> 4] = cs;
         }
         cs.setType(x & 15, y & 15, z & 15, ibd);
+    }
+
+    private void logPlayer(Player player, String msg) {
+        if (player != null) {
+            BaseComponent txt = new TextComponent(msg);
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, txt);
+        }
     }
 }
