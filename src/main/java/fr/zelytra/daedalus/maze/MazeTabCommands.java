@@ -15,9 +15,9 @@ public class MazeTabCommands implements TabCompleter {
         List<String> commandsList = new ArrayList<>();
         if(cmd.getName().equalsIgnoreCase("maze")){
             if(args.length==1){
-                commandsList.add("test");
-                commandsList.add("generate");
-                commandsList.add("landGenerate");
+                commandsList.add("generateGrid");
+                commandsList.add("generateMaze");
+                commandsList.add("generateScaleMaze");
                 commandsList = Utils.dynamicTab(commandsList,args[0]);
             }
         }

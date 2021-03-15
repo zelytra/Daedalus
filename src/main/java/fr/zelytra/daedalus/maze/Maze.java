@@ -5,8 +5,7 @@ import fr.zelytra.daedalus.utils.Message;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.util.BoundingBox;
 
@@ -17,7 +16,6 @@ public class Maze {
     private final int[][] maze;
     private int size;
     private final boolean complexity;
-    private Player player;
     private ArrayList<BoundingBox> land;
 
     /**
@@ -32,18 +30,10 @@ public class Maze {
         this.maze = new int[this.size][this.size];
     }
 
-    public Maze(int size, boolean complexity, Player player) {
+    public Maze(int size, boolean complexity, ArrayList<BoundingBox> land) {
         this.size = size;
         this.complexity = complexity;
         this.maze = new int[this.size][this.size];
-        this.player = player;
-    }
-
-    public Maze(int size, boolean complexity, Player player, ArrayList<BoundingBox> land) {
-        this.size = size;
-        this.complexity = complexity;
-        this.maze = new int[this.size][this.size];
-        this.player = player;
         this.land = land;
     }
 
@@ -164,18 +154,58 @@ public class Maze {
             count++;
             if (count > 100000000) {
                 System.out.println("Generation time out");
-                this.player.sendMessage(Message.getPlayerPrefixe() + "§cERROR Generation Timeout");
+                Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§cERROR Generation Timeout");
                 return;
             }
         }
-        for (int i = 1; i < this.size - 1; i ++) {
-            for (int j = 1; j < this.size - 1; j ++) {
+        for (int i = 1; i < this.size - 1; i++) {
+            for (int j = 1; j < this.size - 1; j++) {
                 if (this.maze[i][j] == -2) {
                     this.maze[i][j] = 0;
                 }
             }
         }
-        this.player.sendMessage(Message.getPlayerPrefixe() + "§aMaze generated in " + (System.currentTimeMillis() - time) + "ms");
+        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§aMaze generated in " + (System.currentTimeMillis() - time) + "ms");
+    }
+
+    private int[][] generateScaleMaze(int scale) {
+        int X = 0;
+        logPlayer("§6§lScaling maze...");
+        for (int i = 0; i < this.size; i++) {
+            if (i % 2 == 0) {
+                X++;
+            } else {
+                X += scale;
+            }
+        }
+        int[][] maze2 = new int[X][X];
+
+        int zPtr = 0;
+        for (int z = 0; z < this.size; z++) {
+
+            int xPtr = 0;
+            int zScale = z % 2 == 0 ? 1 : scale;
+
+            for (int x = 0; x < this.size; x++) {
+
+                int xScale = x % 2 == 0 ? 1 : scale;
+
+                for (int sz = 0; sz < zScale; sz++) {
+                    for (int sx = 0; sx < xScale; sx++) {
+                        maze2[xPtr + sx][zPtr + sz] = this.maze[x][z];
+                    }
+                }
+                xPtr += xScale;
+            }
+            zPtr += zScale;
+        }
+        return maze2;
+    }
+
+    public int[][] getGrid() {
+        generateGrid();
+        return this.maze;
+
     }
 
     public int[][] getMaze() {
@@ -185,24 +215,20 @@ public class Maze {
 
     }
 
+    public int[][] getScaleMaze(int scale){
+        generateGrid();
+        generateWay();
+        return generateScaleMaze(scale);
+    }
+
     public int getSize() {
         return this.size;
     }
 
     private void logPlayer(String msg) {
-        if (this.player != null) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
             BaseComponent txt = new TextComponent(msg);
-            this.player.spigot().sendMessage(ChatMessageType.ACTION_BAR, txt);
-        }
-    }
-
-    private void setBlock(int x, int z, Material material) {
-        if (this.player != null) {
-            Location loc = this.player.getLocation();
-            loc.setY(loc.getY() - 1);
-            loc.setX(loc.getX() + x);
-            loc.setZ(loc.getZ() + z);
-            loc.getBlock().setType(material);
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, txt);
         }
     }
 
