@@ -1,4 +1,7 @@
 name: Daedalus
 version: ${project.version}
 main: fr.zelytra.daedalus.Daedalus
+commands:
+  settings:
+    description: permet de configurer la partie
 api-version: 1.16

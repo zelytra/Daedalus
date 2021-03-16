@@ -1,16 +1,19 @@
 package fr.zelytra.daedalus.managers.game;
 
+import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.team.TeamManager;
 
 public class GameManager {
 
     private TeamManager tm;
     private GameStatesEnum state;
+    private TemplesGenerationEnum generation;
 
     public GameManager(){
 
         this.tm = new TeamManager();
         this.state = GameStatesEnum.WAIT;
+        this.generation = TemplesGenerationEnum.RANDOM;
 
     }
 
@@ -36,5 +39,21 @@ public class GameManager {
 
     public boolean isFinished(){
         return state == GameStatesEnum.FINISHED;
+    }
+
+    public TemplesGenerationEnum getTemplesGeneration() {
+        return generation;
+    }
+
+    // FONCTION DE DEBUT DE PARTIE
+    public void start(){
+
+
+
+    }
+
+    // FONCTION DE FIN DE PARTIE
+    public void stop(){
+
     }
 }

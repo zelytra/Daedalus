@@ -1,13 +1,12 @@
 package fr.zelytra.daedalus.managers;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.events.waiting.entities.EntityDamageListener;
+import fr.zelytra.daedalus.events.waiting.entities.EntityTargetListener;
 import fr.zelytra.daedalus.events.waiting.environment.BlockPlaceListener;
 import fr.zelytra.daedalus.events.waiting.inventory.InventoryListener;
-import fr.zelytra.daedalus.events.waiting.players.PlayerInteractListener;
-import fr.zelytra.daedalus.events.waiting.players.PlayerJoinListener;
-import fr.zelytra.daedalus.events.waiting.players.PlayerQuitListener;
+import fr.zelytra.daedalus.events.waiting.players.*;
 import org.bukkit.Bukkit;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 
 public class EventsManager {
@@ -26,10 +25,9 @@ public class EventsManager {
         pm.registerEvents(new PlayerQuitListener(), pl);
         pm.registerEvents(new PlayerInteractListener(), pl);
 
-    }
+        /* Entities */
+        pm.registerEvents(new EntityTargetListener(), pl);
+        pm.registerEvents(new EntityDamageListener(), pl);
 
-    public static void registerEvent(Listener listener) {
-        PluginManager pm = Bukkit.getPluginManager();
-        pm.registerEvents(listener, Daedalus.getInstance());
     }
 }
