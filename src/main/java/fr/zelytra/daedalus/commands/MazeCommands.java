@@ -1,7 +1,8 @@
-package fr.zelytra.daedalus.maze;
+package fr.zelytra.daedalus.commands;
 
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.maze.MazeHandler;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -22,7 +23,7 @@ public class MazeCommands implements CommandExecutor {
         Player player = (Player) sender;
         if (args.length == 2 && args[0].equalsIgnoreCase("generateGrid")) {
             player.sendMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
-            Bukkit.getScheduler().runTaskAsynchronously(Daedalus.plugin, () -> {
+            Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
                 Location origin = player.getLocation().clone();
                 origin.setY(player.getWorld().getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()));
                 MazeHandler maze = new MazeHandler(origin, Integer.parseInt(args[1]), false);
@@ -34,7 +35,7 @@ public class MazeCommands implements CommandExecutor {
 
         else if (args.length == 2 && args[0].equalsIgnoreCase("generateMaze")) {
             player.sendMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
-            Bukkit.getScheduler().runTaskAsynchronously(Daedalus.plugin, () -> {
+            Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
                 /*
                 ArrayList<BoundingBox> land = new ArrayList<>();
                 land.add(new BoundingBox(11.0, player.getLocation().getY(), 11.0, 22.0, player.getLocation().getY(), 18.0));
@@ -51,7 +52,7 @@ public class MazeCommands implements CommandExecutor {
         else if (args.length == 3 && args[0].equalsIgnoreCase("demoGenerateScaleMaze")) {
             int scale = Integer.parseInt(args[2]);
             player.sendMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
-            Bukkit.getScheduler().runTaskAsynchronously(Daedalus.plugin, () -> {
+            Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
                 /*ArrayList<BoundingBox> land = new ArrayList<>();
                 land.add(new BoundingBox(11.0, player.getLocation().getY(), 11.0, 22.0, player.getLocation().getY(), 18.0));
                 land.add(new BoundingBox(21.0, player.getLocation().getY(), 21.0, 32.0, player.getLocation().getY(), 36.0));*/
@@ -68,7 +69,7 @@ public class MazeCommands implements CommandExecutor {
             int scale = Integer.parseInt(args[2]);
             int height = Integer.parseInt(args[3]);
             player.sendMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
-            Bukkit.getScheduler().runTaskAsynchronously(Daedalus.plugin, () -> {
+            Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
                 Location origin = player.getLocation().clone();
                 origin.setY(player.getWorld().getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()));
                 MazeHandler maze = new MazeHandler(origin, Integer.parseInt(args[1]), false, scale, height);

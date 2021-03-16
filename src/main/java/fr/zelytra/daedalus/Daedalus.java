@@ -3,8 +3,8 @@ package fr.zelytra.daedalus;
 import fr.zelytra.daedalus.commands.SettingsCommand;
 import fr.zelytra.daedalus.managers.EventsManager;
 import fr.zelytra.daedalus.managers.game.GameManager;
-import fr.zelytra.daedalus.maze.MazeCommands;
-import fr.zelytra.daedalus.maze.MazeTabCommands;
+import fr.zelytra.daedalus.commands.MazeCommands;
+import fr.zelytra.daedalus.commands.MazeTabCommands;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Daedalus extends JavaPlugin {
@@ -12,12 +12,12 @@ public final class Daedalus extends JavaPlugin {
     public static Daedalus instance;
     private GameManager gameManager;
 
-    public static Daedalus getInstance(){
+    public static Daedalus getInstance() {
         return instance;
     }
 
     @Override
-    public void onLoad(){
+    public void onLoad() {
         instance = this;
     }
 
@@ -43,7 +43,7 @@ public final class Daedalus extends JavaPlugin {
         return gameManager;
     }
 
-    private void regCommands(){
+    private void regCommands() {
         getCommand("settings").setExecutor(new SettingsCommand());
         getCommand("maze").setExecutor(new MazeCommands());
         getCommand("maze").setTabCompleter(new MazeTabCommands());
