@@ -45,6 +45,21 @@ public class MazeHandler {
      * @param complexity True if complex maze
      * @param scale      Scale of corridors
      */
+
+    public MazeHandler(Location location, int size, boolean complexity, int scale) {
+        this.center = location;
+        this.maze = new Maze(size, complexity);
+        this.scale = scale;
+        this.wallHeight = wallHeight;
+    }
+
+    /**
+     * @param location   center of the maze
+     * @param size       Size of the maze
+     * @param complexity True if complex maze
+     * @param scale      Scale of corridors
+     * @param wallHeight Set wall high
+     */
     public MazeHandler(Location location, int size, boolean complexity, int scale, int wallHeight) {
         this.center = location;
         this.maze = new Maze(size, complexity);
@@ -61,7 +76,7 @@ public class MazeHandler {
      */
     public MazeHandler(Location location, int size, boolean complexity, int scale, int wallHeight, ArrayList<BoundingBox> land) {
         this.center = location;
-        this.maze = new Maze(size, complexity,land);
+        this.maze = new Maze(size, complexity, land);
         this.scale = scale;
         this.wallHeight = wallHeight;
     }

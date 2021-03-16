@@ -167,7 +167,7 @@ public class Maze {
         }
         Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§aMaze generated in " + (System.currentTimeMillis() - time) + "ms");
     }
-
+    //Thanks Nicolas61x
     private int[][] generateScaleMaze(int scale) {
         int X = 0;
         logPlayer("§6§lScaling maze...");
