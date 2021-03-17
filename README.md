@@ -3,7 +3,7 @@
 ![language](https://img.shields.io/badge/langage-JAVA-orange)
 ![license](https://img.shields.io/badge/license-GPL--3.0-blue)
 # Resume
-
+![alt text](https://github.com/zelytra/Daedalus/img/logo.png?raw=true)
 # Setup
 
 # Documentation
