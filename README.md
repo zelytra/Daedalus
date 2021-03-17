@@ -1,11 +1,11 @@
 # Daedalus
+<p><img src="https://github.com/zelytra/Daedalus/blob/zelytra-readme/img/logo.png?raw=true" width="300" height="50"></p>
+
 ![release](https://img.shields.io/badge/release-v1.0-blueviolet)
 ![language](https://img.shields.io/badge/langage-JAVA-orange)
 ![license](https://img.shields.io/badge/license-GPL--3.0-blue)
 # Resume
-<p align="center">
-	<img src="https://github.com/zelytra/Daedalus/blob/zelytra-readme/img/logo.png?raw=true" width="500">
-</p>
+
 # Setup
 
 # Documentation
