@@ -50,7 +50,19 @@ public class MazeHandler {
         this.center = location;
         this.maze = new Maze(size, complexity);
         this.scale = scale;
-        this.wallHeight = wallHeight;
+    }
+
+    /**
+     * @param location   center of the maze
+     * @param size       Size of the maze
+     * @param complexity True if complex maze
+     * @param scale      Scale of corridors
+     * @param land       List of structure to generate
+     */
+    public MazeHandler(Location location, int size, boolean complexity, int scale, ArrayList<BoundingBox> land) {
+        this.center = location;
+        this.maze = new Maze(size, complexity,land);
+        this.scale = scale;
     }
 
     /**
@@ -86,7 +98,7 @@ public class MazeHandler {
 
         Location origin = new Location(center.getWorld(), center.getX() - (this.maze.getSize() / 2.0), center.getY(), center.getZ() - (this.maze.getSize() / 2.0));
         Location block = origin.clone();
-        Bukkit.getScheduler().runTask(Daedalus.plugin, () -> {
+        Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
             int count = 0;
             for (int x = 0; x < this.maze.getSize(); x++) {
                 for (int z = 0; z < this.maze.getSize(); z++) {
@@ -110,7 +122,7 @@ public class MazeHandler {
         int[][] grid = this.maze.getMaze();
         Location origin = new Location(center.getWorld(), center.getX() - (this.maze.getSize() / 2.0), center.getY(), center.getZ() - (this.maze.getSize() / 2.0));
         Location block = origin.clone();
-        Bukkit.getScheduler().runTask(Daedalus.plugin, () -> {
+        Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
             int count = 0;
             for (int x = 0; x < this.maze.getSize(); x++) {
                 for (int z = 0; z < this.maze.getSize(); z++) {
@@ -135,7 +147,7 @@ public class MazeHandler {
         int[][] grid = this.maze.getScaleMaze(this.scale);
         Location origin = new Location(center.getWorld(), center.getX() - (grid.length / 2.0), center.getY(), center.getZ() - (grid.length / 2.0));
         Location block = origin.clone();
-        Bukkit.getScheduler().runTask(Daedalus.plugin, () -> {
+        Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
             int count = 0;
             for (int x = 0; x < grid.length; x++) {
                 for (int z = 0; z < grid.length; z++) {
@@ -160,7 +172,7 @@ public class MazeHandler {
         int[][] grid = this.maze.getScaleMaze(this.scale);
         Location origin = new Location(center.getWorld(), center.getX() - (grid.length / 2.0), center.getY(), center.getZ() - (grid.length / 2.0));
         Location block = origin.clone();
-        Bukkit.getScheduler().runTask(Daedalus.plugin, () -> {
+        Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
             int count = 0;
             for (int x = 0; x < grid.length; x++) {
                 for (int z = 0; z < grid.length; z++) {
