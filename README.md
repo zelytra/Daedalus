@@ -1,6 +1,6 @@
 # Daedalus
 <p align="center">
-    <img src="https://github.com/zelytra/Daedalus/blob/zelytra-readme/img/logo.png?raw=true" width="800" height="100" align="center">
+    <img src="https://github.com/zelytra/Daedalus/blob/master/img/logo.png" width="800" height="100" align="center">
 </p>
 
 ![release](https://img.shields.io/badge/release-v1.0-blueviolet)
