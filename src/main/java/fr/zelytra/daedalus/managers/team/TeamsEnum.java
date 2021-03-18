@@ -19,7 +19,7 @@ public enum TeamsEnum {
     private final String suffix;
     private Team team;
 
-    TeamsEnum(String name, DyeColor teamColor, ChatColor chatColor, String prefix, String suffix){
+    TeamsEnum(String name, DyeColor teamColor, ChatColor chatColor, String prefix, String suffix) {
         this.name = name;
         this.teamColor = teamColor;
         this.chatColor = chatColor;

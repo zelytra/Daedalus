@@ -1,12 +1,21 @@
 name: Daedalus
 version: ${project.version}
 main: fr.zelytra.daedalus.Daedalus
+softdepend:
+  - WorldEdit
+api-version: 1.16
 commands:
 
   settings:
-    description: permet de configurer la partie
+    permission: daedalus.configuration
+    description: Acces to configuration menu
 
   maze:
     aliases: lb
-    permission: daedalus.maze
+    permission: daedalus.configuration
     description: All maze commands
+
+  structure:
+    aliases: struct
+    permission: daedalus.configuration
+    description: Structure generator commands

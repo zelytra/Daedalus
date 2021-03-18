@@ -12,7 +12,7 @@ public class GameManager {
     public GameManager(){
 
         this.tm = new TeamManager();
-        this.state = GameStatesEnum.WAIT;
+        this.state = GameStatesEnum.RUNNING;
         this.generation = TemplesGenerationEnum.RANDOM;
 
     }

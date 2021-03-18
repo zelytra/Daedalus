@@ -10,7 +10,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.util.BoundingBox;
 
+import java.util.ArrayList;
 
 
 public class MazeCommands implements CommandExecutor {
@@ -53,12 +55,12 @@ public class MazeCommands implements CommandExecutor {
             int scale = Integer.parseInt(args[2]);
             player.sendMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
             Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
-                /*ArrayList<BoundingBox> land = new ArrayList<>();
+                ArrayList<BoundingBox> land = new ArrayList<>();
                 land.add(new BoundingBox(11.0, player.getLocation().getY(), 11.0, 22.0, player.getLocation().getY(), 18.0));
-                land.add(new BoundingBox(21.0, player.getLocation().getY(), 21.0, 32.0, player.getLocation().getY(), 36.0));*/
+                land.add(new BoundingBox(21.0, player.getLocation().getY(), 21.0, 32.0, player.getLocation().getY(), 36.0));
                 Location origin = player.getLocation().clone();
                 origin.setY(player.getWorld().getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()));
-                MazeHandler maze = new MazeHandler(origin, Integer.parseInt(args[1]), false, scale);
+                MazeHandler maze = new MazeHandler(origin, Integer.parseInt(args[1]), false, scale,land);
                 maze.demoGenerateScaleMaze();
             });
 

@@ -167,6 +167,7 @@ public class Maze {
         }
         Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§aMaze generated in " + (System.currentTimeMillis() - time) + "ms");
     }
+
     //Thanks Nicolas61x
     private int[][] generateScaleMaze(int scale) {
         int X = 0;
@@ -181,13 +182,13 @@ public class Maze {
         int[][] maze2 = new int[X][X];
 
         int zPtr = 0;
+
         for (int z = 0; z < this.size; z++) {
 
             int xPtr = 0;
             int zScale = z % 2 == 0 ? 1 : scale;
 
             for (int x = 0; x < this.size; x++) {
-
                 int xScale = x % 2 == 0 ? 1 : scale;
 
                 for (int sz = 0; sz < zScale; sz++) {
@@ -199,6 +200,7 @@ public class Maze {
             }
             zPtr += zScale;
         }
+
         return maze2;
     }
 
@@ -215,7 +217,7 @@ public class Maze {
 
     }
 
-    public int[][] getScaleMaze(int scale){
+    public int[][] getScaleMaze(int scale) {
         generateGrid();
         generateWay();
         return generateScaleMaze(scale);
