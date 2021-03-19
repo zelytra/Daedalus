@@ -1,22 +1,28 @@
 package fr.zelytra.daedalus.managers.game;
 
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
+import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.team.TeamManager;
-import fr.zelytra.daedalus.structure.StructureManager;
+
+import java.util.ArrayList;
 
 public class GameManager {
 
     private TeamManager tm;
-    private StructureManager sm;
     private GameStatesEnum state;
     private TemplesGenerationEnum generation;
+    private ArrayList<GodsEnum> selectedGods;
+    private int godLimit;
+    public final int GOD_MINIMUM = 4;
+    public final int GOD_MAXIMUM = 10;
 
     public GameManager(){
 
         this.tm = new TeamManager();
-        this.sm = new StructureManager();
         this.state = GameStatesEnum.RUNNING;
         this.generation = TemplesGenerationEnum.RANDOM;
+        this.selectedGods = new ArrayList<>();
+        this.godLimit = 6;
 
     }
 
@@ -26,10 +32,6 @@ public class GameManager {
 
     public GameStatesEnum getState() {
         return state;
-    }
-
-    public StructureManager getStructureManager() {
-        return this.sm;
     }
 
     public void setState(GameStatesEnum state) {
@@ -50,6 +52,27 @@ public class GameManager {
 
     public TemplesGenerationEnum getTemplesGeneration() {
         return generation;
+    }
+
+    public void reverseTempleGeneration(){
+
+        if(getTemplesGeneration() == TemplesGenerationEnum.CHOSEN)
+            generation = TemplesGenerationEnum.RANDOM;
+        else
+            generation = TemplesGenerationEnum.CHOSEN;
+
+    }
+
+    public ArrayList<GodsEnum> getSelectedGods() {
+        return selectedGods;
+    }
+
+    public void resetGodsSelection(){
+        selectedGods.clear();
+    }
+
+    public int getGodLimit() {
+        return godLimit;
     }
 
     // FONCTION DE DEBUT DE PARTIE

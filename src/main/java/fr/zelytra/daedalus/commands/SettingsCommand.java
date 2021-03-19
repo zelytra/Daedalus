@@ -1,6 +1,10 @@
 package fr.zelytra.daedalus.commands;
 
+import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.builders.InventoryBuilder;
+import fr.zelytra.daedalus.builders.ItemBuilder;
+import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,20 +22,33 @@ public class SettingsCommand implements CommandExecutor {
 
             if(args.length > 0){
 
-                p.sendMessage("§cNombre d'arguments excessif !\n§cVeuillez utilisez la commande comme indiqué: §7/settings");
+                p.sendMessage("§cTo many arguments !\n§cPlease use the command with no arguments: §7/settings");
                 return false;
 
             }
 
             if(p.isOp()){
 
-                Inventory inv = new InventoryBuilder("§3Paramètres de la partie", 9).getInventory();
+                Inventory inv = new InventoryBuilder("§3Game settings", 27).getInventory();
+
+                if(Daedalus.getInstance().getGameManager().getTemplesGeneration() == TemplesGenerationEnum.RANDOM){
+                    inv.setItem(12, new ItemBuilder(Material.PISTON, "§6Temples generation").getGenerationSelection());
+                }else{
+                    inv.setItem(10, new ItemBuilder(Material.TOTEM_OF_UNDYING, "§6Gods selection").getItemStack());
+                    inv.setItem(12, new ItemBuilder(Material.STICKY_PISTON, "§6Temples generation").getGenerationSelection());
+
+                }
+
+
+
+                //inv.setItem(0, new BannerBuilder("§aAdd one", new Pattern(DyeColor.GREEN, PatternType.BASE), new Pattern(DyeColor.WHITE, PatternType.STRIPE_CENTER), new Pattern(DyeColor.WHITE, PatternType.STRIPE_MIDDLE), new Pattern(DyeColor.GREEN, PatternType.BORDER), new Pattern(DyeColor.GREEN, PatternType.STRIPE_BOTTOM), new Pattern(DyeColor.GREEN, PatternType.STRIPE_TOP)).getBanner());
+
 
                 p.openInventory(inv);
 
                 return true;
             }else{
-                p.sendMessage("§cVous n'avez pas la permission de configurer la partie !");
+                p.sendMessage("§cYou don't have the permission to perform this command !");
                 return false;
             }
         }

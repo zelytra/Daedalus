@@ -3,10 +3,8 @@ package fr.zelytra.daedalus.managers.team;
 import fr.zelytra.daedalus.objects.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
-import org.bukkit.material.Dye;
 import org.bukkit.scoreboard.Scoreboard;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;

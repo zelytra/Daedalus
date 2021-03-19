@@ -6,11 +6,11 @@ import org.bukkit.scoreboard.Team;
 
 public enum TeamsEnum {
 
-    RED("Rouge", DyeColor.RED, ChatColor.RED, "§c", "§r"),
-    BLUE("Bleue", DyeColor.BLUE, ChatColor.BLUE, "§9", "§r"),
-    YELLOW("Jaune", DyeColor.YELLOW, ChatColor.YELLOW, "§e", "§r"),
-    GREEN("Verte", DyeColor.GREEN, ChatColor.GREEN, "§a", "§r"),
-    MINOS("Minotaure", DyeColor.GRAY, ChatColor.GRAY, "§7", "§r");
+    RED("Red", DyeColor.RED, ChatColor.RED, "§c", "§r"),
+    BLUE("Blue", DyeColor.BLUE, ChatColor.BLUE, "§9", "§r"),
+    YELLOW("Yellow", DyeColor.YELLOW, ChatColor.YELLOW, "§e", "§r"),
+    GREEN("Green", DyeColor.GREEN, ChatColor.GREEN, "§a", "§r"),
+    MINOS("Minos", DyeColor.GRAY, ChatColor.GRAY, "§7", "§r");
 
     private final String name;
     private final DyeColor teamColor;
