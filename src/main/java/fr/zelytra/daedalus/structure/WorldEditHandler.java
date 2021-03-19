@@ -21,6 +21,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -65,7 +66,7 @@ public class WorldEditHandler {
 
         }
 
-        File file = new File(Daedalus.getInstance().getDataFolder() + File.separator + this.structureName + ".structure");
+        File file = new File(Daedalus.getInstance().getDataFolder() + File.separator + this.structureName + ".struct");
         File folder = new File(Daedalus.getInstance().getDataFolder().toString());
         if (!folder.exists()) {
             folder.mkdir();
@@ -78,10 +79,11 @@ public class WorldEditHandler {
             }
         }
 
-        ClipboardWriter writer;
-        try {
-            writer = BuiltInClipboardFormat.SPONGE_SCHEMATIC.getWriter(new FileOutputStream(file));
+
+        try (ClipboardWriter writer = BuiltInClipboardFormat.SPONGE_SCHEMATIC.getWriter(new FileOutputStream(file))) {
             writer.write(clipboard);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

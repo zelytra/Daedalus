@@ -3,8 +3,6 @@ package fr.zelytra.daedalus.commands;
 
 import com.sk89q.worldedit.IncompleteRegionException;
 import com.sk89q.worldedit.regions.Region;
-import fr.zelytra.daedalus.structure.Structure;
-import fr.zelytra.daedalus.structure.StructureEnum;
 import fr.zelytra.daedalus.structure.WorldEditHandler;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
@@ -51,17 +49,12 @@ public class StructureCommands implements CommandExecutor {
             }
 
             if (WEH.saveStructure()) {
-                player.sendMessage(Message.getPlayerPrefixe() + "§aStructure file saved :§6 " + WEH.getStructureName() + ".structure");
+                player.sendMessage(Message.getPlayerPrefixe() + "§aStructure file saved :§6 " + WEH.getStructureName() + ".struct");
                 return true;
             } else {
                 player.sendMessage(Message.getPlayerPrefixe() + "§cPlease make a selection.");
                 return false;
             }
-        } else if (args.length == 1 && args[0].equalsIgnoreCase("paste")) {
-            WorldEditHandler WEH = new WorldEditHandler(player.getLocation(), new Structure(StructureEnum.CORRIDOR).getClipboard());
-            WEH.pasteStructure();
-            return true;
-
         } else {
             player.sendMessage(Message.getPlayerPrefixe() + "§cWrong syntax please refer to §6/structure help §ccommand.");
             return false;

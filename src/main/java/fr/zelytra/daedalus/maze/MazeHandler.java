@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.maze;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.structure.Structure;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -8,7 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.util.BoundingBox;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class MazeHandler {
      * @param complexity True if complex maze
      * @param land       List of structure to generate
      */
-    public MazeHandler(Location location, int size, boolean complexity, ArrayList<BoundingBox> land) {
+    public MazeHandler(Location location, int size, boolean complexity, ArrayList<Structure> land) {
         this.center = location;
         this.maze = new Maze(size, complexity, land);
     }
@@ -59,7 +59,7 @@ public class MazeHandler {
      * @param scale      Scale of corridors
      * @param land       List of structure to generate
      */
-    public MazeHandler(Location location, int size, boolean complexity, int scale, ArrayList<BoundingBox> land) {
+    public MazeHandler(Location location, int size, boolean complexity, int scale, ArrayList<Structure> land) {
         this.center = location;
         this.maze = new Maze(size, complexity,land);
         this.scale = scale;
@@ -86,7 +86,7 @@ public class MazeHandler {
      * @param scale      Scale of corridors
      * @param land       List of structure to generate
      */
-    public MazeHandler(Location location, int size, boolean complexity, int scale, int wallHeight, ArrayList<BoundingBox> land) {
+    public MazeHandler(Location location, int size, boolean complexity, int scale, int wallHeight, ArrayList<Structure> land) {
         this.center = location;
         this.maze = new Maze(size, complexity, land);
         this.scale = scale;

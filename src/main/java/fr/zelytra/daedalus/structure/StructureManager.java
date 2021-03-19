@@ -6,15 +6,18 @@ public class StructureManager {
     private ArrayList<Structure> temples;
     private ArrayList<Structure> dungeons;
     private ArrayList<Structure> builds;
-
     private ArrayList<Structure> generateList;
 
 
     public StructureManager() {
         initialize();
+        randomGenerationList();
     }
 
     private void initialize() {
+        this.temples = new ArrayList<>();
+        this.dungeons = new ArrayList<>();
+        this.builds = new ArrayList<>();
         //Temples init
         //temples.add(new Structure(StructureEnum.ZEUS));
 
@@ -26,7 +29,8 @@ public class StructureManager {
     }
 
     private void randomGenerationList(){
-        //TODO Fonction du tirage random celon paramètre
+        this.generateList = new ArrayList<>();
+        this.generateList.add(new Structure(StructureEnum.CORRIDOR));
     }
 
     public ArrayList<Structure> getTemples() {

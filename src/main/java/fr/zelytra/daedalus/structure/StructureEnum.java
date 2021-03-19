@@ -23,4 +23,13 @@ public enum StructureEnum {
         return type;
     }
 
+    public StructureEnum getByName(String name) {
+        for (StructureEnum structure : StructureEnum.values()) {
+            if(structure.getName().equalsIgnoreCase(name)){
+                return structure;
+            }
+        }
+        return null;
+    }
+
 }

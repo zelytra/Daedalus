@@ -1,13 +1,13 @@
 package fr.zelytra.daedalus.maze;
 
 
+import fr.zelytra.daedalus.structure.Structure;
 import fr.zelytra.daedalus.utils.Message;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.util.BoundingBox;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ public class Maze {
     private final int[][] maze;
     private int size;
     private final boolean complexity;
-    private ArrayList<BoundingBox> land;
+    private ArrayList<Structure> land;
 
     /**
      * Maze object
@@ -30,7 +30,7 @@ public class Maze {
         this.maze = new int[this.size][this.size];
     }
 
-    public Maze(int size, boolean complexity, ArrayList<BoundingBox> land) {
+    public Maze(int size, boolean complexity, ArrayList<Structure> land) {
         this.size = size;
         this.complexity = complexity;
         this.maze = new int[this.size][this.size];
@@ -77,21 +77,14 @@ public class Maze {
         }
         //Generating structure area
         if (land != null && !land.isEmpty()) {
-            for (BoundingBox area : land) {
-                for (int x = (int) area.getMinX(); x < area.getMaxX(); x++) {
-                    for (int z = (int) area.getMinZ(); z < area.getMaxZ(); z++) {
+            for (Structure area : land) {
+                int width = (int) ((area.getRegion().getWidth() + 1) / 8.0);
+                int height = (int) ((area.getRegion().getHeight() + 1) / 8.0);
+                int originX = 1, originZ = 1;
+                for (int x = originX; x < originX+width; x++) {
+                    for (int z = originZ; z < originZ+height; z++) {
                         this.maze[x][z] = -1;
                     }
-                }
-                //Generate 4 gates
-                int midX = (int) area.getWidthX() / 2;
-                int midZ = (int) area.getWidthZ() / 2;
-                for (int i = 1; i <= 2; i++) {
-                    this.maze[(int) area.getMinX() + midX][(int) area.getMinZ() - i] = -2;
-                    this.maze[(int) area.getMinX() - i][(int) area.getMinZ() + midZ] = -2;
-
-                    this.maze[(int) (area.getMaxX() - 1) - midX][(int) (area.getMaxZ() - 1) + i] = -2;
-                    this.maze[(int) (area.getMaxX() - 1) + i][(int) (area.getMaxZ() - 1) - midZ] = -2;
                 }
             }
         }
@@ -158,13 +151,21 @@ public class Maze {
                 return;
             }
         }
-        for (int i = 1; i < this.size - 1; i++) {
-            for (int j = 1; j < this.size - 1; j++) {
-                if (this.maze[i][j] == -2) {
-                    this.maze[i][j] = 0;
+        if (complexity) {
+            for (int i = 0; i < this.size; i++) {
+                int x = 1 + (int) (Math.random() * (this.size - 2));
+                int z;
+                if (x % 2 != 0) {
+                    z = 1 + ((int) (Math.random() * (this.size - 4) / 2)) * 2 + 1;
+                } else {
+                    z = 1 + ((int) (Math.random() * (this.size - 2) / 2)) * 2;
+                }
+                if (this.maze[x][z] == 1) {
+                    this.maze[x][z] = 0;
                 }
             }
         }
+
         Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§aMaze generated in " + (System.currentTimeMillis() - time) + "ms");
     }
 
@@ -202,6 +203,10 @@ public class Maze {
         }
 
         return maze2;
+    }
+
+    private void generateStructure() {
+
     }
 
     public int[][] getGrid() {
