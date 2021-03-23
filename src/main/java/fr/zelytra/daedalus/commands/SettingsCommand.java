@@ -34,15 +34,10 @@ public class SettingsCommand implements CommandExecutor {
                 if(Daedalus.getInstance().getGameManager().getTemplesGeneration() == TemplesGenerationEnum.RANDOM){
                     inv.setItem(12, new ItemBuilder(Material.PISTON, "§6Temples generation").getGenerationSelection());
                 }else{
-                    inv.setItem(10, new ItemBuilder(Material.TOTEM_OF_UNDYING, "§6Gods selection").getItemStack());
+                    inv.setItem(10, new ItemBuilder(Material.TOTEM_OF_UNDYING, "§6Gods selection", "", "§8CLICK TO SELECT").getItemStack());
                     inv.setItem(12, new ItemBuilder(Material.STICKY_PISTON, "§6Temples generation").getGenerationSelection());
 
                 }
-
-
-
-                //inv.setItem(0, new BannerBuilder("§aAdd one", new Pattern(DyeColor.GREEN, PatternType.BASE), new Pattern(DyeColor.WHITE, PatternType.STRIPE_CENTER), new Pattern(DyeColor.WHITE, PatternType.STRIPE_MIDDLE), new Pattern(DyeColor.GREEN, PatternType.BORDER), new Pattern(DyeColor.GREEN, PatternType.STRIPE_BOTTOM), new Pattern(DyeColor.GREEN, PatternType.STRIPE_TOP)).getBanner());
-
 
                 p.openInventory(inv);
 

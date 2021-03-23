@@ -12,10 +12,10 @@ public class BannerBuilder {
 
     ItemStack banner;
 
-    public BannerBuilder(String name, Pattern... patterns){
+    public BannerBuilder(String name, Material bannerMaterial,  Pattern... patterns){
 
 
-        banner = new ItemStack(Material.WHITE_BANNER);
+        banner = new ItemStack(bannerMaterial);
         BannerMeta meta = (BannerMeta) banner.getItemMeta();
         assert meta != null;
         meta.setDisplayName(name);

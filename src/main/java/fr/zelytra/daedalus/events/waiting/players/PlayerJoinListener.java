@@ -36,7 +36,7 @@ public class PlayerJoinListener implements Listener {
             p.setGameMode(GameMode.ADVENTURE);
             p.setFoodLevel(20);
             p.setHealth(p.getMaxHealth());
-            p.getInventory().setItem(0, new ItemBuilder(Material.WHITE_BANNER, "§7Sélection des équipes").getItemStack());
+            p.getInventory().setItem(0, new ItemBuilder(Material.WHITE_BANNER, "§73Team selection").getItemStack());
             // TP TO SPAWN
         }else if(state.equals(GameStatesEnum.RUNNING)){
 

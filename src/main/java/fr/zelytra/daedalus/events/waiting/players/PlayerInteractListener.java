@@ -30,9 +30,9 @@ public class PlayerInteractListener implements Listener {
 
             if(e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_BLOCK){
 
-                if(Objects.requireNonNull(e.getItem().getItemMeta()).getDisplayName().equals("§7Sélection des équipes")){
+                if(Objects.requireNonNull(e.getItem().getItemMeta()).getDisplayName().equals("§73Team selection")){
 
-                    Inventory inv = new InventoryBuilder("§3Sélection des équipes", InventoryType.DROPPER).getInventory();
+                    Inventory inv = new InventoryBuilder("§33Team selection", InventoryType.DROPPER).getInventory();
 
                     inv.setItem(0, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.RED).getBanner());
                     inv.setItem(2, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.GREEN).getBanner());
