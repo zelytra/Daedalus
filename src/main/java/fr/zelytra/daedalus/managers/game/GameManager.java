@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.managers.game;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.team.TeamManager;
+import fr.zelytra.daedalus.structure.StructureManager;
 
 import java.util.ArrayList;
 
