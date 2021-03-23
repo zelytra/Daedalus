@@ -3,12 +3,15 @@ package fr.zelytra.daedalus.builders;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class ItemBuilder {
 
@@ -24,6 +27,19 @@ public class ItemBuilder {
 
     }
 
+    public ItemBuilder(Material material, String name, int stack, String... loreArgs){
+
+        this.itemStack = new ItemStack(material, stack);
+        ItemMeta meta = this.itemStack.getItemMeta();
+        assert meta != null;
+        meta.setDisplayName(name);
+        ArrayList<String> lore = new ArrayList<>();
+        Collections.addAll(lore, loreArgs);
+        meta.setLore(lore);
+        this.itemStack.setItemMeta(meta);
+
+    }
+
     public ItemBuilder(Material material, String name){
 
         this.itemStack = new ItemStack(material);
@@ -34,13 +50,15 @@ public class ItemBuilder {
 
     }
 
-    public ItemBuilder(Material material, String name, String... lore){
+    public ItemBuilder(Material material, String name, String... loreArgs){
 
         this.itemStack = new ItemStack(material);
         ItemMeta meta = this.itemStack.getItemMeta();
         assert meta != null;
         meta.setDisplayName(name);
-        meta.setLore(Arrays.asList(lore));
+        ArrayList<String> lore = new ArrayList<>();
+        Collections.addAll(lore, loreArgs);
+        meta.setLore(lore);
 
         this.itemStack.setItemMeta(meta);
 
@@ -73,7 +91,10 @@ public class ItemBuilder {
 
                 }
                 lore.add("");
-                lore.add("§cYou still have §b§c"+(Daedalus.getInstance().getGameManager().getGodLimit()-Daedalus.getInstance().getGameManager().getSelectedGods().size())+"§c gods to select");
+                if(Daedalus.getInstance().getGameManager().getGodLimit() > Daedalus.getInstance().getGameManager().getSelectedGods().size())
+                    lore.add("§cYou still have §b§c"+(Daedalus.getInstance().getGameManager().getGodLimit()-Daedalus.getInstance().getGameManager().getSelectedGods().size())+"§c gods to select");
+                else
+                    lore.add("§cYou can't' select more gods");
             }
         }
         lore.add("");

@@ -3,27 +3,34 @@ package fr.zelytra.daedalus.managers.game;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.team.TeamManager;
+import fr.zelytra.daedalus.structure.StructureManager;
 
 import java.util.ArrayList;
 
 public class GameManager {
 
     private TeamManager tm;
+    private StructureManager sm;
     private GameStatesEnum state;
     private TemplesGenerationEnum generation;
     private ArrayList<GodsEnum> selectedGods;
     private int godLimit;
-    public final int GOD_MINIMUM = 4;
-    public final int GOD_MAXIMUM = 10;
+    public static final int GOD_MINIMUM = 4;
+    public static final int GOD_MAXIMUM = 10;
 
     public GameManager(){
 
+        this.sm = new StructureManager();
         this.tm = new TeamManager();
-        this.state = GameStatesEnum.RUNNING;
+        this.state = GameStatesEnum.WAIT;
         this.generation = TemplesGenerationEnum.RANDOM;
         this.selectedGods = new ArrayList<>();
         this.godLimit = 6;
 
+    }
+
+    public StructureManager getStructureManager() {
+        return sm;
     }
 
     public TeamManager getTeamManager() {
@@ -73,6 +80,26 @@ public class GameManager {
 
     public int getGodLimit() {
         return godLimit;
+    }
+
+    public boolean increaseGodLimit(){
+
+        if(godLimit >= GOD_MAXIMUM)
+            return false;
+        else
+            godLimit += 1;
+
+        return true;
+    }
+
+    public boolean decreaseGodLimit(){
+
+        if(godLimit <= GOD_MINIMUM)
+            return false;
+        else
+            godLimit -= 1;
+
+            return true;
     }
 
     // FONCTION DE DEBUT DE PARTIE
