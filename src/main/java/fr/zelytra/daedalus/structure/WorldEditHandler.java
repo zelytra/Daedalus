@@ -1,9 +1,6 @@
 package fr.zelytra.daedalus.structure;
 
-import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.IncompleteRegionException;
-import com.sk89q.worldedit.WorldEdit;
-import com.sk89q.worldedit.WorldEditException;
+import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.extent.clipboard.BlockArrayClipboard;
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
@@ -16,20 +13,21 @@ import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.session.ClipboardHolder;
 import com.sk89q.worldedit.world.World;
+import com.sk89q.worldedit.world.block.BlockType;
 import fr.zelytra.daedalus.Daedalus;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class WorldEditHandler {
-    private  String structureName;
+    private String structureName;
     private Player player;
-    private  Location location;
-    private  Clipboard clipboard;
+    private Location location;
+    private Clipboard clipboard;
+    private EditSession editSession;
 
     public WorldEditHandler(String structureName, Player player) {
         this.structureName = structureName;
@@ -41,18 +39,18 @@ public class WorldEditHandler {
         this.clipboard = clipboard;
     }
 
+    public WorldEditHandler(org.bukkit.World w) {
+        World world = BukkitAdapter.adapt(w);
+        this.editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(world, -1);
+    }
+
     public boolean saveStructure() {
 
         Region region;
         World world = BukkitAdapter.adapt(this.player.getLocation().getWorld());
         //Getting player selection
-        try {
-            region = getWorldEditRegion(this.player);
-            if (region == null) {
-                return false;
-
-            }
-        } catch (IncompleteRegionException e) {
+        region = getWorldEditRegion(this.player);
+        if (region == null) {
             return false;
 
         }
@@ -68,9 +66,7 @@ public class WorldEditHandler {
 
         File file = new File(Daedalus.getInstance().getDataFolder() + File.separator + this.structureName + ".struct");
         File folder = new File(Daedalus.getInstance().getDataFolder().toString());
-        if (!folder.exists()) {
-            folder.mkdir();
-        }
+        if (!folder.exists()) folder.mkdir();
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -82,8 +78,6 @@ public class WorldEditHandler {
 
         try (ClipboardWriter writer = BuiltInClipboardFormat.SPONGE_SCHEMATIC.getWriter(new FileOutputStream(file))) {
             writer.write(clipboard);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -105,7 +99,7 @@ public class WorldEditHandler {
 
     }
 
-    private Region getWorldEditRegion(Player p) throws IncompleteRegionException {
+    private Region getWorldEditRegion(Player p) {
         World world = BukkitAdapter.adapt(p.getLocation().getWorld());
         com.sk89q.worldedit.entity.Player WEp = BukkitAdapter.adapt(p);
         Region region = null;
@@ -117,11 +111,25 @@ public class WorldEditHandler {
         return region;
     }
 
+    public void setBlock(Location location, BlockType material) {
+        try {
+            this.editSession.setBlock(BlockVector3.at(location.getX(), location.getY(), location.getZ()), material.getDefaultState());
+        } catch (MaxChangedBlocksException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public EditSession getEditSession(){
+        return this.editSession;
+    }
+
     public String getStructureName() {
         return this.structureName;
     }
 
-    public Region getSelection() throws IncompleteRegionException {
+    public Region getSelection() {
         return getWorldEditRegion(this.player);
     }
 }

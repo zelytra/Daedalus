@@ -31,6 +31,7 @@ public class StructureManager {
     private void randomGenerationList(){
         this.generateList = new ArrayList<>();
         this.generateList.add(new Structure(StructureEnum.CORRIDOR));
+        this.generateList.add(new Structure(StructureEnum.TEAMRED));
     }
 
     public ArrayList<Structure> getTemples() {

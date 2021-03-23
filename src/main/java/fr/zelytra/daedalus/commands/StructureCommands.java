@@ -1,7 +1,6 @@
 package fr.zelytra.daedalus.commands;
 
 
-import com.sk89q.worldedit.IncompleteRegionException;
 import com.sk89q.worldedit.regions.Region;
 import fr.zelytra.daedalus.structure.WorldEditHandler;
 import fr.zelytra.daedalus.utils.Message;
@@ -35,17 +34,25 @@ public class StructureCommands implements CommandExecutor {
         } else if (args.length == 2 && args[0].equalsIgnoreCase("save")) {
             WorldEditHandler WEH = new WorldEditHandler(args[1], player);
             Region region = null;
-            try {
-                region = WEH.getSelection();
-            } catch (IncompleteRegionException e) {
-                e.printStackTrace();
-            }
+            region = WEH.getSelection();
 
             if (region != null) {
-                if (((region.getLength() + 1) / 8.0) % 1 != 0 | ((region.getWidth() + 1) / 8.0) % 1 != 0) {
+                System.out.println(((region.getLength() + 1) / 8.0) % 1 + " " + ((region.getWidth() + 1) / 8.0) % 1);
+                System.out.println(((region.getLength() + 1) / 8.0) % 2 + " " + ((region.getWidth() + 1) / 8.0) % 2);
+
+                if (((region.getLength() + 1) / 8.0) % 2 == 0 || ((region.getWidth() + 1) / 8.0) % 2 == 0) {
+
+                    System.out.println(((region.getLength() + 1) / 8.0) + " " + ((region.getWidth() + 1) / 8.0));
+                    player.sendMessage(Message.getPlayerPrefixe() + "§cWrong structure size :§6 " + region.getWidth() + " / " + region.getLength());
+                    return false;
+
+                }
+                if (((region.getLength() + 1) / 8.0) % 1 != 0 || ((region.getWidth() + 1) / 8.0) % 1 != 0) {
+                    System.out.println(((region.getLength() + 1) / 8.0) + " " + ((region.getWidth() + 1) / 8.0));
                     player.sendMessage(Message.getPlayerPrefixe() + "§cWrong structure size :§6 " + region.getWidth() + " / " + region.getLength());
                     return false;
                 }
+
             }
 
             if (WEH.saveStructure()) {

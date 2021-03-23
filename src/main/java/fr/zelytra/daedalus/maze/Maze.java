@@ -2,6 +2,7 @@ package fr.zelytra.daedalus.maze;
 
 
 import fr.zelytra.daedalus.structure.Structure;
+import fr.zelytra.daedalus.structure.StructureType;
 import fr.zelytra.daedalus.utils.Message;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -17,6 +18,7 @@ public class Maze {
     private int size;
     private final boolean complexity;
     private ArrayList<Structure> land;
+    private final int scale = 7;
 
     /**
      * Maze object
@@ -76,18 +78,25 @@ public class Maze {
             }
         }
         //Generating structure area
-        if (land != null && !land.isEmpty()) {
-            for (Structure area : land) {
-                int width = (int) ((area.getRegion().getWidth() + 1) / 8.0);
-                int height = (int) ((area.getRegion().getHeight() + 1) / 8.0);
-                int originX = 1, originZ = 1;
-                for (int x = originX; x < originX+width; x++) {
-                    for (int z = originZ; z < originZ+height; z++) {
-                        this.maze[x][z] = -1;
-                    }
+        for (Structure area : land) {
+            int width = (int) ((area.getRegion().getWidth() + 1) / 8.0);
+            int length = (int) ((area.getRegion().getLength() + 1) / 8.0);
+            int originX;
+            int originZ;
+            if (area.getType() == StructureType.FIXED) {
+                originX = (int) area.getOrigin().getX();
+                originZ = (int) area.getOrigin().getZ();
+            } else {
+                originX = 3;
+                originZ = 3;
+            }
+            for (int x = originX; x < (originX + width); x++) {
+                for (int z = originZ; z < (originZ + length); z++) {
+                    this.maze[x][z] = -1;
                 }
             }
         }
+
     }
 
     private void generateWay() {
@@ -222,10 +231,10 @@ public class Maze {
 
     }
 
-    public int[][] getScaleMaze(int scale) {
+    public int[][] getScaleMaze() {
         generateGrid();
         generateWay();
-        return generateScaleMaze(scale);
+        return generateScaleMaze(this.scale);
     }
 
     public int getSize() {

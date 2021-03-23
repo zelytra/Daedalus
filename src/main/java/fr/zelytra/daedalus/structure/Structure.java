@@ -5,19 +5,23 @@ import com.sk89q.worldedit.extent.clipboard.io.BuiltInClipboardFormat;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
 import com.sk89q.worldedit.regions.Region;
 import fr.zelytra.daedalus.Daedalus;
+import org.bukkit.util.BlockVector;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class Structure {
 
     private String name;
-    private String type;
+    private StructureType type;
     private Clipboard clipboard;
     private Region region;
+    private BlockVector origin;
 
     public Structure(StructureEnum structure) {
         this.name = structure.getName();
         this.type = structure.getType();
+        this.origin = structure.getOrigin();
 
         InputStream is = Daedalus.getInstance().getResource(this.name + ".struct");
         BuiltInClipboardFormat format = BuiltInClipboardFormat.SPONGE_SCHEMATIC;
@@ -34,7 +38,11 @@ public class Structure {
         return name;
     }
 
-    public String getType() {
+    public BlockVector getOrigin() {
+        return origin;
+    }
+
+    public StructureType getType() {
         return type;
     }
 

@@ -24,6 +24,7 @@ public final class Daedalus extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
         EventsManager.registerEvents(this);
         regCommands();
         gameManager = new GameManager();

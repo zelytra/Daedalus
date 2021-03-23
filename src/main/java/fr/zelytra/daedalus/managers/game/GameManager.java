@@ -3,12 +3,14 @@ package fr.zelytra.daedalus.managers.game;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.team.TeamManager;
+import fr.zelytra.daedalus.structure.StructureManager;
 
 import java.util.ArrayList;
 
 public class GameManager {
 
     private TeamManager tm;
+    private StructureManager sm;
     private GameStatesEnum state;
     private TemplesGenerationEnum generation;
     private ArrayList<GodsEnum> selectedGods;
@@ -16,9 +18,10 @@ public class GameManager {
     public final int GOD_MINIMUM = 4;
     public final int GOD_MAXIMUM = 10;
 
-    public GameManager(){
+    public GameManager() {
 
         this.tm = new TeamManager();
+        this.sm = new StructureManager();
         this.state = GameStatesEnum.RUNNING;
         this.generation = TemplesGenerationEnum.RANDOM;
         this.selectedGods = new ArrayList<>();
@@ -30,6 +33,10 @@ public class GameManager {
         return tm;
     }
 
+    public StructureManager getStructureManager() {
+        return this.sm;
+    }
+
     public GameStatesEnum getState() {
         return state;
     }
@@ -38,15 +45,15 @@ public class GameManager {
         this.state = state;
     }
 
-    public boolean isWaiting(){
+    public boolean isWaiting() {
         return state == GameStatesEnum.WAIT;
     }
 
-    public boolean isRunning(){
+    public boolean isRunning() {
         return state == GameStatesEnum.RUNNING;
     }
 
-    public boolean isFinished(){
+    public boolean isFinished() {
         return state == GameStatesEnum.FINISHED;
     }
 
@@ -54,9 +61,9 @@ public class GameManager {
         return generation;
     }
 
-    public void reverseTempleGeneration(){
+    public void reverseTempleGeneration() {
 
-        if(getTemplesGeneration() == TemplesGenerationEnum.CHOSEN)
+        if (getTemplesGeneration() == TemplesGenerationEnum.CHOSEN)
             generation = TemplesGenerationEnum.RANDOM;
         else
             generation = TemplesGenerationEnum.CHOSEN;
@@ -67,7 +74,7 @@ public class GameManager {
         return selectedGods;
     }
 
-    public void resetGodsSelection(){
+    public void resetGodsSelection() {
         selectedGods.clear();
     }
 
@@ -76,14 +83,13 @@ public class GameManager {
     }
 
     // FONCTION DE DEBUT DE PARTIE
-    public void start(){
-
+    public void start() {
 
 
     }
 
     // FONCTION DE FIN DE PARTIE
-    public void stop(){
+    public void stop() {
 
     }
 }

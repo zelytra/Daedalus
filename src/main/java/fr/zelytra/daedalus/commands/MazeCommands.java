@@ -26,7 +26,7 @@ public class MazeCommands implements CommandExecutor {
             Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
                 Location origin = player.getLocation().clone();
                 origin.setY(player.getWorld().getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()));
-                MazeHandler maze = new MazeHandler(origin, Integer.parseInt(args[1]), true);
+                MazeHandler maze = new MazeHandler(origin, Integer.parseInt(args[1]), true,Daedalus.getInstance().getGameManager().getStructureManager().getGenerateList());
                 maze.demoGenerateGrid();
             });
 
@@ -36,30 +36,27 @@ public class MazeCommands implements CommandExecutor {
             Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
                 Location origin = player.getLocation().clone();
                 origin.setY(player.getWorld().getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()));
-                MazeHandler maze = new MazeHandler(origin, Integer.parseInt(args[1]), true);
+                MazeHandler maze = new MazeHandler(origin, Integer.parseInt(args[1]), true,Daedalus.getInstance().getGameManager().getStructureManager().getGenerateList());
                 maze.demoGenerateMaze();
             });
 
             return true;
-        } else if (args.length == 3 && args[0].equalsIgnoreCase("demoGenerateScaleMaze")) {
-            int scale = Integer.parseInt(args[2]);
+        } else if (args.length == 2 && args[0].equalsIgnoreCase("demoGenerateScaleMaze")) {
             player.sendMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
             Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
                 Location origin = player.getLocation().clone();
                 origin.setY(player.getWorld().getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()));
-                MazeHandler maze = new MazeHandler(origin, Integer.parseInt(args[1]), true, scale, Daedalus.getInstance().getGameManager().getStructureManager().getGenerateList());
+                MazeHandler maze = new MazeHandler(origin, Integer.parseInt(args[1]), true, Daedalus.getInstance().getGameManager().getStructureManager().getGenerateList());
                 maze.demoGenerateScaleMaze();
             });
 
             return true;
-        } else if (args.length == 4 && args[0].equalsIgnoreCase("generateScaleMaze")) {
-            int scale = Integer.parseInt(args[2]);
-            int height = Integer.parseInt(args[3]);
+        } else if (args.length == 2 && args[0].equalsIgnoreCase("generateScaleMaze")) {
             player.sendMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
             Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
                 Location origin = player.getLocation().clone();
                 origin.setY(player.getWorld().getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()));
-                MazeHandler maze = new MazeHandler(origin, Integer.parseInt(args[1]), true, scale, height, Daedalus.getInstance().getGameManager().getStructureManager().getGenerateList());
+                MazeHandler maze = new MazeHandler(origin, Integer.parseInt(args[1]), true, Daedalus.getInstance().getGameManager().getStructureManager().getGenerateList());
                 maze.generateScaleMaze();
             });
 
