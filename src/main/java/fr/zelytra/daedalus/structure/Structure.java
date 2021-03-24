@@ -17,11 +17,13 @@ public class Structure {
     private Clipboard clipboard;
     private Region region;
     private BlockVector origin;
+    private BlockVector offset;
 
     public Structure(StructureEnum structure) {
         this.name = structure.getName();
         this.type = structure.getType();
         this.origin = structure.getOrigin();
+        this.offset = structure.getOffset();
 
         InputStream is = Daedalus.getInstance().getResource(this.name + ".struct");
         BuiltInClipboardFormat format = BuiltInClipboardFormat.SPONGE_SCHEMATIC;
@@ -52,5 +54,9 @@ public class Structure {
 
     public Region getRegion() {
         return region;
+    }
+
+    public BlockVector getOffset() {
+        return offset;
     }
 }

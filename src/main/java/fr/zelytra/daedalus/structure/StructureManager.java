@@ -30,8 +30,11 @@ public class StructureManager {
 
     private void randomGenerationList(){
         this.generateList = new ArrayList<>();
-        this.generateList.add(new Structure(StructureEnum.CORRIDOR));
-        this.generateList.add(new Structure(StructureEnum.TEAMRED));
+        //this.generateList.add(new Structure(StructureEnum.CORRIDOR));
+        this.generateList.add(new Structure(StructureEnum.TEAM_RED));
+        this.generateList.add(new Structure(StructureEnum.TEAM_BLUE));
+        this.generateList.add(new Structure(StructureEnum.TEAM_GREEN));
+        this.generateList.add(new Structure(StructureEnum.TEAM_YELLOW));
     }
 
     public ArrayList<Structure> getTemples() {

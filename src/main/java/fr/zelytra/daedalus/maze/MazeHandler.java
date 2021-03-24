@@ -10,8 +10,10 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.util.BlockVector;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class MazeHandler {
     private final Location center;
@@ -53,8 +55,7 @@ public class MazeHandler {
 
     public void demoGenerateGrid() {
         int[][] grid = this.maze.getGrid();
-
-        Location origin = new Location(center.getWorld(), center.getX() - (this.maze.getSize() / 2.0), center.getY(), center.getZ() - (this.maze.getSize() / 2.0));
+        Location origin = getOrigin(grid);
         Location block = origin.clone();
         Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
             WorldEditHandler WEH = new WorldEditHandler(block.getWorld());
@@ -82,7 +83,7 @@ public class MazeHandler {
 
     public void demoGenerateMaze() {
         int[][] grid = this.maze.getMaze();
-        Location origin = new Location(center.getWorld(), center.getX() - (this.maze.getSize() / 2.0), center.getY(), center.getZ() - (this.maze.getSize() / 2.0));
+        Location origin = getOrigin(grid);
         Location block = origin.clone();
         Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
             WorldEditHandler WEH = new WorldEditHandler(block.getWorld());
@@ -109,7 +110,7 @@ public class MazeHandler {
 
     public void demoGenerateScaleMaze() {
         int[][] grid = this.maze.getScaleMaze();
-        Location origin = new Location(center.getWorld(), center.getX() - (grid.length / 2.0), center.getY(), center.getZ() - (grid.length / 2.0));
+        Location origin = getOrigin(grid);
         Location block = origin.clone();
         Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
             WorldEditHandler WEH = new WorldEditHandler(block.getWorld());
@@ -136,12 +137,12 @@ public class MazeHandler {
 
     public void generateScaleMaze() {
         int[][] grid = this.maze.getScaleMaze();
-        Location origin = new Location(center.getWorld(), center.getX() - (grid.length / 2.0), center.getY(), center.getZ() - (grid.length / 2.0));
+        Location origin = getOrigin(grid);
         Location block = origin.clone();
         Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
+            //Generate maze walls
             WorldEditHandler WEH = new WorldEditHandler(block.getWorld());
             int count = 0;
-
             for (int x = 0; x < grid.length; x++) {
                 for (int z = 0; z < grid.length; z++) {
                     block.setX(origin.getX() + x);
@@ -158,6 +159,16 @@ public class MazeHandler {
                 }
             }
             WEH.getEditSession().close();
+            //Generate structure schematics
+            for (Map.Entry<Structure, BlockVector> entry : this.maze.getStructurePosition().entrySet()) {
+                System.out.println("Total :"+(origin.getX() + entry.getValue().getX()) + " " + (origin.getZ() + entry.getValue().getZ()));
+                System.out.println("Origin :"+origin.getX() + " " + origin.getZ());
+                System.out.println("Structure :"+entry.getValue().getX() + " " + entry.getValue().getZ());
+                Location location = new Location(origin.getWorld(), origin.getX() + entry.getValue().getX() + entry.getKey().getOffset().getX(), origin.getY() + entry.getKey().getOffset().getY(), origin.getZ() + entry.getValue().getZ() + entry.getKey().getOffset().getZ());
+                WorldEditHandler pasteWE = new WorldEditHandler(location, entry.getKey().getClipboard());
+                pasteWE.pasteStructure();
+            }
+
         });
     }
 
@@ -169,5 +180,10 @@ public class MazeHandler {
         }
 
     }
+
+    private Location getOrigin(int[][] grid) {
+        return new Location(center.getWorld(), center.getX() - (grid.length / 2.0) + 1, center.getY(), center.getZ() - (grid.length / 2.0) + 1);
+    }
+
 }
 

@@ -9,8 +9,10 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.util.BlockVector;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Maze {
@@ -19,6 +21,7 @@ public class Maze {
     private final boolean complexity;
     private ArrayList<Structure> land;
     private final int scale = 7;
+    private HashMap<Structure, BlockVector> structurePosition;
 
     /**
      * Maze object
@@ -33,6 +36,7 @@ public class Maze {
     }
 
     public Maze(int size, boolean complexity, ArrayList<Structure> land) {
+        this.structurePosition = new HashMap<>();
         this.size = size;
         this.complexity = complexity;
         this.maze = new int[this.size][this.size];
@@ -40,7 +44,7 @@ public class Maze {
     }
 
     private void generateGrid() {
-        //Fill outline with wall
+        // Fill outline with wall
         // Wall = 1| void = 0
         logPlayer("§6§lGenerating grid...");
         if (this.size % 2 == 0) {
@@ -79,13 +83,20 @@ public class Maze {
         }
         //Generating structure area
         for (Structure area : land) {
-            int width = (int) ((area.getRegion().getWidth() + 1) / 8.0);
-            int length = (int) ((area.getRegion().getLength() + 1) / 8.0);
+            int width = (int) ((area.getRegion().getWidth() + 1) / 8.0 + ((area.getRegion().getWidth() + 1) / 8.0) - 1);
+            int length = (int) ((area.getRegion().getWidth() + 1) / 8.0 + ((area.getRegion().getWidth() + 1) / 8.0) - 1);
             int originX;
             int originZ;
+            //Generation fixed structures
+
+            //Generating open mine around fixed structures
+
+            //Generating all random structures
             if (area.getType() == StructureType.FIXED) {
-                originX = (int) area.getOrigin().getX();
-                originZ = (int) area.getOrigin().getZ();
+                originX = (int) (area.getOrigin().getX() - (width / 2.0));
+                originZ = (int) (area.getOrigin().getZ() - (length / 2.0));
+                System.out.println(originX + " " + originZ);
+                this.structurePosition.put(area, new BlockVector((originX / 2) * 8 + originX % 2, 0, (originZ / 2) * 8 + originZ % 2));
             } else {
                 originX = 3;
                 originZ = 3;
@@ -216,6 +227,7 @@ public class Maze {
 
     private void generateStructure() {
 
+
     }
 
     public int[][] getGrid() {
@@ -248,5 +260,7 @@ public class Maze {
         }
     }
 
-
+    public HashMap<Structure, BlockVector> getStructurePosition() {
+        return this.structurePosition;
+    }
 }

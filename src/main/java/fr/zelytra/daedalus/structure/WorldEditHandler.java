@@ -90,12 +90,13 @@ public class WorldEditHandler {
             Operation operation = new ClipboardHolder(this.clipboard)
                     .createPaste(editSession)
                     .to(BlockVector3.at(this.location.getX(), this.location.getY(), this.location.getZ()))
-                    // configure here
+                    .ignoreAirBlocks(true)
                     .build();
             Operations.complete(operation);
         } catch (WorldEditException e) {
             e.printStackTrace();
         }
+
 
     }
 
