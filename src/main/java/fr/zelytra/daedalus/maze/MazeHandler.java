@@ -160,13 +160,14 @@ public class MazeHandler {
             }
             WEH.getEditSession().close();
             //Generate structure schematics
+            count = 0;
             for (Map.Entry<Structure, BlockVector> entry : this.maze.getStructurePosition().entrySet()) {
-                System.out.println("Total :"+(origin.getX() + entry.getValue().getX()) + " " + (origin.getZ() + entry.getValue().getZ()));
-                System.out.println("Origin :"+origin.getX() + " " + origin.getZ());
-                System.out.println("Structure :"+entry.getValue().getX() + " " + entry.getValue().getZ());
                 Location location = new Location(origin.getWorld(), origin.getX() + entry.getValue().getX() + entry.getKey().getOffset().getX(), origin.getY() + entry.getKey().getOffset().getY(), origin.getZ() + entry.getValue().getZ() + entry.getKey().getOffset().getZ());
                 WorldEditHandler pasteWE = new WorldEditHandler(location, entry.getKey().getClipboard());
                 pasteWE.pasteStructure();
+                int progress = (int) ((count * 100) / this.maze.getStructurePosition().size());
+                logPlayers("§6§lGenerating structures... [§e" + progress + "%§6]");
+                count++;
             }
 
         });

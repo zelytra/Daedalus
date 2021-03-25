@@ -5,6 +5,8 @@ import com.sk89q.worldedit.extent.clipboard.io.BuiltInClipboardFormat;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
 import com.sk89q.worldedit.regions.Region;
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.structure.StructureEnum;
+import fr.zelytra.daedalus.managers.structure.StructureType;
 import org.bukkit.util.BlockVector;
 
 import java.io.IOException;

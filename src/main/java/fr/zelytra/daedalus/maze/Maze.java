@@ -2,7 +2,7 @@ package fr.zelytra.daedalus.maze;
 
 
 import fr.zelytra.daedalus.structure.Structure;
-import fr.zelytra.daedalus.structure.StructureType;
+import fr.zelytra.daedalus.managers.structure.StructureType;
 import fr.zelytra.daedalus.utils.Message;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -82,30 +82,33 @@ public class Maze {
             }
         }
         //Generating structure area
+        int count = 0;
         for (Structure area : land) {
-            int width = (int) ((area.getRegion().getWidth() + 1) / 8.0 + ((area.getRegion().getWidth() + 1) / 8.0) - 1);
-            int length = (int) ((area.getRegion().getWidth() + 1) / 8.0 + ((area.getRegion().getWidth() + 1) / 8.0) - 1);
+            int width = (int) ((area.getRegion().getWidth() + 1) / (this.scale + 1) + ((area.getRegion().getWidth() + 1) / (this.scale + 1)) - 1);
+            int length = (int) ((area.getRegion().getWidth() + 1) / (this.scale + 1) + ((area.getRegion().getWidth() + 1) / (this.scale + 1)) - 1);
             int originX;
             int originZ;
-            //Generation fixed structures
-
-            //Generating open mine around fixed structures
-
-            //Generating all random structures
             if (area.getType() == StructureType.FIXED) {
                 originX = (int) (area.getOrigin().getX() - (width / 2.0));
                 originZ = (int) (area.getOrigin().getZ() - (length / 2.0));
-                System.out.println(originX + " " + originZ);
-                this.structurePosition.put(area, new BlockVector((originX / 2) * 8 + originX % 2, 0, (originZ / 2) * 8 + originZ % 2));
+                this.structurePosition.put(area, new BlockVector((originX / 2) * (this.scale + 1) + originX % 2, 0, (originZ / 2) * (this.scale + 1) + originZ % 2));
             } else {
-                originX = 3;
-                originZ = 3;
+                //Random position selector
+                originX = width + (int) (Math.random() * (this.size - 2 - width) + 1);
+                originZ = length + (int) (Math.random() * (this.size - 2 - length) + 1);
+                //Check structures around
+
+                this.structurePosition.put(area, new BlockVector((originX / 2) * (this.scale + 1) + originX % 2, 0, (originZ / 2) * (this.scale + 1) + originZ % 2));
             }
             for (int x = originX; x < (originX + width); x++) {
                 for (int z = originZ; z < (originZ + length); z++) {
                     this.maze[x][z] = -1;
                 }
             }
+
+            int progress = (int) ((count * 100) / land.size());
+            logPlayer("§6§lLocking structures area... [§e" + progress + "%§6]");
+            count++;
         }
 
     }
