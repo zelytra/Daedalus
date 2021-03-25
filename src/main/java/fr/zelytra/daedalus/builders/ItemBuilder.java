@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.builders;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import org.bukkit.Bukkit;
@@ -61,7 +62,32 @@ public class ItemBuilder {
         meta.setLore(lore);
 
         this.itemStack.setItemMeta(meta);
+    }
 
+    public ItemStack getSettings(){
+
+        ArrayList<String> lore = new ArrayList<>();
+        ItemMeta meta = itemStack.getItemMeta();
+
+        lore.add("§e[Config loaded]");
+        lore.add("");
+        if(GameSettings.getGenerationType() == TemplesGenerationEnum.RANDOM)
+            lore.add("§3Temple generation §7-> §dRANDOM");
+        else
+            lore.add("§3Temple generation §7-> §dCHOSEN");
+        lore.add("§3Number of gods §7-> §d"+GameSettings.getGodLimit());
+        if(GameSettings.getGenerationType() == TemplesGenerationEnum.CHOSEN) {
+            lore.add("§3Gods list §7->");
+            for(GodsEnum god : GameSettings.getGodsList()){
+                lore.add("              §d- "+god.getName());
+            }
+        }
+
+        assert meta != null;
+        meta.setLore(lore);
+        itemStack.setItemMeta(meta);
+
+        return itemStack;
     }
 
     public ItemStack getGenerationSelection(){
