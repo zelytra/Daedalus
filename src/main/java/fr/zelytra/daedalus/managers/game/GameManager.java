@@ -1,5 +1,6 @@
 package fr.zelytra.daedalus.managers.game;
 
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.team.TeamManager;
@@ -22,7 +23,7 @@ public class GameManager {
 
         this.tm = new TeamManager();
         this.sm = new StructureManager();
-        this.state = GameStatesEnum.RUNNING;
+        this.state = GameStatesEnum.WAIT;
         this.generation = TemplesGenerationEnum.RANDOM;
         this.selectedGods = new ArrayList<>();
         this.godLimit = 6;
@@ -102,9 +103,16 @@ public class GameManager {
             return true;
     }
 
+    public void resetGodLimit(){
+        godLimit = 6;
+    }
+
+    public void setTempleGeneration(TemplesGenerationEnum generation){
+        this.generation = generation;
+    }
+
     // FONCTION DE DEBUT DE PARTIE
     public void start(){
-
 
 
     }

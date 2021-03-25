@@ -43,7 +43,7 @@ public class SettingsCommand implements CommandExecutor {
 
                 return true;
             }else{
-                p.sendMessage("§cYou don't have the permission to perform this command !");
+                p.sendMessage("§cYou don't have the permission to configure the game !");
                 return false;
             }
         }

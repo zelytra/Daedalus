@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.Inventory;
 
 import java.util.Objects;
@@ -30,9 +31,9 @@ public class PlayerInteractListener implements Listener {
 
             if(e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_BLOCK){
 
-                if(Objects.requireNonNull(e.getItem().getItemMeta()).getDisplayName().equals("§73Team selection")){
+                if(Objects.requireNonNull(e.getItem().getItemMeta()).getDisplayName().equals("§7Team selection")){
 
-                    Inventory inv = new InventoryBuilder("§33Team selection", InventoryType.DROPPER).getInventory();
+                    Inventory inv = new InventoryBuilder("§3Team selection", InventoryType.DROPPER).getInventory();
 
                     inv.setItem(0, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.RED).getBanner());
                     inv.setItem(2, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.GREEN).getBanner());
@@ -40,14 +41,25 @@ public class PlayerInteractListener implements Listener {
                     inv.setItem(8, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.YELLOW).getBanner());
                     inv.setItem(4, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.GRAY).getBanner());
 
-                    p.openInventory(inv);
+                    if(!p.getOpenInventory().getTitle().contains("§3"))
+                        p.openInventory(inv);
 
+                }else if(Objects.requireNonNull(e.getItem().getItemMeta()).getDisplayName().equals("§7Game settings")){
+                    if(!p.getOpenInventory().getTitle().contains("§3"))
+                        p.performCommand("settings");
                 }
 
             }
 
         }
 
+    }
+
+    @EventHandler
+    public void onSwap(PlayerSwapHandItemsEvent e){
+
+        if(Daedalus.getInstance().getGameManager().isWaiting())
+            e.setCancelled(true);
 
     }
 }
