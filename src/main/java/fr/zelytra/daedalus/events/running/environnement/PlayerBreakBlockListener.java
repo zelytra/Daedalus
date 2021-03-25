@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class PlayerBreakBlockListener implements Listener {
 
@@ -15,18 +16,19 @@ public class PlayerBreakBlockListener implements Listener {
 
 
         try{
-            OreEnum ore = OreEnum.valueOf(e.getBlock().getType().toString());
+            BlockEnum block = BlockEnum.valueOf(e.getBlock().getType().toString());
 
             e.setCancelled(true);
 
-            switch (ore) {
+            switch (block) {
 
                 case IRON_ORE:
                 case GOLD_ORE:{
                     e.getBlock().setType(Material.AIR);
-                    e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), ore.getItemStack());
+                    e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), block.getItemStack());
                     break;
                 }
+
                 case OBSIDIAN:
                 case END_STONE:
                 case ANCIENT_DEBRIS:
@@ -38,10 +40,36 @@ public class PlayerBreakBlockListener implements Listener {
                     e.getBlock().breakNaturally();
                     break;
                 }
+
+                case OAK_LEAVES:
+                case BIRCH_LEAVES:
+                case ACACIA_LEAVES:
+                case JUNGLE_LEAVES:
+                case SPRUCE_LEAVES:
+                case DARK_OAK_LEAVES:{
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), ()-> dropItem(e.getBlock().getLocation(), block.getMaterial(), -1), block.getTicks() * 20L);
+                    break;
+                }
+                case OAK_LOG:
+                case OAK_WOOD:
+                case BIRCH_LOG:
+                case BIRCH_WOOD:
+                case ACACIA_LOG:
+                case ACACIA_WOOD:
+                case JUNGLE_LOG:
+                case JUNGLE_WOOD:
+                case SPRUCE_LOG:
+                case SPRUCE_WOOD:
+                case DARK_OAK_LOG:
+                case DARK_OAK_WOOD: {
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), ()-> dropItem(e.getBlock().getLocation(), block.getMaterial(), 0.08), block.getTicks() * 20L);
+                    break;
+                }
             }
 
-            if(ore.getMaterial() != Material.ANCIENT_DEBRIS)
-                Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), ()-> replaceBlock(e.getBlock().getLocation(), ore.getMaterial()), ore.getTicks());
+            if(block.getMaterial() != Material.ANCIENT_DEBRIS){
+                Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), ()-> replaceBlock(e.getBlock().getLocation(), block.getMaterial()), block.getTicks() * 20L);
+            }
 
         }catch (IllegalArgumentException ignored){
         }
@@ -52,6 +80,16 @@ public class PlayerBreakBlockListener implements Listener {
         if(loc.getBlock().getType() != Material.AIR)
             loc.getBlock().breakNaturally();
         loc.getBlock().setType(material);
+
+    }
+
+    private void dropItem(Location loc, Material material, double percent){
+
+        if(percent == -1)
+            loc.getWorld().dropItemNaturally(loc, new ItemStack(material));
+        else
+            if(Math.random() <= percent)
+                loc.getWorld().dropItemNaturally(loc, new ItemStack(material));
 
     }
 }
