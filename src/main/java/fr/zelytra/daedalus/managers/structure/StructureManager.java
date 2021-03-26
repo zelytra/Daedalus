@@ -58,19 +58,19 @@ public class StructureManager {
         }
 
         /*Mines draw*/
-        for (int x = 0; x < GameSettings.getMinesCount(); x++) {
+        for (int x = 0; x < GameSettings.MINES_COUNT; x++) {
             //int random = 0 + (int) (Math.random() * ((this.mine.size() - 0) + 1));
             generatedList.add(this.mine.get(0));
         }
 
         /*Temples draw*/
-        if (GameSettings.getGenerationType() == TemplesGenerationEnum.RANDOM) {
-            for (int x = 0; x < GameSettings.getGodLimit(); x++) {
+        if (GameSettings.GOD_SELECTION == TemplesGenerationEnum.RANDOM) {
+            for (int x = 0; x < GameSettings.GOD_LIMIT; x++) {
                 //int random = 0 + (int) (Math.random() * ((this.temples.size() - 0) + 1));
                 generatedList.add(this.temples.get(0));
             }
         } else {
-            for (GodsEnum god : GameSettings.getGodsList()) {
+            for (GodsEnum god : GameSettings.GOD_LIST) {
                 for (Structure temple : this.temples) {
                     if (temple.getGod() == god) {
                         generatedList.add(temple);
@@ -79,18 +79,18 @@ public class StructureManager {
             }
         }
         /*Dungeons draw*/
-        for (int x = 0; x < GameSettings.getDungeonsCount(); x++) {
+        for (int x = 0; x < GameSettings.DUNGEONS_COUNT; x++) {
             //int random = 0 + (int) (Math.random() * ((this.dungeons.size() - 0) + 1));
             generatedList.add(this.dungeons.get(0));
         }
 
         /*Circee draw*/
-        for (int x = 0; x < GameSettings.getCirceeIslandCount(); x++) {
+        for (int x = 0; x < GameSettings.CIRCEE_ISLANDS_COUNT; x++) {
             generatedList.add(new Structure(StructureEnum.CIRCEE_ISLAND));
         }
 
         /*Hesperide draw*/
-        for (int x = 0; x < GameSettings.getHesperidesGardenCount(); x++) {
+        for (int x = 0; x < GameSettings.HESPERIDES_GARDEN_COUNT; x++) {
             generatedList.add(new Structure(StructureEnum.HESPERIDES_GARDEN));
         }
 
