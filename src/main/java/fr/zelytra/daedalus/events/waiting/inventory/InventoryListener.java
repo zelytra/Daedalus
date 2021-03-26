@@ -3,7 +3,7 @@ package fr.zelytra.daedalus.events.waiting.inventory;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.builders.InventoryBuilder;
 import fr.zelytra.daedalus.builders.ItemBuilder;
-import fr.zelytra.daedalus.managers.game.GameManager;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import org.bukkit.*;
@@ -12,7 +12,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
@@ -93,7 +92,7 @@ public class InventoryListener implements Listener {
 
                             Daedalus.getInstance().getGameManager().reverseTempleGeneration();
                             inventory.setItem(e.getSlot(), new ItemBuilder(Material.PISTON, "§6Temples generation").getGenerationSelection());
-                            if(Daedalus.getInstance().getGameManager().getTemplesGeneration() == TemplesGenerationEnum.RANDOM){
+                            if(GameSettings.GOD_SELECTION == TemplesGenerationEnum.RANDOM){
                                 inventory.setItem(10, new ItemStack(Material.AIR));
                             }else{
                                 inventory.setItem(10, new ItemBuilder(Material.TOTEM_OF_UNDYING, "§6Gods selection", "", "§8CLICK TO SELECT").getItemStack());
@@ -132,7 +131,7 @@ public class InventoryListener implements Listener {
                                 break;
                             }
 
-                            if (!god.isSelected() && Daedalus.getInstance().getGameManager().getSelectedGods().size() == Daedalus.getInstance().getGameManager().getGodLimit()){
+                            if (!god.isSelected() && GameSettings.GOD_LIST.size() == GameSettings.GOD_LIMIT){
                                 p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.f, 1.f);
                                 break;
                             }
@@ -140,9 +139,9 @@ public class InventoryListener implements Listener {
                             god.setSelected(!god.isSelected());
 
                             if(god.isSelected())
-                                Daedalus.getInstance().getGameManager().getSelectedGods().add(god);
+                                GameSettings.GOD_LIST.add(god);
                             else
-                                Daedalus.getInstance().getGameManager().getSelectedGods().remove(god);
+                                GameSettings.GOD_LIST.remove(god);
 
                             p.openInventory(new InventoryBuilder("§3Divinities selection", 54).getGodsSelectionInventory());
 
@@ -208,10 +207,12 @@ public class InventoryListener implements Listener {
         if(p.getOpenInventory().getTitle().contains("§3"))
             return;
 
-        if(Daedalus.getInstance().getGameManager().getGodLimit() != Daedalus.getInstance().getGameManager().getSelectedGods().size() && Daedalus.getInstance().getGameManager().getTemplesGeneration() == TemplesGenerationEnum.CHOSEN){
+        if(GameSettings.GOD_LIMIT != GameSettings.GOD_LIST.size() && GameSettings.GOD_SELECTION == TemplesGenerationEnum.CHOSEN){
 
             p.sendMessage("§c[SETTINGS ALERT] Your gods selection doesn't match with the set limit ! Please adjust your selection correctly or your game will not be able to start.");
             p.playSound(p.getLocation(), Sound.ENTITY_WITCH_HURT, 1.f, 1.f);
+
+            p.sendMessage(GameSettings.GOD_LIST.toString());
 
         }
     }

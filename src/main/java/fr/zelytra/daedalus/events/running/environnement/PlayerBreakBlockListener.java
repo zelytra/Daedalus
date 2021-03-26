@@ -20,6 +20,8 @@ public class PlayerBreakBlockListener implements Listener {
 
             e.setCancelled(true);
 
+
+
             switch (block) {
 
                 case IRON_ORE:
@@ -47,7 +49,7 @@ public class PlayerBreakBlockListener implements Listener {
                 case JUNGLE_LEAVES:
                 case SPRUCE_LEAVES:
                 case DARK_OAK_LEAVES:{
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), ()-> dropItem(e.getBlock().getLocation(), block.getMaterial(), -1), block.getTicks() * 20L);
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), ()-> dropItem(e.getBlock().getLocation(), block.getMaterial(), -1), block.getSeconds() * 20L);
                     break;
                 }
                 case OAK_LOG:
@@ -62,13 +64,13 @@ public class PlayerBreakBlockListener implements Listener {
                 case SPRUCE_WOOD:
                 case DARK_OAK_LOG:
                 case DARK_OAK_WOOD: {
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), ()-> dropItem(e.getBlock().getLocation(), block.getMaterial(), 0.08), block.getTicks() * 20L);
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), ()-> dropItem(e.getBlock().getLocation(), block.getMaterial(), 0.08), block.getSeconds() * 20L);
                     break;
                 }
             }
 
             if(block.getMaterial() != Material.ANCIENT_DEBRIS){
-                Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), ()-> replaceBlock(e.getBlock().getLocation(), block.getMaterial()), block.getTicks() * 20L);
+                Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), ()-> replaceBlock(e.getBlock().getLocation(), block.getMaterial()), block.getSeconds() * 20L);
             }
 
         }catch (IllegalArgumentException ignored){

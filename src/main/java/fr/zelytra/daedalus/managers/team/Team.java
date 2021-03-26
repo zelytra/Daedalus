@@ -1,4 +1,4 @@
-package fr.zelytra.daedalus.objects;
+package fr.zelytra.daedalus.managers.team;
 
 import fr.zelytra.daedalus.managers.team.TeamsEnum;
 import org.bukkit.Bukkit;
