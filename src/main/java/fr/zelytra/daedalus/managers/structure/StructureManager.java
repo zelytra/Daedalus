@@ -56,19 +56,19 @@ public class StructureManager {
 
         /*Mine draw*/
 
-        for (int x = 0; x < GameSettings.getMinesCount(); x++) {
+        for (int x = 0; x < GameSettings.MINES_COUNT; x++) {
             int random = 0 + (int) (Math.random() * ((this.mine.size() - 0) + 1));
             generatedList.add(this.mine.get(random));
         }
 
         /*Temples draw*/
-        if (GameSettings.getGenerationType() == TemplesGenerationEnum.RANDOM) {
-            for (int x = 0; x < GameSettings.getGodLimit(); x++) {
+        if (GameSettings.GOD_SELECTION == TemplesGenerationEnum.RANDOM) {
+            for (int x = 0; x < GameSettings.GOD_LIMIT; x++) {
                 int random = 0 + (int) (Math.random() * ((this.temples.size() - 0) + 1));
                 generatedList.add(this.temples.get(random));
             }
         } else {
-            for (GodsEnum god : GameSettings.getGodsList()) {
+            for (GodsEnum god : GameSettings.GOD_LIST) {
                 for (Structure temple : this.temples) {
                     if (temple.getGod() == god) {
                         generatedList.add(temple);
