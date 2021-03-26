@@ -1,5 +1,6 @@
 package fr.zelytra.daedalus.managers.structure;
 
+import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import org.bukkit.util.BlockVector;
 
 public enum StructureEnum {
@@ -7,7 +8,7 @@ public enum StructureEnum {
     Fixed structure need to have a pair origin location.
     Origin is the center of the schematics coordinate at the maze matrix none upscale
      */
-    ZEUS("zeus", StructureType.TEMPLE, new BlockVector(0, -3, 0)),
+    ZEUS("zeus", StructureType.TEMPLE, new BlockVector(0, -3, 0), GodsEnum.ZEUS),
     CORRIDOR("corridor", StructureType.BUILD, new BlockVector(0, 0, 0)),
 
     MINE1("mine1", StructureType.MINE, new BlockVector(0, 0, 0)),
@@ -22,11 +23,20 @@ public enum StructureEnum {
     private final StructureType type;
     private BlockVector origin;
     private BlockVector offset;
+    private GodsEnum god;
 
 
     StructureEnum(String name, StructureType type, BlockVector offset) {
         this.name = name;
         this.type = type;
+        this.offset = offset;
+    }
+
+    StructureEnum(String name, StructureType type, BlockVector offset, GodsEnum god) {
+        this.name = name;
+        this.type = type;
+        this.offset = offset;
+        this.god = god;
     }
 
     StructureEnum(String name, StructureType type, BlockVector origin, BlockVector offset) {
@@ -50,6 +60,10 @@ public enum StructureEnum {
 
     public BlockVector getOffset() {
         return this.offset;
+    }
+
+    public GodsEnum getGod() {
+        return god;
     }
 
     public StructureEnum getByName(String name) {

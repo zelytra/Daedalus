@@ -11,8 +11,8 @@
 # Setup
 
 # Documentation
- * [**Rules (french)**](https://docs.google.com/document/d/158M0PgOT0eK_MTuHHQFZpt1pHJi_jTSYhahBhmTe_AQ/edit?usp=sharing) 
- * [**Rules (english)**](https://docs.google.com/document/d/158M0PgOT0eK_MTuHHQFZpt1pHJi_jTSYhahBhmTe_AQ/edit?usp=sharing) 
+ * [**Rules (french)**](https://github.com/zelytra/Daedalus/wiki/Rules-%5BFrench%5D) 
+ * [**Rules (english)**](https://github.com/zelytra/Daedalus/wiki/Rules-%5BFrench%5D) 
 
 # Credits
 * **Spirit__10** : Project Founder & Builder

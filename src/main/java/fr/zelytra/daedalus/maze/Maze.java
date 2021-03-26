@@ -22,6 +22,7 @@ public class Maze {
     private ArrayList<Structure> land;
     private final int scale = 7;
     private HashMap<Structure, BlockVector> structurePosition;
+    private final int spacing = 5;
 
     /**
      * Maze object
@@ -84,33 +85,51 @@ public class Maze {
         //Generating structure area
         int count = 0;
         for (Structure area : land) {
-            int width = (int) ((area.getRegion().getWidth() + 1) / (this.scale + 1) + ((area.getRegion().getWidth() + 1) / (this.scale + 1)) - 1);
-            int length = (int) ((area.getRegion().getWidth() + 1) / (this.scale + 1) + ((area.getRegion().getWidth() + 1) / (this.scale + 1)) - 1);
-            int originX;
-            int originZ;
+
+            int width = (area.getRegion().getWidth() + 1) / (this.scale + 1) + ((area.getRegion().getWidth() + 1) / (this.scale + 1)) - 1;
+            int length = (area.getRegion().getWidth() + 1) / (this.scale + 1) + ((area.getRegion().getWidth() + 1) / (this.scale + 1)) - 1;
+            int originX = 0;
+            int originZ = 0;
+            boolean structureAround = true;
+
             if (area.getType() == StructureType.FIXED) {
                 originX = (int) (area.getOrigin().getX() - (width / 2.0));
                 originZ = (int) (area.getOrigin().getZ() - (length / 2.0));
-                this.structurePosition.put(area, new BlockVector((originX / 2) * (this.scale + 1) + originX % 2, 0, (originZ / 2) * (this.scale + 1) + originZ % 2));
             } else {
-                //Random position selector
-                originX = width + (int) (Math.random() * (this.size - 2 - width) + 1);
-                originZ = length + (int) (Math.random() * (this.size - 2 - length) + 1);
-                //Check structures around
-
-                this.structurePosition.put(area, new BlockVector((originX / 2) * (this.scale + 1) + originX % 2, 0, (originZ / 2) * (this.scale + 1) + originZ % 2));
+                int security = 0;
+                while (structureAround) {
+                    //Random position selector
+                    originX = width + ((int) (Math.random() * (this.size - 4 - width) / 2)) * 2;
+                    originZ = length + ((int) (Math.random() * (this.size - 4 - length) / 2)) * 2;
+                    //Check structures around
+                    structureAround = false;
+                    for (int x = originX - this.spacing < 0 ? 0 : originX - this.spacing; x < (originX + this.spacing + width > this.size ? this.size : originX + width + this.spacing); x++) {
+                        for (int z = originZ - this.spacing < 0 ? 0 : originZ - this.spacing; z < (originZ + this.spacing + length > this.size ? this.size : originZ + length + this.spacing); z++) {
+                            if (this.maze[x][z] == -1) {
+                                structureAround = true;
+                                break;
+                            }
+                        }
+                    }
+                    security++;
+                    if (security >= 10000) {
+                        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§c" + area.getName() + " random placement has time out. §l[SKIPPING]");
+                        break;
+                    }
+                }
             }
+            this.structurePosition.put(area, new BlockVector((originX / 2) * (this.scale + 1) + originX % 2, 0, (originZ / 2) * (this.scale + 1) + originZ % 2));
             for (int x = originX; x < (originX + width); x++) {
                 for (int z = originZ; z < (originZ + length); z++) {
                     this.maze[x][z] = -1;
                 }
             }
 
-            int progress = (int) ((count * 100) / land.size());
+            int progress = (count * 100) / land.size();
             logPlayer("§6§lLocking structures area... [§e" + progress + "%§6]");
             count++;
-        }
 
+        }
     }
 
     private void generateWay() {
@@ -226,11 +245,6 @@ public class Maze {
         }
 
         return maze2;
-    }
-
-    private void generateStructure() {
-
-
     }
 
     public int[][] getGrid() {
