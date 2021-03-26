@@ -5,6 +5,7 @@ import com.sk89q.worldedit.extent.clipboard.io.BuiltInClipboardFormat;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
 import com.sk89q.worldedit.regions.Region;
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.structure.StructureEnum;
 import fr.zelytra.daedalus.managers.structure.StructureType;
 import org.bukkit.util.BlockVector;
@@ -20,12 +21,14 @@ public class Structure {
     private Region region;
     private BlockVector origin;
     private BlockVector offset;
+    private GodsEnum god;
 
     public Structure(StructureEnum structure) {
         this.name = structure.getName();
         this.type = structure.getType();
         this.origin = structure.getOrigin();
         this.offset = structure.getOffset();
+        this.god = structure.getGod();
 
         InputStream is = Daedalus.getInstance().getResource(this.name + ".struct");
         BuiltInClipboardFormat format = BuiltInClipboardFormat.SPONGE_SCHEMATIC;
@@ -56,6 +59,10 @@ public class Structure {
 
     public Region getRegion() {
         return region;
+    }
+
+    public GodsEnum getGod() {
+        return god;
     }
 
     public BlockVector getOffset() {
