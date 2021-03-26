@@ -28,22 +28,25 @@ public class StructureManager {
         this.mine = new ArrayList<>();
         this.fixedStructures = new ArrayList<>();
         /*Temples init*/
-
+        this.temples.add(new Structure(StructureEnum.ZEUS));
 
         /*Dungeons init*/
-
-
-        /*Builds init*/
-
+        this.dungeons.add(new Structure(StructureEnum.DUNGEON1));
 
         /*Fixed structures init*/
         this.fixedStructures.add(new Structure(StructureEnum.TEAM_RED));
         this.fixedStructures.add(new Structure(StructureEnum.TEAM_BLUE));
         this.fixedStructures.add(new Structure(StructureEnum.TEAM_GREEN));
         this.fixedStructures.add(new Structure(StructureEnum.TEAM_YELLOW));
+        this.fixedStructures.add(new Structure(StructureEnum.MINOTAURE));
 
         /*Mines init*/
         this.mine.add(new Structure(StructureEnum.MINE1));
+        this.mine.add(new Structure(StructureEnum.MINE1));
+        this.mine.add(new Structure(StructureEnum.MINE1));
+
+        /*Dungeon init*/
+        this.dungeons.add(new Structure(StructureEnum.DUNGEON1));
     }
 
     private void randomGenerationList() {
@@ -54,18 +57,17 @@ public class StructureManager {
             generatedList.add(structure);
         }
 
-        /*Mine draw*/
-
+        /*Mines draw*/
         for (int x = 0; x < GameSettings.getMinesCount(); x++) {
-            int random = 0 + (int) (Math.random() * ((this.mine.size() - 0) + 1));
-            generatedList.add(this.mine.get(random));
+            //int random = 0 + (int) (Math.random() * ((this.mine.size() - 0) + 1));
+            generatedList.add(this.mine.get(0));
         }
 
         /*Temples draw*/
         if (GameSettings.getGenerationType() == TemplesGenerationEnum.RANDOM) {
             for (int x = 0; x < GameSettings.getGodLimit(); x++) {
-                int random = 0 + (int) (Math.random() * ((this.temples.size() - 0) + 1));
-                generatedList.add(this.temples.get(random));
+                //int random = 0 + (int) (Math.random() * ((this.temples.size() - 0) + 1));
+                generatedList.add(this.temples.get(0));
             }
         } else {
             for (GodsEnum god : GameSettings.getGodsList()) {
@@ -76,7 +78,21 @@ public class StructureManager {
                 }
             }
         }
+        /*Dungeons draw*/
+        for (int x = 0; x < GameSettings.getDungeonsCount(); x++) {
+            //int random = 0 + (int) (Math.random() * ((this.dungeons.size() - 0) + 1));
+            generatedList.add(this.dungeons.get(0));
+        }
 
+        /*Circee draw*/
+        for (int x = 0; x < GameSettings.getCirceeIslandCount(); x++) {
+            generatedList.add(new Structure(StructureEnum.CIRCEE_ISLAND));
+        }
+
+        /*Hesperide draw*/
+        for (int x = 0; x < GameSettings.getHesperidesGardenCount(); x++) {
+            generatedList.add(new Structure(StructureEnum.HESPERIDES_GARDEN));
+        }
 
     }
 

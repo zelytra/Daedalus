@@ -24,31 +24,33 @@ public final class GameSettings {
     }
 
     public static int getGodLimit() {
-        return Daedalus.getInstance().getGameManager().getGodLimit();
+        return 1;
+        //return Daedalus.getInstance().getGameManager().getGodLimit();
     }
 
     public static TemplesGenerationEnum getGenerationType() {
-        return Daedalus.getInstance().getGameManager().getTemplesGeneration();
+        return TemplesGenerationEnum.RANDOM;
+        //return Daedalus.getInstance().getGameManager().getTemplesGeneration();
     }
 
     public static int getHesperidesGardenCount(){
 
-        return 0;
+        return 1;
     }
 
-    public static int getCerseiIslandsCount(){
+    public static int getCirceeIslandCount(){
 
-        return 0;
+        return 5;
     }
 
     public static int getMinesCount(){
 
-        return 0;
+        return 15;
     }
 
     public static int getDungeonsCount(){
 
-        return 0;
+        return 10;
     }
 
     public static void reset(){

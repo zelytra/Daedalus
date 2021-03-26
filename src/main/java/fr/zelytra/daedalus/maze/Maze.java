@@ -95,12 +95,13 @@ public class Maze {
             if (area.getType() == StructureType.FIXED) {
                 originX = (int) (area.getOrigin().getX() - (width / 2.0));
                 originZ = (int) (area.getOrigin().getZ() - (length / 2.0));
+                System.out.println(area.getName()+" "+ originX + " "+ originZ);
             } else {
                 int security = 0;
                 while (structureAround) {
                     //Random position selector
-                    originX = width + ((int) (Math.random() * (this.size - 4 - width) / 2)) * 2;
-                    originZ = length + ((int) (Math.random() * (this.size - 4 - length) / 2)) * 2;
+                    originX = 1 + ((int) (Math.random() * (this.size - 2 - width) / 2)) * 2;
+                    originZ = 1 + ((int) (Math.random() * (this.size - 2 - length) / 2)) * 2;
                     //Check structures around
                     structureAround = false;
                     for (int x = originX - this.spacing < 0 ? 0 : originX - this.spacing; x < (originX + this.spacing + width > this.size ? this.size : originX + width + this.spacing); x++) {

@@ -8,15 +8,20 @@ public enum StructureEnum {
     Fixed structure need to have a pair origin location.
     Origin is the center of the schematics coordinate at the maze matrix none upscale
      */
-    ZEUS("zeus", StructureType.TEMPLE, new BlockVector(0, -3, 0), GodsEnum.ZEUS),
-    CORRIDOR("corridor", StructureType.BUILD, new BlockVector(0, 0, 0)),
+    ZEUS("teleporterZeus", StructureType.TEMPLE, new BlockVector(0, -3, 0), GodsEnum.ZEUS),
 
     MINE1("mine1", StructureType.MINE, new BlockVector(0, 0, 0)),
 
     TEAM_RED("redTeam", StructureType.FIXED, new BlockVector(100, 0, 100), new BlockVector(0, -3, 0)),
     TEAM_GREEN("greenTeam", StructureType.FIXED, new BlockVector(200, 0, 100), new BlockVector(0, -3, 0)),
     TEAM_YELLOW("yellowTeam", StructureType.FIXED, new BlockVector(200, 0, 200), new BlockVector(0, -3, 0)),
-    TEAM_BLUE("blueTeam", StructureType.FIXED, new BlockVector(100, 0, 200), new BlockVector(0, -3, 0));
+    TEAM_BLUE("blueTeam", StructureType.FIXED, new BlockVector(100, 0, 200), new BlockVector(0, -3, 0)),
+    MINOTAURE("minotaure", StructureType.FIXED, new BlockVector(150, 0, 150), new BlockVector(0, -3, 0)),
+
+    HESPERIDES_GARDEN("hesperidesGarden", StructureType.BUILD, new BlockVector(0, 0, 0)),
+    CIRCEE_ISLAND("circeeIsland", StructureType.BUILD, new BlockVector(0, 0, 0)),
+
+    DUNGEON1("dungeon", StructureType.DUNGEON , new BlockVector(0, -3, 0));
 
 
     private final String name;
