@@ -1,13 +1,12 @@
 package fr.zelytra.daedalus.builders;
 
-import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
-import org.bukkit.entity.Item;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -115,7 +114,7 @@ public class InventoryBuilder {
 
         inventory.setItem(48, new BannerBuilder("§cRemove one", Material.RED_BANNER, new Pattern(DyeColor.RED, PatternType.BASE), new Pattern(DyeColor.WHITE, PatternType.STRIPE_MIDDLE), new Pattern(DyeColor.RED, PatternType.BORDER)).getBanner());
         inventory.setItem(50, new BannerBuilder("§aAdd one", Material.GREEN_BANNER, new Pattern(DyeColor.GREEN, PatternType.BASE), new Pattern(DyeColor.WHITE, PatternType.STRIPE_CENTER), new Pattern(DyeColor.WHITE, PatternType.STRIPE_MIDDLE), new Pattern(DyeColor.GREEN, PatternType.BORDER), new Pattern(DyeColor.GREEN, PatternType.STRIPE_BOTTOM), new Pattern(DyeColor.GREEN, PatternType.STRIPE_TOP)).getBanner());
-        inventory.setItem(49, new ItemBuilder(Material.TOTEM_OF_UNDYING, "§6Gods limit", Daedalus.getInstance().getGameManager().getGodLimit(), "", "§7Maximum: 10", "§7Minimum: 4").getItemStack());
+        inventory.setItem(49, new ItemBuilder(Material.TOTEM_OF_UNDYING, "§6Gods limit", GameSettings.GOD_LIMIT, "", "§7Maximum: 10", "§7Minimum: 4").getItemStack());
 
 
         return inventory;

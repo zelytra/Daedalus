@@ -1,8 +1,8 @@
 package fr.zelytra.daedalus.commands;
 
-import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.builders.InventoryBuilder;
 import fr.zelytra.daedalus.builders.ItemBuilder;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -31,7 +31,7 @@ public class SettingsCommand implements CommandExecutor {
 
                 Inventory inv = new InventoryBuilder("§3Game settings", 27).getInventory();
 
-                if(Daedalus.getInstance().getGameManager().getTemplesGeneration() == TemplesGenerationEnum.RANDOM){
+                if(GameSettings.GOD_SELECTION == TemplesGenerationEnum.RANDOM){
                     inv.setItem(12, new ItemBuilder(Material.PISTON, "§6Temples generation").getGenerationSelection());
                 }else{
                     inv.setItem(10, new ItemBuilder(Material.TOTEM_OF_UNDYING, "§6Gods selection", "", "§8CLICK TO SELECT").getItemStack());

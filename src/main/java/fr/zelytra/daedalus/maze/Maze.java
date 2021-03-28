@@ -1,8 +1,9 @@
 package fr.zelytra.daedalus.maze;
 
 
-import fr.zelytra.daedalus.structure.Structure;
+import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.structure.StructureType;
+import fr.zelytra.daedalus.structure.Structure;
 import fr.zelytra.daedalus.utils.Message;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -16,12 +17,13 @@ import java.util.HashMap;
 
 
 public class Maze {
+
     private final int[][] maze;
     private int size;
     private final boolean complexity;
     private ArrayList<Structure> land;
     private final int scale = 7;
-    private HashMap<Structure, BlockVector> structurePosition;
+    private HashMap<BlockVector, Structure> structurePosition;
     private final int spacing = 5;
 
     /**
@@ -87,7 +89,7 @@ public class Maze {
         for (Structure area : land) {
 
             int width = (area.getRegion().getWidth() + 1) / (this.scale + 1) + ((area.getRegion().getWidth() + 1) / (this.scale + 1)) - 1;
-            int length = (area.getRegion().getWidth() + 1) / (this.scale + 1) + ((area.getRegion().getWidth() + 1) / (this.scale + 1)) - 1;
+            int length = (area.getRegion().getLength() + 1) / (this.scale + 1) + ((area.getRegion().getLength() + 1) / (this.scale + 1)) - 1;
             int originX = 0;
             int originZ = 0;
             boolean structureAround = true;
@@ -95,7 +97,7 @@ public class Maze {
             if (area.getType() == StructureType.FIXED) {
                 originX = (int) (area.getOrigin().getX() - (width / 2.0));
                 originZ = (int) (area.getOrigin().getZ() - (length / 2.0));
-                System.out.println(area.getName()+" "+ originX + " "+ originZ);
+                System.out.println(area.getName() + " " + originX + " " + originZ);
             } else {
                 int security = 0;
                 while (structureAround) {
@@ -119,11 +121,21 @@ public class Maze {
                     }
                 }
             }
-            this.structurePosition.put(area, new BlockVector((originX / 2) * (this.scale + 1) + originX % 2, 0, (originZ / 2) * (this.scale + 1) + originZ % 2));
+            BlockVector areaBox = new BlockVector((originX / 2) * (this.scale + 1) + originX % 2, 0, (originZ / 2) * (this.scale + 1) + originZ % 2);
+            this.structurePosition.put(areaBox, area);
             for (int x = originX; x < (originX + width); x++) {
                 for (int z = originZ; z < (originZ + length); z++) {
                     this.maze[x][z] = -1;
                 }
+            }
+            int midX = width / 2;
+            int midZ = length / 2;
+            for (int i = 1; i <= 2; i++) {
+                this.maze[originX + midX][originZ - i] = nbr++;
+                this.maze[originX - i][originZ + midZ] = nbr++;
+
+                this.maze[(originX + width - 1) - midX][(originZ + length - 1) + i] = nbr++;
+                this.maze[(originX + width - 1) + i][(originZ + length - 1) - midZ] = nbr++;
             }
 
             int progress = (count * 100) / land.size();
@@ -131,6 +143,7 @@ public class Maze {
             count++;
 
         }
+        Daedalus.getInstance().getGameManager().getStructureManager().setStructuresPosition(structurePosition);
     }
 
     private void generateWay() {
@@ -278,7 +291,4 @@ public class Maze {
         }
     }
 
-    public HashMap<Structure, BlockVector> getStructurePosition() {
-        return this.structurePosition;
-    }
 }

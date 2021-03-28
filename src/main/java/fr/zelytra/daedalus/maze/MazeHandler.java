@@ -161,11 +161,11 @@ public class MazeHandler {
             WEH.getEditSession().close();
             //Generate structure schematics
             count = 0;
-            for (Map.Entry<Structure, BlockVector> entry : this.maze.getStructurePosition().entrySet()) {
-                Location location = new Location(origin.getWorld(), origin.getX() + entry.getValue().getX() + entry.getKey().getOffset().getX(), origin.getY() + entry.getKey().getOffset().getY(), origin.getZ() + entry.getValue().getZ() + entry.getKey().getOffset().getZ());
-                WorldEditHandler pasteWE = new WorldEditHandler(location, entry.getKey().getClipboard());
+            for (Map.Entry<BlockVector,Structure> entry : Daedalus.getInstance().getGameManager().getStructureManager().getStructuresPosition().entrySet()) {
+                Location location = new Location(origin.getWorld(), origin.getX() + entry.getKey().getX() + entry.getValue().getOffset().getX(), origin.getY() + entry.getValue().getOffset().getY(), origin.getZ() + entry.getKey().getZ() + entry.getValue().getOffset().getZ());
+                WorldEditHandler pasteWE = new WorldEditHandler(location, entry.getValue().getClipboard());
                 pasteWE.pasteStructure();
-                int progress = (int) ((count * 100) / this.maze.getStructurePosition().size());
+                int progress = (int) ((count * 100) / Daedalus.getInstance().getGameManager().getStructureManager().getStructuresPosition().size());
                 logPlayers("§6§lGenerating structures... [§e" + progress + "%§6]");
                 count++;
             }

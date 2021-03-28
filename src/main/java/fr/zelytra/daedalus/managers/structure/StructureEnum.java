@@ -8,20 +8,29 @@ public enum StructureEnum {
     Fixed structure need to have a pair origin location.
     Origin is the center of the schematics coordinate at the maze matrix none upscale
      */
-    ZEUS("teleporterZeus", StructureType.TEMPLE, new BlockVector(0, -3, 0), GodsEnum.ZEUS),
+    ZEUS("zeusTemple", StructureType.TEMPLE, new BlockVector(0, -3, 0), GodsEnum.ZEUS),
+    APHRODITE("aphroditeTemple", StructureType.TEMPLE, new BlockVector(0, -3, 0), GodsEnum.APHRODITE),
+    ARES("aresTemple", StructureType.TEMPLE, new BlockVector(0, -3, 0), GodsEnum.ARES),
+    ARTEMIS("artemisTemple", StructureType.TEMPLE, new BlockVector(0, -3, 0), GodsEnum.ARTEMIS),
+    ATHENA("athenaTemple", StructureType.TEMPLE, new BlockVector(0, -3, 0), GodsEnum.ATHENA),
+    DEMETER("demeterTemple", StructureType.TEMPLE, new BlockVector(0, -3, 0), GodsEnum.DEMETER),
+    DIONYSOS("dionysosTemple", StructureType.TEMPLE, new BlockVector(0, -3, 0), GodsEnum.DIONYSUS),
+    HADES("hadesTemple", StructureType.TEMPLE, new BlockVector(0, -3, 0), GodsEnum.HADES),
+    HERMES("hermesTemple", StructureType.TEMPLE, new BlockVector(0, -3, 0), GodsEnum.HERMES),
+    POSEIDON("poseidonTemple", StructureType.TEMPLE, new BlockVector(0, -3, 0), GodsEnum.POSEIDON),
 
-    MINE1("mine1", StructureType.MINE, new BlockVector(0, 0, 0)),
+    MINE1("mine1", StructureType.MINE, new BlockVector(0, -23, 0)),
 
-    TEAM_RED("redTeam", StructureType.FIXED, new BlockVector(100, 0, 100), new BlockVector(0, -3, 0)),
-    TEAM_GREEN("greenTeam", StructureType.FIXED, new BlockVector(200, 0, 100), new BlockVector(0, -3, 0)),
-    TEAM_YELLOW("yellowTeam", StructureType.FIXED, new BlockVector(200, 0, 200), new BlockVector(0, -3, 0)),
-    TEAM_BLUE("blueTeam", StructureType.FIXED, new BlockVector(100, 0, 200), new BlockVector(0, -3, 0)),
+    TEAM_RED("redTeam", StructureType.FIXED, new BlockVector(30, 0, 30), new BlockVector(0, -3, 0)),
+    TEAM_GREEN("greenTeam", StructureType.FIXED, new BlockVector(270, 0, 30), new BlockVector(0, -3, 0)),
+    TEAM_YELLOW("yellowTeam", StructureType.FIXED, new BlockVector(270, 0, 270), new BlockVector(0, -3, 0)),
+    TEAM_BLUE("blueTeam", StructureType.FIXED, new BlockVector(30, 0, 270), new BlockVector(0, -3, 0)),
     MINOTAURE("minotaure", StructureType.FIXED, new BlockVector(150, 0, 150), new BlockVector(0, -3, 0)),
 
-    HESPERIDES_GARDEN("hesperidesGarden", StructureType.BUILD, new BlockVector(0, 0, 0)),
-    CIRCEE_ISLAND("circeeIsland", StructureType.BUILD, new BlockVector(0, 0, 0)),
+    HESPERIDES_GARDEN("hesperidesGarden", StructureType.BUILD, new BlockVector(0, -8, 0)),
+    CIRCEE_ISLAND("circeeIsland", StructureType.BUILD, new BlockVector(0, -5, 0)),
 
-    DUNGEON1("dungeon", StructureType.DUNGEON , new BlockVector(0, -3, 0));
+    DUNGEON1("dungeon", StructureType.DUNGEON , new BlockVector(0, -21, 0));
 
 
     private final String name;

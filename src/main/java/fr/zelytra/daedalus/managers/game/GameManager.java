@@ -15,7 +15,7 @@ public class GameManager {
 
         this.tm = new TeamManager();
         this.sm = new StructureManager();
-        this.state = GameStatesEnum.WAIT;
+        this.state = GameStatesEnum.RUNNING;
 
     }
 

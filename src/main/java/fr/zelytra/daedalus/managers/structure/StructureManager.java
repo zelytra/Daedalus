@@ -4,8 +4,10 @@ import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.structure.Structure;
+import org.bukkit.util.BlockVector;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class StructureManager {
     private ArrayList<Structure> temples;
@@ -14,6 +16,7 @@ public class StructureManager {
     private ArrayList<Structure> fixedStructures;
     private ArrayList<Structure> mine;
     private ArrayList<Structure> generatedList;
+    private HashMap<BlockVector,Structure> structuresPosition;
 
 
     public StructureManager() {
@@ -27,8 +30,18 @@ public class StructureManager {
         this.builds = new ArrayList<>();
         this.mine = new ArrayList<>();
         this.fixedStructures = new ArrayList<>();
+
         /*Temples init*/
         this.temples.add(new Structure(StructureEnum.ZEUS));
+        this.temples.add(new Structure(StructureEnum.APHRODITE));
+        this.temples.add(new Structure(StructureEnum.ARES));
+        this.temples.add(new Structure(StructureEnum.ARTEMIS));
+        this.temples.add(new Structure(StructureEnum.ATHENA));
+        this.temples.add(new Structure(StructureEnum.DEMETER));
+        this.temples.add(new Structure(StructureEnum.DIONYSOS));
+        this.temples.add(new Structure(StructureEnum.HADES));
+        this.temples.add(new Structure(StructureEnum.HERMES));
+        this.temples.add(new Structure(StructureEnum.POSEIDON));
 
         /*Dungeons init*/
         this.dungeons.add(new Structure(StructureEnum.DUNGEON1));
@@ -67,7 +80,7 @@ public class StructureManager {
         if (GameSettings.GOD_SELECTION == TemplesGenerationEnum.RANDOM) {
             for (int x = 0; x < GameSettings.GOD_LIMIT; x++) {
                 //int random = 0 + (int) (Math.random() * ((this.temples.size() - 0) + 1));
-                generatedList.add(this.temples.get(0));
+                generatedList.add(this.temples.get(x));
             }
         } else {
             for (GodsEnum god : GameSettings.GOD_LIST) {
@@ -100,4 +113,11 @@ public class StructureManager {
         return this.generatedList;
     }
 
+    public void setStructuresPosition(HashMap<BlockVector, Structure> structuresPosition) {
+        this.structuresPosition = structuresPosition;
+    }
+
+    public HashMap<BlockVector, Structure> getStructuresPosition() {
+        return structuresPosition;
+    }
 }
