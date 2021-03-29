@@ -105,8 +105,13 @@ public class Maze {
                     originZ = 3 + ((int) (Math.random() * (this.size - 8 - length) / 2)) * 2;
                     //Check structures around
                     structureAround = false;
-                    for (int x = originX - this.spacing < 0 ? 0 : originX - this.spacing; x < (originX + this.spacing + width > this.size ? this.size : originX + width + this.spacing); x++) {
-                        for (int z = originZ - this.spacing < 0 ? 0 : originZ - this.spacing; z < (originZ + this.spacing + length > this.size ? this.size : originZ + length + this.spacing); z++) {
+                    
+                    //pas de calcul dans un for stp, si le compilateur opti pas ça va refaire tout le calcul à chaque fois et les parenthèses sur la condition ça rend plus clair
+                    int endX = (originX + this.spacing + width > this.size) ? this.size : originX + width + this.spacing;
+                    int endZ = (originZ + this.spacing + length > this.size) ? this.size : originZ + length + this.spacing;
+
+                    for (int x = (originX - this.spacing < 0) ? 0 : originX - this.spacing; x < endX; x++) {
+                        for (int z = (originZ - this.spacing < 0) ? 0 : originZ - this.spacing; z < endZ; z++) {
                             if (this.maze[x][z] == -1) {
                                 structureAround = true;
                                 break;
