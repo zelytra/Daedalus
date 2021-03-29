@@ -123,7 +123,7 @@ public class Maze {
                     }
                 }
             }
-            BoundingBox areaBox = new BoundingBox((originX / 2) * (this.scale + 1) + originX % 2, 0, (originZ / 2) * (this.scale + 1) + originZ % 2, ((originX / 2) * (this.scale + 1) + originX % 2) + area.getRegion().getWidth(), 255, ((originZ / 2) * (this.scale + 1) + originZ % 2) + area.getRegion().getLength());
+            BoundingBox areaBox = new BoundingBox((originX / 2.0) * (this.scale + 1) + originX % 2, 0, (originZ / 2.0) * (this.scale + 1) + originZ % 2, ((originX / 2.0) * (this.scale + 1) + originX % 2) + area.getRegion().getWidth(), 255, ((originZ / 2.0) * (this.scale + 1) + originZ % 2) + area.getRegion().getLength());
             this.structurePosition.put(areaBox, area);
             for (int x = originX; x < (originX + width); x++) {
                 for (int z = originZ; z < (originZ + length); z++) {
@@ -149,17 +149,37 @@ public class Maze {
     }
 
     private void generateWay() {
-        boolean isGenerated = false;
-        int count = 0;
         long time = System.currentTimeMillis();
-        while (!isGenerated) {
-            int x = 1 + (int) (Math.random() * (this.size - 2));
-            int z;
-            if (x % 2 != 0) {
-                z = 1 + ((int) (Math.random() * (this.size - 4) / 2)) * 2 + 1;
-            } else {
-                z = 1 + ((int) (Math.random() * (this.size - 2) / 2)) * 2;
+        int WallsPerLine = (this.size / 2); //get walls per line
+        int WallsCount = (WallsPerLine * (WallsPerLine - 1)) * 2;//walls in a square area of size x size
+
+        Vector2[] Murs = new Vector2[WallsCount];
+
+        int idx = 0;
+
+        for (int z = 1; z < this.size; z += 2) {
+            for (int x = 2; x < this.size - 1; x += 2) {
+                Murs[idx] = new Vector2(x, z);
+                idx++;
             }
+            if (z + 1 != this.size - 1) {
+                for (int x = 1; x < this.size; x += 2) {
+                    Murs[idx] = new Vector2(x, z + 1);
+                    idx++;
+                }
+            }
+        }
+
+        while (idx > 0) {
+
+            int pos = (int) (Math.random() * (idx));
+
+            int x = Murs[pos].x;
+            int z = Murs[pos].z;
+
+            Murs[pos] = Murs[idx - 1];
+
+            idx--;
 
             int cell1;
             int cell2;
@@ -185,8 +205,6 @@ public class Maze {
                     }
                 }
             }
-
-            isGenerated = true;
             int progress = 0;
             for (int i = 1; i < this.size - 1; i += 2) {
                 for (int j = 1; j < this.size - 1; j += 2) {
@@ -194,20 +212,12 @@ public class Maze {
                         continue;
                     }
                     if (this.maze[1][1] != this.maze[i][j]) {
-                        isGenerated = false;
                         progress++;
                     }
                 }
             }
-
             progress = (int) ((((Math.pow(this.size - 1, 2) / 4.0) - progress) * 100) / (Math.pow(this.size - 1, 2) / 4.0));
             logPlayer("§6§lGenerating maze... [§e" + progress + "%§6]");
-            count++;
-            if (count > 100000000) {
-                System.out.println("Generation time out");
-                Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§cERROR Generation Timeout");
-                return;
-            }
         }
         if (complexity) {
             for (int i = 0; i < this.size; i++) {
