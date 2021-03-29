@@ -17,7 +17,6 @@ public class PlayerBreakBlockListener implements Listener {
     @EventHandler
     public void onBreak(BlockBreakEvent e){
 
-
         try{
             BlockEnum block = BlockEnum.valueOf(e.getBlock().getType().toString());
 
@@ -31,6 +30,10 @@ public class PlayerBreakBlockListener implements Listener {
                 case GOLD_ORE:{
                     e.getBlock().setType(Material.AIR);
                     if(GameSettings.CUT_CLEAN){
+                        if(block == BlockEnum.IRON_ORE)
+                            e.getPlayer().setExp(e.getPlayer().getExp()+0.7f);
+                        else
+                            e.getPlayer().setExp(e.getPlayer().getExp()+1.0f);
                         e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), block.getItemStack());
                     }else
                         e.getBlock().breakNaturally();
