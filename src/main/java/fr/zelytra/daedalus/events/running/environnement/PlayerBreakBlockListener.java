@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.events.running.environnement;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -27,7 +28,11 @@ public class PlayerBreakBlockListener implements Listener {
                 case IRON_ORE:
                 case GOLD_ORE:{
                     e.getBlock().setType(Material.AIR);
-                    e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), block.getItemStack());
+                    if(GameSettings.CUT_CLEAN){
+                        e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), block.getItemStack());
+                    }else
+                        e.getBlock().breakNaturally();
+
                     break;
                 }
 
@@ -49,9 +54,11 @@ public class PlayerBreakBlockListener implements Listener {
                 case JUNGLE_LEAVES:
                 case SPRUCE_LEAVES:
                 case DARK_OAK_LEAVES:{
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), ()-> dropItem(e.getBlock().getLocation(), block.getMaterial(), -1), block.getSeconds() * 20L);
+                    dropItem(e.getBlock().getLocation(), block.getItemStack(), 0.08);
                     break;
                 }
+                case SAND:
+                case RED_SAND:
                 case OAK_LOG:
                 case OAK_WOOD:
                 case BIRCH_LOG:
@@ -64,7 +71,10 @@ public class PlayerBreakBlockListener implements Listener {
                 case SPRUCE_WOOD:
                 case DARK_OAK_LOG:
                 case DARK_OAK_WOOD: {
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), ()-> dropItem(e.getBlock().getLocation(), block.getMaterial(), 0.08), block.getSeconds() * 20L);
+                    if(GameSettings.CUT_CLEAN)
+                        e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), block.getItemStack());
+                    else
+                        e.getBlock().breakNaturally();
                     break;
                 }
             }
@@ -85,13 +95,10 @@ public class PlayerBreakBlockListener implements Listener {
 
     }
 
-    private void dropItem(Location loc, Material material, double percent){
+    private void dropItem(Location loc, ItemStack itemStack, double percent){
 
-        if(percent == -1)
-            loc.getWorld().dropItemNaturally(loc, new ItemStack(material));
-        else
-            if(Math.random() <= percent)
-                loc.getWorld().dropItemNaturally(loc, new ItemStack(material));
+        if(Math.random() <= percent)
+                loc.getWorld().dropItemNaturally(loc, itemStack);
 
     }
 }

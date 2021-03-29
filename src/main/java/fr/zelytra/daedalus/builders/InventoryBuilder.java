@@ -2,6 +2,7 @@ package fr.zelytra.daedalus.builders;
 
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
+import fr.zelytra.daedalus.managers.scenarios.ScenariosEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -116,6 +117,20 @@ public class InventoryBuilder {
         inventory.setItem(50, new BannerBuilder("§aAdd one", Material.GREEN_BANNER, new Pattern(DyeColor.GREEN, PatternType.BASE), new Pattern(DyeColor.WHITE, PatternType.STRIPE_CENTER), new Pattern(DyeColor.WHITE, PatternType.STRIPE_MIDDLE), new Pattern(DyeColor.GREEN, PatternType.BORDER), new Pattern(DyeColor.GREEN, PatternType.STRIPE_BOTTOM), new Pattern(DyeColor.GREEN, PatternType.STRIPE_TOP)).getBanner());
         inventory.setItem(49, new ItemBuilder(Material.TOTEM_OF_UNDYING, "§6Gods limit", GameSettings.GOD_LIMIT, "", "§7Maximum: 10", "§7Minimum: 4").getItemStack());
 
+
+        return inventory;
+    }
+
+    public Inventory getGameSettingsInventory(){
+
+
+        inventory.setItem(10, ScenariosEnum.FRIENDLY_FIRE.getItemStack());
+        inventory.setItem(12, ScenariosEnum.HARDCORE.getItemStack());
+        inventory.setItem(14, ScenariosEnum.APPLE.getItemStack());
+        inventory.setItem(16, ScenariosEnum.ABSORPTION.getItemStack());
+        inventory.setItem(20, ScenariosEnum.DAY_CYCLE.getItemStack());
+        inventory.setItem(24, ScenariosEnum.CUT_CLEAN.getItemStack());
+        inventory.setItem(22, new ItemBuilder(Material.BARRIER, "§cGo back").getItemStack());
 
         return inventory;
     }

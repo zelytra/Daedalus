@@ -1,6 +1,6 @@
 package fr.zelytra.daedalus.managers.game.settings;
 
-public enum BlockCooldown {
+public enum BlockCooldownEnum {
 
     COAL_ORE(30),
     IRON_ORE(45),
@@ -13,11 +13,13 @@ public enum BlockCooldown {
     END_STONE(120),
     OBSIDIAN(60),
     LEAVES(5),
+    SAND(5),
+    RED_SAND(5),
     WOOD(5);
 
     private int seconds;
 
-    BlockCooldown(int seconds){
+    BlockCooldownEnum(int seconds){
         this.seconds = seconds;
     }
 
