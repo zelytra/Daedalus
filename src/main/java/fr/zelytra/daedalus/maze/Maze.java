@@ -105,13 +105,8 @@ public class Maze {
                     originZ = 3 + ((int) (Math.random() * (this.size - 8 - length) / 2)) * 2;
                     //Check structures around
                     structureAround = false;
-                    
-                    //pas de calcul dans un for stp, si le compilateur opti pas ça va refaire tout le calcul à chaque fois et les parenthèses sur la condition ça rend plus clair
-                    int endX = (originX + this.spacing + width > this.size) ? this.size : originX + width + this.spacing;
-                    int endZ = (originZ + this.spacing + length > this.size) ? this.size : originZ + length + this.spacing;
-
-                    for (int x = (originX - this.spacing < 0) ? 0 : originX - this.spacing; x < endX; x++) {
-                        for (int z = (originZ - this.spacing < 0) ? 0 : originZ - this.spacing; z < endZ; z++) {
+                    for (int x = originX - this.spacing < 0 ? 0 : originX - this.spacing; x < (originX + this.spacing + width > this.size ? this.size : originX + width + this.spacing); x++) {
+                        for (int z = originZ - this.spacing < 0 ? 0 : originZ - this.spacing; z < (originZ + this.spacing + length > this.size ? this.size : originZ + length + this.spacing); z++) {
                             if (this.maze[x][z] == -1) {
                                 structureAround = true;
                                 break;
@@ -154,14 +149,38 @@ public class Maze {
         boolean isGenerated = false;
         int count = 0;
         long time = System.currentTimeMillis();
-        while (!isGenerated) {
-            int x = 1 + (int) (Math.random() * (this.size - 2));
-            int z;
-            if (x % 2 != 0) {
-                z = 1 + ((int) (Math.random() * (this.size - 4) / 2)) * 2 + 1;
-            } else {
-                z = 1 + ((int) (Math.random() * (this.size - 2) / 2)) * 2;
+        
+        int WallsPerLine = (this.size / 2) - 1; //get walls per line
+        int WallsCount = (WallsPerLine * (WallsPerLine-1)) * 2;//walls in a square area of size x size
+
+        SimpleVector2[] Murs = new SimpleVector2[WallsCount];
+
+        int idx = 0;
+
+        for (int y = 1; y < this.size; y+=2){
+            for (int x = 2; x < this.size - 1; x += 2){
+                Murs[idx] = new SimpleVector2(x, y);
+                idx++;
             }
+
+            if (y + 1 != this.size - 1){
+                for (int x = 1; x < this.size; x += 2){
+                    Murs[idx] = new SimpleVector2(x, y + 1);
+                    idx++;
+                }
+            }                
+        }
+
+        while (idx > 0) {
+
+            int pos = (int)(Math.random() * (idx));
+
+            int x = Murs[pos].x;
+            int z = Murs[pos].y;
+
+            Murs[pos] = Murs[idx - 1];
+            
+            idx--;
 
             int cell1;
             int cell2;
@@ -204,13 +223,9 @@ public class Maze {
 
             progress = (int) ((((Math.pow(this.size - 1, 2) / 4.0) - progress) * 100) / (Math.pow(this.size - 1, 2) / 4.0));
             logPlayer("§6§lGenerating maze... [§e" + progress + "%§6]");
-            count++;
-            if (count > 100000000) {
-                System.out.println("Generation time out");
-                Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§cERROR Generation Timeout");
-                return;
-            }
+            
         }
+        
         if (complexity) {
             for (int i = 0; i < this.size; i++) {
                 boolean isStructure = false;
