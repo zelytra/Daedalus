@@ -10,7 +10,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.util.BlockVector;
+import org.bukkit.util.BoundingBox;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -161,8 +161,8 @@ public class MazeHandler {
             WEH.getEditSession().close();
             //Generate structure schematics
             count = 0;
-            for (Map.Entry<BlockVector,Structure> entry : Daedalus.getInstance().getGameManager().getStructureManager().getStructuresPosition().entrySet()) {
-                Location location = new Location(origin.getWorld(), origin.getX() + entry.getKey().getX() + entry.getValue().getOffset().getX(), origin.getY() + entry.getValue().getOffset().getY(), origin.getZ() + entry.getKey().getZ() + entry.getValue().getOffset().getZ());
+            for (Map.Entry<BoundingBox,Structure> entry : Daedalus.getInstance().getGameManager().getStructureManager().getStructuresPosition().entrySet()) {
+                Location location = new Location(origin.getWorld(), origin.getX() + entry.getKey().getMinX() + entry.getValue().getOffset().getX(), origin.getY() + entry.getValue().getOffset().getY(), origin.getZ() + entry.getKey().getMinZ() + entry.getValue().getOffset().getZ());
                 WorldEditHandler pasteWE = new WorldEditHandler(location, entry.getValue().getClipboard());
                 pasteWE.pasteStructure();
                 int progress = (int) ((count * 100) / Daedalus.getInstance().getGameManager().getStructureManager().getStructuresPosition().size());

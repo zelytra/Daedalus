@@ -10,7 +10,7 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.util.BlockVector;
+import org.bukkit.util.BoundingBox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public class Maze {
     private final boolean complexity;
     private ArrayList<Structure> land;
     private final int scale = 7;
-    private HashMap<BlockVector, Structure> structurePosition;
+    private HashMap<BoundingBox, Structure> structurePosition;
     private final int spacing = 5;
 
     /**
@@ -105,8 +105,11 @@ public class Maze {
                     originZ = 3 + ((int) (Math.random() * (this.size - 8 - length) / 2)) * 2;
                     //Check structures around
                     structureAround = false;
-                    for (int x = originX - this.spacing < 0 ? 0 : originX - this.spacing; x < (originX + this.spacing + width > this.size ? this.size : originX + width + this.spacing); x++) {
-                        for (int z = originZ - this.spacing < 0 ? 0 : originZ - this.spacing; z < (originZ + this.spacing + length > this.size ? this.size : originZ + length + this.spacing); z++) {
+                    int endX = (originX + this.spacing + width > this.size) ? this.size : originX + width + this.spacing;
+                    int endZ = (originZ + this.spacing + length > this.size) ? this.size : originZ + length + this.spacing;
+
+                    for (int x = (originX - this.spacing < 0) ? 0 : originX - this.spacing; x < endX; x++) {
+                        for (int z = (originZ - this.spacing < 0) ? 0 : originZ - this.spacing; z < endZ; z++) {
                             if (this.maze[x][z] == -1) {
                                 structureAround = true;
                                 break;
@@ -120,7 +123,7 @@ public class Maze {
                     }
                 }
             }
-            BlockVector areaBox = new BlockVector((originX / 2) * (this.scale + 1) + originX % 2, 0, (originZ / 2) * (this.scale + 1) + originZ % 2);
+            BoundingBox areaBox = new BoundingBox((originX / 2) * (this.scale + 1) + originX % 2, 0, (originZ / 2) * (this.scale + 1) + originZ % 2, ((originX / 2) * (this.scale + 1) + originX % 2) + area.getRegion().getWidth(), 255, ((originZ / 2) * (this.scale + 1) + originZ % 2) + area.getRegion().getLength());
             this.structurePosition.put(areaBox, area);
             for (int x = originX; x < (originX + width); x++) {
                 for (int z = originZ; z < (originZ + length); z++) {

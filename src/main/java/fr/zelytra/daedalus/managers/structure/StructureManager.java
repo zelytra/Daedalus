@@ -4,7 +4,7 @@ import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.structure.Structure;
-import org.bukkit.util.BlockVector;
+import org.bukkit.util.BoundingBox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ public class StructureManager {
     private ArrayList<Structure> fixedStructures;
     private ArrayList<Structure> mine;
     private ArrayList<Structure> generatedList;
-    private HashMap<BlockVector,Structure> structuresPosition;
+    private HashMap<BoundingBox,Structure> structuresPosition;
 
 
     public StructureManager() {
@@ -25,6 +25,7 @@ public class StructureManager {
     }
 
     private void initialize() {
+        this.structuresPosition = new HashMap<>();
         this.temples = new ArrayList<>();
         this.dungeons = new ArrayList<>();
         this.builds = new ArrayList<>();
@@ -113,11 +114,11 @@ public class StructureManager {
         return this.generatedList;
     }
 
-    public void setStructuresPosition(HashMap<BlockVector, Structure> structuresPosition) {
+    public void setStructuresPosition(HashMap<BoundingBox, Structure> structuresPosition) {
         this.structuresPosition = structuresPosition;
     }
 
-    public HashMap<BlockVector, Structure> getStructuresPosition() {
+    public HashMap<BoundingBox, Structure> getStructuresPosition() {
         return structuresPosition;
     }
 }
