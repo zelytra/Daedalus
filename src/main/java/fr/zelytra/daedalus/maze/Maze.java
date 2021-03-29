@@ -97,13 +97,12 @@ public class Maze {
             if (area.getType() == StructureType.FIXED) {
                 originX = (int) (area.getOrigin().getX() - (width / 2.0));
                 originZ = (int) (area.getOrigin().getZ() - (length / 2.0));
-                System.out.println(area.getName() + " " + originX + " " + originZ);
             } else {
                 int security = 0;
                 while (structureAround) {
                     //Random position selector
-                    originX = 1 + ((int) (Math.random() * (this.size - 2 - width) / 2)) * 2;
-                    originZ = 1 + ((int) (Math.random() * (this.size - 2 - length) / 2)) * 2;
+                    originX = 3 + ((int) (Math.random() * (this.size - 8 - width) / 2)) * 2;
+                    originZ = 3 + ((int) (Math.random() * (this.size - 8 - length) / 2)) * 2;
                     //Check structures around
                     structureAround = false;
                     for (int x = originX - this.spacing < 0 ? 0 : originX - this.spacing; x < (originX + this.spacing + width > this.size ? this.size : originX + width + this.spacing); x++) {
@@ -209,16 +208,30 @@ public class Maze {
         }
         if (complexity) {
             for (int i = 0; i < this.size; i++) {
-                int x = 1 + (int) (Math.random() * (this.size - 2));
-                int z;
-                if (x % 2 != 0) {
-                    z = 1 + ((int) (Math.random() * (this.size - 4) / 2)) * 2 + 1;
-                } else {
-                    z = 1 + ((int) (Math.random() * (this.size - 2) / 2)) * 2;
-                }
-                if (this.maze[x][z] == 1) {
-                    this.maze[x][z] = 0;
-                }
+                boolean isStructure = false;
+                do {
+                    isStructure = false;
+                    int x = 1 + (int) (Math.random() * (this.size - 2));
+                    int z;
+                    if (x % 2 != 0) {
+                        z = 1 + ((int) (Math.random() * (this.size - 4) / 2)) * 2 + 1;
+                    } else {
+                        z = 1 + ((int) (Math.random() * (this.size - 2) / 2)) * 2;
+                    }
+
+                    for (int a = x - 1; a <= x + 1; a++) {
+                        for (int b = z - 1; b <= z + 1; b++) {
+                            if (this.maze[a][b] == -1) {
+                                isStructure = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (this.maze[x][z] == 1 && !isStructure) {
+                        this.maze[x][z] = 0;
+                    }
+                } while (isStructure);
+
             }
         }
 
