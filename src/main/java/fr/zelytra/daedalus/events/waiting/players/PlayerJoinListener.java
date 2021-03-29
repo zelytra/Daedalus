@@ -4,6 +4,7 @@ import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.builders.ItemBuilder;
 import fr.zelytra.daedalus.managers.game.GameStatesEnum;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -31,7 +32,7 @@ public class PlayerJoinListener implements Listener {
 
         if (state.equals(GameStatesEnum.WAIT)) {
             p.setGameMode(GameMode.ADVENTURE);
-            p.setFoodLevel(20);
+            p.setFoodLevel(200000);
             p.setHealth(p.getMaxHealth());
 
             if (Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId()) != null) {
@@ -74,20 +75,26 @@ public class PlayerJoinListener implements Listener {
 
             // TP TO SPAWN
         } else if (state.equals(GameStatesEnum.RUNNING)) {
+            if (Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId()) != null)
+                setupTeam(p);
+            else
+                setSpectator(p);
+
+
 
         } else {
-            p.setGameMode(GameMode.SPECTATOR);
+            setSpectator(p);
         }
 
         p.setPlayerListHeader("\n§7[§6Daedalus§7]\n");
         p.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(16);
-        if (Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId()) != null) {
 
-            setupTeam(p);
+    }
 
-        }
-
-
+    private void setSpectator(Player p){
+        p.setGameMode(GameMode.SPECTATOR);
+        p.setDisplayName(ChatColor.WHITE + "" + ChatColor.ITALIC + p.getName());
+        p.setPlayerListName(ChatColor.WHITE + "" + ChatColor.ITALIC + p.getName());
     }
 
     private void setupTeam(Player p) {

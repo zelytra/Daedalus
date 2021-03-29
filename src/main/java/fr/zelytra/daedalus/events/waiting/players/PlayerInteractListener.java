@@ -2,16 +2,13 @@ package fr.zelytra.daedalus.events.waiting.players;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.builders.InventoryBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.Inventory;
@@ -53,6 +50,12 @@ public class PlayerInteractListener implements Listener {
 
         }
 
+    }
+
+    @EventHandler
+    public void onDrop(PlayerDropItemEvent e){
+        if(Daedalus.getInstance().getGameManager().isWaiting())
+            e.setCancelled(true);
     }
 
     @EventHandler

@@ -2,6 +2,7 @@ package fr.zelytra.daedalus.managers;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.events.running.environnement.PlayerBreakBlockListener;
+import fr.zelytra.daedalus.events.running.players.PlayerDeathListener;
 import fr.zelytra.daedalus.events.waiting.entities.EntityDamageListener;
 import fr.zelytra.daedalus.events.waiting.entities.EntityTargetListener;
 import fr.zelytra.daedalus.events.waiting.environment.BlockPlaceListener;
@@ -26,6 +27,7 @@ public class EventsManager {
         pm.registerEvents(new PlayerQuitListener(), pl);
         pm.registerEvents(new PlayerInteractListener(), pl);
         pm.registerEvents(new PlayerBreakBlockListener(), pl);
+        pm.registerEvents(new PlayerDeathListener(), pl);
 
         /* Entities */
         pm.registerEvents(new EntityTargetListener(), pl);

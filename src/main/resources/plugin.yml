@@ -19,3 +19,7 @@ commands:
     aliases: struct
     permission: daedalus.configuration
     description: Structure generator commands
+
+  state:
+    permission: daedalus.configuration
+    description: change game state

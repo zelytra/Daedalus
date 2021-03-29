@@ -10,6 +10,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Random;
+
 public class PlayerBreakBlockListener implements Listener {
 
     @EventHandler
@@ -54,6 +56,7 @@ public class PlayerBreakBlockListener implements Listener {
                 case JUNGLE_LEAVES:
                 case SPRUCE_LEAVES:
                 case DARK_OAK_LEAVES:{
+                    e.getBlock().setType(Material.AIR);
                     dropItem(e.getBlock().getLocation(), block.getItemStack(), 0.08);
                     break;
                 }
@@ -71,9 +74,10 @@ public class PlayerBreakBlockListener implements Listener {
                 case SPRUCE_WOOD:
                 case DARK_OAK_LOG:
                 case DARK_OAK_WOOD: {
-                    if(GameSettings.CUT_CLEAN)
+                    if(GameSettings.CUT_CLEAN) {
+                        e.getBlock().setType(Material.AIR);
                         e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), block.getItemStack());
-                    else
+                    }else
                         e.getBlock().breakNaturally();
                     break;
                 }
@@ -97,7 +101,7 @@ public class PlayerBreakBlockListener implements Listener {
 
     private void dropItem(Location loc, ItemStack itemStack, double percent){
 
-        if(Math.random() <= percent)
+        if(new Random().nextDouble() <= percent)
                 loc.getWorld().dropItemNaturally(loc, itemStack);
 
     }
