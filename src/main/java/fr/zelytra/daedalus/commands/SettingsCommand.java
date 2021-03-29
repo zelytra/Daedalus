@@ -36,8 +36,9 @@ public class SettingsCommand implements CommandExecutor {
                 }else{
                     inv.setItem(10, new ItemBuilder(Material.TOTEM_OF_UNDYING, "§6Gods selection", "", "§8CLICK TO SELECT").getItemStack());
                     inv.setItem(12, new ItemBuilder(Material.STICKY_PISTON, "§6Temples generation").getGenerationSelection());
-
                 }
+
+                inv.setItem(14, new ItemBuilder(Material.BOOK, "§6Miscellaneous settings").getItemStack());
 
                 p.openInventory(inv);
 

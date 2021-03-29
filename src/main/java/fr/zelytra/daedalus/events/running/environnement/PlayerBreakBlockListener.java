@@ -49,7 +49,7 @@ public class PlayerBreakBlockListener implements Listener {
                 case JUNGLE_LEAVES:
                 case SPRUCE_LEAVES:
                 case DARK_OAK_LEAVES:{
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), ()-> dropItem(e.getBlock().getLocation(), block.getMaterial(), -1), block.getSeconds() * 20L);
+                    dropItem(e.getBlock().getLocation(), block.getItemStack(), 0.08);
                     break;
                 }
                 case OAK_LOG:
@@ -64,7 +64,7 @@ public class PlayerBreakBlockListener implements Listener {
                 case SPRUCE_WOOD:
                 case DARK_OAK_LOG:
                 case DARK_OAK_WOOD: {
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), ()-> dropItem(e.getBlock().getLocation(), block.getMaterial(), 0.08), block.getSeconds() * 20L);
+                    dropItem(e.getBlock().getLocation(), block.getItemStack(), -1);
                     break;
                 }
             }
@@ -85,13 +85,13 @@ public class PlayerBreakBlockListener implements Listener {
 
     }
 
-    private void dropItem(Location loc, Material material, double percent){
+    private void dropItem(Location loc, ItemStack itemStack, double percent){
 
         if(percent == -1)
-            loc.getWorld().dropItemNaturally(loc, new ItemStack(material));
+            loc.getWorld().dropItemNaturally(loc, itemStack);
         else
             if(Math.random() <= percent)
-                loc.getWorld().dropItemNaturally(loc, new ItemStack(material));
+                loc.getWorld().dropItemNaturally(loc, itemStack);
 
     }
 }

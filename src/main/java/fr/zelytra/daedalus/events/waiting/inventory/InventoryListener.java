@@ -111,12 +111,65 @@ public class InventoryListener implements Listener {
                             break;
                         }
 
+                        case BOOK: {
+                            p.closeInventory();
+                            p.openInventory(new InventoryBuilder("§3Miscellaneous settings", 36).getGameSettingsInventory());
+                            break;
+                        }
+
                     }
                 }
                 for(Player player : Bukkit.getOnlinePlayers())
                     player.getInventory().setItem(8, new ItemBuilder(Material.COMPARATOR, "§7Game settings").getSettings());
 
-            }else if (inventory.getTitle().equals("§3Divinities selection")) {
+            }else if (inventory.getTitle().equals("§3Miscellaneous settings")) {
+                if (e.getCurrentItem() != null)
+                    switch (e.getCurrentItem().getType()){
+
+                        case APPLE: {
+                            break;
+                        }
+
+                        case GOLDEN_APPLE: {
+
+                            GameSettings.ABSORPTION = !GameSettings.ABSORPTION;
+                            p.openInventory(new InventoryBuilder("§3Miscellaneous settings", 36).getGameSettingsInventory());
+                            break;
+                        }
+
+                        case BLAZE_POWDER: {
+
+                            GameSettings.FRIENDLY_FIRE = !GameSettings.FRIENDLY_FIRE;
+                            p.openInventory(new InventoryBuilder("§3Miscellaneous settings", 36).getGameSettingsInventory());
+                            break;
+                        }
+
+                        case CLOCK: {
+                            break;
+                        }
+
+                        case BLAST_FURNACE: {
+
+                            GameSettings.CUT_CLEAN = !GameSettings.CUT_CLEAN;
+                            p.openInventory(new InventoryBuilder("§3Miscellaneous settings", 36).getGameSettingsInventory());
+                            break;
+                        }
+
+                        case SPLASH_POTION: {
+
+                            GameSettings.HARDCORE = !GameSettings.HARDCORE;
+                            p.openInventory(new InventoryBuilder("§3Miscellaneous settings", 36).getGameSettingsInventory());
+                            break;
+                        }
+
+                        case BARRIER: {
+                            p.closeInventory();
+                            p.performCommand("settings");
+                            break;
+                        }
+                    }
+            }
+            else if (inventory.getTitle().equals("§3Divinities selection")) {
 
                 if (e.getCurrentItem() != null)
                     switch (e.getCurrentItem().getType()){
@@ -211,8 +264,6 @@ public class InventoryListener implements Listener {
 
             p.sendMessage("§c[SETTINGS ALERT] Your gods selection doesn't match with the set limit ! Please adjust your selection correctly or your game will not be able to start.");
             p.playSound(p.getLocation(), Sound.ENTITY_WITCH_HURT, 1.f, 1.f);
-
-            p.sendMessage(GameSettings.GOD_LIST.toString());
 
         }
     }

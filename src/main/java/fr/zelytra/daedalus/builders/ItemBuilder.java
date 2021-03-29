@@ -12,7 +12,9 @@ import java.util.Collections;
 
 public class ItemBuilder {
 
-    private final ItemStack itemStack;
+    private ItemStack itemStack = null;
+
+    public ItemBuilder(){}
 
     public ItemBuilder(ItemStack itemStack){
         this.itemStack = itemStack;
@@ -72,10 +74,10 @@ public class ItemBuilder {
         else
             lore.add("§3Temple generation §7-> §dCHOSEN");
         lore.add("§3Number of gods §7-> §d"+GameSettings.GOD_LIMIT);
-        if(GameSettings.GOD_SELECTION == TemplesGenerationEnum.CHOSEN) {
-            lore.add("§3Gods list §7->");
-            for(GodsEnum god : GameSettings.GOD_LIST){
-                lore.add("              §d- "+god.getName());
+        if(GameSettings.GOD_SELECTION == TemplesGenerationEnum.CHOSEN && !GameSettings.GOD_LIST.isEmpty()) {
+            lore.add("§3Gods list§l §7-> §d"+GameSettings.GOD_LIST.get(0).getName());
+            for(int i = 1; i < GameSettings.GOD_LIST.size(); i++){
+                lore.add("            §7-> §d"+GameSettings.GOD_LIST.get(i).getName());
             }
         }
 

@@ -1,6 +1,6 @@
 package fr.zelytra.daedalus.managers.team;
 
-import fr.zelytra.daedalus.managers.team.TeamsEnum;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -16,9 +16,9 @@ import java.util.UUID;
 
 public class Team {
 
-    private ArrayList<UUID> playerList;
+    private final ArrayList<UUID> playerList;
     private final TeamsEnum team;
-    private Scoreboard scoreboard;
+    private final Scoreboard scoreboard;
 
     public Team(TeamsEnum team, Scoreboard scoreboard){
 
@@ -32,7 +32,7 @@ public class Team {
 
         getTeamEnum().setTeam(scoreboard.registerNewTeam(getTeamEnum().getName()));
         getTeamEnum().getTeam().setDisplayName("");
-        getTeamEnum().getTeam().setAllowFriendlyFire(false);
+        getTeamEnum().getTeam().setAllowFriendlyFire(GameSettings.FRIENDLY_FIRE);
         getTeamEnum().getTeam().setColor(getChatColor());
         getTeamEnum().getTeam().setPrefix(getPrefix());
         getTeamEnum().getTeam().setSuffix(getSuffix());
