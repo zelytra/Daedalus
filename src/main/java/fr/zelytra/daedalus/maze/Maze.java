@@ -54,36 +54,16 @@ public class Maze {
             this.size--;
         }
         int nbr = 2;
-        int[] line = new int[this.size];
+        
         //Generate line and wall matrix;
-        for (int x = 0; x < this.size; x++) {
-            if (x % 2 == 1) {
-                line[x] = 0;
-            } else {
-                line[x] = 1;
-            }
-        }
-        for (int x = 0; x < this.size; x++) {
-            this.maze[x][0] = 1;
-            if (!(x % 2 == 0)) {
-                for (int z = 0; z < this.size; z++) {
-                    this.maze[z][x] = line[z];
-                }
-            } else {
-                for (int z = 0; z < this.size; z++) {
-                    this.maze[z][x] = 1;
-                }
-            }
-        }
-        //Fill case with value
+        
         for (int x = 1; x < this.size - 1; x += 2) {
             for (int z = 1; z < this.size - 1; z += 2) {
-                if (this.maze[x][z] == 0) {
-                    this.maze[x][z] = nbr;
-                    nbr++;
-                }
+                this.maze[x][z] = nbr;
+                nbr++;
             }
         }
+        
         //Generating structure area
         int count = 0;
         for (Structure area : land) {
