@@ -13,6 +13,8 @@ public enum BlockCooldownEnum {
     END_STONE(120),
     OBSIDIAN(60),
     LEAVES(5),
+    SAND(5),
+    RED_SAND(5),
     WOOD(5);
 
     private int seconds;
