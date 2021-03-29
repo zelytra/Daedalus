@@ -4,14 +4,10 @@ public enum DayCycleEnum {
 
     ETERNAL_DAY("Eternal day", 6000),
     ETERNAL_NIGHT("Eternal night", 18000),
-    DEFAULT("One cycle per episode");
+    DEFAULT("One cycle per episode", 0);
 
-    private String text;
-    private long ticks;
-
-    DayCycleEnum(String text){
-        this.text = text;
-    }
+    private final String text;
+    private final long ticks;
 
     DayCycleEnum(String text, long ticks){
         this.text = text;

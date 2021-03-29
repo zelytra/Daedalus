@@ -1,5 +1,10 @@
 package fr.zelytra.daedalus.managers.gods;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 public enum GodsEnum {
 
     ZEUS("Zeus", false),
@@ -31,5 +36,10 @@ public enum GodsEnum {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    public static GodsEnum getRandomGod()  {
+        final List<GodsEnum> VALUES = Collections.unmodifiableList(Arrays.asList(values()));
+        return VALUES.get(new Random().nextInt(VALUES.size()));
     }
 }
