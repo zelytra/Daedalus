@@ -9,6 +9,7 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.util.BoundingBox;
 
@@ -19,12 +20,14 @@ import java.util.HashMap;
 public class Maze {
 
     private final int[][] maze;
+    private int[][] scaleMaze;
     private int size;
     private final boolean complexity;
     private ArrayList<Structure> land;
     private final int scale = 7;
     private HashMap<BoundingBox, Structure> structurePosition;
     private final int spacing = 5;
+    private Location origin;
 
     /**
      * Maze object
@@ -34,6 +37,9 @@ public class Maze {
      */
     public Maze(int size, boolean complexity) {
         this.size = size;
+        if (this.size % 2 == 0) {
+            this.size--;
+        }
         this.complexity = complexity;
         this.maze = new int[this.size][this.size];
     }
@@ -41,6 +47,9 @@ public class Maze {
     public Maze(int size, boolean complexity, ArrayList<Structure> land) {
         this.structurePosition = new HashMap<>();
         this.size = size;
+        if (this.size % 2 == 0) {
+            this.size--;
+        }
         this.complexity = complexity;
         this.maze = new int[this.size][this.size];
         this.land = land;
@@ -50,9 +59,6 @@ public class Maze {
         // Fill outline with wall
         // Wall = 1| void = 0
         logPlayer("§6§lGenerating grid...");
-        if (this.size % 2 == 0) {
-            this.size--;
-        }
         int nbr = 2;
         int[] line = new int[this.size];
         //Generate line and wall matrix;
@@ -123,7 +129,7 @@ public class Maze {
                     }
                 }
             }
-            BoundingBox areaBox = new BoundingBox((originX / 2.0) * (this.scale + 1) + originX % 2, 0, (originZ / 2.0) * (this.scale + 1) + originZ % 2, ((originX / 2.0) * (this.scale + 1) + originX % 2) + area.getRegion().getWidth(), 255, ((originZ / 2.0) * (this.scale + 1) + originZ % 2) + area.getRegion().getLength());
+            BoundingBox areaBox = new BoundingBox(Math.floor(((originX / 2) * (this.scale + 1) + originX % 2) + this.origin.getX()), 0, Math.floor(((originZ / 2) * (this.scale + 1) + originZ % 2) + this.origin.getZ()), Math.floor((((originX / 2) * (this.scale + 1) + originX % 2) + area.getRegion().getWidth()) + this.origin.getX()), 255, Math.floor(((originZ / 2 * (this.scale + 1) + originZ % 2) + area.getRegion().getLength()) + this.origin.getZ()));
             this.structurePosition.put(areaBox, area);
             for (int x = originX; x < (originX + width); x++) {
                 for (int z = originZ; z < (originZ + length); z++) {
@@ -145,7 +151,7 @@ public class Maze {
             count++;
 
         }
-        Daedalus.getInstance().getGameManager().getStructureManager().setStructuresPosition(structurePosition);
+        Daedalus.getInstance().getStructureManager().setStructuresPosition(structurePosition);
     }
 
     private void generateWay() {
@@ -262,7 +268,7 @@ public class Maze {
                 X += scale;
             }
         }
-        int[][] maze2 = new int[X][X];
+        this.scaleMaze = new int[X][X];
 
         int zPtr = 0;
 
@@ -276,7 +282,7 @@ public class Maze {
 
                 for (int sz = 0; sz < zScale; sz++) {
                     for (int sx = 0; sx < xScale; sx++) {
-                        maze2[xPtr + sx][zPtr + sz] = this.maze[x][z];
+                        this.scaleMaze[xPtr + sx][zPtr + sz] = this.maze[x][z];
                     }
                 }
                 xPtr += xScale;
@@ -284,7 +290,7 @@ public class Maze {
             zPtr += zScale;
         }
 
-        return maze2;
+        return this.scaleMaze;
     }
 
     public int[][] getGrid() {
@@ -293,11 +299,15 @@ public class Maze {
 
     }
 
-    public int[][] getMaze() {
+    public int[][] getWay() {
         generateGrid();
         generateWay();
         return this.maze;
 
+    }
+
+    public int[][] getMaze() {
+        return this.scaleMaze;
     }
 
     public int[][] getScaleMaze() {
@@ -317,4 +327,15 @@ public class Maze {
         }
     }
 
+    public Location getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(Location origin) {
+        this.origin = origin;
+    }
+
+    public int getScale() {
+        return scale;
+    }
 }

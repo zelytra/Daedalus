@@ -41,13 +41,13 @@ public enum BlockEnum {
     private final Material material;
     private ItemStack itemStack;
 
-    BlockEnum(int seconds, Material material, ItemStack itemStack){
+    BlockEnum(int seconds, Material material, ItemStack itemStack) {
         this.seconds = seconds;
         this.itemStack = itemStack;
         this.material = material;
     }
 
-    BlockEnum(int seconds, Material material){
+    BlockEnum(int seconds, Material material) {
         this.seconds = seconds;
         this.material = material;
     }
@@ -64,20 +64,29 @@ public enum BlockEnum {
         return itemStack;
     }
 
-    public boolean hasItemStack(){
+    public boolean hasItemStack() {
         return itemStack != null;
+    }
+
+    public static boolean containType(Material material) {
+        for (BlockEnum block : BlockEnum.values()) {
+            if (block.getMaterial() == material) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
 
 
 /*
-*
-* CYCLE JOUR/NUIT: TRUE || FALSE
-*
-* SI FALSE -> MIDI || MINUIT
-*
-* SI TRUE -> CYCLE DE 20min (durée classique)
-*
-*
-* */
+ *
+ * CYCLE JOUR/NUIT: TRUE || FALSE
+ *
+ * SI FALSE -> MIDI || MINUIT
+ *
+ * SI TRUE -> CYCLE DE 20min (durée classique)
+ *
+ *
+ * */

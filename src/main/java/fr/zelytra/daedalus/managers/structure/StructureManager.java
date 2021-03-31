@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.managers.structure;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
+import fr.zelytra.daedalus.maze.Maze;
 import fr.zelytra.daedalus.structure.Structure;
 import org.bukkit.util.BoundingBox;
 
@@ -17,6 +18,7 @@ public class StructureManager {
     private ArrayList<Structure> mine;
     private ArrayList<Structure> generatedList;
     private HashMap<BoundingBox,Structure> structuresPosition;
+    private Maze maze;
 
 
     public StructureManager() {
@@ -120,5 +122,13 @@ public class StructureManager {
 
     public HashMap<BoundingBox, Structure> getStructuresPosition() {
         return structuresPosition;
+    }
+
+    public void setMaze(Maze maze) {
+        this.maze = maze;
+    }
+
+    public Maze getMaze() {
+        return maze;
     }
 }

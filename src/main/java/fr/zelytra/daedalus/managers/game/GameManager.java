@@ -4,7 +4,6 @@ import fr.zelytra.daedalus.managers.game.settings.DayCycleEnum;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.gods.MinosObject;
-import fr.zelytra.daedalus.managers.structure.StructureManager;
 import fr.zelytra.daedalus.managers.team.TeamManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
@@ -12,14 +11,12 @@ import org.bukkit.GameRule;
 public class GameManager {
 
     private final TeamManager tm;
-    private final StructureManager sm;
     private GameStatesEnum state;
     private MinosObject minos;
 
     public GameManager() {
 
         this.tm = new TeamManager();
-        this.sm = new StructureManager();
         this.minos = new MinosObject();
         this.state = GameStatesEnum.RUNNING;
 
@@ -27,10 +24,6 @@ public class GameManager {
 
     public TeamManager getTeamManager() {
         return tm;
-    }
-
-    public StructureManager getStructureManager() {
-        return this.sm;
     }
 
     public GameStatesEnum getState() {

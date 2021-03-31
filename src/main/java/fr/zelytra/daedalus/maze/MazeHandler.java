@@ -54,8 +54,9 @@ public class MazeHandler {
     }
 
     public void demoGenerateGrid() {
+        Location origin = getOrigin(this.maze.getSize());
+        this.maze.setOrigin(origin);
         int[][] grid = this.maze.getGrid();
-        Location origin = getOrigin(grid);
         Location block = origin.clone();
         Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
             WorldEditHandler WEH = new WorldEditHandler(block.getWorld());
@@ -82,8 +83,9 @@ public class MazeHandler {
     }
 
     public void demoGenerateMaze() {
-        int[][] grid = this.maze.getMaze();
-        Location origin = getOrigin(grid);
+        Location origin = getOrigin(this.maze.getSize());
+        this.maze.setOrigin(origin);
+        int[][] grid = this.maze.getWay();
         Location block = origin.clone();
         Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
             WorldEditHandler WEH = new WorldEditHandler(block.getWorld());
@@ -109,8 +111,9 @@ public class MazeHandler {
     }
 
     public void demoGenerateScaleMaze() {
+        Location origin = getOrigin(((this.maze.getSize() * this.maze.getScale() - 1 * this.maze.getScale()) / 2) + ((this.maze.getSize() - 1) / 2) + 1);
+        this.maze.setOrigin(origin);
         int[][] grid = this.maze.getScaleMaze();
-        Location origin = getOrigin(grid);
         Location block = origin.clone();
         Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
             WorldEditHandler WEH = new WorldEditHandler(block.getWorld());
@@ -136,8 +139,10 @@ public class MazeHandler {
     }
 
     public void generateScaleMaze() {
+        Location origin = getOrigin(((this.maze.getSize() * this.maze.getScale() - 1 * this.maze.getScale()) / 2) + ((this.maze.getSize() - 1) / 2) + 1);
+        this.maze.setOrigin(origin);
         int[][] grid = this.maze.getScaleMaze();
-        Location origin = getOrigin(grid);
+        Daedalus.getInstance().getStructureManager().setMaze(this.maze);
         Location block = origin.clone();
         Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
             //Generate maze walls
@@ -161,11 +166,11 @@ public class MazeHandler {
             WEH.getEditSession().close();
             //Generate structure schematics
             count = 0;
-            for (Map.Entry<BoundingBox,Structure> entry : Daedalus.getInstance().getGameManager().getStructureManager().getStructuresPosition().entrySet()) {
-                Location location = new Location(origin.getWorld(), origin.getX() + entry.getKey().getMinX() + entry.getValue().getOffset().getX(), origin.getY() + entry.getValue().getOffset().getY(), origin.getZ() + entry.getKey().getMinZ() + entry.getValue().getOffset().getZ());
+            for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
+                Location location = new Location(origin.getWorld(), entry.getKey().getMinX() + entry.getValue().getOffset().getX(), origin.getY() + entry.getValue().getOffset().getY(), entry.getKey().getMinZ() + entry.getValue().getOffset().getZ());
                 WorldEditHandler pasteWE = new WorldEditHandler(location, entry.getValue().getClipboard());
                 pasteWE.pasteStructure();
-                int progress = (int) ((count * 100) / Daedalus.getInstance().getGameManager().getStructureManager().getStructuresPosition().size());
+                int progress = (int) ((count * 100) / Daedalus.getInstance().getStructureManager().getStructuresPosition().size());
                 logPlayers("§6§lGenerating structures... [§e" + progress + "%§6]");
                 count++;
             }
@@ -182,8 +187,8 @@ public class MazeHandler {
 
     }
 
-    private Location getOrigin(int[][] grid) {
-        return new Location(center.getWorld(), center.getX() - (grid.length / 2.0) + 1, center.getY(), center.getZ() - (grid.length / 2.0) + 1);
+    private Location getOrigin(int gridSize) {
+        return new Location(center.getWorld(), center.getX() - (gridSize / 2.0) + 1, center.getY(), center.getZ() - (gridSize / 2.0) + 1);
     }
 
 }

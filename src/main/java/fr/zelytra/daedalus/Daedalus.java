@@ -3,6 +3,7 @@ package fr.zelytra.daedalus;
 import fr.zelytra.daedalus.commands.*;
 import fr.zelytra.daedalus.managers.EventsManager;
 import fr.zelytra.daedalus.managers.game.GameManager;
+import fr.zelytra.daedalus.managers.structure.StructureManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,6 +12,7 @@ public final class Daedalus extends JavaPlugin {
 
     public static Daedalus instance;
     private GameManager gameManager;
+    private StructureManager structureManager;
 
     public static Daedalus getInstance() {
         return instance;
@@ -28,6 +30,7 @@ public final class Daedalus extends JavaPlugin {
         regCommands();
         setupServer();
         gameManager = new GameManager();
+        structureManager=new StructureManager();
         getServer().getConsoleSender().sendMessage("§a   ___    ___     ____  ___    ___     __     __  __  ____§r\n" +
                 "§a  / _ \\  / _ |   / __/ / _ \\  / _ |   / /    / / / / / __/§r\n" +
                 "§a / // / / __ |  / _/  / // / / __ |  / /__  / /_/ / _\\ \\  §r\n" +
@@ -43,6 +46,10 @@ public final class Daedalus extends JavaPlugin {
 
     public GameManager getGameManager() {
         return gameManager;
+    }
+
+    public StructureManager getStructureManager() {
+        return structureManager;
     }
 
     private void regCommands() {

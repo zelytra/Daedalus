@@ -22,6 +22,7 @@ public class Structure {
     private BlockVector origin;
     private BlockVector offset;
     private GodsEnum god;
+    private Boolean canBlock;
 
     public Structure(StructureEnum structure) {
         this.name = structure.getName();
@@ -29,6 +30,7 @@ public class Structure {
         this.origin = structure.getOrigin();
         this.offset = structure.getOffset();
         this.god = structure.getGod();
+        this.canBlock = structure.canBlock();
 
         InputStream is = Daedalus.getInstance().getResource(this.name + ".struct");
         BuiltInClipboardFormat format = BuiltInClipboardFormat.SPONGE_SCHEMATIC;
@@ -67,5 +69,9 @@ public class Structure {
 
     public BlockVector getOffset() {
         return offset;
+    }
+
+    public boolean canBlock() {
+        return this.canBlock;
     }
 }
