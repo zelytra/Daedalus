@@ -1,9 +1,9 @@
-package fr.zelytra.daedalus.maze;
+package fr.zelytra.daedalus.managers.maze;
 
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.structure.StructureType;
-import fr.zelytra.daedalus.structure.Structure;
+import fr.zelytra.daedalus.managers.structure.Structure;
 import fr.zelytra.daedalus.utils.Message;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;

@@ -1,4 +1,4 @@
-package fr.zelytra.daedalus.structure;
+package fr.zelytra.daedalus.managers.structure;
 
 import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;

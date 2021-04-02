@@ -2,7 +2,7 @@ package fr.zelytra.daedalus.commands;
 
 
 import com.sk89q.worldedit.regions.Region;
-import fr.zelytra.daedalus.structure.WorldEditHandler;
+import fr.zelytra.daedalus.managers.structure.WorldEditHandler;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

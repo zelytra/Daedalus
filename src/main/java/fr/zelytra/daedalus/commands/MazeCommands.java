@@ -2,7 +2,7 @@ package fr.zelytra.daedalus.commands;
 
 
 import fr.zelytra.daedalus.Daedalus;
-import fr.zelytra.daedalus.maze.MazeHandler;
+import fr.zelytra.daedalus.managers.maze.MazeHandler;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

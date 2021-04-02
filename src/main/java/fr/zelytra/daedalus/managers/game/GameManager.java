@@ -1,12 +1,16 @@
 package fr.zelytra.daedalus.managers.game;
 
+import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.game.settings.DayCycleEnum;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.gods.MinosObject;
 import fr.zelytra.daedalus.managers.team.TeamManager;
+import fr.zelytra.daedalus.managers.maze.MazeHandler;
+import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
+import org.bukkit.Location;
 
 public class GameManager {
 
@@ -96,6 +100,13 @@ public class GameManager {
 
     // FONCTION DE DEBUT DE PARTIE
     public void start() {
+        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
+        Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
+            Location origin =new Location(Bukkit.getWorld("world"),0,0,0);
+            origin.setY(Bukkit.getWorld("world").getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()) + 1);
+            MazeHandler maze = new MazeHandler(origin, 300, true, Daedalus.getInstance().getStructureManager().getGeneratedList());
+            maze.generateScaleMaze();
+        });
 
     }
 

@@ -1,10 +1,10 @@
 package fr.zelytra.daedalus.managers.structure;
 
+import fr.zelytra.daedalus.managers.loottable.LootTableManager;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
-import fr.zelytra.daedalus.maze.Maze;
-import fr.zelytra.daedalus.structure.Structure;
+import fr.zelytra.daedalus.managers.maze.Maze;
 import org.bukkit.util.BoundingBox;
 
 import java.util.ArrayList;
@@ -19,11 +19,17 @@ public class StructureManager {
     private ArrayList<Structure> generatedList;
     private HashMap<BoundingBox,Structure> structuresPosition;
     private Maze maze;
+    private LootTableManager lootTableManager;
 
 
     public StructureManager() {
         initialize();
         randomGenerationList();
+        this.lootTableManager = new LootTableManager();
+    }
+
+    public LootTableManager getLootTableManager() {
+        return lootTableManager;
     }
 
     private void initialize() {

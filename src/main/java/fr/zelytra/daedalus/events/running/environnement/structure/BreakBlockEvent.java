@@ -3,9 +3,9 @@ package fr.zelytra.daedalus.events.running.environnement.structure;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.events.running.environnement.BlockEnum;
 import fr.zelytra.daedalus.managers.game.GameStatesEnum;
-import fr.zelytra.daedalus.maze.Maze;
-import fr.zelytra.daedalus.maze.Vector2;
-import fr.zelytra.daedalus.structure.Structure;
+import fr.zelytra.daedalus.managers.maze.Maze;
+import fr.zelytra.daedalus.managers.maze.Vector2;
+import fr.zelytra.daedalus.managers.structure.Structure;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,7 +39,6 @@ public class BreakBlockEvent implements Listener {
         }
 
         Vector2 matrixCoordinate = new Vector2((int) (e.getBlock().getX() - maze.getOrigin().getX() + 1), (int) (e.getBlock().getZ() - maze.getOrigin().getZ() + 1));
-        System.out.println(maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z]);
         switch (maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z]) {
             //Structure case
             case -1:

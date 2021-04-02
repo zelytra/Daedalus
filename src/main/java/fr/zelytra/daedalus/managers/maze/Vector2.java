@@ -1,4 +1,4 @@
-package fr.zelytra.daedalus.maze;
+package fr.zelytra.daedalus.managers.maze;
 
 public class Vector2 {
     public int x;
