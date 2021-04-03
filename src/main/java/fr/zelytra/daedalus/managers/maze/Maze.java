@@ -58,7 +58,7 @@ public class Maze {
     private void generateGrid() {
         // Fill outline with wall
         // Wall = 1| void = 0
-        logPlayer("§6§lGenerating grid...");
+        Bukkit.broadcastMessage("§6§lGenerating grid...");
         int nbr = 2;
         int[] line = new int[this.size];
         //Generate line and wall matrix;
@@ -92,6 +92,7 @@ public class Maze {
         }
         //Generating structure area
         int count = 0;
+        Bukkit.broadcastMessage("§6§lLocking structures area... ");
         for (Structure area : land) {
 
             int width = (area.getRegion().getWidth() + 1) / (this.scale + 1) + ((area.getRegion().getWidth() + 1) / (this.scale + 1)) - 1;
@@ -145,11 +146,6 @@ public class Maze {
                 this.maze[(originX + width - 1) - midX][(originZ + length - 1) + i] = nbr++;
                 this.maze[(originX + width - 1) + i][(originZ + length - 1) - midZ] = nbr++;
             }
-
-            int progress = (count * 100) / land.size();
-            logPlayer("§6§lLocking structures area... [§e" + progress + "%§6]");
-            count++;
-
         }
         Daedalus.getInstance().getStructureManager().setStructuresPosition(structurePosition);
     }
@@ -175,7 +171,8 @@ public class Maze {
                 }
             }
         }
-
+        long timer = System.currentTimeMillis();
+        Bukkit.broadcastMessage("§6§lGenerating maze...");
         while (idx > 0) {
 
             int pos = (int) (Math.random() * (idx));
@@ -222,8 +219,10 @@ public class Maze {
                     }
                 }
             }
-            progress = (int) ((((Math.pow(this.size - 1, 2) / 4.0) - progress) * 100) / (Math.pow(this.size - 1, 2) / 4.0));
-            logPlayer("§6§lGenerating maze... [§e" + progress + "%§6]");
+            if ((System.currentTimeMillis() - timer) % 500 == 0) {
+                progress = (int) ((((Math.pow(this.size - 1, 2) / 4.0) - progress) * 100) / (Math.pow(this.size - 1, 2) / 4.0));
+                logPlayer("§6§lGenerating maze... [§e" + progress + "%§6]");
+            }
         }
         if (complexity) {
             for (int i = 0; i < this.size; i++) {
@@ -254,13 +253,13 @@ public class Maze {
             }
         }
 
-        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§aMaze generated in " + (System.currentTimeMillis() - time) + "ms");
+        Bukkit.broadcastMessage("§6§lMaze generated in " + (System.currentTimeMillis() - time) + "ms");
     }
 
     //Thanks Nicolas61x
     private int[][] generateScaleMaze(int scale) {
         int X = 0;
-        logPlayer("§6§lScaling maze...");
+        Bukkit.broadcastMessage("§6§lScaling maze...");
         for (int i = 0; i < this.size; i++) {
             if (i % 2 == 0) {
                 X++;

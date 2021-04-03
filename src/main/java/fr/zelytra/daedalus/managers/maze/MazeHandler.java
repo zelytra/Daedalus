@@ -6,6 +6,7 @@ import fr.zelytra.daedalus.managers.loottable.LootTable;
 import fr.zelytra.daedalus.managers.loottable.LootsEnum;
 import fr.zelytra.daedalus.managers.structure.Structure;
 import fr.zelytra.daedalus.managers.structure.WorldEditHandler;
+import fr.zelytra.daedalus.utils.Message;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -123,15 +124,21 @@ public class MazeHandler {
     }
 
     public void generateScaleMaze() {
+        final long generatingTime = System.currentTimeMillis();
+
         Location origin = getOrigin(((this.maze.getSize() * this.maze.getScale() - 1 * this.maze.getScale()) / 2) + ((this.maze.getSize() - 1) / 2) + 1);
         this.maze.setOrigin(origin);
+        final int waiting = 5;
         int[][] grid = this.maze.getScaleMaze();
         Daedalus.getInstance().getStructureManager().setMaze(this.maze);
         Location block = origin.clone();
+
         Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
             //Generate maze walls
+            Bukkit.broadcastMessage("§6§lGenerating blocks...");
             WorldEditHandler WEH = new WorldEditHandler(block.getWorld());
             int count = 0;
+            long timer = System.currentTimeMillis();
             for (int x = 0; x < grid.length; x++) {
                 for (int z = 0; z < grid.length; z++) {
                     block.setX(origin.getX() + x);
@@ -139,16 +146,20 @@ public class MazeHandler {
                     if (grid[x][z] == 1) {
                         for (int y = (int) origin.getY(); y < origin.getY() + this.wallHeight; y++) {
                             block.setY(y);
+                            count++;
                             WEH.setBlock(block, BlockTypes.SMOOTH_SANDSTONE);
                         }
                     }
-                    count++;
+                }
+                if ((System.currentTimeMillis() - timer) % 3000 == 0) {
                     int progress = (int) (count * 100 / (Math.pow(grid.length, 2)));
                     logPlayers("§6§lGenerating blocks... [§e" + progress + "%§6]");
                 }
             }
             WEH.getEditSession().close();
+
             //Generate structure schematics
+            Bukkit.broadcastMessage("§6§lGenerating structures...");
             count = 0;
             for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                 Location location = new Location(origin.getWorld(), entry.getKey().getMinX() + entry.getValue().getOffset().getX(), origin.getY() + entry.getValue().getOffset().getY(), entry.getKey().getMinZ() + entry.getValue().getOffset().getZ());
@@ -159,8 +170,11 @@ public class MazeHandler {
                 logPlayers("§6§lGenerating structures... [§e" + progress + "%§6]");
                 count++;
             }
+
             //Generate loots
             count = 0;
+            timer = System.currentTimeMillis();
+            Bukkit.broadcastMessage("§6§lGenerating loots...");
             for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                 LootTable lootTable = Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(entry.getValue().getName());
                 if (lootTable == null) {
@@ -181,13 +195,13 @@ public class MazeHandler {
                                     case CHEST:
                                         chest = (Chest) container.getState();
                                         content = chest.getInventory().getContents();
-                                        chest.getInventory().setContents(randomLoot(content,lootTable));
+                                        chest.getInventory().setContents(randomLoot(content, lootTable));
                                         chest.update();
                                         break;
                                     case BARREL:
                                         barrel = (Barrel) container.getState();
                                         content = barrel.getInventory().getContents();
-                                        barrel.getInventory().setContents(randomLoot(content,lootTable));
+                                        barrel.getInventory().setContents(randomLoot(content, lootTable));
                                         barrel.update();
                                         break;
                                     default:
@@ -197,16 +211,17 @@ public class MazeHandler {
                         }
                     }
                 }
-
-                int progress = (int) ((count * 100) / Daedalus.getInstance().getStructureManager().getStructuresPosition().size());
-                logPlayers("§6§lGenerating loots... [§e" + progress + "%§6]");
+                if ((System.currentTimeMillis() - timer) % 1000 == 0) {
+                    int progress = (int) ((count * 100) / Daedalus.getInstance().getStructureManager().getStructuresPosition().size());
+                    logPlayers("§6§lGenerating loots... [§e" + progress + "%§6]");
+                }
                 count++;
             }
-
+            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§aMaze generating in " + ((System.currentTimeMillis() - generatingTime) / 1000) % 60 + "s");
         });
     }
 
-    private ItemStack[] randomLoot(ItemStack[] content,LootTable lootTable){
+    private ItemStack[] randomLoot(ItemStack[] content, LootTable lootTable) {
         for (int i = 0; i <= 16; i++) {
             int slotRandom = (int) (Math.random() * (content.length));
             if (content[slotRandom] != null) {

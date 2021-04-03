@@ -54,8 +54,9 @@ public class MazeCommands implements CommandExecutor {
         } else if (args.length == 2 && args[0].equalsIgnoreCase("generateScaleMaze")) {
             player.sendMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
             Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
-                Location origin = player.getLocation().getBlock().getLocation().clone();
-                origin.setY(player.getWorld().getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()) + 1);
+                //Location origin = player.getLocation().getBlock().getLocation().clone();
+                //origin.setY(player.getWorld().getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()) + 1);
+                Location origin = new Location(player.getWorld(),0,85,0);
                 MazeHandler maze = new MazeHandler(origin, Integer.parseInt(args[1]), true, Daedalus.getInstance().getStructureManager().getGeneratedList());
                 maze.generateScaleMaze();
             });
