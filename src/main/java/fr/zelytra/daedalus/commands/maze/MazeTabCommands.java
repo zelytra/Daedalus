@@ -1,4 +1,4 @@
-package fr.zelytra.daedalus.commands;
+package fr.zelytra.daedalus.commands.maze;
 
 import fr.zelytra.daedalus.utils.Utils;
 import org.bukkit.command.Command;

@@ -1,4 +1,4 @@
-package fr.zelytra.daedalus.commands;
+package fr.zelytra.daedalus.commands.maze;
 
 
 import com.sk89q.worldedit.regions.Region;

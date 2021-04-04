@@ -1,6 +1,12 @@
 package fr.zelytra.daedalus;
 
-import fr.zelytra.daedalus.commands.*;
+import fr.zelytra.daedalus.commands.SettingsCommand;
+import fr.zelytra.daedalus.commands.StateCommands;
+import fr.zelytra.daedalus.commands.item.ItemsCommands;
+import fr.zelytra.daedalus.commands.item.ItemsTabs;
+import fr.zelytra.daedalus.commands.maze.MazeCommands;
+import fr.zelytra.daedalus.commands.maze.MazeTabCommands;
+import fr.zelytra.daedalus.commands.maze.StructureCommands;
 import fr.zelytra.daedalus.managers.EventsManager;
 import fr.zelytra.daedalus.managers.game.GameManager;
 import fr.zelytra.daedalus.managers.structure.StructureManager;
@@ -58,6 +64,8 @@ public final class Daedalus extends JavaPlugin {
         getCommand("maze").setTabCompleter(new MazeTabCommands());
         getCommand("structure").setExecutor(new StructureCommands());
         getCommand("state").setExecutor(new StateCommands());
+        getCommand("dgive").setExecutor(new ItemsCommands());
+        getCommand("dgive").setTabCompleter(new ItemsTabs());
     }
 
     private void setupServer(){

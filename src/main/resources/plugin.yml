@@ -23,3 +23,7 @@ commands:
   state:
     permission: daedalus.configuration
     description: change game state
+
+  dgive:
+    permission: daedalus.dgive
+    description: give custom items
