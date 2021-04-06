@@ -3,8 +3,7 @@ package fr.zelytra.daedalus.managers;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.events.running.environnement.PlayerBreakBlockListener;
 import fr.zelytra.daedalus.events.running.environnement.TreeGrowthListener;
-import fr.zelytra.daedalus.events.running.environnement.items.HadesScepter;
-import fr.zelytra.daedalus.events.running.environnement.items.ZeusLightning;
+import fr.zelytra.daedalus.events.running.environnement.items.*;
 import fr.zelytra.daedalus.events.running.environnement.structure.BreakBlockListener;
 import fr.zelytra.daedalus.events.running.environnement.structure.PlaceBlockListener;
 import fr.zelytra.daedalus.events.running.players.PlayerDeathListener;
@@ -30,6 +29,9 @@ public class EventsManager {
         /*Custom Items*/
         pm.registerEvents(new ZeusLightning(),pl);
         pm.registerEvents(new HadesScepter(),pl);
+        pm.registerEvents(new AphroditeHeart(),pl);
+        pm.registerEvents(new DemeterSickle(),pl);
+        pm.registerEvents(new DionysosCup(),pl);
 
         /* Environment */
         pm.registerEvents(new BlockPlaceListener(), pl);
