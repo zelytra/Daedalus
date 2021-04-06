@@ -53,17 +53,18 @@ public class ZeusLightning implements Listener {
                             return;
                         }
                         //Cooldown check
+                        Cooldown toRemove = null;
                         for (Map.Entry<Cooldown, Player> entry : Cooldown.cooldownsList.entrySet()) {
                             if (entry.getKey().getTag().equalsIgnoreCase(CustomMaterial.ZEUS_LIGHTNING.getName()) && entry.getValue().getUniqueId() == player.getUniqueId()) {
-                                Cooldown cd = entry.getKey();
-                                if (!cd.isFinished()) {
-                                    player.sendMessage(Message.getPlayerPrefixe() + "§6You need to wait " + cd.toString());
+                                toRemove = entry.getKey();
+                                if (!toRemove.isFinished()) {
+                                    player.sendMessage(Message.getPlayerPrefixe() + "§6You need to wait " + toRemove.toString());
                                     return;
                                 }
-                                Cooldown.cooldownsList.remove(cd);
+
                             }
                         }
-
+                        Cooldown.cooldownsList.remove(toRemove);
                         Cooldown cd = new Cooldown(player, itemCooldown, CustomMaterial.ZEUS_LIGHTNING.getName());
                         Cooldown.cooldownsList.put(cd, player);
 

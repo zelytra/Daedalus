@@ -66,6 +66,7 @@ public final class Daedalus extends JavaPlugin {
         getCommand("maze").setTabCompleter(new MazeTabCommands());
         getCommand("structure").setExecutor(new StructureCommands());
         getCommand("state").setExecutor(new StateCommands());
+        getCommand("state").setTabCompleter(new StateTabs());
         getCommand("dgive").setTabCompleter(new StateTabs());
         getCommand("dgive").setExecutor(new ItemsCommands());
         getCommand("dgive").setTabCompleter(new ItemsTabs());

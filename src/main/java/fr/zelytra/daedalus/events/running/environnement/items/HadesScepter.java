@@ -8,10 +8,7 @@ import fr.zelytra.daedalus.managers.team.Team;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -30,26 +27,27 @@ public class HadesScepter implements Listener {
 
     @EventHandler
     public void onRightClick(PlayerInteractEvent e) {
-        int itemCooldown = 3;
+        int itemCooldown = 120;
         int skeletonNumber = 2;
-        int spawnRadius = 2;
+        int spawnRadius = 3;
         if (Daedalus.getInstance().getGameManager().isRunning()) {
             if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 if ((e.getHand() == EquipmentSlot.HAND && CustomItemStack.hasCustomItemInMainHand(CustomMaterial.HADES_SCEPTER.getName(), e.getPlayer())) || (e.getHand() == EquipmentSlot.OFF_HAND && CustomItemStack.hasCustomItemInOffHand(CustomMaterial.ZEUS_LIGHTNING.getName(), e.getPlayer()))) {
                     Player player = e.getPlayer();
 
                     //Cooldown check
+                    Cooldown toRemove = null;
                     for (Map.Entry<Cooldown, Player> entry : Cooldown.cooldownsList.entrySet()) {
                         if (entry.getKey().getTag().equalsIgnoreCase(CustomMaterial.HADES_SCEPTER.getName()) && entry.getValue().getUniqueId() == player.getUniqueId()) {
-                            Cooldown cd = entry.getKey();
-                            if (!cd.isFinished()) {
-                                player.sendMessage(Message.getPlayerPrefixe() + "§6You need to wait " + cd.toString());
+                            toRemove = entry.getKey();
+                            if (!toRemove.isFinished()) {
+                                player.sendMessage(Message.getPlayerPrefixe() + "§6You need to wait " + toRemove.toString());
                                 return;
                             }
-                            Cooldown.cooldownsList.remove(cd);
+
                         }
                     }
-
+                    Cooldown.cooldownsList.remove(toRemove);
                     Cooldown cd = new Cooldown(player, itemCooldown, CustomMaterial.HADES_SCEPTER.getName());
                     Cooldown.cooldownsList.put(cd, player);
                     try {
@@ -77,7 +75,7 @@ public class HadesScepter implements Listener {
 
     @EventHandler
     public void mobTarget(EntityTargetEvent e) {
-        int radiusTarget = 8;
+        int radiusTarget = 10;
         Entity entity = e.getEntity();
         if (entity.getType() == EntityType.WITHER_SKELETON) {
             PersistentDataContainer pdc = entity.getPersistentDataContainer();
@@ -88,20 +86,25 @@ public class HadesScepter implements Listener {
                 ArrayList<Entity> toTarget = new ArrayList<>();
 
                 for (Entity target : nearbyEntities) {
-                    if (entity instanceof Player) {
-                        Player targetedPlayer = (Player) entity;
-                        Team targetPlayerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(targetedPlayer.getUniqueId());
-                        if (targetPlayerTeam.getTeamEnum().getName().equals(pdc.get(hadesKey, PersistentDataType.STRING))) {
-                            continue;
+                    if (target instanceof LivingEntity) {
+                        if (target instanceof Player) {
+                            Player targetedPlayer = (Player) target;
+                            Team targetPlayerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(targetedPlayer.getUniqueId());
+                            if (!targetPlayerTeam.getTeamEnum().getName().equals(pdc.get(hadesKey, PersistentDataType.STRING))) {
+                                toTargetPlayer.add(target);
+                            }
+                        } else if (!(target instanceof WitherSkeleton)) {
+                            toTarget.add(target);
                         }
-                        toTargetPlayer.add(target);
-                    } else if (target instanceof LivingEntity) {
-                        if (target.getType() != EntityType.WITHER_SKELETON) {
-                            toTarget.add(entity);
-                        }
+
                     }
                 }
+
                 if (toTargetPlayer.isEmpty()) {
+                    if (toTarget.isEmpty()) {
+                        e.setCancelled(true);
+                        return;
+                    }
                     e.setTarget(toTarget.get((int) (Math.random() * toTarget.size())));
                 } else {
                     e.setTarget(toTargetPlayer.get((int) (Math.random() * toTargetPlayer.size())));
