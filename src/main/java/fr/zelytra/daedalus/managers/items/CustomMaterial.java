@@ -3,12 +3,13 @@ package fr.zelytra.daedalus.managers.items;
 import org.bukkit.Material;
 
 public enum CustomMaterial {
-    ZEUS_LIGHTNING("§e§lZeus's Lightning","zeus_lightning", 1, Material.STICK);
+    ZEUS_LIGHTNING("§e§lZeus's Lightning","zeus_lightning", 1, Material.STICK),
+    HADES_SCEPTER("§4§lHades's Scepter","hades_scepter", 2, Material.STICK);
 
-    private String displayName;
-    private String name;
-    private int customModelData;
-    private Material vanillaMaterial;
+    private final String displayName;
+    private final String name;
+    private final int customModelData;
+    private final Material vanillaMaterial;
 
     CustomMaterial(String displayName,String name, int CMD, Material material) {
         this.displayName = displayName;

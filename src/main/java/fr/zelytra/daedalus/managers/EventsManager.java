@@ -3,9 +3,10 @@ package fr.zelytra.daedalus.managers;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.events.running.environnement.PlayerBreakBlockListener;
 import fr.zelytra.daedalus.events.running.environnement.TreeGrowthListener;
+import fr.zelytra.daedalus.events.running.environnement.items.HadesScepter;
 import fr.zelytra.daedalus.events.running.environnement.items.ZeusLightning;
-import fr.zelytra.daedalus.events.running.environnement.structure.BreakBlockEvent;
-import fr.zelytra.daedalus.events.running.environnement.structure.PlaceBlockEvent;
+import fr.zelytra.daedalus.events.running.environnement.structure.BreakBlockListener;
+import fr.zelytra.daedalus.events.running.environnement.structure.PlaceBlockListener;
 import fr.zelytra.daedalus.events.running.players.PlayerDeathListener;
 import fr.zelytra.daedalus.events.waiting.entities.EntityDamageListener;
 import fr.zelytra.daedalus.events.waiting.entities.EntityTargetListener;
@@ -23,11 +24,12 @@ public class EventsManager {
         PluginManager pm = Bukkit.getPluginManager();
 
         /* Maze */
-        pm.registerEvents(new BreakBlockEvent(),pl);
-        pm.registerEvents(new PlaceBlockEvent(),pl);
+        pm.registerEvents(new BreakBlockListener(),pl);
+        pm.registerEvents(new PlaceBlockListener(),pl);
 
         /*Custom Items*/
         pm.registerEvents(new ZeusLightning(),pl);
+        pm.registerEvents(new HadesScepter(),pl);
 
         /* Environment */
         pm.registerEvents(new BlockPlaceListener(), pl);

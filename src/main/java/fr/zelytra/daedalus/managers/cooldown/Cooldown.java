@@ -38,6 +38,7 @@ public class Cooldown {
         return this.checkTime - System.currentTimeMillis() <= 0;
     }
 
+    @Override
     public String toString() {
         //Milliseconds display
         if (this.checkTime - System.currentTimeMillis() <= 1000) {

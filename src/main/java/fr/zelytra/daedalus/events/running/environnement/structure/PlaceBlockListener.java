@@ -13,7 +13,7 @@ import org.bukkit.util.BoundingBox;
 
 import java.util.Map;
 
-public class PlaceBlockEvent implements Listener {
+public class PlaceBlockListener implements Listener {
     private static final int wallHigh = 20;
     private static final int limit = 4;
 

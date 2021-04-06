@@ -2,7 +2,6 @@ package fr.zelytra.daedalus.events.running.environnement.structure;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.events.running.environnement.BlockEnum;
-import fr.zelytra.daedalus.managers.game.GameStatesEnum;
 import fr.zelytra.daedalus.managers.maze.Maze;
 import fr.zelytra.daedalus.managers.maze.Vector2;
 import fr.zelytra.daedalus.managers.structure.Structure;
@@ -15,7 +14,7 @@ import org.bukkit.util.BoundingBox;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class BreakBlockEvent implements Listener {
+public class BreakBlockListener implements Listener {
     private static final ArrayList<Material> blacklist = new ArrayList<>();
 
     static {
@@ -24,7 +23,7 @@ public class BreakBlockEvent implements Listener {
 
     @EventHandler
     public void onBreak(BlockBreakEvent e) {
-        if (Daedalus.getInstance().getGameManager().getState() != GameStatesEnum.RUNNING) {
+        if (!Daedalus.getInstance().getGameManager().isRunning()) {
             return;
         }
         if (Daedalus.getInstance().getStructureManager().getStructuresPosition().isEmpty()) {
