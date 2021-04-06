@@ -1,7 +1,8 @@
-package fr.zelytra.daedalus.commands;
+package fr.zelytra.daedalus.commands.state;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.game.GameStatesEnum;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,7 +22,7 @@ public class StateCommands implements CommandExecutor {
                     Daedalus.getInstance().getGameManager().setState(GameStatesEnum.valueOf(args[0]));
                 }catch (IllegalArgumentException ignored){}
 
-                sender.sendMessage("§dGame state changed into -> "+args[0]);
+                Bukkit.broadcastMessage("§dGame state changed into -> " + args[0]);
                 return true;
             }
 
