@@ -27,3 +27,5 @@ commands:
   dgive:
     permission: daedalus.dgive
     description: give custom items
+  debug:
+    description: debug

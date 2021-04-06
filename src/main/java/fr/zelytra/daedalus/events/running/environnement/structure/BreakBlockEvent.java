@@ -17,8 +17,6 @@ import java.util.Map;
 
 public class BreakBlockEvent implements Listener {
     private static final ArrayList<Material> blacklist = new ArrayList<>();
-    private static final int wallHigh = 20;
-    private static final int limit = 4;
 
     static {
         blacklist.add(Material.SMOOTH_SANDSTONE);

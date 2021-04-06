@@ -1,5 +1,6 @@
 package fr.zelytra.daedalus;
 
+import fr.zelytra.daedalus.commands.DebugCommands;
 import fr.zelytra.daedalus.commands.SettingsCommand;
 import fr.zelytra.daedalus.commands.StateCommands;
 import fr.zelytra.daedalus.commands.item.ItemsCommands;
@@ -66,6 +67,7 @@ public final class Daedalus extends JavaPlugin {
         getCommand("state").setExecutor(new StateCommands());
         getCommand("dgive").setExecutor(new ItemsCommands());
         getCommand("dgive").setTabCompleter(new ItemsTabs());
+        getCommand("debug").setExecutor(new DebugCommands());
     }
 
     private void setupServer(){

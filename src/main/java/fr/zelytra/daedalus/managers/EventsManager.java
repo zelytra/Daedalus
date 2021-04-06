@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.managers;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.events.running.environnement.PlayerBreakBlockListener;
 import fr.zelytra.daedalus.events.running.environnement.TreeGrowthListener;
+import fr.zelytra.daedalus.events.running.environnement.items.ZeusLignting;
 import fr.zelytra.daedalus.events.running.environnement.structure.BreakBlockEvent;
 import fr.zelytra.daedalus.events.running.environnement.structure.PlaceBlockEvent;
 import fr.zelytra.daedalus.events.running.players.PlayerDeathListener;
@@ -24,6 +25,9 @@ public class EventsManager {
         /* Maze */
         pm.registerEvents(new BreakBlockEvent(),pl);
         pm.registerEvents(new PlaceBlockEvent(),pl);
+
+        /*Custom Items*/
+        pm.registerEvents(new ZeusLignting(),pl);
 
         /* Environment */
         pm.registerEvents(new BlockPlaceListener(), pl);

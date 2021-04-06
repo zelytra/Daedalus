@@ -1,7 +1,9 @@
 package fr.zelytra.daedalus.managers.items;
 
 import fr.zelytra.daedalus.Daedalus;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -55,6 +57,33 @@ public class CustomItemStack {
         PersistentDataContainer itemData = meta.getPersistentDataContainer();
         if (itemData.has(itemKey, PersistentDataType.STRING)) {
             return true;
+        }
+
+        return false;
+    }
+
+    public static boolean hasCustomItemInMainHand(String name, Player player) {
+        if (player.getInventory().getItemInMainHand() != null && player.getInventory().getItemInMainHand().getType() != Material.AIR) {
+            if (CustomItemStack.hasTag(player.getInventory().getItemInMainHand())) {
+                ItemMeta meta = player.getInventory().getItemInMainHand().getItemMeta();
+                PersistentDataContainer itemData = meta.getPersistentDataContainer();
+                if (itemData.get(itemKey, PersistentDataType.STRING).equalsIgnoreCase(name)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasCustomItemInOffHand(String name, Player player) {
+        if (player.getInventory().getItemInOffHand() != null && player.getInventory().getItemInOffHand().getType() != Material.AIR) {
+            if (CustomItemStack.hasTag(player.getInventory().getItemInOffHand())) {
+                ItemMeta meta = player.getInventory().getItemInOffHand().getItemMeta();
+                PersistentDataContainer itemData = meta.getPersistentDataContainer();
+                if (itemData.get(itemKey, PersistentDataType.STRING).equalsIgnoreCase(name)) {
+                    return true;
+                }
+            }
         }
         return false;
     }
