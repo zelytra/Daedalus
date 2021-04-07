@@ -11,6 +11,7 @@ import fr.zelytra.daedalus.commands.maze.StructureCommands;
 import fr.zelytra.daedalus.commands.state.StateTabs;
 import fr.zelytra.daedalus.managers.EventsManager;
 import fr.zelytra.daedalus.managers.game.GameManager;
+import fr.zelytra.daedalus.managers.items.CraftManager;
 import fr.zelytra.daedalus.managers.structure.StructureManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
@@ -21,6 +22,7 @@ public final class Daedalus extends JavaPlugin {
     public static Daedalus instance;
     private GameManager gameManager;
     private StructureManager structureManager;
+    private CraftManager craftManager;
 
     public static Daedalus getInstance() {
         return instance;
@@ -33,12 +35,14 @@ public final class Daedalus extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
+        //Initi registers
         EventsManager.registerEvents(this);
         regCommands();
         setupServer();
+        //Init managers
         gameManager = new GameManager();
         structureManager=new StructureManager();
+        craftManager = new CraftManager();
         getServer().getConsoleSender().sendMessage("§a   ___    ___     ____  ___    ___     __     __  __  ____§r\n" +
                 "§a  / _ \\  / _ |   / __/ / _ \\  / _ |   / /    / / / / / __/§r\n" +
                 "§a / // / / __ |  / _/  / // / / __ |  / /__  / /_/ / _\\ \\  §r\n" +
@@ -62,14 +66,18 @@ public final class Daedalus extends JavaPlugin {
 
     private void regCommands() {
         getCommand("settings").setExecutor(new SettingsCommand());
+
         getCommand("maze").setExecutor(new MazeCommands());
         getCommand("maze").setTabCompleter(new MazeTabCommands());
+
         getCommand("structure").setExecutor(new StructureCommands());
+
         getCommand("state").setExecutor(new StateCommands());
         getCommand("state").setTabCompleter(new StateTabs());
-        getCommand("dgive").setTabCompleter(new StateTabs());
+
         getCommand("dgive").setExecutor(new ItemsCommands());
         getCommand("dgive").setTabCompleter(new ItemsTabs());
+
         getCommand("debug").setExecutor(new DebugCommands());
     }
 

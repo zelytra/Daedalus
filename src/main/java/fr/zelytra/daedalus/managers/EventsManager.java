@@ -32,6 +32,7 @@ public class EventsManager {
         pm.registerEvents(new AphroditeHeart(),pl);
         pm.registerEvents(new DemeterSickle(),pl);
         pm.registerEvents(new DionysosCup(),pl);
+        pm.registerEvents(new MinotaurCharge(),pl);
 
         /* Environment */
         pm.registerEvents(new BlockPlaceListener(), pl);
