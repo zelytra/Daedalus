@@ -24,10 +24,11 @@ import java.util.Map;
 
 public class MinotaurCharge implements Listener {
     private BukkitTask taskID;
+    private long timeOut;
 
     @EventHandler
     public void onRightClick(PlayerInteractEvent e) {
-        final int itemCooldown = 3;
+        final int itemCooldown = 30;
         final int radius = 2;
 
 
@@ -52,16 +53,26 @@ public class MinotaurCharge implements Listener {
                     Cooldown cd = new Cooldown(player, itemCooldown, CustomMaterial.MINOTAUR_CHARGE.getName());
                     Cooldown.cooldownsList.put(cd, player);
                     //Item action
-                    final int chargeCoef = 12;
+                    final int chargeCoef = 4;
                     final double yCoef = 0.3;
-                    final double thresholdVelocity = 0.05;
-                    Vector dir = new Vector(player.getLocation().getDirection().getX() * chargeCoef, yCoef, player.getLocation().getDirection().getZ() * chargeCoef);
-                    player.setVelocity(dir);
+                    final double thresholdVelocity = 0.1;
+                    //Charge direction vector
+                    double radianYaw = player.getEyeLocation().getYaw();
 
+                    if (radianYaw > 180) {
+                        radianYaw -= 360;
+                    } else if (radianYaw < -180) {
+                        radianYaw += 360;
+                    }
+                    radianYaw *= Math.PI / 180.0;
+                    Vector dir = new Vector(-Math.sin(radianYaw) * chargeCoef, yCoef, Math.cos(radianYaw) * chargeCoef);
+                    player.setVelocity(dir);
+                    this.timeOut = System.currentTimeMillis();
                     this.taskID = Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
                         if (Math.abs(e.getPlayer().getVelocity().getX()) <= thresholdVelocity || Math.abs(e.getPlayer().getVelocity().getZ()) <= thresholdVelocity) {
                             cancelTask();
                         }
+
                         try {
                             Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
                             Collection<Entity> nearbyEntities = player.getWorld().getNearbyEntities(player.getLocation(), radius, radius, radius);
@@ -79,15 +90,20 @@ public class MinotaurCharge implements Listener {
                                 }
                             }
                             for (Entity entity : toStrike) {
+                                //Entity air ejection
                                 Vector delta = new Vector(entity.getLocation().getX() - player.getLocation().getX(), 0, entity.getLocation().getZ() - player.getLocation().getZ());
                                 double norme = Math.sqrt(Math.pow(delta.getX(), 2) + Math.pow(delta.getY(), 2) + Math.pow(delta.getZ(), 2));
                                 int coef = 2;
                                 Vector direction = new Vector((delta.getX() / norme) * coef, (delta.getY() / norme) + 1.5, (delta.getZ() / norme) * coef);
                                 entity.setVelocity(direction);
+                                ((LivingEntity)entity).damage(4.0);
+                            }
+
+                            if(System.currentTimeMillis()-this.timeOut>=5000){
+                                cancelTask();
                             }
                         } catch (Exception exception) {
-                            exception.printStackTrace();
-                            System.out.println("ERROR team not found");
+                            //System.out.println("ERROR team not found");
                         }
 
 
