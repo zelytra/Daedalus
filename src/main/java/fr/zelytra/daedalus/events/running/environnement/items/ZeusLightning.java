@@ -17,7 +17,6 @@ import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
 
 public class ZeusLightning implements Listener {
 
@@ -53,20 +52,10 @@ public class ZeusLightning implements Listener {
                             return;
                         }
                         //Cooldown check
-                        Cooldown toRemove = null;
-                        for (Map.Entry<Cooldown, Player> entry : Cooldown.cooldownsList.entrySet()) {
-                            if (entry.getKey().getTag().equalsIgnoreCase(CustomMaterial.ZEUS_LIGHTNING.getName()) && entry.getValue().getUniqueId() == player.getUniqueId()) {
-                                toRemove = entry.getKey();
-                                if (!toRemove.isFinished()) {
-                                    player.sendMessage(Message.getPlayerPrefixe() + "§6You need to wait " + toRemove.toString());
-                                    return;
-                                }
-
-                            }
+                        if(!Cooldown.cooldownCheck(player,CustomMaterial.ZEUS_LIGHTNING.getName())){
+                            return;
                         }
-                        Cooldown.cooldownsList.remove(toRemove);
                         Cooldown cd = new Cooldown(player, itemCooldown, CustomMaterial.ZEUS_LIGHTNING.getName());
-                        Cooldown.cooldownsList.put(cd, player);
 
                         for (Entity entity : toStrike) {
                             if (entity instanceof LivingEntity) {

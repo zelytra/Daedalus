@@ -1,11 +1,13 @@
 package fr.zelytra.daedalus.managers.cooldown;
 
+import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Cooldown {
-    public static HashMap<Cooldown, Player> cooldownsList = new HashMap<>();
+    private static HashMap<Cooldown, Player> cooldownsList = new HashMap<>();
 
     private final Player player;
     private long checkTime;
@@ -16,6 +18,7 @@ public class Cooldown {
         this.player = p;
         this.checkTime = System.currentTimeMillis() + timeSeconds * 1000;
         this.tag = tag;
+        cooldownsList.put(this, p);
     }
 
     public Player getPlayer() {
@@ -24,14 +27,6 @@ public class Cooldown {
 
     public String getTag() {
         return tag;
-    }
-
-    public long getRemainingTimeSeconds() {
-        return (this.checkTime - System.currentTimeMillis()) / 1000;
-    }
-
-    public void addTimeToWait(long timeSeconds) {
-        this.checkTime += timeSeconds * 1000;
     }
 
     public boolean isFinished() {
@@ -67,6 +62,29 @@ public class Cooldown {
             return "§cNA";
         }
 
+    }
+
+    /**
+     *
+     * @param player Player to check
+     * @param tag Tag of the cooldown
+     * @return true if cooldown ended and false if cooldown is running
+     */
+
+    public static boolean cooldownCheck(Player player,String tag){
+        Cooldown toRemove = null;
+        for (Map.Entry<Cooldown, Player> entry : cooldownsList.entrySet()) {
+            if (entry.getKey().getTag().equalsIgnoreCase(tag) && entry.getValue().getUniqueId() == player.getUniqueId()) {
+                toRemove = entry.getKey();
+                if (!toRemove.isFinished()) {
+                    player.sendMessage(Message.getPlayerPrefixe() + "§6You need to wait " + toRemove.toString());
+                    return false;
+                }
+
+            }
+        }
+        cooldownsList.remove(toRemove);
+        return true;
     }
 
 }

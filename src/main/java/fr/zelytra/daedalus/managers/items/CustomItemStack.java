@@ -62,6 +62,19 @@ public class CustomItemStack {
         return false;
     }
 
+    public static boolean hasTag(ItemStack item, CustomMaterial customMaterial) {
+
+        if (CustomItemStack.hasTag(item)) {
+            ItemMeta meta = item.getItemMeta();
+            PersistentDataContainer itemData = meta.getPersistentDataContainer();
+            if (itemData.get(itemKey, PersistentDataType.STRING).equalsIgnoreCase(customMaterial.getName())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static boolean hasCustomItemInMainHand(String name, Player player) {
         if (player.getInventory().getItemInMainHand() != null && player.getInventory().getItemInMainHand().getType() != Material.AIR) {
             if (CustomItemStack.hasTag(player.getInventory().getItemInMainHand())) {

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class InventoryBuilder {
 
-    private Inventory inventory;
+    private final Inventory inventory;
 
     public InventoryBuilder(String name, int size){
         this.inventory = Bukkit.createInventory(null, size, name);

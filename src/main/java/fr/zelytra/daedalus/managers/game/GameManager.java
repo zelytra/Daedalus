@@ -22,7 +22,7 @@ public class GameManager {
 
         this.tm = new TeamManager();
         this.minos = new MinosObject();
-        this.state = GameStatesEnum.RUNNING;
+        this.state = GameStatesEnum.WAIT;
 
     }
 

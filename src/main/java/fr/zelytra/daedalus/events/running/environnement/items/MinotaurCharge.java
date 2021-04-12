@@ -5,7 +5,6 @@ import fr.zelytra.daedalus.managers.cooldown.Cooldown;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import fr.zelytra.daedalus.managers.team.Team;
-import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -20,7 +19,6 @@ import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
 
 public class MinotaurCharge implements Listener {
     private BukkitTask taskID;
@@ -38,20 +36,10 @@ public class MinotaurCharge implements Listener {
                     Player player = e.getPlayer();
 
                     //Cooldown check
-                    Cooldown toRemove = null;
-                    for (Map.Entry<Cooldown, Player> entry : Cooldown.cooldownsList.entrySet()) {
-                        if (entry.getKey().getTag().equalsIgnoreCase(CustomMaterial.MINOTAUR_CHARGE.getName()) && entry.getValue().getUniqueId() == player.getUniqueId()) {
-                            toRemove = entry.getKey();
-                            if (!toRemove.isFinished()) {
-                                player.sendMessage(Message.getPlayerPrefixe() + "§6You need to wait " + toRemove.toString());
-                                return;
-                            }
-
-                        }
+                    if(!Cooldown.cooldownCheck(player,CustomMaterial.MINOTAUR_CHARGE.getName())){
+                        return;
                     }
-                    Cooldown.cooldownsList.remove(toRemove);
                     Cooldown cd = new Cooldown(player, itemCooldown, CustomMaterial.MINOTAUR_CHARGE.getName());
-                    Cooldown.cooldownsList.put(cd, player);
                     //Item action
                     final int chargeCoef = 4;
                     final double yCoef = 0.3;

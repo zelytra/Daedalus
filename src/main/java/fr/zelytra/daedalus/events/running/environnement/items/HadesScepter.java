@@ -5,7 +5,6 @@ import fr.zelytra.daedalus.managers.cooldown.Cooldown;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import fr.zelytra.daedalus.managers.team.Team;
-import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.*;
@@ -20,7 +19,6 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
 
 public class HadesScepter implements Listener {
     private static final NamespacedKey hadesKey = new NamespacedKey(Daedalus.getInstance(), "hades");
@@ -36,20 +34,11 @@ public class HadesScepter implements Listener {
                     Player player = e.getPlayer();
 
                     //Cooldown check
-                    Cooldown toRemove = null;
-                    for (Map.Entry<Cooldown, Player> entry : Cooldown.cooldownsList.entrySet()) {
-                        if (entry.getKey().getTag().equalsIgnoreCase(CustomMaterial.HADES_SCEPTER.getName()) && entry.getValue().getUniqueId() == player.getUniqueId()) {
-                            toRemove = entry.getKey();
-                            if (!toRemove.isFinished()) {
-                                player.sendMessage(Message.getPlayerPrefixe() + "§6You need to wait " + toRemove.toString());
-                                return;
-                            }
-
-                        }
+                    if(!Cooldown.cooldownCheck(player,CustomMaterial.HADES_SCEPTER.getName())){
+                        return;
                     }
-                    Cooldown.cooldownsList.remove(toRemove);
                     Cooldown cd = new Cooldown(player, itemCooldown, CustomMaterial.HADES_SCEPTER.getName());
-                    Cooldown.cooldownsList.put(cd, player);
+
                     try {
                         Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
                         //Item action

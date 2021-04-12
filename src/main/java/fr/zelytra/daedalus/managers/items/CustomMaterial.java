@@ -24,7 +24,8 @@ public enum CustomMaterial {
     ATHENA_TOTEM("§a§lAthenas's Totem","athenas_totem", 17, Material.TOTEM_OF_UNDYING),
     DIONYSOS_TOTEM("§5§lDionysos's Totem","dionysos_totem", 18, Material.TOTEM_OF_UNDYING),
     MINOTAUR_TOTEM("§6§lMinotaur's Totem","minotaur_totem", 19, Material.TOTEM_OF_UNDYING),
-    MINOTAUR_CHARGE("§6§lMinotaur's Charge","minotaur_charge", 20, Material.PHANTOM_MEMBRANE),;
+    MINOTAUR_CHARGE("§6§lMinotaur's Charge","minotaur_charge", 20, Material.PHANTOM_MEMBRANE),
+    MEDUSA_HEAD("§7§lMedusa Head","medusa_head", 21, Material.CARVED_PUMPKIN);
 
 
 

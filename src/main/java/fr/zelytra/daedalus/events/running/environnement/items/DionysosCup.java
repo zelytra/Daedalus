@@ -19,7 +19,6 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
 
 public class DionysosCup implements Listener {
 
@@ -56,20 +55,11 @@ public class DionysosCup implements Listener {
                             return;
                         }
                         //Cooldown check
-                        Cooldown toRemove = null;
-                        for (Map.Entry<Cooldown, Player> entry : Cooldown.cooldownsList.entrySet()) {
-                            if (entry.getKey().getTag().equalsIgnoreCase(CustomMaterial.DIONYSOS_CUP.getName()) && entry.getValue().getUniqueId() == player.getUniqueId()) {
-                                toRemove = entry.getKey();
-                                if (!toRemove.isFinished()) {
-                                    player.sendMessage(Message.getPlayerPrefixe() + "§6You need to wait " + toRemove.toString());
-                                    return;
-                                }
-
-                            }
+                        if(!Cooldown.cooldownCheck(player,CustomMaterial.DIONYSOS_CUP.getName())){
+                            return;
                         }
-                        Cooldown.cooldownsList.remove(toRemove);
                         Cooldown cd = new Cooldown(player, itemCooldown, CustomMaterial.DIONYSOS_CUP.getName());
-                        Cooldown.cooldownsList.put(cd, player);
+
 
                         for (Entity entity : targetList) {
                             ((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 300, 0));
