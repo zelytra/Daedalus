@@ -1,4 +1,4 @@
-package fr.zelytra.daedalus.events.running.environnement;
+package fr.zelytra.daedalus.events.running.environnement.respawnable;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;

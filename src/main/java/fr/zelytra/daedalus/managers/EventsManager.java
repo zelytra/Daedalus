@@ -1,8 +1,9 @@
 package fr.zelytra.daedalus.managers;
 
 import fr.zelytra.daedalus.Daedalus;
-import fr.zelytra.daedalus.events.running.environnement.PlayerBreakBlockListener;
-import fr.zelytra.daedalus.events.running.environnement.TreeGrowthListener;
+import fr.zelytra.daedalus.events.running.environnement.gods.ZeusHandler;
+import fr.zelytra.daedalus.events.running.environnement.respawnable.PlayerBreakBlockListener;
+import fr.zelytra.daedalus.events.running.environnement.respawnable.TreeGrowthListener;
 import fr.zelytra.daedalus.events.running.environnement.items.*;
 import fr.zelytra.daedalus.events.running.environnement.structure.BreakBlockListener;
 import fr.zelytra.daedalus.events.running.environnement.structure.PlaceBlockListener;
@@ -34,6 +35,9 @@ public class EventsManager {
         pm.registerEvents(new DionysosCup(),pl);
         pm.registerEvents(new MinotaurCharge(),pl);
         pm.registerEvents(new MedusaHead(),pl);
+
+        /*Gods Summoning*/
+        pm.registerEvents(new ZeusHandler(),pl);
 
         /* Environment */
         pm.registerEvents(new BlockPlaceListener(), pl);

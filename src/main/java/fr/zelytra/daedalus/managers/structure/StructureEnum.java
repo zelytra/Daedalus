@@ -7,30 +7,39 @@ public enum StructureEnum {
     /*
     Fixed structure need to have a pair origin location.
     Origin is the center of the schematics coordinate at the maze matrix none upscale
+
+    ID:
+    - -1 : Team
+    - -2 : Temple
+    - -3 : Mine
+    - -4 : Dungeon
+    - -5 : Circee island
+    - -6 : Hesperides garden
+
      */
-    ZEUS("zeusTemple", StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.ZEUS),
-    APHRODITE("aphroditeTemple", StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.APHRODITE),
-    ARES("aresTemple", StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.ARES),
-    ARTEMIS("artemisTemple", StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.ARTEMIS),
-    ATHENA("athenaTemple", StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.ATHENA),
-    DEMETER("demeterTemple", StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.DEMETER),
-    DIONYSOS("dionysosTemple", StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.DIONYSUS),
-    HADES("hadesTemple", StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.HADES),
-    HERMES("hermesTemple", StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.HERMES),
-    POSEIDON("poseidonTemple", StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.POSEIDON),
+    ZEUS("zeusTemple", -2, StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.ZEUS),
+    APHRODITE("aphroditeTemple", -2, StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.APHRODITE),
+    ARES("aresTemple", -2, StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.ARES),
+    ARTEMIS("artemisTemple", -2, StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.ARTEMIS),
+    ATHENA("athenaTemple", -2, StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.ATHENA),
+    DEMETER("demeterTemple", -2, StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.DEMETER),
+    DIONYSOS("dionysosTemple", -2, StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.DIONYSUS),
+    HADES("hadesTemple", -2, StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.HADES),
+    HERMES("hermesTemple", -2, StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.HERMES),
+    POSEIDON("poseidonTemple", -2, StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.POSEIDON),
 
-    MINE1("mine1", StructureType.MINE, true, new BlockVector(0, -23, 0)),
+    MINE1("mine1", -3, StructureType.MINE, true, new BlockVector(0, -23, 0)),
 
-    TEAM_RED("redTeam", StructureType.FIXED, false, new BlockVector(30, 0, 30), new BlockVector(0, -3, 0)),
-    TEAM_GREEN("greenTeam", StructureType.FIXED, false, new BlockVector(270, 0, 30), new BlockVector(0, -3, 0)),
-    TEAM_YELLOW("yellowTeam", StructureType.FIXED, false, new BlockVector(270, 0, 270), new BlockVector(0, -3, 0)),
-    TEAM_BLUE("blueTeam", StructureType.FIXED, false, new BlockVector(30, 0, 270), new BlockVector(0, -3, 0)),
-    MINOTAURE("minotaure", StructureType.FIXED, false, new BlockVector(150, 0, 150), new BlockVector(0, -3, 0)),
+    TEAM_RED("redTeam", -1, StructureType.FIXED, false, new BlockVector(30, 0, 30), new BlockVector(0, -3, 0)),
+    TEAM_GREEN("greenTeam", -1, StructureType.FIXED, false, new BlockVector(270, 0, 30), new BlockVector(0, -3, 0)),
+    TEAM_YELLOW("yellowTeam", -1, StructureType.FIXED, false, new BlockVector(270, 0, 270), new BlockVector(0, -3, 0)),
+    TEAM_BLUE("blueTeam", -1, StructureType.FIXED, false, new BlockVector(30, 0, 270), new BlockVector(0, -3, 0)),
+    MINOTAURE("minotaure", -1, StructureType.FIXED, false, new BlockVector(150, 0, 150), new BlockVector(0, -3, 0)),
 
-    HESPERIDES_GARDEN("hesperidesGarden", StructureType.BUILD, false, new BlockVector(0, -8, 0)),
-    CIRCEE_ISLAND("circeeIsland", StructureType.BUILD, false, new BlockVector(0, -5, 0)),
+    HESPERIDES_GARDEN("hesperidesGarden", -6, StructureType.BUILD, false, new BlockVector(0, -8, 0)),
+    CIRCEE_ISLAND("circeeIsland", -5, StructureType.BUILD, false, new BlockVector(0, -5, 0)),
 
-    DUNGEON1("dungeon", StructureType.DUNGEON, false, new BlockVector(0, -21, 0));
+    DUNGEON1("dungeon", -4, StructureType.DUNGEON, false, new BlockVector(0, -21, 0));
 
 
     private final String name;
@@ -39,29 +48,33 @@ public enum StructureEnum {
     private BlockVector offset;
     private GodsEnum god;
     private Boolean canBlock;
+    private int id;
 
 
-    StructureEnum(String name, StructureType type, Boolean canBlock, BlockVector offset) {
+    StructureEnum(String name, int id, StructureType type, Boolean canBlock, BlockVector offset) {
         this.name = name;
         this.type = type;
         this.offset = offset;
         this.canBlock = canBlock;
+        this.id = id;
     }
 
-    StructureEnum(String name, StructureType type, Boolean canBlock, BlockVector offset, GodsEnum god) {
+    StructureEnum(String name, int id, StructureType type, Boolean canBlock, BlockVector offset, GodsEnum god) {
         this.name = name;
         this.type = type;
         this.offset = offset;
         this.god = god;
         this.canBlock = canBlock;
+        this.id = id;
     }
 
-    StructureEnum(String name, StructureType type, Boolean canBlock, BlockVector origin, BlockVector offset) {
+    StructureEnum(String name, int id, StructureType type, Boolean canBlock, BlockVector origin, BlockVector offset) {
         this.name = name;
         this.type = type;
         this.origin = origin;
         this.offset = offset;
         this.canBlock = canBlock;
+        this.id = id;
     }
 
     public String getName() {
@@ -91,6 +104,10 @@ public enum StructureEnum {
             }
         }
         return null;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Boolean canBlock() {

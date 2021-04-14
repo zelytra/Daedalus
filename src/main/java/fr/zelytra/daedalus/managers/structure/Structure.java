@@ -13,24 +13,15 @@ import java.io.InputStream;
 
 public class Structure {
 
-    private String name;
-    private StructureType type;
+    private final StructureEnum structure;
     private Clipboard clipboard;
-    private Region region;
-    private BlockVector origin;
-    private BlockVector offset;
-    private GodsEnum god;
-    private Boolean canBlock;
+    private final Region region;
+
 
     public Structure(StructureEnum structure) {
-        this.name = structure.getName();
-        this.type = structure.getType();
-        this.origin = structure.getOrigin();
-        this.offset = structure.getOffset();
-        this.god = structure.getGod();
-        this.canBlock = structure.canBlock();
+        this.structure = structure;
 
-        InputStream is = Daedalus.getInstance().getResource(this.name + ".struct");
+        InputStream is = Daedalus.getInstance().getResource(this.structure.getName() + ".struct");
         BuiltInClipboardFormat format = BuiltInClipboardFormat.SPONGE_SCHEMATIC;
         try (ClipboardReader reader = format.getReader(is)) {
             this.clipboard = reader.read();
@@ -42,15 +33,15 @@ public class Structure {
     }
 
     public String getName() {
-        return name;
+        return this.structure.getName();
     }
 
     public BlockVector getOrigin() {
-        return origin;
+        return this.structure.getOrigin();
     }
 
     public StructureType getType() {
-        return type;
+        return this.structure.getType();
     }
 
     public Clipboard getClipboard() {
@@ -62,14 +53,18 @@ public class Structure {
     }
 
     public GodsEnum getGod() {
-        return god;
+        return this.structure.getGod();
     }
 
     public BlockVector getOffset() {
-        return offset;
+        return this.structure.getOffset();
     }
 
     public boolean canBlock() {
-        return this.canBlock;
+        return this.structure.canBlock();
+    }
+
+    public int getID() {
+        return this.structure.getId();
     }
 }

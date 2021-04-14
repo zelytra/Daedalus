@@ -2,8 +2,8 @@ package fr.zelytra.daedalus.managers.maze;
 
 
 import fr.zelytra.daedalus.Daedalus;
-import fr.zelytra.daedalus.managers.structure.StructureType;
 import fr.zelytra.daedalus.managers.structure.Structure;
+import fr.zelytra.daedalus.managers.structure.StructureType;
 import fr.zelytra.daedalus.utils.Message;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -28,6 +28,7 @@ public class Maze {
     private HashMap<BoundingBox, Structure> structurePosition;
     private final int spacing = 5;
     private Location origin;
+    private int nbr = 2;
 
     /**
      * Maze object
@@ -59,7 +60,7 @@ public class Maze {
         // Fill outline with wall
         // Wall = 1| void = 0
         Bukkit.broadcastMessage("§6§lGenerating grid...");
-        int nbr = 2;
+
         int[] line = new int[this.size];
         //Generate line and wall matrix;
         for (int x = 0; x < this.size; x++) {
@@ -91,61 +92,42 @@ public class Maze {
             }
         }
         //Generating structure area
-        int count = 0;
+
         Bukkit.broadcastMessage("§6§lLocking structures area... ");
         for (Structure area : land) {
 
             int width = (area.getRegion().getWidth() + 1) / (this.scale + 1) + ((area.getRegion().getWidth() + 1) / (this.scale + 1)) - 1;
             int length = (area.getRegion().getLength() + 1) / (this.scale + 1) + ((area.getRegion().getLength() + 1) / (this.scale + 1)) - 1;
-            int originX = 0;
-            int originZ = 0;
-            boolean structureAround = true;
-
+            int originX;
+            int originZ;
             if (area.getType() == StructureType.FIXED) {
                 originX = (int) (area.getOrigin().getX() - (width / 2.0));
                 originZ = (int) (area.getOrigin().getZ() - (length / 2.0));
+                generateStructureGrid(new Vector2(originX, originZ), area, width, length);
+                //Surrounded Structure
+                for (Structure surroundedStruct : Daedalus.getInstance().getStructureManager().structureSurronded.getStructures()) {
+                    Bukkit.broadcastMessage(surroundedStruct.getName());
+                    int sWidth = (surroundedStruct.getRegion().getWidth() + 1) / (this.scale + 1) + ((surroundedStruct.getRegion().getWidth() + 1) / (this.scale + 1)) - 1;
+                    int sLength = (surroundedStruct.getRegion().getLength() + 1) / (this.scale + 1) + ((surroundedStruct.getRegion().getLength() + 1) / (this.scale + 1)) - 1;
+                    Vector2 coordinate = getRandomStructurePosition(sWidth, sLength, Daedalus.getInstance().getStructureManager().structureSurronded.getAreaSize());
+                    if (coordinate == null) {
+                        continue;
+                    }
+                    originX = coordinate.x;
+                    originZ = coordinate.z;
+                    generateStructureGrid(new Vector2(originX, originZ), surroundedStruct, sWidth, sLength);
+                }
+
             } else {
-                int security = 0;
-                while (structureAround) {
-                    //Random position selector
-                    originX = 3 + ((int) (Math.random() * (this.size - 8 - width) / 2)) * 2;
-                    originZ = 3 + ((int) (Math.random() * (this.size - 8 - length) / 2)) * 2;
-                    //Check structures around
-                    structureAround = false;
-                    int endX = (originX + this.spacing + width > this.size) ? this.size : originX + width + this.spacing;
-                    int endZ = (originZ + this.spacing + length > this.size) ? this.size : originZ + length + this.spacing;
-
-                    for (int x = (originX - this.spacing < 0) ? 0 : originX - this.spacing; x < endX; x++) {
-                        for (int z = (originZ - this.spacing < 0) ? 0 : originZ - this.spacing; z < endZ; z++) {
-                            if (this.maze[x][z] == -1) {
-                                structureAround = true;
-                                break;
-                            }
-                        }
-                    }
-                    security++;
-                    if (security >= 10000) {
-                        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§c" + area.getName() + " random placement has time out. §l[SKIPPING]");
-                        break;
-                    }
+                Vector2 coordinate = getRandomStructurePosition(width, length, this.spacing);
+                if (coordinate == null) {
+                    continue;
                 }
+                originX = coordinate.x;
+                originZ = coordinate.z;
+                generateStructureGrid(new Vector2(originX, originZ), area, width, length);
             }
-            BoundingBox areaBox = new BoundingBox(Math.floor(((originX / 2) * (this.scale + 1) + originX % 2) + this.origin.getX()), 0, Math.floor(((originZ / 2) * (this.scale + 1) + originZ % 2) + this.origin.getZ()), Math.floor((((originX / 2) * (this.scale + 1) + originX % 2) + area.getRegion().getWidth()) + this.origin.getX()), 255, Math.floor(((originZ / 2 * (this.scale + 1) + originZ % 2) + area.getRegion().getLength()) + this.origin.getZ()));
-            this.structurePosition.put(areaBox, area);
-            for (int x = originX; x < (originX + width); x++) {
-                for (int z = originZ; z < (originZ + length); z++) {
-                    this.maze[x][z] = -1;
-                }
-            }
-            int midX = width / 2;
-            int midZ = length / 2;
-            for (int i = 1; i <= 2; i++) {
-                this.maze[originX + midX][originZ - i] = nbr++;
-                this.maze[originX - i][originZ + midZ] = nbr++;
 
-                this.maze[(originX + width - 1) - midX][(originZ + length - 1) + i] = nbr++;
-                this.maze[(originX + width - 1) + i][(originZ + length - 1) - midZ] = nbr++;
-            }
         }
         Daedalus.getInstance().getStructureManager().setStructuresPosition(structurePosition);
     }
@@ -211,7 +193,7 @@ public class Maze {
             int progress = 0;
             for (int i = 1; i < this.size - 1; i += 2) {
                 for (int j = 1; j < this.size - 1; j += 2) {
-                    if (this.maze[i][j] == -1) {
+                    if (this.maze[i][j] <= -1) {
                         continue;
                     }
                     if (this.maze[1][1] != this.maze[i][j]) {
@@ -226,7 +208,7 @@ public class Maze {
         }
         if (complexity) {
             for (int i = 0; i < this.size; i++) {
-                boolean isStructure = false;
+                boolean isStructure;
                 do {
                     isStructure = false;
                     int x = 1 + (int) (Math.random() * (this.size - 2));
@@ -239,7 +221,7 @@ public class Maze {
 
                     for (int a = x - 1; a <= x + 1; a++) {
                         for (int b = z - 1; b <= z + 1; b++) {
-                            if (this.maze[a][b] == -1) {
+                            if (this.maze[a][b] <= -1) {
                                 isStructure = true;
                                 break;
                             }
@@ -336,5 +318,58 @@ public class Maze {
 
     public int getScale() {
         return scale;
+    }
+
+    private Vector2 getRandomStructurePosition(int width, int length, int spacing) {
+        int security = 0;
+        boolean structureAround = true;
+        Vector2 coordinate = new Vector2();
+        while (structureAround) {
+            //Random position selector
+            coordinate.x = 3 + ((int) (Math.random() * (this.size - 8 - width) / 2)) * 2;
+            coordinate.z = 3 + ((int) (Math.random() * (this.size - 8 - length) / 2)) * 2;
+            //Check structures around
+            structureAround = false;
+            int endX = (coordinate.x + spacing + width > this.size) ? this.size : coordinate.x + width + spacing;
+            int endZ = (coordinate.z + spacing + length > this.size) ? this.size : coordinate.z + length + spacing;
+
+            for (int x = (coordinate.x - spacing < 0) ? 0 : coordinate.x - spacing; x < endX; x++) {
+                for (int z = (coordinate.z - spacing < 0) ? 0 : coordinate.z - spacing; z < endZ; z++) {
+                    if (this.maze[x][z] <= -1) {
+                        structureAround = true;
+                        break;
+                    }
+                }
+            }
+            security++;
+            if (security >= 10000) {
+                Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§c Random placement has time out. §l[SKIPPING]");
+                return null;
+            }
+        }
+
+        return coordinate;
+    }
+
+    private void generateStructureGrid(Vector2 coordinate, Structure area, int width, int length) {
+
+        //Bounding box creation
+        BoundingBox areaBox = new BoundingBox(Math.floor(((coordinate.x / 2) * (this.scale + 1) + coordinate.x % 2) + this.origin.getX()), 0, Math.floor(((coordinate.z / 2) * (this.scale + 1) + coordinate.z % 2) + this.origin.getZ()), Math.floor((((coordinate.x / 2) * (this.scale + 1) + coordinate.x % 2) + area.getRegion().getWidth()) + this.origin.getX()), 255, Math.floor(((coordinate.z / 2 * (this.scale + 1) + coordinate.z % 2) + area.getRegion().getLength()) + this.origin.getZ()));
+        this.structurePosition.put(areaBox, area);
+        for (int x = coordinate.x; x < (coordinate.x + width); x++) {
+            for (int z = coordinate.z; z < (coordinate.z + length); z++) {
+                this.maze[x][z] = area.getID();
+            }
+        }
+        //Door creation
+        int midX = width / 2;
+        int midZ = length / 2;
+        for (int i = 1; i <= 2; i++) {
+            this.maze[coordinate.x + midX][coordinate.z - i] = nbr++;
+            this.maze[coordinate.x - i][coordinate.z + midZ] = nbr++;
+
+            this.maze[(coordinate.x + width - 1) - midX][(coordinate.z + length - 1) + i] = nbr++;
+            this.maze[(coordinate.x + width - 1) + i][(coordinate.z + length - 1) - midZ] = nbr++;
+        }
     }
 }

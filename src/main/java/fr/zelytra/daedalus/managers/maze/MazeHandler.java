@@ -4,6 +4,7 @@ import com.sk89q.worldedit.world.block.BlockTypes;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.loottable.LootTable;
 import fr.zelytra.daedalus.managers.loottable.LootsEnum;
+import fr.zelytra.daedalus.managers.structure.GridBlockEnum;
 import fr.zelytra.daedalus.managers.structure.Structure;
 import fr.zelytra.daedalus.managers.structure.WorldEditHandler;
 import fr.zelytra.daedalus.utils.Message;
@@ -50,13 +51,7 @@ public class MazeHandler {
                 for (int z = 0; z < this.maze.getSize(); z++) {
                     block.setX(origin.getX() + x);
                     block.setZ(origin.getZ() + z);
-                    if (grid[x][z] == 1) {
-                        WEH.setBlock(block, BlockTypes.BLACK_CONCRETE);
-                    } else if (grid[x][z] == -1) {
-                        WEH.setBlock(block, BlockTypes.RED_CONCRETE);
-                    } else {
-                        WEH.setBlock(block, BlockTypes.WHITE_CONCRETE);
-                    }
+                    WEH.setBlock(block, GridBlockEnum.getBlockType(grid[x][z]));
                     count++;
                     int progress = (int) (count * 100 / (Math.pow(maze.getSize(), 2)));
                     logPlayers("§6§lGenerating blocks... [§e" + progress + "%§6]");
@@ -79,13 +74,7 @@ public class MazeHandler {
                 for (int z = 0; z < this.maze.getSize(); z++) {
                     block.setX(origin.getX() + x);
                     block.setZ(origin.getZ() + z);
-                    if (grid[x][z] == 1) {
-                        WEH.setBlock(block, BlockTypes.BLACK_CONCRETE);
-                    } else if (grid[x][z] == -1) {
-                        WEH.setBlock(block, BlockTypes.RED_CONCRETE);
-                    } else {
-                        WEH.setBlock(block, BlockTypes.WHITE_CONCRETE);
-                    }
+                    WEH.setBlock(block, GridBlockEnum.getBlockType(grid[x][z]));
                     count++;
                     int progress = (int) (count * 100 / (Math.pow(maze.getSize(), 2)));
                     logPlayers("§6§lGenerating blocks... [§e" + progress + "%§6]");
@@ -107,13 +96,7 @@ public class MazeHandler {
                 for (int z = 0; z < grid.length; z++) {
                     block.setX(origin.getX() + x);
                     block.setZ(origin.getZ() + z);
-                    if (grid[x][z] == 1) {
-                        WEH.setBlock(block, BlockTypes.BLACK_CONCRETE);
-                    } else if (grid[x][z] == -1) {
-                        WEH.setBlock(block, BlockTypes.RED_CONCRETE);
-                    } else {
-                        WEH.setBlock(block, BlockTypes.WHITE_CONCRETE);
-                    }
+                    WEH.setBlock(block, GridBlockEnum.getBlockType(grid[x][z]));
                     count++;
                     int progress = (int) (count * 100 / (Math.pow(grid.length, 2)));
                     logPlayers("§6§lGenerating blocks... [§e" + progress + "%§6]");
@@ -128,7 +111,6 @@ public class MazeHandler {
 
         Location origin = getOrigin(((this.maze.getSize() * this.maze.getScale() - 1 * this.maze.getScale()) / 2) + ((this.maze.getSize() - 1) / 2) + 1);
         this.maze.setOrigin(origin);
-        final int waiting = 5;
         int[][] grid = this.maze.getScaleMaze();
         Daedalus.getInstance().getStructureManager().setMaze(this.maze);
         Location block = origin.clone();

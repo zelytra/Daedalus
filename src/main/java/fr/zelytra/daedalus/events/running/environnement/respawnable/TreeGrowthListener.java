@@ -1,4 +1,4 @@
-package fr.zelytra.daedalus.events.running.environnement;
+package fr.zelytra.daedalus.events.running.environnement.respawnable;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

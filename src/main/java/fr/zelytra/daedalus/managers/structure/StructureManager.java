@@ -19,6 +19,7 @@ public class StructureManager {
     private ArrayList<Structure> generatedList;
     private HashMap<BoundingBox,Structure> structuresPosition;
     private Maze maze;
+    public StructureSurronded structureSurronded;
     private LootTableManager lootTableManager;
 
 
@@ -26,6 +27,7 @@ public class StructureManager {
         initialize();
         randomGenerationList();
         this.lootTableManager = new LootTableManager();
+        this.structureSurronded = new StructureSurronded();
     }
 
     public LootTableManager getLootTableManager() {

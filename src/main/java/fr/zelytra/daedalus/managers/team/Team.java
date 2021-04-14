@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.managers.team;
 
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
+import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -19,8 +20,10 @@ public class Team {
     private final ArrayList<UUID> playerList;
     private final TeamsEnum team;
     private final Scoreboard scoreboard;
+    private Player god = null;
+    private GodsEnum godsEnum = null;
 
-    public Team(TeamsEnum team, Scoreboard scoreboard){
+    public Team(TeamsEnum team, Scoreboard scoreboard) {
 
         this.playerList = new ArrayList<>();
         this.team = team;
@@ -28,7 +31,7 @@ public class Team {
         build();
     }
 
-    private void build(){
+    private void build() {
 
         getTeamEnum().setTeam(scoreboard.registerNewTeam(getTeamEnum().getName()));
         getTeamEnum().getTeam().setDisplayName("");
@@ -42,24 +45,24 @@ public class Team {
 
     }
 
-    public ItemStack getBanner(){
+    public ItemStack getBanner() {
 
         ItemStack banner;
         ItemMeta meta;
         ArrayList<String> lore = new ArrayList<>();
 
-        switch (getTeamColor()){
+        switch (getTeamColor()) {
 
             case RED:
                 banner = new ItemStack(Material.RED_BANNER);
                 meta = banner.getItemMeta();
                 assert meta != null;
                 meta.setDisplayName("§cEquipe rouge");
-                if(!getPlayerList().isEmpty()){
+                if (!getPlayerList().isEmpty()) {
                     lore.add("");
-                    for(UUID uuid : getPlayerList()){
+                    for (UUID uuid : getPlayerList()) {
 
-                        lore.add("§c - "+ Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName());
+                        lore.add("§c - " + Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName());
 
                     }
                 }
@@ -74,11 +77,11 @@ public class Team {
                 meta = banner.getItemMeta();
                 assert meta != null;
                 meta.setDisplayName("§9Equipe bleue");
-                if(!getPlayerList().isEmpty()){
+                if (!getPlayerList().isEmpty()) {
                     lore.add("");
-                    for(UUID uuid : getPlayerList()){
+                    for (UUID uuid : getPlayerList()) {
 
-                        lore.add("§9 - "+ Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName());
+                        lore.add("§9 - " + Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName());
 
                     }
                 }
@@ -92,11 +95,11 @@ public class Team {
                 meta = banner.getItemMeta();
                 assert meta != null;
                 meta.setDisplayName("§aEquipe verte");
-                if(!getPlayerList().isEmpty()){
+                if (!getPlayerList().isEmpty()) {
                     lore.add("");
-                    for(UUID uuid : getPlayerList()){
+                    for (UUID uuid : getPlayerList()) {
 
-                        lore.add("§a - "+ Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName());
+                        lore.add("§a - " + Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName());
 
                     }
                 }
@@ -110,11 +113,11 @@ public class Team {
                 meta = banner.getItemMeta();
                 assert meta != null;
                 meta.setDisplayName("§7Equipe minotaure");
-                if(!getPlayerList().isEmpty()){
+                if (!getPlayerList().isEmpty()) {
                     lore.add("");
-                    for(UUID uuid : getPlayerList()){
+                    for (UUID uuid : getPlayerList()) {
 
-                        lore.add("§7 - "+ Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName());
+                        lore.add("§7 - " + Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName());
 
                     }
                 }
@@ -128,11 +131,11 @@ public class Team {
                 meta = banner.getItemMeta();
                 assert meta != null;
                 meta.setDisplayName("§eEquipe jaune");
-                if(!getPlayerList().isEmpty()){
+                if (!getPlayerList().isEmpty()) {
                     lore.add("");
-                    for(UUID uuid : getPlayerList()){
+                    for (UUID uuid : getPlayerList()) {
 
-                        lore.add("§e - "+ Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName());
+                        lore.add("§e - " + Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName());
 
                     }
                 }
@@ -148,29 +151,29 @@ public class Team {
         return banner;
     }
 
-    public void addPlayer(UUID uuid){
+    public void addPlayer(UUID uuid) {
 
         Player p = Bukkit.getPlayer(uuid);
-        if(p != null && !hasPlayer(uuid)) {
+        if (p != null && !hasPlayer(uuid)) {
             getPlayerList().add(uuid);
             getTeamEnum().getTeam().addEntry(uuid.toString());
-            p.setDisplayName(getPrefix()+p.getName()+getSuffix());
-            p.setPlayerListName(getPrefix()+p.getName()+getSuffix());
+            p.setDisplayName(getPrefix() + p.getName() + getSuffix());
+            p.setPlayerListName(getPrefix() + p.getName() + getSuffix());
         }
     }
 
-    public void removePlayer(UUID uuid){
+    public void removePlayer(UUID uuid) {
 
         Player p = Bukkit.getPlayer(uuid);
-        if(p != null && hasPlayer(uuid)) {
+        if (p != null && hasPlayer(uuid)) {
             getPlayerList().remove(uuid);
             getTeamEnum().getTeam().removeEntry(uuid.toString());
-            p.setDisplayName("§r"+p.getName()+"§r");
-            p.setPlayerListName("§r"+p.getName()+"§r");
+            p.setDisplayName("§r" + p.getName() + "§r");
+            p.setPlayerListName("§r" + p.getName() + "§r");
         }
     }
 
-    private boolean hasPlayer(UUID uuid){
+    private boolean hasPlayer(UUID uuid) {
         return getPlayerList().contains(uuid);
     }
 
@@ -182,26 +185,39 @@ public class Team {
         return team;
     }
 
-    public DyeColor getTeamColor(){
+    public DyeColor getTeamColor() {
         return getTeamEnum().getTeamColor();
     }
 
-    public ChatColor getChatColor(){
+    public ChatColor getChatColor() {
         return getTeamEnum().getChatColor();
     }
 
-    public String getPrefix(){
+    public String getPrefix() {
         return getTeamEnum().getPrefix();
     }
 
-    public String getSuffix(){
+    public String getSuffix() {
         return getTeamEnum().getSuffix();
     }
 
-    public void destroy(){
-        for(String uuid : getTeamEnum().getTeam().getEntries()){
+    public void destroy() {
+        for (String uuid : getTeamEnum().getTeam().getEntries()) {
             removePlayer(UUID.fromString(uuid));
         }
         getTeamEnum().getTeam().unregister();
+    }
+
+    public void setGod(Player player, GodsEnum godsEnum) {
+        this.god = player;
+        this.godsEnum = godsEnum;
+    }
+
+    public Player getGod() {
+        return god;
+    }
+
+    public GodsEnum getGodEnum() {
+        return this.godsEnum;
     }
 }

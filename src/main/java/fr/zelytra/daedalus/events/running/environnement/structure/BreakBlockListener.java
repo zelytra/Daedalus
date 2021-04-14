@@ -1,7 +1,7 @@
 package fr.zelytra.daedalus.events.running.environnement.structure;
 
 import fr.zelytra.daedalus.Daedalus;
-import fr.zelytra.daedalus.events.running.environnement.BlockEnum;
+import fr.zelytra.daedalus.events.running.environnement.respawnable.BlockEnum;
 import fr.zelytra.daedalus.managers.maze.Maze;
 import fr.zelytra.daedalus.managers.maze.Vector2;
 import fr.zelytra.daedalus.managers.structure.Structure;
@@ -45,7 +45,7 @@ public class BreakBlockListener implements Listener {
                 //Loop structures
                 for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                     if (entry.getKey().contains(e.getBlock().getX(), e.getBlock().getY(), e.getBlock().getZ())) {
-                        if (!entry.getValue().canBlock()) {
+                        if (entry.getValue().canBlock()) {
                             e.setCancelled(true);
                         } else {
                             if (blacklist.contains(e.getBlock().getType())) {

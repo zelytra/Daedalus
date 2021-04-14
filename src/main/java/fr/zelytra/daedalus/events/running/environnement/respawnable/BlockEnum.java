@@ -1,4 +1,4 @@
-package fr.zelytra.daedalus.events.running.environnement;
+package fr.zelytra.daedalus.events.running.environnement.respawnable;
 
 import fr.zelytra.daedalus.managers.game.settings.BlockCooldownEnum;
 import org.bukkit.Material;
