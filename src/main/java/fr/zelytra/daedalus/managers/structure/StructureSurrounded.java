@@ -2,11 +2,11 @@ package fr.zelytra.daedalus.managers.structure;
 
 import java.util.ArrayList;
 
-public class StructureSurronded {
+public class StructureSurrounded {
     private ArrayList<Structure> structures = new ArrayList<>();
-    private int areaSize = 13;
+    private int areaSize = 20;
 
-    public StructureSurronded() {
+    public StructureSurrounded() {
         structures.add(new Structure(StructureEnum.MINE1));
         structures.add(new Structure(StructureEnum.MINE1));
         structures.add(new Structure(StructureEnum.MINE1));

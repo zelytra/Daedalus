@@ -26,9 +26,11 @@ public enum StructureEnum {
     DIONYSOS("dionysosTemple", -2, StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.DIONYSUS),
     HADES("hadesTemple", -2, StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.HADES),
     HERMES("hermesTemple", -2, StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.HERMES),
-    POSEIDON("poseidonTemple", -2, StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.POSEIDON),
+    POSEIDON("poseidonTemple", -2, StructureType.TEMPLE, false, new BlockVector(0, -84, 0), GodsEnum.POSEIDON),
 
     MINE1("mine1", -3, StructureType.MINE, true, new BlockVector(0, -23, 0)),
+    MINE2("mine2", -3, StructureType.MINE, true, new BlockVector(0, -23, 0)),
+    MINE3("mine3", -3, StructureType.MINE, true, new BlockVector(0, -23, 0)),
 
     TEAM_RED("redTeam", -1, StructureType.FIXED, false, new BlockVector(30, 0, 30), new BlockVector(0, -3, 0)),
     TEAM_GREEN("greenTeam", -1, StructureType.FIXED, false, new BlockVector(270, 0, 30), new BlockVector(0, -3, 0)),
@@ -36,10 +38,10 @@ public enum StructureEnum {
     TEAM_BLUE("blueTeam", -1, StructureType.FIXED, false, new BlockVector(30, 0, 270), new BlockVector(0, -3, 0)),
     MINOTAURE("minotaure", -1, StructureType.FIXED, false, new BlockVector(150, 0, 150), new BlockVector(0, -3, 0)),
 
-    HESPERIDES_GARDEN("hesperidesGarden", -6, StructureType.BUILD, false, new BlockVector(0, -8, 0)),
-    CIRCEE_ISLAND("circeeIsland", -5, StructureType.BUILD, false, new BlockVector(0, -5, 0)),
+    HESPERIDES_GARDEN("hesperidesGarden", -1, StructureType.BUILD, false, new BlockVector(0, -3, 0)),
+    CIRCEE_ISLAND("circeeIsland", -5, StructureType.BUILD, false, new BlockVector(0, -3, 0)),
 
-    DUNGEON1("dungeon", -4, StructureType.DUNGEON, false, new BlockVector(0, -21, 0));
+    DUNGEON1("dungeon", -4, StructureType.DUNGEON, false, new BlockVector(0, -80, 0));
 
 
     private final String name;

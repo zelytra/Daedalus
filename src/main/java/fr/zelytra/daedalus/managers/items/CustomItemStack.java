@@ -40,6 +40,23 @@ public class CustomItemStack {
 
     }
 
+    public CustomItemStack(CustomMaterial material) {
+
+        this.customMaterial = material;
+
+        //Creating itemstack
+        this.item = new ItemStack(this.customMaterial.getVanillaMaterial(), 1);
+        ItemMeta meta = this.item.getItemMeta();
+        meta.setCustomModelData(this.customMaterial.getCustomModelData());
+        meta.setDisplayName(this.customMaterial.getDisplayName());
+        PersistentDataContainer itemData = meta.getPersistentDataContainer();
+        itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
+        //itemData.set(descriptionKey, PersistentDataType.STRING, );
+        //meta.setLore(lore);
+        this.item.setItemMeta(meta);
+
+    }
+
     public ItemStack getItem() {
         return item;
     }

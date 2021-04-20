@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.managers.gods;
 import fr.zelytra.daedalus.managers.team.Team;
 import fr.zelytra.daedalus.utils.Utils;
 import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -16,6 +17,7 @@ public interface Gods {
         Player god = team.getGod();
         ArrayList<UUID> playerList = (ArrayList<UUID>) team.getPlayerList().clone();
         playerList.remove(god.getUniqueId());
+        god.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(30);
         //God init
         if (this.godEffects() != null) {
             god.addPotionEffects(this.godEffects());

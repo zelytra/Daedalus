@@ -21,7 +21,7 @@ public class MazeTabCommands implements TabCompleter {
                 commandsList.add("help");
                 commandsList = Utils.dynamicTab(commandsList, args[0]);
             }
-            if (args.length <= 2 && (args[0].equalsIgnoreCase("generateGrid") || args[0].equalsIgnoreCase("generateMaze") || args[0].equalsIgnoreCase("demoGenerateScaleMaze") | args[0].equalsIgnoreCase("generateScaleMaze"))) {
+            if (args.length <= 2 && (args[0].equalsIgnoreCase("generateGrid") || args[0].equalsIgnoreCase("generateMaze") || args[0].equalsIgnoreCase("demoGenerateScaleMaze") )) {
                 commandsList.add("<size>");
             }
         }

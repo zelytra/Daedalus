@@ -1,7 +1,7 @@
 package fr.zelytra.daedalus.managers;
 
 import fr.zelytra.daedalus.Daedalus;
-import fr.zelytra.daedalus.events.running.environnement.gods.ZeusHandler;
+import fr.zelytra.daedalus.events.running.environnement.gods.*;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.PlayerBreakBlockListener;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.TreeGrowthListener;
 import fr.zelytra.daedalus.events.running.environnement.items.*;
@@ -38,6 +38,11 @@ public class EventsManager {
 
         /*Gods Summoning*/
         pm.registerEvents(new ZeusHandler(),pl);
+        pm.registerEvents(new PoseidonHandler(),pl);
+        pm.registerEvents(new HadesHandler(),pl);
+        pm.registerEvents(new AresHandler(),pl);
+        pm.registerEvents(new AphroditeHandler(),pl);
+        pm.registerEvents(new HermesHandler(),pl);
 
         /* Environment */
         pm.registerEvents(new BlockPlaceListener(), pl);

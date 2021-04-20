@@ -105,21 +105,18 @@ public class Maze {
                 originZ = (int) (area.getOrigin().getZ() - (length / 2.0));
                 generateStructureGrid(new Vector2(originX, originZ), area, width, length);
                 //Surrounded Structure
-                for (Structure surroundedStruct : Daedalus.getInstance().getStructureManager().structureSurronded.getStructures()) {
-                    Bukkit.broadcastMessage(surroundedStruct.getName());
+                for (Structure surroundedStruct : Daedalus.getInstance().getStructureManager().structureSurrounded.getStructures()) {
                     int sWidth = (surroundedStruct.getRegion().getWidth() + 1) / (this.scale + 1) + ((surroundedStruct.getRegion().getWidth() + 1) / (this.scale + 1)) - 1;
                     int sLength = (surroundedStruct.getRegion().getLength() + 1) / (this.scale + 1) + ((surroundedStruct.getRegion().getLength() + 1) / (this.scale + 1)) - 1;
-                    Vector2 coordinate = getRandomStructurePosition(sWidth, sLength, Daedalus.getInstance().getStructureManager().structureSurronded.getAreaSize());
+                    Vector2 coordinate = getRandomStructurePosition(sWidth, sLength, this.spacing, new Vector2(originX, originZ), Daedalus.getInstance().getStructureManager().structureSurrounded.getAreaSize());
                     if (coordinate == null) {
                         continue;
                     }
-                    originX = coordinate.x;
-                    originZ = coordinate.z;
-                    generateStructureGrid(new Vector2(originX, originZ), surroundedStruct, sWidth, sLength);
+                    generateStructureGrid(coordinate, surroundedStruct, sWidth, sLength);
                 }
 
             } else {
-                Vector2 coordinate = getRandomStructurePosition(width, length, this.spacing);
+                Vector2 coordinate = getRandomStructurePosition(width, length, this.spacing, new Vector2(this.size / 2, this.size / 2), this.size);
                 if (coordinate == null) {
                     continue;
                 }
@@ -320,14 +317,15 @@ public class Maze {
         return scale;
     }
 
-    private Vector2 getRandomStructurePosition(int width, int length, int spacing) {
+    private Vector2 getRandomStructurePosition(int width, int length, int spacing, Vector2 origin, int range) {
         int security = 0;
         boolean structureAround = true;
         Vector2 coordinate = new Vector2();
         while (structureAround) {
             //Random position selector
-            coordinate.x = 3 + ((int) (Math.random() * (this.size - 8 - width) / 2)) * 2;
-            coordinate.z = 3 + ((int) (Math.random() * (this.size - 8 - length) / 2)) * 2;
+            coordinate.x = randomValueInRange(3, this.size - 2 - width, origin.x, range);
+            coordinate.z = randomValueInRange(3, this.size - 2 - length, origin.z, range);
+
             //Check structures around
             structureAround = false;
             int endX = (coordinate.x + spacing + width > this.size) ? this.size : coordinate.x + width + spacing;
@@ -352,7 +350,6 @@ public class Maze {
     }
 
     private void generateStructureGrid(Vector2 coordinate, Structure area, int width, int length) {
-
         //Bounding box creation
         BoundingBox areaBox = new BoundingBox(Math.floor(((coordinate.x / 2) * (this.scale + 1) + coordinate.x % 2) + this.origin.getX()), 0, Math.floor(((coordinate.z / 2) * (this.scale + 1) + coordinate.z % 2) + this.origin.getZ()), Math.floor((((coordinate.x / 2) * (this.scale + 1) + coordinate.x % 2) + area.getRegion().getWidth()) + this.origin.getX()), 255, Math.floor(((coordinate.z / 2 * (this.scale + 1) + coordinate.z % 2) + area.getRegion().getLength()) + this.origin.getZ()));
         this.structurePosition.put(areaBox, area);
@@ -371,5 +368,21 @@ public class Maze {
             this.maze[(coordinate.x + width - 1) - midX][(coordinate.z + length - 1) + i] = nbr++;
             this.maze[(coordinate.x + width - 1) + i][(coordinate.z + length - 1) - midZ] = nbr++;
         }
+    }
+
+    private int randomValueInRange(int min, int max, int pos, int range) {
+        if (pos - range >= max)
+            return max;
+        else if (pos + range <= min)
+            return min;
+
+        int val;
+        do {
+            val = (int) (Math.random() * ((range + 1) * 2) - (range + 1)) + pos;
+
+        } while (val > max || val < min || val % 2 == 0);
+
+        return val;
+
     }
 }

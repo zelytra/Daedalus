@@ -2,7 +2,7 @@ package fr.zelytra.daedalus.events.running.environnement.gods;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
-import fr.zelytra.daedalus.managers.gods.list.Zeus;
+import fr.zelytra.daedalus.managers.gods.list.Aphrodite;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import fr.zelytra.daedalus.managers.team.Team;
@@ -15,14 +15,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
-public class ZeusHandler implements Listener {
+public class AphroditeHandler implements Listener {
     private final Material invocationBlock = Material.LODESTONE;
-    private final CustomMaterial invocMaterial = CustomMaterial.ZEUS_TOTEM;
+    private final CustomMaterial invocMaterial = CustomMaterial.APHRODITE_TOTEM;
 
     @EventHandler
     public void playerInteract(PlayerInteractEvent e) {
@@ -37,8 +37,8 @@ public class ZeusHandler implements Listener {
                                 player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
                                 return;
                             }
-                            playerTeam.setGod(player, GodsEnum.ZEUS);
-                            new Zeus(playerTeam);
+                            playerTeam.setGod(player, GodsEnum.APHRODITE);
+                            new Aphrodite(playerTeam);
                             vfx(player);
                             removeHeldItem(e,invocMaterial);
                         } catch (Exception exception) {
@@ -51,26 +51,29 @@ public class ZeusHandler implements Listener {
     }
 
     @EventHandler
-    public void playerFallDamage(EntityDamageEvent e) {
+    public void playerInteract(PlayerDeathEvent e) {
         if (Daedalus.getInstance().getGameManager().isRunning()) {
-            if (e.getEntity() instanceof Player) {
-                Player player = ((Player) e.getEntity());
-                if (e.getCause() == EntityDamageEvent.DamageCause.FALL) {
-                    try {
-                        Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
-                        if (playerTeam.getGodEnum() != null && playerTeam.getGodEnum() == GodsEnum.ZEUS) {
-                            e.setCancelled(true);
-                        }
-                    } catch (Exception exception) {
-                        System.out.println("ERROR team not found");
+            if (e.getEntity().getKiller() != null) {
+                try {
+                    Player killer = e.getEntity().getKiller();
+                    Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(killer.getUniqueId());
+                    if (playerTeam.getGod() == null) {
+                        return;
                     }
+                    if (playerTeam.getGodEnum() == GodsEnum.APHRODITE) {
+                        killer.setHealth(killer.getHealth() + 4.0 > killer.getMaxHealth() ? killer.getMaxHealth() : killer.getHealth() + 4.0);
+                    }
+                } catch (Exception exception) {
+                    System.out.println("ERROR team not found");
                 }
+
+
             }
         }
     }
 
     private void vfx(Player player) {
-        Bukkit.broadcastMessage("§e§l⚡ Zeus as appear in the maze ⚡");
+        Bukkit.broadcastMessage("§c§l☢ Ares as appear in the maze ☢");
         Utils.runTotemDisplay(player);
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.playSound(p.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_MIRROR, 10, 0.1f);
@@ -91,4 +94,5 @@ public class ZeusHandler implements Listener {
                 break;
         }
     }
+
 }

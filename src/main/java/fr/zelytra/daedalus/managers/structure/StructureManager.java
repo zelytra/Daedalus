@@ -1,14 +1,15 @@
 package fr.zelytra.daedalus.managers.structure;
 
-import fr.zelytra.daedalus.managers.loottable.LootTableManager;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
+import fr.zelytra.daedalus.managers.loottable.LootTableManager;
 import fr.zelytra.daedalus.managers.maze.Maze;
 import org.bukkit.util.BoundingBox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class StructureManager {
     private ArrayList<Structure> temples;
@@ -19,7 +20,7 @@ public class StructureManager {
     private ArrayList<Structure> generatedList;
     private HashMap<BoundingBox,Structure> structuresPosition;
     private Maze maze;
-    public StructureSurronded structureSurronded;
+    public StructureSurrounded structureSurrounded;
     private LootTableManager lootTableManager;
 
 
@@ -27,7 +28,7 @@ public class StructureManager {
         initialize();
         randomGenerationList();
         this.lootTableManager = new LootTableManager();
-        this.structureSurronded = new StructureSurronded();
+        this.structureSurrounded = new StructureSurrounded();
     }
 
     public LootTableManager getLootTableManager() {
@@ -66,8 +67,8 @@ public class StructureManager {
 
         /*Mines init*/
         this.mine.add(new Structure(StructureEnum.MINE1));
-        this.mine.add(new Structure(StructureEnum.MINE1));
-        this.mine.add(new Structure(StructureEnum.MINE1));
+        this.mine.add(new Structure(StructureEnum.MINE2));
+        this.mine.add(new Structure(StructureEnum.MINE3));
 
         /*Dungeon init*/
         this.dungeons.add(new Structure(StructureEnum.DUNGEON1));
@@ -77,14 +78,11 @@ public class StructureManager {
         this.generatedList = new ArrayList<>();
 
         /*Fixed structures*/
-        for (Structure structure : this.fixedStructures) {
-            generatedList.add(structure);
-        }
+        generatedList.addAll(this.fixedStructures);
 
         /*Mines draw*/
         for (int x = 0; x < GameSettings.MINES_COUNT; x++) {
-            //int random = 0 + (int) (Math.random() * ((this.mine.size() - 0) + 1));
-            generatedList.add(this.mine.get(0));
+            generatedList.add(this.mine.get(ThreadLocalRandom.current().nextInt(0, 2 + 1)));
         }
 
         /*Temples draw*/

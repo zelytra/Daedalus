@@ -34,12 +34,11 @@ public class MinotaurCharge implements Listener {
             if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 if ((e.getHand() == EquipmentSlot.HAND && CustomItemStack.hasCustomItemInMainHand(CustomMaterial.MINOTAUR_CHARGE.getName(), e.getPlayer())) || (e.getHand() == EquipmentSlot.OFF_HAND && CustomItemStack.hasCustomItemInOffHand(CustomMaterial.MINOTAUR_CHARGE.getName(), e.getPlayer()))) {
                     Player player = e.getPlayer();
-
                     //Cooldown check
                     if(!Cooldown.cooldownCheck(player,CustomMaterial.MINOTAUR_CHARGE.getName())){
                         return;
                     }
-                    Cooldown cd = new Cooldown(player, itemCooldown, CustomMaterial.MINOTAUR_CHARGE.getName());
+                    new Cooldown(player, itemCooldown, CustomMaterial.MINOTAUR_CHARGE.getName());
                     //Item action
                     final int chargeCoef = 4;
                     final double yCoef = 0.3;
@@ -60,7 +59,6 @@ public class MinotaurCharge implements Listener {
                         if (Math.abs(e.getPlayer().getVelocity().getX()) <= thresholdVelocity || Math.abs(e.getPlayer().getVelocity().getZ()) <= thresholdVelocity) {
                             cancelTask();
                         }
-
                         try {
                             Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
                             Collection<Entity> nearbyEntities = player.getWorld().getNearbyEntities(player.getLocation(), radius, radius, radius);
@@ -91,9 +89,8 @@ public class MinotaurCharge implements Listener {
                                 cancelTask();
                             }
                         } catch (Exception exception) {
-                            //System.out.println("ERROR team not found");
+                            System.out.println("ERROR team not found");
                         }
-
 
                     }, 0, 1);
 

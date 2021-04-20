@@ -41,7 +41,7 @@ public final class Daedalus extends JavaPlugin {
         setupServer();
         //Init managers
         gameManager = new GameManager();
-        structureManager=new StructureManager();
+        structureManager = new StructureManager();
         craftManager = new CraftManager();
         getServer().getConsoleSender().sendMessage("§a   ___    ___     ____  ___    ___     __     __  __  ____§r\n" +
                 "§a  / _ \\  / _ |   / __/ / _ \\  / _ |   / /    / / / / / __/§r\n" +
@@ -81,7 +81,7 @@ public final class Daedalus extends JavaPlugin {
         getCommand("debug").setExecutor(new DebugCommands());
     }
 
-    private void setupServer(){
+    private void setupServer() {
 
         Bukkit.getWorld("world").setTime(6000);
         Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
