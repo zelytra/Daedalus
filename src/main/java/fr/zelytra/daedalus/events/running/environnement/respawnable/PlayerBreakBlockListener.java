@@ -5,6 +5,7 @@ import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -27,16 +28,24 @@ public class PlayerBreakBlockListener implements Listener {
             switch (block) {
 
                 case IRON_ORE:
-                case GOLD_ORE:{
+                case GOLD_ORE:
+                case SAND:
+                case ANCIENT_DEBRIS:
+                case RED_SAND:
+                case OAK_LOG:
+                case OAK_WOOD:
+                case BIRCH_LOG:
+                case BIRCH_WOOD:
+                case ACACIA_LOG:
+                case ACACIA_WOOD:
+                case JUNGLE_LOG:
+                case JUNGLE_WOOD:
+                case SPRUCE_LOG:
+                case SPRUCE_WOOD:
+                case DARK_OAK_LOG:
+                case DARK_OAK_WOOD: {
                     if(GameSettings.CUT_CLEAN){
                         e.getBlock().setType(Material.AIR);
-                        if(block == BlockEnum.IRON_ORE) {
-                            if(new Random().nextDouble() <= 0.1)
-                                e.getPlayer().giveExp(1);
-                        }
-                        else
-                            e.getPlayer().giveExp(1);
-
                         e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), block.getItemStack());
                     }else
                         e.getBlock().breakNaturally();
@@ -46,7 +55,6 @@ public class PlayerBreakBlockListener implements Listener {
 
                 case OBSIDIAN:
                 case END_STONE:
-                case ANCIENT_DEBRIS:
                 case DIAMOND_ORE:
                 case EMERALD_ORE:
                 case COAL_ORE:
@@ -66,28 +74,9 @@ public class PlayerBreakBlockListener implements Listener {
                     dropItem(e.getBlock().getLocation(), block.getItemStack(), 0.08);
                     break;
                 }
-                case SAND:
-                case RED_SAND:
-                case OAK_LOG:
-                case OAK_WOOD:
-                case BIRCH_LOG:
-                case BIRCH_WOOD:
-                case ACACIA_LOG:
-                case ACACIA_WOOD:
-                case JUNGLE_LOG:
-                case JUNGLE_WOOD:
-                case SPRUCE_LOG:
-                case SPRUCE_WOOD:
-                case DARK_OAK_LOG:
-                case DARK_OAK_WOOD: {
-                    if(GameSettings.CUT_CLEAN) {
-                        e.getBlock().setType(Material.AIR);
-                        e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), block.getItemStack());
-                    }else
-                        e.getBlock().breakNaturally();
-                    break;
-                }
             }
+
+            giveXP(e.getPlayer(), block);
 
             if(block.getMaterial() != Material.ANCIENT_DEBRIS){
                 Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), ()-> replaceBlock(e.getBlock().getLocation(), block.getMaterial()), block.getSeconds() * 20L);
@@ -95,6 +84,53 @@ public class PlayerBreakBlockListener implements Listener {
 
         }catch (IllegalArgumentException ignored){
         }
+    }
+
+    private void giveXP(Player p, BlockEnum block){
+
+        switch (block){
+
+            case IRON_ORE:
+                if(GameSettings.CUT_CLEAN) {
+                    if (new Random().nextDouble() <= 0.7)
+                        p.giveExp(1);
+                }
+                break;
+            case GOLD_ORE:
+                if(GameSettings.CUT_CLEAN) {
+                    p.giveExp(1);
+                }
+                break;
+            case DIAMOND_ORE:
+            case EMERALD_ORE:
+                p.giveExp(1);
+                break;
+            case COAL_ORE:
+                if(new Random().nextDouble() <= 0.1)
+                    p.giveExp(1);
+                break;
+            case LAPIS_ORE:
+                if(new Random().nextDouble() <= 0.2)
+                    p.giveExp(1);
+                break;
+            case ANCIENT_DEBRIS:
+                if(GameSettings.CUT_CLEAN) {
+                    p.giveExp(2);
+                }
+                break;
+            case REDSTONE_ORE:
+                if(new Random().nextDouble() <= 0.7)
+                    p.giveExp(1);
+                break;
+            case SAND:
+            case RED_SAND:
+                if(GameSettings.CUT_CLEAN) {
+                    if (new Random().nextDouble() <= 0.1)
+                        p.giveExp(1);
+                }
+                break;
+        }
+
     }
 
     private void replaceBlock(Location loc, Material material){
