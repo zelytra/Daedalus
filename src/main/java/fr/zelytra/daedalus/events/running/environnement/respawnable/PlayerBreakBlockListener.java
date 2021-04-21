@@ -28,12 +28,15 @@ public class PlayerBreakBlockListener implements Listener {
 
                 case IRON_ORE:
                 case GOLD_ORE:{
-                    e.getBlock().setType(Material.AIR);
                     if(GameSettings.CUT_CLEAN){
-                        if(block == BlockEnum.IRON_ORE)
-                            e.getPlayer().setExp(e.getPlayer().getExp()+0.7f);
+                        e.getBlock().setType(Material.AIR);
+                        if(block == BlockEnum.IRON_ORE) {
+                            if(new Random().nextDouble() <= 0.1)
+                                e.getPlayer().giveExp(1);
+                        }
                         else
-                            e.getPlayer().setExp(e.getPlayer().getExp()+1.0f);
+                            e.getPlayer().giveExp(1);
+
                         e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), block.getItemStack());
                     }else
                         e.getBlock().breakNaturally();

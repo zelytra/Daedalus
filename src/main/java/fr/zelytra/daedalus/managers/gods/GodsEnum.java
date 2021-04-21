@@ -18,7 +18,7 @@ public enum GodsEnum {
     ATHENA("Athena", false),
     DIONYSUS("Dionysus", false);
 
-    private String name;
+    private final String name;
     private boolean selected;
 
     GodsEnum(String name, boolean selected){

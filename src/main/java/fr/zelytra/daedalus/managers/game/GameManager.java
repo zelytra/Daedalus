@@ -16,7 +16,7 @@ public class GameManager {
 
     private final TeamManager tm;
     private GameStatesEnum state;
-    private MinosObject minos;
+    private final MinosObject minos;
 
     public GameManager() {
 
