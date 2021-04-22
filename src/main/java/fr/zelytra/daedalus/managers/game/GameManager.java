@@ -1,12 +1,14 @@
 package fr.zelytra.daedalus.managers.game;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.game.scoreboard.ScoreBoardManager;
 import fr.zelytra.daedalus.managers.game.settings.DayCycleEnum;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
+import fr.zelytra.daedalus.managers.game.time.TimeManager;
 import fr.zelytra.daedalus.managers.gods.MinosObject;
-import fr.zelytra.daedalus.managers.team.TeamManager;
 import fr.zelytra.daedalus.managers.maze.MazeHandler;
+import fr.zelytra.daedalus.managers.team.TeamManager;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
@@ -14,20 +16,32 @@ import org.bukkit.Location;
 
 public class GameManager {
 
-    private final TeamManager tm;
+    private final TeamManager teamManager;
+    private final TimeManager timeManager;
+    private final ScoreBoardManager scoreBoardManager;
     private GameStatesEnum state;
     private final MinosObject minos;
 
     public GameManager() {
 
-        this.tm = new TeamManager();
+        this.teamManager = new TeamManager();
+        this.timeManager = new TimeManager();
+        this.scoreBoardManager = new ScoreBoardManager(timeManager);
         this.minos = new MinosObject();
         this.state = GameStatesEnum.WAIT;
 
     }
 
     public TeamManager getTeamManager() {
-        return tm;
+        return teamManager;
+    }
+
+    public ScoreBoardManager getScoreBoardManager() {
+        return scoreBoardManager;
+    }
+
+    public TimeManager getTimeManager() {
+        return timeManager;
     }
 
     public GameStatesEnum getState() {
@@ -106,13 +120,14 @@ public class GameManager {
             origin.setY(Bukkit.getWorld("world").getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()) + 1);
             MazeHandler maze = new MazeHandler(origin, 300, true, Daedalus.getInstance().getStructureManager().getGeneratedList());
             maze.generateScaleMaze();
+            getTimeManager().start();
         });
 
     }
 
     // FONCTION DE FIN DE PARTIE
     public void stop() {
-        //TODO Stoper le timer
+        getTimeManager().stop();
         //TODO MEttre tout le monde en créatif
         //TODO FX de victoire
 

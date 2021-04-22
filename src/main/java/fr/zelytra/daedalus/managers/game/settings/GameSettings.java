@@ -21,6 +21,7 @@ public final class GameSettings {
     public static boolean CUT_CLEAN = true;
     public static float APPLE_DROP = 0.08f;
     public static DayCycleEnum DAY_CYCLE = DayCycleEnum.ETERNAL_DAY;
+    public static int TIME_PER_EPISODE = 1200;//seconds
 
     public static void reset() {
 
@@ -36,6 +37,7 @@ public final class GameSettings {
         ABSORPTION = true;
         CUT_CLEAN = true;
         APPLE_DROP = 0.08f;
+        TIME_PER_EPISODE = 1200;//seconds
     }
 }
  

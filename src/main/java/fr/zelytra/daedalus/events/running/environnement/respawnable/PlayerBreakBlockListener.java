@@ -5,6 +5,7 @@ import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -92,41 +93,54 @@ public class PlayerBreakBlockListener implements Listener {
 
             case IRON_ORE:
                 if(GameSettings.CUT_CLEAN) {
-                    if (new Random().nextDouble() <= 0.7)
+                    if (new Random().nextDouble() <= 0.7) {
                         p.giveExp(1);
+                        p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1f);
+                    }
                 }
                 break;
             case GOLD_ORE:
                 if(GameSettings.CUT_CLEAN) {
                     p.giveExp(1);
+                    p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1f);
                 }
                 break;
             case DIAMOND_ORE:
             case EMERALD_ORE:
                 p.giveExp(1);
+                p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1f);
                 break;
             case COAL_ORE:
-                if(new Random().nextDouble() <= 0.1)
+                if(new Random().nextDouble() <= 0.1) {
                     p.giveExp(1);
+                    p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1f);
+                }
                 break;
             case LAPIS_ORE:
-                if(new Random().nextDouble() <= 0.2)
+                if(new Random().nextDouble() <= 0.2) {
                     p.giveExp(1);
+                    p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1f);
+                }
                 break;
             case ANCIENT_DEBRIS:
                 if(GameSettings.CUT_CLEAN) {
                     p.giveExp(2);
+                    p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1f);
                 }
                 break;
             case REDSTONE_ORE:
-                if(new Random().nextDouble() <= 0.7)
+                if(new Random().nextDouble() <= 0.7) {
                     p.giveExp(1);
+                    p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1f);
+                }
                 break;
             case SAND:
             case RED_SAND:
                 if(GameSettings.CUT_CLEAN) {
-                    if (new Random().nextDouble() <= 0.1)
+                    if (new Random().nextDouble() <= 0.1) {
                         p.giveExp(1);
+                        p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1f);
+                    }
                 }
                 break;
         }
