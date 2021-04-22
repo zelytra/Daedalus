@@ -2,9 +2,10 @@ package fr.zelytra.daedalus.events.running.environnement.gods;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
-import fr.zelytra.daedalus.managers.gods.list.Poseidon;
+import fr.zelytra.daedalus.managers.gods.list.Dionysos;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
+import fr.zelytra.daedalus.managers.loottable.LootsEnum;
 import fr.zelytra.daedalus.managers.team.Team;
 import fr.zelytra.daedalus.utils.Message;
 import fr.zelytra.daedalus.utils.Utils;
@@ -16,16 +17,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
-import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
-public class PoseidonHandler implements Listener {
+public class DionysosHandler implements Listener {
     private final Material invocationBlock = Material.LODESTONE;
-    private final CustomMaterial invocMaterial = CustomMaterial.POSEIDON_TOTEM;
+    private final CustomMaterial invocMaterial = CustomMaterial.DIONYSOS_TOTEM;
 
     @EventHandler
     public void playerInteract(PlayerInteractEvent e) {
@@ -40,9 +40,8 @@ public class PoseidonHandler implements Listener {
                                 player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
                                 return;
                             }
-                            playerTeam.setGod(player, GodsEnum.POSEIDON);
-                            new Poseidon(playerTeam);
-                            playerInWater();
+                            playerTeam.setGod(player, GodsEnum.DIONYSUS);
+                            new Dionysos(playerTeam);
                             vfx(player);
                             removeHeldItem(e, invocMaterial);
                         } catch (Exception exception) {
@@ -54,27 +53,43 @@ public class PoseidonHandler implements Listener {
         }
     }
 
-
-    public void playerInWater() {
-        Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
-            for (Team team : Daedalus.getInstance().getGameManager().getTeamManager().getTeamList().values()) {
-                if (team.getGodEnum() != GodsEnum.POSEIDON) {
-                    continue;
+    @EventHandler
+    public void onDrinking(PlayerItemConsumeEvent e) {
+        if (e.getItem().getType() == Material.POTION) {
+            try {
+                Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(e.getPlayer().getUniqueId());
+                if (playerTeam.getGod() == null) {
+                    return;
                 }
-                for (UUID uuid : team.getPlayerList()) {
-                    Player player = Bukkit.getPlayer(uuid);
-                    if (player.getLocation().getBlock().getType() == Material.WATER) {
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20, 0, false, true, true));
+                if (playerTeam.getGodEnum() == GodsEnum.DIONYSUS) {
+                    int random = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+                    if (random <= 80) {
+                        random = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+                        if (random <= 25) {
+                            e.getPlayer().addPotionEffect(LootsEnum.NAUSEA.getPotionEffect());
+                        }
+                        random = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+                        if (random <= 65) {
+                            int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.DIONYSUS.getName() + "_tier1").getLoots().size());
+                            e.getPlayer().addPotionEffect(Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.DIONYSUS.getName() + "_tier1").getLoots().get(loot).getPotionEffect());
+                        } else {
+                            int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.DIONYSUS.getName() + "_tier2").getLoots().size());
+                            e.getPlayer().addPotionEffect(Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.DIONYSUS.getName() + "_tier2").getLoots().get(loot).getPotionEffect());
+                        }
+
+                    } else {
+                        e.getPlayer().addPotionEffect(LootsEnum.NAUSEA.getPotionEffect());
                     }
                 }
+            } catch (Exception exception) {
+                System.out.println("ERROR team not found");
             }
-        }, 0, 10);
-
-
+        }
     }
 
+
     private void vfx(Player player) {
-        Bukkit.broadcastMessage("§9§l⚓ Posseidon as appear in the maze ⚓");
+        Bukkit.broadcastMessage("§5§l✌ Dionysos has appeared in the maze ✌");
         Utils.runTotemDisplay(player);
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.playSound(p.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_MIRROR, 10, 0.1f);

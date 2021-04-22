@@ -16,7 +16,8 @@ public enum GodsEnum {
     HERMES("Hermes", false),
     ARTEMIS("Artemis", false),
     ATHENA("Athena", false),
-    DIONYSUS("Dionysus", false);
+    DIONYSUS("Dionysus", false),
+    MINOTAURE("Minotaure",false);
 
     private final String name;
     private boolean selected;

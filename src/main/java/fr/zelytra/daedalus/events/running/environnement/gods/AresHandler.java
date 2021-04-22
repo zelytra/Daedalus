@@ -63,8 +63,8 @@ public class AresHandler implements Listener {
                         return;
                     }
                     if (playerTeam.getGodEnum() == GodsEnum.ARES) {
-                        killer.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 200, 1, false, false));
-                        killer.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 1, false, false));
+                        killer.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 200, 1, false, false,true));
+                        killer.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 1, false, false,true));
                     }
                 } catch (Exception exception) {
                     System.out.println("ERROR team not found");

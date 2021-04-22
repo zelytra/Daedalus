@@ -63,7 +63,7 @@ public class HadesHandler implements Listener {
                         return;
                     }
                     if (playerTeam.getGodEnum() == GodsEnum.HADES) {
-                        killer.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 1, false, false));
+                        killer.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 1, false, false,true));
                     }
                 } catch (Exception exception) {
                     System.out.println("ERROR team not found");

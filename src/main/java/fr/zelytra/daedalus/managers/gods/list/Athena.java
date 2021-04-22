@@ -7,14 +7,13 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Ares implements Gods {
+public class Athena implements Gods {
 
-    public Ares(Team team) {
+    public Athena(Team team) {
         init(team);
     }
 
@@ -22,13 +21,15 @@ public class Ares implements Gods {
     public ArrayList<ItemStack> godItems() {
         ArrayList<ItemStack> items = new ArrayList<>();
 
-        ItemStack item = new ItemStack(Material.NETHERITE_CHESTPLATE);
-        item.addEnchantment(Enchantment.THORNS, 3);
+        ItemStack item = new ItemStack(Material.NETHERITE_SWORD);
+        item.addEnchantment(Enchantment.DAMAGE_ALL, 4);
+        items.add(item);
+
+        item = new ItemStack(Material.SHIELD);
         ItemMeta meta = item.getItemMeta();
         meta.setUnbreakable(true);
         item.setItemMeta(meta);
         items.add(item);
-
         return items;
     }
 
@@ -39,9 +40,7 @@ public class Ares implements Gods {
 
     @Override
     public Collection<PotionEffect> godEffects() {
-        Collection<PotionEffect> potions = new ArrayList<>();
-        potions.add(new PotionEffect(PotionEffectType.INCREASE_DAMAGE,99999999,0,false,false,true));
-        return potions;
+        return null;
     }
 
     @Override

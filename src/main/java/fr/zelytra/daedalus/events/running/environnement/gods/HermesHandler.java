@@ -55,7 +55,7 @@ public class HermesHandler implements Listener {
     }
 
     @EventHandler
-    public void playerFallDamage(EntityDamageEvent e) {
+    public void EntityDamageEvent(EntityDamageEvent e) {
         if (Daedalus.getInstance().getGameManager().isRunning()) {
             if (e.getEntity() instanceof Player) {
                 Player player = ((Player) e.getEntity());

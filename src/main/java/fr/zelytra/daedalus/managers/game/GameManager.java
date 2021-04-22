@@ -112,6 +112,9 @@ public class GameManager {
 
     // FONCTION DE FIN DE PARTIE
     public void stop() {
+        //TODO Stoper le timer
+        //TODO MEttre tout le monde en créatif
+        //TODO FX de victoire
 
     }
 

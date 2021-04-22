@@ -42,13 +42,15 @@ public class Hades implements Gods {
 
     @Override
     public Collection<PotionEffect> godEffects() {
-        return null;
+        Collection<PotionEffect> potions = new ArrayList<>();
+        potions.add(new PotionEffect(PotionEffectType.FIRE_RESISTANCE,99999999,0,false,false,true));
+        return potions;
     }
 
     @Override
     public Collection<PotionEffect> teamEffects() {
         Collection<PotionEffect> potions = new ArrayList<>();
-        potions.add(new PotionEffect(PotionEffectType.FIRE_RESISTANCE,99999999,0,false,false));
+        potions.add(new PotionEffect(PotionEffectType.FIRE_RESISTANCE,99999999,0,false,false,true));
         return potions;
     }
 }

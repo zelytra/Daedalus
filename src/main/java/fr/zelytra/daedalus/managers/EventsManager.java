@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.managers;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.events.running.environnement.MilkDrink;
 import fr.zelytra.daedalus.events.running.environnement.gods.*;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.PlayerBreakBlockListener;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.TreeGrowthListener;
@@ -43,10 +44,15 @@ public class EventsManager {
         pm.registerEvents(new AresHandler(),pl);
         pm.registerEvents(new AphroditeHandler(),pl);
         pm.registerEvents(new HermesHandler(),pl);
+        pm.registerEvents(new ArtemisHandler(),pl);
+        pm.registerEvents(new AthenaHandler(),pl);
+        pm.registerEvents(new DionysosHandler(),pl);
+        pm.registerEvents(new MinotaureHandler(),pl);
 
         /* Environment */
         pm.registerEvents(new BlockPlaceListener(), pl);
         pm.registerEvents(new TreeGrowthListener(), pl);
+        pm.registerEvents(new MilkDrink(), pl);
 
         /* Inventory */
         pm.registerEvents(new InventoryListener(), pl);
