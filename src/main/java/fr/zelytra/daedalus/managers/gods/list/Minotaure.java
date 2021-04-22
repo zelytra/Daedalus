@@ -4,23 +4,35 @@ import fr.zelytra.daedalus.managers.gods.Gods;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import fr.zelytra.daedalus.managers.team.Team;
+import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.UUID;
 
-public class Demeter implements Gods {
+public class Minotaure implements Gods {
 
-    public Demeter(Team team) {
+    public Minotaure(Team team) {
         init(team);
+        Player god = team.getGod();
+        ArrayList<UUID> playerList = (ArrayList<UUID>) team.getPlayerList().clone();
+        playerList.remove(god.getUniqueId());
+        for (UUID uuid : playerList) {
+            Player player = Bukkit.getPlayer(uuid);
+            player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(30.0);
+        }
     }
 
     @Override
     public ArrayList<ItemStack> godItems() {
         ArrayList<ItemStack> items = new ArrayList<>();
-        items.add(new CustomItemStack(CustomMaterial.DEMETER_SICKLE).getItem());
+        items.add(new CustomItemStack(CustomMaterial.MINOTAUR_HEAD).getItem());
+        items.add(new CustomItemStack(CustomMaterial.MINOTAUR_CHARGE).getItem());
         return items;
     }
 
@@ -32,15 +44,14 @@ public class Demeter implements Gods {
     @Override
     public Collection<PotionEffect> godEffects() {
         Collection<PotionEffect> potions = new ArrayList<>();
-        potions.add(new PotionEffect(PotionEffectType.REGENERATION,99999999,0,false,false,true));
-        potions.add(new PotionEffect(PotionEffectType.SATURATION,99999999,0,false,false,true));
+        potions.add(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE,99999999,1,false,false,true));
         return potions;
     }
 
     @Override
     public Collection<PotionEffect> teamEffects() {
         Collection<PotionEffect> potions = new ArrayList<>();
-        potions.add(new PotionEffect(PotionEffectType.SATURATION,99999999,0,false,false,true));
+        potions.add(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE,99999999,0,false,false,true));
         return potions;
     }
 }

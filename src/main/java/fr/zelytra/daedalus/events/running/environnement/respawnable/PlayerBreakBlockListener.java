@@ -11,6 +11,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class PlayerBreakBlockListener implements Listener {
 
@@ -41,8 +42,13 @@ public class PlayerBreakBlockListener implements Listener {
                     break;
                 }
 
-                case OBSIDIAN:
                 case END_STONE:
+                    e.getBlock().setType(Material.AIR);
+                    ItemStack item = block.getItemStack();
+                    item.setAmount(ThreadLocalRandom.current().nextInt(1, 2 + 1));
+                    e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), item);
+
+                case OBSIDIAN:
                 case ANCIENT_DEBRIS:
                 case DIAMOND_ORE:
                 case EMERALD_ORE:

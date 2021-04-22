@@ -2,7 +2,9 @@ package fr.zelytra.daedalus.utils;
 
 import net.minecraft.server.v1_16_R3.EntityPlayer;
 import net.minecraft.server.v1_16_R3.PacketPlayOutEntityStatus;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -38,8 +40,14 @@ public class Utils {
         return i;
     }
 
-    public static void runTotemDisplay(Player player){
-        EntityPlayer ep = ((CraftPlayer)player).getHandle();
+    public static ItemStack EnchantedItemStack(Material material, Enchantment enchantment, int lvl) {
+        ItemStack item = new ItemStack(material);
+        item.addUnsafeEnchantment(enchantment, lvl);
+        return item;
+    }
+
+    public static void runTotemDisplay(Player player) {
+        EntityPlayer ep = ((CraftPlayer) player).getHandle();
         PacketPlayOutEntityStatus status = new PacketPlayOutEntityStatus(ep, (byte) 35);
         ep.playerConnection.sendPacket(status);
     }

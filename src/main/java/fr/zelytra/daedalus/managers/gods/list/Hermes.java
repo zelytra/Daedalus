@@ -44,15 +44,16 @@ public class Hermes implements Gods {
     @Override
     public Collection<PotionEffect> godEffects() {
         Collection<PotionEffect> potions = new ArrayList<>();
-        potions.add(new PotionEffect(PotionEffectType.SPEED,99999999,1,false,false));
+        potions.add(new PotionEffect(PotionEffectType.SPEED,99999999,1,false,false,true));
+        potions.add(new PotionEffect(PotionEffectType.SATURATION,99999999,9,false,false,true));
         return potions;
     }
 
     @Override
     public Collection<PotionEffect> teamEffects() {
         Collection<PotionEffect> potions = new ArrayList<>();
-        potions.add(new PotionEffect(PotionEffectType.SPEED,99999999,0,false,false));
-        potions.add(new PotionEffect(PotionEffectType.SATURATION,99999999,9,false,false));
+        potions.add(new PotionEffect(PotionEffectType.SPEED,99999999,0,false,false,true));
+        potions.add(new PotionEffect(PotionEffectType.SATURATION,99999999,9,false,false,true));
         return potions;
     }
 }

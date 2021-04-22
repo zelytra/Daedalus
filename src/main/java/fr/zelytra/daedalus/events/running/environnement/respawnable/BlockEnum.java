@@ -1,6 +1,8 @@
 package fr.zelytra.daedalus.events.running.environnement.respawnable;
 
 import fr.zelytra.daedalus.managers.game.settings.BlockCooldownEnum;
+import fr.zelytra.daedalus.managers.items.CustomItemStack;
+import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -8,7 +10,7 @@ public enum BlockEnum {
 
     IRON_ORE(BlockCooldownEnum.IRON_ORE.getSeconds(), Material.IRON_ORE, new ItemStack(Material.IRON_INGOT)),
     GOLD_ORE(BlockCooldownEnum.GOLD_ORE.getSeconds(), Material.GOLD_ORE, new ItemStack(Material.GOLD_INGOT)),
-    END_STONE(BlockCooldownEnum.END_STONE.getSeconds(), Material.END_STONE),
+    END_STONE(BlockCooldownEnum.END_STONE.getSeconds(), Material.END_STONE, new CustomItemStack(CustomMaterial.DIVINE_FRAGMENT).getItem()),
     OBSIDIAN(BlockCooldownEnum.OBSIDIAN.getSeconds(), Material.OBSIDIAN),
     DIAMOND_ORE(BlockCooldownEnum.DIAMOND_ORE.getSeconds(), Material.DIAMOND_ORE),
     EMERALD_ORE(BlockCooldownEnum.EMERALD_ORE.getSeconds(), Material.EMERALD_ORE),
