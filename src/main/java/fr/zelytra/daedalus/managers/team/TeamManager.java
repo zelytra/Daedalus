@@ -4,23 +4,21 @@ import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.scoreboard.Scoreboard;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class TeamManager {
 
-    private HashMap<DyeColor,Team> teamList;
+    private List<Team> teamList;
     private Scoreboard scoreboard;
 
-    public TeamManager(){
+    public TeamManager() {
 
-        this.teamList = new HashMap<>();
+        this.teamList = new ArrayList<>();
         this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         setupTeams();
     }
 
-    public HashMap<DyeColor,Team> getTeamList() {
+    public List<Team> getTeamList() {
         return teamList;
     }
 
@@ -28,39 +26,38 @@ public class TeamManager {
         return scoreboard;
     }
 
-    public void setupTeams(){
+    public void setupTeams() {
 
-        teamList.put(DyeColor.RED, new Team(TeamsEnum.RED, this.scoreboard));
-        teamList.put(DyeColor.BLUE, new Team(TeamsEnum.BLUE, this.scoreboard));
-        teamList.put(DyeColor.GREEN, new Team(TeamsEnum.GREEN, this.scoreboard));
-        teamList.put(DyeColor.YELLOW, new Team(TeamsEnum.YELLOW, this.scoreboard));
-        teamList.put(DyeColor.GRAY, new Team(TeamsEnum.MINOS, this.scoreboard));
+        teamList.add(new Team(TeamsEnum.RED, this.scoreboard));
+        teamList.add(new Team(TeamsEnum.BLUE, this.scoreboard));
+        teamList.add(new Team(TeamsEnum.GREEN, this.scoreboard));
+        teamList.add(new Team(TeamsEnum.YELLOW, this.scoreboard));
+        teamList.add(new Team(TeamsEnum.MINOS, this.scoreboard));
 
     }
 
-    public Team getTeamOfColor(DyeColor color){
-        return getTeamList().get(color);
-    }
-
-    public Team getTeamOfPlayer(UUID uuid){
-        for(Map.Entry<DyeColor, Team> map : getTeamList().entrySet()){
-
-            if(map.getValue().getPlayerList().contains(uuid))
-                return map.getValue();
-
+    public Team getTeamOfColor(DyeColor color) {
+        for (Team team : teamList) {
+            if (team.getColor() == color) {
+                return team;
+            }
         }
         return null;
     }
 
-    public void removePlayerFromAnyTeam(UUID uuid){
-
-        for(Map.Entry<DyeColor, Team> map : getTeamList().entrySet()){
-
-            if(map.getValue().getPlayerList().contains(uuid))
-                map.getValue().removePlayer(uuid);
-
+    public Team getTeamOfPlayer(UUID uuid) {
+        for (Team team : getTeamList()) {
+            if (team.getPlayerList().contains(uuid))
+                return team;
         }
+        return null;
+    }
 
+    public void removePlayerFromAnyTeam(UUID uuid) {
+        for (Team team : getTeamList()) {
+            if (team.getPlayerList().contains(uuid))
+                team.removePlayer(uuid);
+        }
     }
 
 }

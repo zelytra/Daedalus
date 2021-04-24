@@ -57,7 +57,7 @@ public class PoseidonHandler implements Listener {
 
     public void playerInWater() {
         Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
-            for (Team team : Daedalus.getInstance().getGameManager().getTeamManager().getTeamList().values()) {
+            for (Team team : Daedalus.getInstance().getGameManager().getTeamManager().getTeamList()) {
                 if (team.getGodEnum() != GodsEnum.POSEIDON) {
                     continue;
                 }

@@ -1,6 +1,8 @@
 package fr.zelytra.daedalus.managers;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.events.running.DeathHandler;
+import fr.zelytra.daedalus.events.running.WinListener;
 import fr.zelytra.daedalus.events.running.environnement.MilkDrink;
 import fr.zelytra.daedalus.events.running.environnement.gods.*;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.PlayerBreakBlockListener;
@@ -53,6 +55,8 @@ public class EventsManager {
         pm.registerEvents(new BlockPlaceListener(), pl);
         pm.registerEvents(new TreeGrowthListener(), pl);
         pm.registerEvents(new MilkDrink(), pl);
+        pm.registerEvents(new WinListener(), pl);
+        pm.registerEvents(new DeathHandler(), pl);
 
         /* Inventory */
         pm.registerEvents(new InventoryListener(), pl);

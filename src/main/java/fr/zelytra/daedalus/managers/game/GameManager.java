@@ -13,6 +13,7 @@ import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 public class GameManager {
 
@@ -78,17 +79,17 @@ public class GameManager {
         if (GameSettings.GOD_LIMIT >= GameSettings.GOD_MAXIMUM)
             return false;
         else
-            GameSettings.GOD_LIMIT  += 1;
+            GameSettings.GOD_LIMIT += 1;
 
         return true;
     }
 
     public boolean decreaseGodLimit() {
 
-        if (GameSettings.GOD_LIMIT  <= GameSettings.GOD_MINIMUM)
+        if (GameSettings.GOD_LIMIT <= GameSettings.GOD_MINIMUM)
             return false;
         else
-            GameSettings.GOD_LIMIT  -= 1;
+            GameSettings.GOD_LIMIT -= 1;
 
         return true;
     }
@@ -97,15 +98,15 @@ public class GameManager {
         return minos;
     }
 
-    private void applySettings(){
+    private void applySettings() {
 
         Bukkit.getWorld("world").setTime(GameSettings.DAY_CYCLE.getTicks());
-        if(GameSettings.DAY_CYCLE == DayCycleEnum.DEFAULT)
+        if (GameSettings.DAY_CYCLE == DayCycleEnum.DEFAULT)
             Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
         else
             Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
 
-        if(GameSettings.HARDCORE)
+        if (GameSettings.HARDCORE)
             Bukkit.getWorld("world").setGameRule(GameRule.NATURAL_REGENERATION, false);
         else
             Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
@@ -114,9 +115,14 @@ public class GameManager {
 
     // FONCTION DE DEBUT DE PARTIE
     public void start() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.getInventory().clear();
+            player.getActivePotionEffects().clear();
+            player.setMaxHealth(20.0);
+        }
         Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
         Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
-            Location origin =new Location(Bukkit.getWorld("world"),0,0,0);
+            Location origin = new Location(Bukkit.getWorld("world"), 0, 0, 0);
             origin.setY(Bukkit.getWorld("world").getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()) + 1);
             MazeHandler maze = new MazeHandler(origin, 300, true, Daedalus.getInstance().getStructureManager().getGeneratedList());
             maze.generateScaleMaze();
@@ -128,7 +134,7 @@ public class GameManager {
     // FONCTION DE FIN DE PARTIE
     public void stop() {
         getTimeManager().stop();
-        //TODO MEttre tout le monde en créatif
+        //TODO Mettre tout le monde en créatif
         //TODO FX de victoire
 
     }

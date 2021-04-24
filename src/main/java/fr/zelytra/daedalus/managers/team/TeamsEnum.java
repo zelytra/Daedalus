@@ -1,16 +1,18 @@
 package fr.zelytra.daedalus.managers.team;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
+import org.bukkit.Location;
 import org.bukkit.scoreboard.Team;
 
 public enum TeamsEnum {
 
-    RED("Red", DyeColor.RED, ChatColor.RED, "§c", "§r"),
-    BLUE("Blue", DyeColor.BLUE, ChatColor.BLUE, "§9", "§r"),
-    YELLOW("Yellow", DyeColor.YELLOW, ChatColor.YELLOW, "§e", "§r"),
-    GREEN("Green", DyeColor.GREEN, ChatColor.GREEN, "§a", "§r"),
-    MINOS("Minos", DyeColor.GRAY, ChatColor.GRAY, "§7", "§r");
+    RED("Red", DyeColor.RED, ChatColor.RED, "§c", "§r",new Location(Bukkit.getWorld("world"),-485,89,-477)),
+    BLUE("Blue", DyeColor.BLUE, ChatColor.BLUE, "§9", "§r",new Location(Bukkit.getWorld("world"),-485,89,483)),
+    YELLOW("Yellow", DyeColor.YELLOW, ChatColor.YELLOW, "§e", "§r",new Location(Bukkit.getWorld("world"),475,89,483)),
+    GREEN("Green", DyeColor.GREEN, ChatColor.GREEN, "§a", "§r",new Location(Bukkit.getWorld("world"),476,89,-477)),
+    MINOS("Minos", DyeColor.GRAY, ChatColor.GRAY, "§7", "§r",new Location(Bukkit.getWorld("world"),0,81,0));
 
     private final String name;
     private final DyeColor teamColor;
@@ -18,13 +20,15 @@ public enum TeamsEnum {
     private final String prefix;
     private final String suffix;
     private Team team;
+    private Location spawn;
 
-    TeamsEnum(String name, DyeColor teamColor, ChatColor chatColor, String prefix, String suffix) {
+    TeamsEnum(String name, DyeColor teamColor, ChatColor chatColor, String prefix, String suffix, Location spawn) {
         this.name = name;
         this.teamColor = teamColor;
         this.chatColor = chatColor;
         this.prefix = prefix;
         this.suffix = suffix;
+        this.spawn = spawn;
     }
 
     public String getName() {
@@ -53,5 +57,9 @@ public enum TeamsEnum {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public Location getSpawn() {
+        return spawn;
     }
 }

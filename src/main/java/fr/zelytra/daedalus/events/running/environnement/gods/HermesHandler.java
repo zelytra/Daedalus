@@ -113,7 +113,7 @@ public class HermesHandler implements Listener {
 
     public void doubleJump() {
         Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
-            for (Team team : Daedalus.getInstance().getGameManager().getTeamManager().getTeamList().values()) {
+            for (Team team : Daedalus.getInstance().getGameManager().getTeamManager().getTeamList()) {
                 if (team.getGodEnum() != GodsEnum.HERMES) {
                     continue;
                 }

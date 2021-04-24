@@ -35,7 +35,7 @@ public final class Daedalus extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        //Initi registers
+        //Init registers
         EventsManager.registerEvents(this);
         regCommands();
         setupServer();
@@ -43,7 +43,8 @@ public final class Daedalus extends JavaPlugin {
         gameManager = new GameManager();
         structureManager = new StructureManager();
         craftManager = new CraftManager();
-        getServer().getConsoleSender().sendMessage("§a   ___    ___     ____  ___    ___     __     __  __  ____§r\n" +
+        getServer().getConsoleSender().sendMessage(
+                "§a   ___    ___     ____  ___    ___     __     __  __  ____§r\n" +
                 "§a  / _ \\  / _ |   / __/ / _ \\  / _ |   / /    / / / / / __/§r\n" +
                 "§a / // / / __ |  / _/  / // / / __ |  / /__  / /_/ / _\\ \\  §r\n" +
                 "§a/____/ /_/ |_| /___/ /____/ /_/ |_| /____/  \\____/ /___/  §r\n" +

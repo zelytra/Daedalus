@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -22,6 +23,7 @@ public class Team {
     private final Scoreboard scoreboard;
     private Player god = null;
     private GodsEnum godsEnum = null;
+    private HashMap<Player, PlayerStatus> playerStatusList;
 
     public Team(TeamsEnum team, Scoreboard scoreboard) {
 
@@ -159,6 +161,7 @@ public class Team {
             getTeamEnum().getTeam().addEntry(uuid.toString());
             p.setDisplayName(getPrefix() + p.getName() + getSuffix());
             p.setPlayerListName(getPrefix() + p.getName() + getSuffix());
+            playerStatusList.put(p, PlayerStatus.ALIVE);
         }
     }
 
@@ -170,6 +173,7 @@ public class Team {
             getTeamEnum().getTeam().removeEntry(uuid.toString());
             p.setDisplayName("§r" + p.getName() + "§r");
             p.setPlayerListName("§r" + p.getName() + "§r");
+            playerStatusList.remove(p);
         }
     }
 
@@ -201,6 +205,29 @@ public class Team {
         return getTeamEnum().getSuffix();
     }
 
+    public boolean isAlive(Player p){
+        if(playerStatusList.containsKey(p)){
+            if(playerStatusList.get(p)==PlayerStatus.ALIVE){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isDead(Player p){
+        if(playerStatusList.containsKey(p)){
+            if(playerStatusList.get(p)==PlayerStatus.DEAD){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void setPlayerStatus(Player p,PlayerStatus status){
+        if(playerStatusList.containsKey(p)){
+            playerStatusList.put(p,status);
+        }
+    }
+
     public void destroy() {
         for (String uuid : getTeamEnum().getTeam().getEntries()) {
             removePlayer(UUID.fromString(uuid));
@@ -213,8 +240,18 @@ public class Team {
         this.godsEnum = godsEnum;
     }
 
+    public DyeColor getColor() {
+        return this.team.getTeamColor();
+    }
+
     public Player getGod() {
         return god;
+    }
+
+    public void removeGod() {
+        if (this.god != null) {
+            this.god = null;
+        }
     }
 
     public GodsEnum getGodEnum() {

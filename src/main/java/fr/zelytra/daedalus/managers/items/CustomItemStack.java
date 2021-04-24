@@ -35,8 +35,8 @@ public class CustomItemStack {
                 meta.setCustomModelData(this.customMaterial.getCustomModelData());
                 meta.setDisplayName(this.customMaterial.getDisplayName());
 
-                meta.addAttributeModifier(Attribute.GENERIC_ARMOR, AttributeGenerator.armor(material.getArmor(),material.getSlot()));
-                meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH, AttributeGenerator.extraHeart(material.getExtraHeart(),material.getSlot()));
+                meta.addAttributeModifier(Attribute.GENERIC_ARMOR, AttributeGenerator.armor(material.getArmor(), material.getSlot()));
+                meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH, AttributeGenerator.extraHeart(material.getExtraHeart(), material.getSlot()));
 
                 PersistentDataContainer itemData = meta.getPersistentDataContainer();
                 itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
@@ -77,8 +77,8 @@ public class CustomItemStack {
                 meta.setCustomModelData(this.customMaterial.getCustomModelData());
                 meta.setDisplayName(this.customMaterial.getDisplayName());
 
-                meta.addAttributeModifier(Attribute.GENERIC_ARMOR, AttributeGenerator.armor(material.getArmor(),material.getSlot()));
-                meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH, AttributeGenerator.extraHeart(material.getExtraHeart(),material.getSlot()));
+                meta.addAttributeModifier(Attribute.GENERIC_ARMOR, AttributeGenerator.armor(material.getArmor(), material.getSlot()));
+                meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH, AttributeGenerator.extraHeart(material.getExtraHeart(), material.getSlot()));
 
                 PersistentDataContainer itemData = meta.getPersistentDataContainer();
                 itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
@@ -109,10 +109,13 @@ public class CustomItemStack {
     }
 
     public static boolean hasTag(ItemStack item) {
-        ItemMeta meta = item.getItemMeta();
-        assert meta != null;
-        PersistentDataContainer itemData = meta.getPersistentDataContainer();
-        return itemData.has(itemKey, PersistentDataType.STRING);
+        if (item != null && item.getItemMeta() != null) {
+            ItemMeta meta = item.getItemMeta();
+            PersistentDataContainer itemData = meta.getPersistentDataContainer();
+            return itemData.has(itemKey, PersistentDataType.STRING);
+        } else {
+            return false;
+        }
     }
 
     public static boolean hasTag(ItemStack item, CustomMaterial customMaterial) {

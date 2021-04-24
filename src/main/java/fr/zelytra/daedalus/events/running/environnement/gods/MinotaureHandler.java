@@ -58,7 +58,7 @@ public class MinotaureHandler implements Listener {
 
     public void growlTask() {
         Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
-            for (Team team : Daedalus.getInstance().getGameManager().getTeamManager().getTeamList().values()) {
+            for (Team team : Daedalus.getInstance().getGameManager().getTeamManager().getTeamList()) {
                 if (team.getGodEnum() != GodsEnum.MINOTAURE) {
                     continue;
                 }
