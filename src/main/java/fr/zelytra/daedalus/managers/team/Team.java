@@ -30,6 +30,7 @@ public class Team {
         this.playerList = new ArrayList<>();
         this.team = team;
         this.scoreboard = scoreboard;
+        this.playerStatusList = new HashMap<>();
         build();
     }
 

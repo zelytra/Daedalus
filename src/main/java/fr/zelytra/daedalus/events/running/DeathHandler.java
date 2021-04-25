@@ -11,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -21,6 +22,7 @@ public class DeathHandler implements Listener {
         if (!(e.getEntity() instanceof Player)) {
             return;
         }
+
         Player player = (Player) e.getEntity();
         if (((player.getHealth() - e.getFinalDamage()) > 0)) {
             return;
@@ -34,7 +36,7 @@ public class DeathHandler implements Listener {
                     break;
                 }
             }
-            if (Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId()).getGod().getUniqueId() == player.getUniqueId()) {
+            if (Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId()).getGod() != null && Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId()).getGod().getUniqueId() == player.getUniqueId()) {
                 isMinotaure = false;
                 Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId()).removeGod();
                 minotaursDeathFX();
@@ -43,13 +45,14 @@ public class DeathHandler implements Listener {
             e.setCancelled(true);
             player.setHealth(player.getMaxHealth());
             //Definitive death
-            if (!isMinotaure) {
+            if (!isMinotaure || (((EntityDamageByEntityEvent) e).getDamager() instanceof Player && Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(((EntityDamageByEntityEvent) e).getDamager().getUniqueId()).getGodEnum() == GodsEnum.MINOTAURE)) {
                 player.setGameMode(GameMode.SPECTATOR);
                 for (ItemStack content : player.getInventory().getContents()) {
                     if (!CustomItemStack.hasTag(content) && content != null) {
                         player.getWorld().dropItem(player.getLocation(), content);
                     }
                 }
+
                 player.getInventory().clear();
                 player.getActivePotionEffects().clear();
                 player.setMaxHealth(20.0);
