@@ -167,7 +167,7 @@ public class GameManager {
 
             if(countdown.get() == 0) {
                 Bukkit.getScheduler().cancelTask(preStartRunnable);
-                //start();
+                start();
             }
 
             countdown.getAndDecrement();

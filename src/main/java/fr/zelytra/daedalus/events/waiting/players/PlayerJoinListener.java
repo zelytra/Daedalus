@@ -41,27 +41,43 @@ public class PlayerJoinListener implements Listener {
                 switch (Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId()).getTeamColor()) {
 
                     case RED: {
-                        p.getInventory().setItem(0, new ItemBuilder(Material.RED_BANNER, "§7Team selection").getItemStack());
+                        if(p.isOp())
+                            p.getInventory().setItem(0, new ItemBuilder(Material.RED_BANNER, "§7Team selection").getItemStack());
+                        else
+                            p.getInventory().setItem(4, new ItemBuilder(Material.RED_BANNER, "§7Team selection").getItemStack());
+
                         break;
                     }
 
                     case BLUE: {
-                        p.getInventory().setItem(0, new ItemBuilder(Material.BLUE_BANNER, "§7Team selection").getItemStack());
+                        if(p.isOp())
+                            p.getInventory().setItem(0, new ItemBuilder(Material.BLUE_BANNER, "§7Team selection").getItemStack());
+                        else
+                            p.getInventory().setItem(4, new ItemBuilder(Material.BLUE_BANNER, "§7Team selection").getItemStack());
                         break;
                     }
 
                     case GREEN: {
-                        p.getInventory().setItem(0, new ItemBuilder(Material.GREEN_BANNER, "§7Team selection").getItemStack());
+                        if(p.isOp())
+                            p.getInventory().setItem(0, new ItemBuilder(Material.GREEN_BANNER, "§7Team selection").getItemStack());
+                        else
+                            p.getInventory().setItem(4, new ItemBuilder(Material.GREEN_BANNER, "§7Team selection").getItemStack());
                         break;
                     }
 
                     case YELLOW: {
-                        p.getInventory().setItem(0, new ItemBuilder(Material.YELLOW_BANNER, "§7Team selection").getItemStack());
+                        if(p.isOp())
+                            p.getInventory().setItem(0, new ItemBuilder(Material.YELLOW_BANNER, "§7Team selection").getItemStack());
+                        else
+                            p.getInventory().setItem(4, new ItemBuilder(Material.YELLOW_BANNER, "§7Team selection").getItemStack());
                         break;
                     }
 
                     case GRAY: {
-                        p.getInventory().setItem(0, new ItemBuilder(Material.GRAY_BANNER, "§7Team selection").getItemStack());
+                        if(p.isOp())
+                            p.getInventory().setItem(0, new ItemBuilder(Material.GRAY_BANNER, "§7Team selection").getItemStack());
+                        else
+                            p.getInventory().setItem(4, new ItemBuilder(Material.GRAY_BANNER, "§7Team selection").getItemStack());
                         break;
                     }
 
@@ -69,10 +85,14 @@ public class PlayerJoinListener implements Listener {
 
             } else {
                 Daedalus.getInstance().getGameManager().getTeamManager().getSpectatorTeam().addPlayer(p.getUniqueId());
-                p.getInventory().setItem(0, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
             }
 
-            p.getInventory().setItem(8, new ItemBuilder(Material.COMPARATOR, "§7Game settings").getSettings());
+            if(p.isOp()) {
+                p.getInventory().setItem(8, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
+                p.getInventory().setItem(0, new ItemBuilder(Material.COMPARATOR, "§7Game settings").getSettings());
+                p.getInventory().setItem(4, new ItemBuilder(Material.BELL, "§6Start game", "§7Click here to start your game with the actual configuration").getItemStack());
+            }else
+                p.getInventory().setItem(4, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
 
             // TP TO SPAWN
         } else if (state.equals(GameStatesEnum.RUNNING)) {

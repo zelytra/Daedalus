@@ -2,7 +2,10 @@ package fr.zelytra.daedalus.events.waiting.players;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.builders.InventoryBuilder;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
+import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import org.bukkit.DyeColor;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -44,6 +47,15 @@ public class PlayerInteractListener implements Listener {
                 }else if(Objects.requireNonNull(e.getItem().getItemMeta()).getDisplayName().equals("§7Game settings")){
                     if(!p.getOpenInventory().getTitle().contains("§3"))
                         p.performCommand("settings");
+                }else if(Objects.requireNonNull(e.getItem().getItemMeta()).getDisplayName().equals("§6Start game")){
+
+                    if(GameSettings.GOD_LIMIT != GameSettings.GOD_LIST.size() && GameSettings.GOD_SELECTION == TemplesGenerationEnum.CHOSEN){
+                        p.sendMessage("§c[SETTINGS ALERT] Your gods selection doesn't match with the set limit ! Please adjust your selection correctly or your game will not be able to start.");
+                        p.playSound(p.getLocation(), Sound.ENTITY_WITCH_HURT, 1.f, 1.f);
+                    }else{
+                        Daedalus.getInstance().getGameManager().preStart(p);
+                    }
+
                 }
 
             }

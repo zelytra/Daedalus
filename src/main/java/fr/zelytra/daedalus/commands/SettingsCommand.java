@@ -50,8 +50,6 @@ public class SettingsCommand implements CommandExecutor {
 
                 inv.setItem(14, new ItemBuilder(Material.BOOK, "§6Miscellaneous settings").getItemStack());
 
-                inv.setItem(16, new ItemBuilder(Material.BELL, "§6Start game", "§7Click here to start your game with the actual configuration").getItemStack());
-
                 p.openInventory(inv);
 
                 return true;

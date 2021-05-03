@@ -7,6 +7,8 @@ import fr.zelytra.daedalus.managers.game.settings.DayCycleEnum;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
+import fr.zelytra.daedalus.managers.team.Team;
+import fr.zelytra.daedalus.managers.team.TeamsEnum;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,50 +33,87 @@ public class InventoryListener implements Listener {
 
                 if (e.getCurrentItem() != null) {
 
+                    Team tp = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId());
+
                     switch (e.getCurrentItem().getType()) {
 
                         case RED_BANNER:
-                            Daedalus.getInstance().getGameManager().getTeamManager().removePlayerFromAnyTeam(p.getUniqueId());
-                            Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.RED).addPlayer(p.getUniqueId());
-                            p.sendMessage("§8You joined the §cred team");
-                            p.playSound(p.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 0.5f, 1.0f);
-                            p.getInventory().setItem(0, new ItemBuilder(Material.RED_BANNER, "§7Team selection").getItemStack());
+                            if(tp.getTeamEnum() == TeamsEnum.RED){
+                                Daedalus.getInstance().getGameManager().getTeamManager().removePlayerFromAnyTeam(p.getUniqueId());
+                                Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.WHITE).addPlayer(p.getUniqueId());
+                                p.sendMessage("§8You joined the §fspectator team");
+                                p.getInventory().setItem(0, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
+                            }else{
+                                Daedalus.getInstance().getGameManager().getTeamManager().removePlayerFromAnyTeam(p.getUniqueId());
+                                Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.RED).addPlayer(p.getUniqueId());
+                                p.sendMessage("§8You joined the §cred team");
+                                p.getInventory().setItem(0, new ItemBuilder(Material.RED_BANNER, "§7Team selection").getItemStack());
+                            }
+
                             p.closeInventory();
                             break;
 
                         case BLUE_BANNER:
-                            Daedalus.getInstance().getGameManager().getTeamManager().removePlayerFromAnyTeam(p.getUniqueId());
-                            Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.BLUE).addPlayer(p.getUniqueId());
-                            p.sendMessage("§8You joined the §9blue team");
+                            if(tp.getTeamEnum() == TeamsEnum.BLUE){
+                                Daedalus.getInstance().getGameManager().getTeamManager().removePlayerFromAnyTeam(p.getUniqueId());
+                                Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.WHITE).addPlayer(p.getUniqueId());
+                                p.sendMessage("§8You joined the §fspectator team");
+                                p.getInventory().setItem(0, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
+                            }else {
+                                Daedalus.getInstance().getGameManager().getTeamManager().removePlayerFromAnyTeam(p.getUniqueId());
+                                Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.BLUE).addPlayer(p.getUniqueId());
+                                p.sendMessage("§8You joined the §9blue team");
+                                p.getInventory().setItem(0, new ItemBuilder(Material.BLUE_BANNER, "§7Team selection").getItemStack());
+                            }
                             p.playSound(p.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 0.5f, 1.0f);
-                            p.getInventory().setItem(0, new ItemBuilder(Material.BLUE_BANNER, "§7Team selection").getItemStack());
                             p.closeInventory();
                             break;
 
                         case GREEN_BANNER:
-                            Daedalus.getInstance().getGameManager().getTeamManager().removePlayerFromAnyTeam(p.getUniqueId());
-                            Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.GREEN).addPlayer(p.getUniqueId());
-                            p.sendMessage("§8You joined the §agreen team");
+                            if(tp.getTeamEnum() == TeamsEnum.GREEN){
+                                Daedalus.getInstance().getGameManager().getTeamManager().removePlayerFromAnyTeam(p.getUniqueId());
+                                Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.WHITE).addPlayer(p.getUniqueId());
+                                p.sendMessage("§8You joined the §fspectator team");
+                                p.getInventory().setItem(0, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
+                            }else {
+                                Daedalus.getInstance().getGameManager().getTeamManager().removePlayerFromAnyTeam(p.getUniqueId());
+                                Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.GREEN).addPlayer(p.getUniqueId());
+                                p.sendMessage("§8You joined the §agreen team");
+                                p.getInventory().setItem(0, new ItemBuilder(Material.GREEN_BANNER, "§7Team selection").getItemStack());
+                            }
                             p.playSound(p.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 0.5f, 1.0f);
-                            p.getInventory().setItem(0, new ItemBuilder(Material.GREEN_BANNER, "§7Team selection").getItemStack());
                             p.closeInventory();
                             break;
 
                         case YELLOW_BANNER:
-                            Daedalus.getInstance().getGameManager().getTeamManager().removePlayerFromAnyTeam(p.getUniqueId());
-                            Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.YELLOW).addPlayer(p.getUniqueId());
-                            p.sendMessage("§8You joined the §eyellow team");
+                            if(tp.getTeamEnum() == TeamsEnum.YELLOW){
+                                Daedalus.getInstance().getGameManager().getTeamManager().removePlayerFromAnyTeam(p.getUniqueId());
+                                Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.WHITE).addPlayer(p.getUniqueId());
+                                p.sendMessage("§8You joined the §fspectator team");
+                                p.getInventory().setItem(0, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
+                            }else {
+                                Daedalus.getInstance().getGameManager().getTeamManager().removePlayerFromAnyTeam(p.getUniqueId());
+                                Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.YELLOW).addPlayer(p.getUniqueId());
+                                p.sendMessage("§8You joined the §eyellow team");
+                                p.getInventory().setItem(0, new ItemBuilder(Material.YELLOW_BANNER, "§7Team selection").getItemStack());
+                            }
                             p.playSound(p.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 0.5f, 1.0f);
-                            p.getInventory().setItem(0, new ItemBuilder(Material.YELLOW_BANNER, "§7Team selection").getItemStack());
                             p.closeInventory();
                             break;
 
                         case GRAY_BANNER:
-                            Daedalus.getInstance().getGameManager().getTeamManager().removePlayerFromAnyTeam(p.getUniqueId());
-                            Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.GRAY).addPlayer(p.getUniqueId());
-                            p.sendMessage("§8You joined the §7minos team");
+                            if(tp.getTeamEnum() == TeamsEnum.MINOS){
+                                Daedalus.getInstance().getGameManager().getTeamManager().removePlayerFromAnyTeam(p.getUniqueId());
+                                Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.WHITE).addPlayer(p.getUniqueId());
+                                p.sendMessage("§8You joined the §fspectator team");
+                                p.getInventory().setItem(0, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
+                            }else {
+                                Daedalus.getInstance().getGameManager().getTeamManager().removePlayerFromAnyTeam(p.getUniqueId());
+                                Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.GRAY).addPlayer(p.getUniqueId());
+                                p.sendMessage("§8You joined the §7minos team");
+                                p.getInventory().setItem(0, new ItemBuilder(Material.GRAY_BANNER, "§7Team selection").getItemStack());
+                            }
                             p.playSound(p.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 0.5f, 1.0f);
-                            p.getInventory().setItem(0, new ItemBuilder(Material.GRAY_BANNER, "§7Team selection").getItemStack());
                             p.closeInventory();
                             break;
 
@@ -116,19 +155,6 @@ public class InventoryListener implements Listener {
                         case BOOK: {
                             p.closeInventory();
                             p.openInventory(new InventoryBuilder("§3Miscellaneous settings", 36).getGameSettingsInventory());
-                            break;
-                        }
-
-                        case BELL: {
-
-                            p.closeInventory();
-                            if(GameSettings.GOD_LIMIT != GameSettings.GOD_LIST.size() && GameSettings.GOD_SELECTION == TemplesGenerationEnum.CHOSEN){
-                                p.sendMessage("§c[SETTINGS ALERT] Your gods selection doesn't match with the set limit ! Please adjust your selection correctly or your game will not be able to start.");
-                                p.playSound(p.getLocation(), Sound.ENTITY_WITCH_HURT, 1.f, 1.f);
-                            }else{
-                                Daedalus.getInstance().getGameManager().preStart(p);
-                            }
-
                             break;
                         }
                     }
