@@ -13,7 +13,10 @@ import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameManager {
 
@@ -21,6 +24,8 @@ public class GameManager {
     private final TimeManager timeManager;
     private final ScoreBoardManager scoreBoardManager;
     private GameStatesEnum state;
+    private boolean started = false;
+    private int preStartRunnable;
     private final MinosObject minos;
 
     public GameManager() {
@@ -63,6 +68,14 @@ public class GameManager {
 
     public boolean isFinished() {
         return state == GameStatesEnum.FINISHED;
+    }
+
+    public boolean isStarted() {
+        return started;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
     }
 
     public void reverseTempleGeneration() {
@@ -109,12 +122,64 @@ public class GameManager {
         if (GameSettings.HARDCORE)
             Bukkit.getWorld("world").setGameRule(GameRule.NATURAL_REGENERATION, false);
         else
-            Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+            Bukkit.getWorld("world").setGameRule(GameRule.NATURAL_REGENERATION, true);
+
+    }
+
+    public void preStart(Player op){
+
+        Bukkit.broadcastMessage("§aThe game is about to start !");
+        op.sendMessage("§7(You can cancel the start by opening game settings)");
+        AtomicInteger countdown = new AtomicInteger(30);
+        started = true;
+        preStartRunnable = Bukkit.getScheduler().scheduleSyncRepeatingTask(Daedalus.getInstance(), ()-> {
+
+            if(!started)
+                Bukkit.getScheduler().cancelTask(preStartRunnable);
+
+            if(countdown.get() == 30) {
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    p.sendTitle("§a30", "", 10, 20, 10);
+                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 0.5f, 1f);
+                }
+            }
+
+            if(countdown.get() == 20) {
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    p.sendTitle("§e20", "", 10, 20, 10);
+                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 0.5f, 1f);
+                }
+            }
+
+            if(countdown.get() == 10) {
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    p.sendTitle("§c10", "", 10, 20, 10);
+                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 0.5f, 1f);
+                }
+            }
+
+            if(countdown.get() <= 5 && countdown.get() > 0) {
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    p.sendTitle("§4"+countdown.get(), "", 10, 20, 10);
+                    p.playSound(p.getLocation(), Sound.BLOCK_LEVER_CLICK, 0.5f, 1f);
+                }
+            }
+
+            if(countdown.get() == 0) {
+                Bukkit.getScheduler().cancelTask(preStartRunnable);
+                //start();
+            }
+
+            countdown.getAndDecrement();
+
+        }, 0L, 20L);
+
 
     }
 
     // FONCTION DE DEBUT DE PARTIE
     public void start() {
+
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.getInventory().clear();
             player.getActivePotionEffects().clear();
@@ -127,6 +192,7 @@ public class GameManager {
             MazeHandler maze = new MazeHandler(origin, 300, true, Daedalus.getInstance().getStructureManager().getGeneratedList());
             maze.generateScaleMaze();
             getTimeManager().start();
+            setState(GameStatesEnum.RUNNING);
         });
 
     }

@@ -147,7 +147,7 @@ public enum ScenariosEnum {
 
                 lore.add("§7Define the apple drop chance from any leaves");
                 lore.add("");
-                lore.add("§bDrop chance §7-> §a"+GameSettings.APPLE_DROP*100+"%");
+                lore.add("§bDrop chance §7-> §a"+GameSettings.APPLE_DROP+"%");
 
                 meta.setLore(lore);
 

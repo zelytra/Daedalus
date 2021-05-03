@@ -135,4 +135,52 @@ public class InventoryBuilder {
         return inventory;
     }
 
+
+    public Inventory getDaySettingsInventory(){
+
+        ItemStack fullDay = new ItemStack(Material.LANTERN);
+        ItemMeta fullDayM = fullDay.getItemMeta();
+        assert fullDayM != null;
+        fullDayM.setDisplayName("§eEternal day");
+        fullDay.setItemMeta(fullDayM);
+
+        ItemStack fullNight = new ItemStack(Material.SOUL_LANTERN);
+        ItemMeta fullNightM = fullNight.getItemMeta();
+        assert fullNightM != null;
+        fullNightM.setDisplayName("§9Eternal night");
+        fullNight.setItemMeta(fullNightM);
+
+        ItemStack normal = new ItemStack(Material.CLOCK);
+        ItemMeta normalM = normal.getItemMeta();
+        assert normalM != null;
+        normalM.setDisplayName("§aNormal cycle");
+        normal.setItemMeta(normalM);
+
+        inventory.setItem(3, fullDay);
+        inventory.setItem(4, normal);
+        inventory.setItem(5, fullNight);
+
+        return inventory;
+    }
+
+    public Inventory getAppleSettingsInventory() {
+
+        ItemStack apple = new ItemStack(Material.APPLE);
+        ItemMeta appleM = apple.getItemMeta();
+        assert appleM != null;
+        appleM.setDisplayName("§eDrop percent");
+        ArrayList<String> lore = new ArrayList<>();
+        lore.add("§aActual percent: §e"+GameSettings.APPLE_DROP+"%");
+        lore.add("");
+        lore.add("§7Min - Max: 1% - 40%");
+        appleM.setLore(lore);
+        apple.setItemMeta(appleM);
+
+        inventory.setItem(3, new BannerBuilder("§cRemove 1%", Material.RED_BANNER, new Pattern(DyeColor.RED, PatternType.BASE), new Pattern(DyeColor.WHITE, PatternType.STRIPE_MIDDLE), new Pattern(DyeColor.RED, PatternType.BORDER)).getBanner());
+        inventory.setItem(5, new BannerBuilder("§aAdd 1%", Material.GREEN_BANNER, new Pattern(DyeColor.GREEN, PatternType.BASE), new Pattern(DyeColor.WHITE, PatternType.STRIPE_CENTER), new Pattern(DyeColor.WHITE, PatternType.STRIPE_MIDDLE), new Pattern(DyeColor.GREEN, PatternType.BORDER), new Pattern(DyeColor.GREEN, PatternType.STRIPE_BOTTOM), new Pattern(DyeColor.GREEN, PatternType.STRIPE_TOP)).getBanner());
+        inventory.setItem(4, apple);
+        inventory.setItem(7, new ItemBuilder(Material.BARRIER, "§cGo back").getItemStack());
+
+        return inventory;
+    }
 }

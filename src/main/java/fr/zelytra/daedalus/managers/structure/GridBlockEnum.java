@@ -26,7 +26,7 @@ public enum GridBlockEnum {
 
     private final int id;
     private final BlockType material;
-    private static BlockType pathMAterial = BlockTypes.WHITE_CONCRETE;
+    private static BlockType pathMaterial = BlockTypes.WHITE_CONCRETE;
 
     GridBlockEnum(int id, BlockType material) {
         this.id = id;
@@ -39,7 +39,7 @@ public enum GridBlockEnum {
                 return block.material;
             }
         }
-        return pathMAterial;
+        return pathMaterial;
     }
 
 }

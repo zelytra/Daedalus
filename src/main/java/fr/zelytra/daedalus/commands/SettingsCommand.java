@@ -1,9 +1,11 @@
 package fr.zelytra.daedalus.commands;
 
+import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.builders.InventoryBuilder;
 import fr.zelytra.daedalus.builders.ItemBuilder;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -29,6 +31,14 @@ public class SettingsCommand implements CommandExecutor {
 
             if(p.isOp()){
 
+                if(Daedalus.getInstance().getGameManager().isStarted()){
+
+                    Daedalus.getInstance().getGameManager().setStarted(false);
+                    Bukkit.broadcastMessage("§cStart cancelled...");
+
+
+                }
+
                 Inventory inv = new InventoryBuilder("§3Game settings", 27).getInventory();
 
                 if(GameSettings.GOD_SELECTION == TemplesGenerationEnum.RANDOM){
@@ -39,6 +49,8 @@ public class SettingsCommand implements CommandExecutor {
                 }
 
                 inv.setItem(14, new ItemBuilder(Material.BOOK, "§6Miscellaneous settings").getItemStack());
+
+                inv.setItem(16, new ItemBuilder(Material.BELL, "§6Start game", "§7Click here to start your game with the actual configuration").getItemStack());
 
                 p.openInventory(inv);
 
