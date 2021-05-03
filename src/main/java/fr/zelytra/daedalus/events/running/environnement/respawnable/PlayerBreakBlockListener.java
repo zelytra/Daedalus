@@ -72,7 +72,7 @@ public class PlayerBreakBlockListener implements Listener {
                 case SPRUCE_LEAVES:
                 case DARK_OAK_LEAVES:{
                     e.getBlock().setType(Material.AIR);
-                    dropItem(e.getBlock().getLocation(), block.getItemStack(), 0.08);
+                    dropItem(e.getBlock().getLocation(), block.getItemStack(), GameSettings.APPLE_DROP*0.01);
                     break;
                 }
             }

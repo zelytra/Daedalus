@@ -23,7 +23,7 @@ public class Team {
     private final Scoreboard scoreboard;
     private Player god = null;
     private GodsEnum godsEnum = null;
-    private final HashMap<Player, PlayerStatus> playerStatusList;
+    private HashMap<UUID, PlayerStatus> playerStatusList;
 
     public Team(TeamsEnum team, Scoreboard scoreboard) {
 
@@ -162,7 +162,7 @@ public class Team {
             getTeamEnum().getTeam().addEntry(uuid.toString());
             p.setDisplayName(getPrefix() + p.getName() + getSuffix());
             p.setPlayerListName(getPrefix() + p.getName() + getSuffix());
-            playerStatusList.put(p, PlayerStatus.ALIVE);
+            playerStatusList.put(p.getUniqueId(), PlayerStatus.ALIVE);
         }
     }
 
@@ -174,7 +174,7 @@ public class Team {
             getTeamEnum().getTeam().removeEntry(uuid.toString());
             p.setDisplayName("§r" + p.getName() + "§r");
             p.setPlayerListName("§r" + p.getName() + "§r");
-            playerStatusList.remove(p);
+            playerStatusList.remove(p.getUniqueId());
         }
     }
 
@@ -207,25 +207,21 @@ public class Team {
     }
 
     public boolean isAlive(Player p){
-        if(playerStatusList.containsKey(p)){
-            if(playerStatusList.get(p)==PlayerStatus.ALIVE){
-                return true;
-            }
+        if(playerStatusList.containsKey(p.getUniqueId())){
+            return playerStatusList.get(p.getUniqueId()) == PlayerStatus.ALIVE;
         }
         return false;
     }
     public boolean isDead(Player p){
-        if(playerStatusList.containsKey(p)){
-            if(playerStatusList.get(p)==PlayerStatus.DEAD){
-                return true;
-            }
+        if(playerStatusList.containsKey(p.getUniqueId())){
+            return playerStatusList.get(p.getUniqueId()) == PlayerStatus.DEAD;
         }
         return false;
     }
 
     public void setPlayerStatus(Player p,PlayerStatus status){
-        if(playerStatusList.containsKey(p)){
-            playerStatusList.put(p,status);
+        if(playerStatusList.containsKey(p.getUniqueId())){
+            playerStatusList.put(p.getUniqueId(),status);
         }
     }
 

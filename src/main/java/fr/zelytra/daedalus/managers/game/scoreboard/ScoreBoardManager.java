@@ -23,12 +23,12 @@ public class ScoreBoardManager {
 
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 
-        addLine("§3Episode §7>> §r"+ timeManager.getEpisode(), "episode", 0);
-        addLine("§cTimer §7>> §r"+timeManager.getTimer(), "timer", -1);
-        addLine("", "§r", -2);
-        addLine("Divinity §7>> §cnone", "god", -3);
-        addLine("", "§r§r", -4);
-        addLine("§aAlive §7>> §r1/1", "alive", -5);
+        addLine("§3Episode §7>> §r"+ timeManager.getEpisode(), "episode", 6);
+        addLine("§cTimer §7>> §r"+timeManager.getTimer(), "timer", 5);
+        addLine("", "§r", 4);
+        addLine("Divinity §7>> §cnone", "god", 3);
+        addLine("", "§r§r", 2);
+        addLine("§aAlive §7>> §r1/1", "alive", 1);
 
         for(Player p : Bukkit.getOnlinePlayers())
             p.setScoreboard(scoreboard);

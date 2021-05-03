@@ -19,7 +19,7 @@ public final class GameSettings {
     public static boolean HARDCORE = false;
     public static boolean ABSORPTION = true;
     public static boolean CUT_CLEAN = true;
-    public static float APPLE_DROP = 0.08f;
+    public static int APPLE_DROP = 8;
     public static DayCycleEnum DAY_CYCLE = DayCycleEnum.ETERNAL_DAY;
     public static int TIME_PER_EPISODE = 1200;//seconds
 
@@ -36,7 +36,7 @@ public final class GameSettings {
         HARDCORE = false;
         ABSORPTION = true;
         CUT_CLEAN = true;
-        APPLE_DROP = 0.08f;
+        APPLE_DROP = 8;
         TIME_PER_EPISODE = 1200;//seconds
     }
 }

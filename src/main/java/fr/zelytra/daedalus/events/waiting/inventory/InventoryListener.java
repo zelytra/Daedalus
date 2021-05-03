@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.events.waiting.inventory;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.builders.InventoryBuilder;
 import fr.zelytra.daedalus.builders.ItemBuilder;
+import fr.zelytra.daedalus.managers.game.settings.DayCycleEnum;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
@@ -12,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
@@ -117,6 +119,18 @@ public class InventoryListener implements Listener {
                             break;
                         }
 
+                        case BELL: {
+
+                            p.closeInventory();
+                            if(GameSettings.GOD_LIMIT != GameSettings.GOD_LIST.size() && GameSettings.GOD_SELECTION == TemplesGenerationEnum.CHOSEN){
+                                p.sendMessage("§c[SETTINGS ALERT] Your gods selection doesn't match with the set limit ! Please adjust your selection correctly or your game will not be able to start.");
+                                p.playSound(p.getLocation(), Sound.ENTITY_WITCH_HURT, 1.f, 1.f);
+                            }else{
+                                Daedalus.getInstance().getGameManager().preStart(p);
+                            }
+
+                            break;
+                        }
                     }
                 }
                 for(Player player : Bukkit.getOnlinePlayers())
@@ -127,6 +141,9 @@ public class InventoryListener implements Listener {
                     switch (e.getCurrentItem().getType()){
 
                         case APPLE: {
+
+                            p.closeInventory();
+                            p.openInventory(new InventoryBuilder("§3Apple drop", InventoryType.DROPPER).getAppleSettingsInventory());
                             break;
                         }
 
@@ -145,6 +162,10 @@ public class InventoryListener implements Listener {
                         }
 
                         case CLOCK: {
+
+                            p.closeInventory();
+                            p.openInventory(new InventoryBuilder("§3Day settings", InventoryType.DROPPER).getDaySettingsInventory());
+
                             break;
                         }
 
@@ -168,11 +189,65 @@ public class InventoryListener implements Listener {
                             break;
                         }
                     }
-            }
-            else if (inventory.getTitle().equals("§3Divinities selection")) {
+            } else if (inventory.getTitle().equals("§3Apple drop")) {
 
                 if (e.getCurrentItem() != null)
                     switch (e.getCurrentItem().getType()){
+                        case RED_BANNER: {
+                            if(GameSettings.APPLE_DROP - 1 > 1){
+                                --GameSettings.APPLE_DROP;
+                            }
+                            inventory.setItem(4, new ItemBuilder(Material.APPLE, "§eDrop percent", "§aActual percent: §e"+GameSettings.APPLE_DROP+"%", "", "§7Min - Max: 1% - 40%").getItemStack());
+                            break;
+                        }
+
+                        case GREEN_BANNER: {
+                            if(GameSettings.APPLE_DROP + 1 <= 40) {
+                                ++GameSettings.APPLE_DROP;
+                            }
+                            inventory.setItem(4, new ItemBuilder(Material.APPLE, "§eDrop percent", "§aActual percent: §e"+GameSettings.APPLE_DROP+"%", "", "§7Min - Max: 1% - 40%").getItemStack());
+                            break;
+                        }
+
+                        case BARRIER: {
+                            p.closeInventory();
+                            p.openInventory(new InventoryBuilder("§3Miscellaneous settings", 36).getGameSettingsInventory());
+                            break;
+                        }
+                    }
+
+            } else if (inventory.getTitle().equals("§3Day settings")) {
+
+                if (e.getCurrentItem() != null)
+                    switch (e.getCurrentItem().getType()){
+
+                        case LANTERN:{
+
+                            GameSettings.DAY_CYCLE = DayCycleEnum.ETERNAL_DAY;
+                            p.closeInventory();
+                            p.openInventory(new InventoryBuilder("§3Miscellaneous settings", 36).getGameSettingsInventory());
+                            break;
+                        }
+
+                        case SOUL_LANTERN: {
+                            GameSettings.DAY_CYCLE = DayCycleEnum.ETERNAL_NIGHT;
+                            p.closeInventory();
+                            p.openInventory(new InventoryBuilder("§3Miscellaneous settings", 36).getGameSettingsInventory());
+                            break;
+                        }
+
+                        case CLOCK: {
+                            GameSettings.DAY_CYCLE = DayCycleEnum.DEFAULT;
+                            p.closeInventory();
+                            p.openInventory(new InventoryBuilder("§3Miscellaneous settings", 36).getGameSettingsInventory());
+                            break;
+                        }
+                    }
+
+            } else if (inventory.getTitle().equals("§3Divinities selection")) {
+
+                if (e.getCurrentItem() != null)
+                    switch (e.getCurrentItem().getType()) {
                         case TOTEM_OF_UNDYING: {
 
                             String name = e.getCurrentItem().getItemMeta().getDisplayName();
@@ -180,18 +255,18 @@ public class InventoryListener implements Listener {
                             GodsEnum god;
                             try {
                                 god = GodsEnum.valueOf(name.toUpperCase());
-                            }catch (IllegalArgumentException error){
+                            } catch (IllegalArgumentException error) {
                                 break;
                             }
 
-                            if (!god.isSelected() && GameSettings.GOD_LIST.size() == GameSettings.GOD_LIMIT){
+                            if (!god.isSelected() && GameSettings.GOD_LIST.size() == GameSettings.GOD_LIMIT) {
                                 p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.f, 1.f);
                                 break;
                             }
 
                             god.setSelected(!god.isSelected());
 
-                            if(god.isSelected())
+                            if (god.isSelected())
                                 GameSettings.GOD_LIST.add(god);
                             else
                                 GameSettings.GOD_LIST.remove(god);
@@ -210,9 +285,9 @@ public class InventoryListener implements Listener {
 
                         case RED_BANNER: {
 
-                            if(Daedalus.getInstance().getGameManager().decreaseGodLimit()){
+                            if (Daedalus.getInstance().getGameManager().decreaseGodLimit()) {
                                 p.openInventory(new InventoryBuilder("§3Divinities selection", 54).getGodsSelectionInventory());
-                            }else{
+                            } else {
                                 p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.f, 1.f);
                             }
                             break;
@@ -220,16 +295,16 @@ public class InventoryListener implements Listener {
 
                         case GREEN_BANNER: {
 
-                            if(Daedalus.getInstance().getGameManager().increaseGodLimit()){
+                            if (Daedalus.getInstance().getGameManager().increaseGodLimit()) {
                                 p.openInventory(new InventoryBuilder("§3Divinities selection", 54).getGodsSelectionInventory());
-                            }else{
+                            } else {
                                 p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.f, 1.f);
                             }
                             break;
                         }
                     }
 
-                for(Player player : Bukkit.getOnlinePlayers())
+                for (Player player : Bukkit.getOnlinePlayers())
                     player.getInventory().setItem(8, new ItemBuilder(Material.COMPARATOR, "§7Game settings").getSettings());
             }
 

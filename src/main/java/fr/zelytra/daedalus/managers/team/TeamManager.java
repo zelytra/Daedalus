@@ -32,6 +32,7 @@ public class TeamManager {
         teamList.add(new Team(TeamsEnum.BLUE, this.scoreboard));
         teamList.add(new Team(TeamsEnum.GREEN, this.scoreboard));
         teamList.add(new Team(TeamsEnum.YELLOW, this.scoreboard));
+        teamList.add(new Team(TeamsEnum.SPECTATOR, this.scoreboard));
         teamList.add(new Team(TeamsEnum.MINOS, this.scoreboard));
 
     }
@@ -60,4 +61,12 @@ public class TeamManager {
         }
     }
 
+    public Team getSpectatorTeam(){
+        for (Team team : getTeamList()) {
+            if(team.getTeamEnum().equals(TeamsEnum.SPECTATOR)){
+                return team;
+            }
+        }
+        return null;
+    }
 }

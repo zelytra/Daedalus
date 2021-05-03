@@ -4,7 +4,6 @@ import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.builders.ItemBuilder;
 import fr.zelytra.daedalus.managers.game.GameStatesEnum;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -68,8 +67,10 @@ public class PlayerJoinListener implements Listener {
 
                 }
 
-            } else
+            } else {
+                Daedalus.getInstance().getGameManager().getTeamManager().getSpectatorTeam().addPlayer(p.getUniqueId());
                 p.getInventory().setItem(0, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
+            }
 
             p.getInventory().setItem(8, new ItemBuilder(Material.COMPARATOR, "§7Game settings").getSettings());
 
@@ -93,8 +94,7 @@ public class PlayerJoinListener implements Listener {
 
     private void setSpectator(Player p){
         p.setGameMode(GameMode.SPECTATOR);
-        p.setDisplayName(ChatColor.WHITE + "" + ChatColor.ITALIC + p.getName());
-        p.setPlayerListName(ChatColor.WHITE + "" + ChatColor.ITALIC + p.getName());
+        Daedalus.getInstance().getGameManager().getTeamManager().getSpectatorTeam().addPlayer(p.getUniqueId());
     }
 
     private void setupTeam(Player p) {
