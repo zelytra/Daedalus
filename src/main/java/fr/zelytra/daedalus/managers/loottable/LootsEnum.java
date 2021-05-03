@@ -158,7 +158,7 @@ public enum LootsEnum {
     TIER2_HAST2(new PotionEffect(PotionEffectType.FAST_DIGGING,2400,1,true,false,true)),
 
     TIER2_INVISIBILITY1(new PotionEffect(PotionEffectType.INVISIBILITY,1200,0,true,false,true)),
-    NAUSEA(new PotionEffect(PotionEffectType.CONFUSION,100,4,true,false,true));
+    NAUSEA(new PotionEffect(PotionEffectType.CONFUSION,300,4,true,false,true));
 
 
 

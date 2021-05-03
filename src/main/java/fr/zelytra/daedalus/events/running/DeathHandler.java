@@ -15,6 +15,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.UUID;
+
 public class DeathHandler implements Listener {
 
     @EventHandler
@@ -74,7 +76,7 @@ public class DeathHandler implements Listener {
                 Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
                 player.teleport(playerTeam.getTeamEnum().getSpawn());
             }
-
+            winListener();
 
         }
     }
@@ -106,5 +108,40 @@ public class DeathHandler implements Listener {
                 Bukkit.broadcastMessage(e.getEntity().getName() + " is dead.");
                 break;
         }
+    }
+
+    private void winListener() {
+        Team winner = null;
+        int teamAliveCount = 0;
+        if (Daedalus.getInstance().getGameManager().isRunning()) {
+            for (Team team : Daedalus.getInstance().getGameManager().getTeamManager().getTeamList()) {
+                int playerCount = 0;
+                for (UUID uuid : team.getPlayerList()) {
+                    if (team.isAlive(Bukkit.getPlayer(uuid))) {
+                        playerCount++;
+                    }
+                }
+                if (playerCount > 0) {
+                    winner = team;
+                    teamAliveCount++;
+                }
+                System.out.println(playerCount);
+                System.out.println(teamAliveCount);
+            }
+            if (teamAliveCount == 1) {
+                Daedalus.getInstance().getGameManager().stop();
+                winFX(winner);
+            } else {
+                return;
+            }
+        }
+    }
+
+    private void winFX(Team team) {
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            p.sendTitle(team.getChatColor() + team.getTeamEnum().getName() + "§6§l win !", "help", 5, 100, 5);
+        }
+
+
     }
 }

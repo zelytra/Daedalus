@@ -23,7 +23,7 @@ public class Team {
     private final Scoreboard scoreboard;
     private Player god = null;
     private GodsEnum godsEnum = null;
-    private HashMap<Player, PlayerStatus> playerStatusList;
+    private final HashMap<Player, PlayerStatus> playerStatusList;
 
     public Team(TeamsEnum team, Scoreboard scoreboard) {
 

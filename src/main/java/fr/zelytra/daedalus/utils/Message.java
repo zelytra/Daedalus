@@ -18,11 +18,4 @@ public class Message {
         return new String(ANSI_GREEN+"[Daedalus] ");
     }
 
-    public static void startup() {
-        System.out.println("");
-        System.out.println(ANSI_CYAN + "               Daedalus   V0.1" + ANSI_RESET);
-        System.out.println(ANSI_CYAN + "          by Zelytra & JohnPoliakov" + ANSI_RESET);
-        System.out.println("");
-
-    }
 }
