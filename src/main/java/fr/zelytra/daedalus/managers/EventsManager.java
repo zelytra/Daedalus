@@ -15,10 +15,7 @@ import fr.zelytra.daedalus.events.waiting.entities.EntityDamageListener;
 import fr.zelytra.daedalus.events.waiting.entities.EntityTargetListener;
 import fr.zelytra.daedalus.events.waiting.environment.BlockPlaceListener;
 import fr.zelytra.daedalus.events.waiting.inventory.InventoryListener;
-import fr.zelytra.daedalus.events.waiting.players.PlayerChatWListener;
-import fr.zelytra.daedalus.events.waiting.players.PlayerInteractListener;
-import fr.zelytra.daedalus.events.waiting.players.PlayerJoinListener;
-import fr.zelytra.daedalus.events.waiting.players.PlayerQuitListener;
+import fr.zelytra.daedalus.events.waiting.players.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
@@ -70,6 +67,7 @@ public class EventsManager {
         pm.registerEvents(new PlayerBreakBlockListener(), pl);
         pm.registerEvents(new PlayerChatWListener(), pl);
         pm.registerEvents(new PlayerChatRListener(), pl);
+        pm.registerEvents(new PlayerOpCommandListener(), pl);
 
         /* Entities */
         pm.registerEvents(new EntityTargetListener(), pl);
