@@ -200,6 +200,7 @@ public class GameManager {
     // FONCTION DE FIN DE PARTIE
     public void stop() {
         getTimeManager().stop();
+        this.state = GameStatesEnum.FINISHED;
         //TODO Mettre tout le monde en créatif
         //TODO FX de victoire
 

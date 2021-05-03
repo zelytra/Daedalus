@@ -46,9 +46,6 @@ public class LootTableManager {
 
     private LootTable dionysosTableT2() {
         LootTable lootTable = new LootTable(GodsEnum.DIONYSUS.getName()+ "_tier2");
-        //Container Init
-        lootTable.addContainerWhiteList(Material.CHEST);
-        lootTable.addContainerWhiteList(Material.BARREL);
         //Loots init
         lootTable.addLoot(LootsEnum.TIER2_INSTANTHEAL2);
         lootTable.addLoot(LootsEnum.TIER2_NIGHTVISION2);
@@ -65,9 +62,6 @@ public class LootTableManager {
 
     private LootTable dionysosTableT1() {
         LootTable lootTable = new LootTable(GodsEnum.DIONYSUS.getName()+ "_tier1");
-        //Container Init
-        lootTable.addContainerWhiteList(Material.CHEST);
-        lootTable.addContainerWhiteList(Material.BARREL);
         //Loots init
         lootTable.addLoot(LootsEnum.TIER1_INSTANTHEAL1);
         lootTable.addLoot(LootsEnum.TIER1_NIGHTVISION1);
@@ -83,9 +77,6 @@ public class LootTableManager {
 
     private LootTable athenaTableT3() {
         LootTable lootTable = new LootTable(GodsEnum.ATHENA.getName()+ "_tier3");
-        //Container Init
-        lootTable.addContainerWhiteList(Material.CHEST);
-        lootTable.addContainerWhiteList(Material.BARREL);
         //Loots init
         lootTable.addLoot(LootsEnum.TIER3_DEPTHSTRIDER3);
         lootTable.addLoot(LootsEnum.TIER3_EFFCIENCY3);
@@ -111,9 +102,6 @@ public class LootTableManager {
 
     private LootTable athenaTableT2() {
         LootTable lootTable = new LootTable(GodsEnum.ATHENA.getName()+ "_tier2");
-        //Container Init
-        lootTable.addContainerWhiteList(Material.CHEST);
-        lootTable.addContainerWhiteList(Material.BARREL);
         //Loots init
         lootTable.addLoot(LootsEnum.TIER2_DEPTHSTRIDER2);
         lootTable.addLoot(LootsEnum.TIER2_EFFCIENCY2);
@@ -138,9 +126,6 @@ public class LootTableManager {
 
     private LootTable athenaTableT1() {
         LootTable lootTable = new LootTable(GodsEnum.ATHENA.getName()+ "_tier1");
-        //Container Init
-        lootTable.addContainerWhiteList(Material.CHEST);
-        lootTable.addContainerWhiteList(Material.BARREL);
         //Loots init
         lootTable.addLoot(LootsEnum.TIER1_DEPTHSTRIDER1);
         lootTable.addLoot(LootsEnum.TIER1_EFFCIENCY1);

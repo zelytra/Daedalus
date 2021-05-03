@@ -50,6 +50,7 @@ public class EventsManager {
         pm.registerEvents(new ArtemisHandler(),pl);
         pm.registerEvents(new AthenaHandler(),pl);
         pm.registerEvents(new DionysosHandler(),pl);
+        pm.registerEvents(new DemeterHandler(),pl);
         pm.registerEvents(new MinotaureHandler(),pl);
 
         /* Environment */
