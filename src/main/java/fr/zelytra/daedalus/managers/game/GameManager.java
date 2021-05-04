@@ -179,7 +179,6 @@ public class GameManager {
 
     // FONCTION DE DEBUT DE PARTIE
     public void start() {
-
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.getInventory().clear();
             player.getActivePotionEffects().clear();
