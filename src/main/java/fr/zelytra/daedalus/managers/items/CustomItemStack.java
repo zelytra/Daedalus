@@ -15,7 +15,7 @@ import java.util.Objects;
 
 public class CustomItemStack {
     private final static NamespacedKey itemKey = new NamespacedKey(Daedalus.getInstance(), "daedalus");
-    private final NamespacedKey descriptionKey = new NamespacedKey(Daedalus.getInstance(), "description");
+    private final static NamespacedKey descriptionKey = new NamespacedKey(Daedalus.getInstance(), "description");
 
     private final ItemStack item;
     private final CustomMaterial customMaterial;
@@ -154,6 +154,21 @@ public class CustomItemStack {
             }
         }
         return false;
+    }
+
+    public static CustomMaterial getCustomMaterial(ItemStack item) {
+        if (!hasTag(item)) {
+            return null;
+        }
+        return CustomMaterial.getByName(item.getItemMeta().getPersistentDataContainer().get(CustomItemStack.getItemKey(), PersistentDataType.STRING));
+    }
+
+    public static NamespacedKey getDescriptionKey() {
+        return descriptionKey;
+    }
+
+    public static NamespacedKey getItemKey() {
+        return itemKey;
     }
 
 

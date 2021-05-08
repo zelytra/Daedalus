@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Utils {
+public abstract class Utils {
 
     public static List<String> dynamicTab(List<String> list, String arg) {
         List<String> finalList = new ArrayList<String>(list);
@@ -38,6 +38,19 @@ public class Utils {
             i--;
         }
         return i;
+    }
+
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            @SuppressWarnings("unused")
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
 
     public static ItemStack EnchantedItemStack(Material material, Enchantment enchantment, int lvl) {
