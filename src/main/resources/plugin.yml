@@ -29,3 +29,7 @@ commands:
     description: give custom items
   debug:
     description: debug
+
+  wiki:
+    permission: daedalus.wiki
+    description: Show wiki

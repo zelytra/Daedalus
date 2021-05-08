@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.managers;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.commands.wiki.Wiki;
 import fr.zelytra.daedalus.events.running.DeathHandler;
 import fr.zelytra.daedalus.events.running.WinListener;
 import fr.zelytra.daedalus.events.running.environnement.MilkDrink;
@@ -59,6 +60,7 @@ public class EventsManager {
 
         /* Inventory */
         pm.registerEvents(new InventoryListener(), pl);
+        pm.registerEvents(new Wiki(), pl);
 
         /* Players */
         pm.registerEvents(new PlayerJoinListener(), pl);

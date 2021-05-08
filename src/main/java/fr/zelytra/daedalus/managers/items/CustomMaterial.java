@@ -28,7 +28,11 @@ public enum CustomMaterial {
 
     MINOTAUR_CHARGE("§6§lMinotaur's Charge", "minotaur_charge", 20, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     MEDUSA_HEAD("§7§lMedusa Head", "medusa_head", 21, Material.CARVED_PUMPKIN, ItemType.MISCELLANEOUS),
-    HERMES_TRUC("§7§lHermesTruc", "hermes_truc", 22, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS);
+    HERMES_TRUC("§7§lHermesTruc", "hermes_truc", 22, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
+
+    NEXT_ARROW("§bNext", "next_arrow",42, Material.POTATO, ItemType.SPECIAL),
+    PREVIOUS_ARROW("§bPrevious","previous_arrow",43, Material.BAKED_POTATO, ItemType.SPECIAL),
+    VALIDAY("§aConfirm","validay",46, Material.SLIME_BALL, ItemType.SPECIAL);
 
 
     private final String displayName;
@@ -104,6 +108,7 @@ public enum CustomMaterial {
     public ItemType getItemType() {
         return itemType;
     }
+
 
     public static CustomMaterial getByName(String name) {
         for (CustomMaterial material : CustomMaterial.values()) {

@@ -9,6 +9,7 @@ import fr.zelytra.daedalus.commands.maze.MazeCommands;
 import fr.zelytra.daedalus.commands.maze.MazeTabCommands;
 import fr.zelytra.daedalus.commands.maze.StructureCommands;
 import fr.zelytra.daedalus.commands.state.StateTabs;
+import fr.zelytra.daedalus.commands.wiki.Wiki;
 import fr.zelytra.daedalus.managers.EventsManager;
 import fr.zelytra.daedalus.managers.game.GameManager;
 import fr.zelytra.daedalus.managers.items.CraftManager;
@@ -72,6 +73,7 @@ public final class Daedalus extends JavaPlugin {
         getCommand("maze").setTabCompleter(new MazeTabCommands());
 
         getCommand("structure").setExecutor(new StructureCommands());
+        getCommand("wiki").setExecutor(new Wiki()   );
 
         getCommand("state").setExecutor(new StateCommands());
         getCommand("state").setTabCompleter(new StateTabs());
