@@ -28,20 +28,20 @@ public class TimeManager {
 
                 case 2:{
 
-                    System.out.println("Minotaure");
+                    //System.out.println("Minotaure");
 
                     break;
                 }
                 case 3:{
 
-                    System.out.println("Malédictions");
+                    //System.out.println("Malédictions");
 
                     break;
                 }
 
                 case 6:{
 
-                    System.out.println("Go middle");
+                    //System.out.println("Go middle");
 
                     break;
                 }

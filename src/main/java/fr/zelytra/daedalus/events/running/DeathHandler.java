@@ -125,8 +125,6 @@ public class DeathHandler implements Listener {
                     winner = team;
                     teamAliveCount++;
                 }
-                System.out.println(playerCount);
-                System.out.println(teamAliveCount);
             }
             if (teamAliveCount == 1) {
                 Daedalus.getInstance().getGameManager().stop();

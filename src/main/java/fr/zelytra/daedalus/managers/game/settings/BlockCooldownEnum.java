@@ -15,7 +15,8 @@ public enum BlockCooldownEnum {
     LEAVES(5),
     SAND(5),
     RED_SAND(5),
-    WOOD(5);
+    WOOD(7),
+    STONE(7);
 
     private int seconds;
 

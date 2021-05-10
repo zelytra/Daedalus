@@ -37,6 +37,11 @@ public class PlaceBlockListener implements Listener {
         switch (maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z]) {
             //Structure case
             case -1:
+            case -2:
+            case -3:
+            case -4:
+            case -5:
+            case -6:
                 if (BlockEnum.containType(e.getBlock().getType())) {
                     break;
                 }
@@ -44,10 +49,10 @@ public class PlaceBlockListener implements Listener {
                 for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
 
                     if (entry.getKey().contains(e.getBlock().getX(), e.getBlock().getY(), e.getBlock().getZ())) {
-                        if (entry.getValue().canBlock()) {
+                        if (!entry.getValue().canBlock()) {
                             e.setCancelled(true);
                         }
-                        if (e.getBlock().getY() >= groundY + (wallHigh - limit) || e.getBlock().getY() <= groundY - 1)
+                        if (e.getBlock().getY() >= groundY + (wallHigh - limit))
                             e.setCancelled(true);
                         break;
                     }

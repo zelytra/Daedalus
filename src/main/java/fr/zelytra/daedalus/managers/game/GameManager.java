@@ -8,12 +8,11 @@ import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.game.time.TimeManager;
 import fr.zelytra.daedalus.managers.gods.MinosObject;
 import fr.zelytra.daedalus.managers.maze.MazeHandler;
+import fr.zelytra.daedalus.managers.team.Team;
 import fr.zelytra.daedalus.managers.team.TeamManager;
+import fr.zelytra.daedalus.managers.team.TeamsEnum;
 import fr.zelytra.daedalus.utils.Message;
-import org.bukkit.Bukkit;
-import org.bukkit.GameRule;
-import org.bukkit.Location;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -126,46 +125,46 @@ public class GameManager {
 
     }
 
-    public void preStart(Player op){
+    public void preStart(Player op) {
 
         Bukkit.broadcastMessage("§aThe game is about to start !");
         op.sendMessage("§7(You can cancel the start by opening game settings)");
         AtomicInteger countdown = new AtomicInteger(30);
         started = true;
-        preStartRunnable = Bukkit.getScheduler().scheduleSyncRepeatingTask(Daedalus.getInstance(), ()-> {
+        preStartRunnable = Bukkit.getScheduler().scheduleSyncRepeatingTask(Daedalus.getInstance(), () -> {
 
-            if(!started)
+            if (!started)
                 Bukkit.getScheduler().cancelTask(preStartRunnable);
 
-            if(countdown.get() == 30) {
+            if (countdown.get() == 30) {
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     p.sendTitle("§a30", "", 10, 20, 10);
                     p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 0.5f, 1f);
                 }
             }
 
-            if(countdown.get() == 20) {
+            if (countdown.get() == 20) {
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     p.sendTitle("§e20", "", 10, 20, 10);
                     p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 0.5f, 1f);
                 }
             }
 
-            if(countdown.get() == 10) {
+            if (countdown.get() == 10) {
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     p.sendTitle("§c10", "", 10, 20, 10);
                     p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 0.5f, 1f);
                 }
             }
 
-            if(countdown.get() <= 5 && countdown.get() > 0) {
+            if (countdown.get() <= 5 && countdown.get() > 0) {
                 for (Player p : Bukkit.getOnlinePlayers()) {
-                    p.sendTitle("§4"+countdown.get(), "", 10, 20, 10);
+                    p.sendTitle("§4" + countdown.get(), "", 10, 20, 10);
                     p.playSound(p.getLocation(), Sound.BLOCK_LEVER_CLICK, 0.5f, 1f);
                 }
             }
 
-            if(countdown.get() == 0) {
+            if (countdown.get() == 0) {
                 Bukkit.getScheduler().cancelTask(preStartRunnable);
                 start();
             }
@@ -184,14 +183,30 @@ public class GameManager {
             player.getActivePotionEffects().clear();
             player.setMaxHealth(20.0);
         }
-        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
         Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
+            //Maze generation
+            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
             Location origin = new Location(Bukkit.getWorld("world"), 0, 0, 0);
             origin.setY(Bukkit.getWorld("world").getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()) + 1);
             MazeHandler maze = new MazeHandler(origin, 300, true, Daedalus.getInstance().getStructureManager().getGeneratedList());
             maze.generateScaleMaze();
-            getTimeManager().start();
-            setState(GameStatesEnum.RUNNING);
+            Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
+                //Player Manager
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId());
+                    if (playerTeam.getTeamEnum() == TeamsEnum.SPECTATOR) {
+                        p.setGameMode(GameMode.SPECTATOR);
+                        p.teleport(new Location(p.getWorld(), 0, 125, 0));
+                    } else {
+                        p.setGameMode(GameMode.SURVIVAL);
+                        p.teleport(playerTeam.getTeamEnum().getSpawn());
+                    }
+                }
+                //GameManager start
+                getTimeManager().start();
+                Bukkit.broadcastMessage("§cGame start GLHF !");
+                setState(GameStatesEnum.RUNNING);
+            });
         });
 
     }

@@ -47,6 +47,7 @@ public class MinotaureHandler implements Listener {
                             growlTask();
                             vfx(player);
                             removeHeldItem(e, invocMaterial);
+                            e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
                         } catch (Exception exception) {
                             System.out.println("ERROR team not found");
                         }
@@ -64,6 +65,9 @@ public class MinotaureHandler implements Listener {
                 }
                 for (UUID uuid : team.getPlayerList()) {
                     Player player = Bukkit.getPlayer(uuid);
+                    if(player==null){
+                        continue;
+                    }
                     List<Entity> entities = player.getNearbyEntities(50, 50, 50);
                     for (Entity e : entities) {
                         if (e instanceof Player) {

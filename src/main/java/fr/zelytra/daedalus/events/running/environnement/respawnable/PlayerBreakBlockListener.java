@@ -5,29 +5,26 @@ import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class PlayerBreakBlockListener implements Listener {
 
     @EventHandler
-    public void onBreak(BlockBreakEvent e){
+    public void onBreak(BlockBreakEvent e) {
 
-        try{
+        try {
             BlockEnum block = BlockEnum.valueOf(e.getBlock().getType().toString());
-
-            e.setCancelled(true);
-
-
+            e.setDropItems(false);
 
             switch (block) {
-
+                case STONE:
                 case IRON_ORE:
                 case GOLD_ORE:
                 case SAND:
@@ -45,23 +42,19 @@ public class PlayerBreakBlockListener implements Listener {
                 case SPRUCE_WOOD:
                 case DARK_OAK_LOG:
                 case DARK_OAK_WOOD: {
-                    if(GameSettings.CUT_CLEAN){
-                        e.getBlock().setType(Material.AIR);
+                    if (GameSettings.CUT_CLEAN) {
                         e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), block.getItemStack());
-                    }else
-                        e.getBlock().breakNaturally();
-
+                    }
                     break;
                 }
-
                 case OBSIDIAN:
                 case END_STONE:
                 case DIAMOND_ORE:
                 case EMERALD_ORE:
                 case COAL_ORE:
                 case LAPIS_ORE:
-                case REDSTONE_ORE:{
-                    e.getBlock().breakNaturally();
+                case REDSTONE_ORE: {
+                    e.setDropItems(true);
                     break;
                 }
 
@@ -70,95 +63,71 @@ public class PlayerBreakBlockListener implements Listener {
                 case ACACIA_LEAVES:
                 case JUNGLE_LEAVES:
                 case SPRUCE_LEAVES:
-                case DARK_OAK_LEAVES:{
-                    e.getBlock().setType(Material.AIR);
-                    dropItem(e.getBlock().getLocation(), block.getItemStack(), GameSettings.APPLE_DROP*0.01);
+                case DARK_OAK_LEAVES: {
+                    dropItem(e.getBlock().getLocation(), block.getItemStack(), GameSettings.APPLE_DROP * 0.01);
                     break;
                 }
             }
 
-            giveXP(e.getPlayer(), block);
+            giveXP(block, e);
 
-            if(block.getMaterial() != Material.ANCIENT_DEBRIS){
-                Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), ()-> replaceBlock(e.getBlock().getLocation(), block.getMaterial()), block.getSeconds() * 20L);
+            if (block.getMaterial() != Material.ANCIENT_DEBRIS) {
+                Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), () -> replaceBlock(e.getBlock().getLocation(), block.getMaterial()), block.getSeconds() * 20L);
             }
 
-        }catch (IllegalArgumentException ignored){
+        } catch (IllegalArgumentException ignored) {
         }
     }
 
-    private void giveXP(Player p, BlockEnum block){
+    private void giveXP(BlockEnum block, BlockBreakEvent e) {
 
-        switch (block){
-
+        switch (block) {
             case IRON_ORE:
-                if(GameSettings.CUT_CLEAN) {
-                    if (new Random().nextDouble() <= 0.7) {
-                        p.giveExp(1);
-                        p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1f);
-                    }
+                if (GameSettings.CUT_CLEAN) {
+                    popXP(e.getBlock().getLocation(), 1);
                 }
                 break;
             case GOLD_ORE:
-                if(GameSettings.CUT_CLEAN) {
-                    p.giveExp(1);
-                    p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1f);
+                if (GameSettings.CUT_CLEAN) {
+                    popXP(e.getBlock().getLocation(), ThreadLocalRandom.current().nextInt(0, 5));
                 }
                 break;
-            case DIAMOND_ORE:
-            case EMERALD_ORE:
-                p.giveExp(1);
-                p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1f);
-                break;
-            case COAL_ORE:
-                if(new Random().nextDouble() <= 0.1) {
-                    p.giveExp(1);
-                    p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1f);
-                }
-                break;
-            case LAPIS_ORE:
-                if(new Random().nextDouble() <= 0.2) {
-                    p.giveExp(1);
-                    p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1f);
-                }
-                break;
+
             case ANCIENT_DEBRIS:
-                if(GameSettings.CUT_CLEAN) {
-                    p.giveExp(2);
-                    p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1f);
-                }
-                break;
-            case REDSTONE_ORE:
-                if(new Random().nextDouble() <= 0.7) {
-                    p.giveExp(1);
-                    p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1f);
+                if (GameSettings.CUT_CLEAN) {
+                    popXP(e.getBlock().getLocation(), 2);
                 }
                 break;
             case SAND:
             case RED_SAND:
-                if(GameSettings.CUT_CLEAN) {
-                    if (new Random().nextDouble() <= 0.1) {
-                        p.giveExp(1);
-                        p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1f);
-                    }
+                if (GameSettings.CUT_CLEAN) {
+                    popXP(e.getBlock().getLocation(), ThreadLocalRandom.current().nextInt(0, 10) / 10);
                 }
                 break;
         }
 
     }
 
-    private void replaceBlock(Location loc, Material material){
+    private void replaceBlock(Location loc, Material material) {
 
-        if(loc.getBlock().getType() != Material.AIR)
+        if (loc.getBlock().getType() != Material.AIR)
             loc.getBlock().breakNaturally();
         loc.getBlock().setType(material);
 
     }
 
-    private void dropItem(Location loc, ItemStack itemStack, double percent){
+    private void dropItem(Location loc, ItemStack itemStack, double percent) {
 
-        if(new Random().nextDouble() <= percent)
-                loc.getWorld().dropItemNaturally(loc, itemStack);
+        if (new Random().nextDouble() <= percent)
+            loc.getWorld().dropItemNaturally(loc, itemStack);
+
+    }
+
+    private void popXP(Location location, int amount) {
+        if (amount <= 0) {
+            return;
+        }
+        (location.getWorld().spawn(location, ExperienceOrb.class)).setExperience(amount);
 
     }
 }

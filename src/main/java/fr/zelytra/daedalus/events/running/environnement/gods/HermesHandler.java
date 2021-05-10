@@ -45,6 +45,7 @@ public class HermesHandler implements Listener {
                             vfx(e.getPlayer());
                             removeHeldItem(e, invocMaterial);
                             doubleJump();
+                            e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
                         } catch (Exception exception) {
                             System.out.println("ERROR team not found");
                         }

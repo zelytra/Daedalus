@@ -132,10 +132,10 @@ public class MazeHandler {
                             WEH.setBlock(block, BlockTypes.SMOOTH_SANDSTONE);
                         }
                     }
-                }
-                if ((System.currentTimeMillis() - timer) % 3000 == 0) {
-                    int progress = (int) (count * 100 / (Math.pow(grid.length, 2)));
-                    logPlayers("§6§lGenerating blocks... [§e" + progress + "%§6]");
+                    if ((System.currentTimeMillis() - timer) % 3000 == 0) {
+                        int progress = (int) (count * 100 / (Math.pow(grid.length, 2)));
+                        logPlayers("§6§lGenerating blocks... [§e" + progress + "%§6]");
+                    }
                 }
             }
             WEH.getEditSession().close();
@@ -148,7 +148,7 @@ public class MazeHandler {
                 WorldEditHandler pasteWE = new WorldEditHandler(location, entry.getValue().getClipboard());
                 pasteWE.pasteStructure();
 
-                int progress = (int) ((count * 100) / Daedalus.getInstance().getStructureManager().getStructuresPosition().size());
+                int progress = ((count * 100) / Daedalus.getInstance().getStructureManager().getStructuresPosition().size());
                 logPlayers("§6§lGenerating structures... [§e" + progress + "%§6]");
                 count++;
             }
@@ -170,8 +170,8 @@ public class MazeHandler {
                             if (lootTable.getContainerWhiteList().contains(container.getType())) {
 
                                 ItemStack[] content;
-                                Chest chest = null;
-                                Barrel barrel = null;
+                                Chest chest;
+                                Barrel barrel;
 
                                 switch (container.getType()) {
                                     case CHEST:

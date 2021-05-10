@@ -20,6 +20,7 @@ public enum BlockEnum {
     REDSTONE_ORE(BlockCooldownEnum.REDSTONE_ORE.getSeconds(), Material.REDSTONE_ORE),
     SAND(BlockCooldownEnum.SAND.getSeconds(), Material.SAND, new ItemStack(Material.GLASS)),
     RED_SAND(BlockCooldownEnum.RED_SAND.getSeconds(), Material.RED_SAND, new ItemStack(Material.GLASS)),
+    STONE(BlockCooldownEnum.STONE.getSeconds(), Material.STONE, new ItemStack(Material.COBBLESTONE)),
     OAK_LOG(BlockCooldownEnum.WOOD.getSeconds(), Material.OAK_LOG, new ItemStack(Material.OAK_PLANKS, 4)),
     SPRUCE_LOG(BlockCooldownEnum.WOOD.getSeconds(), Material.SPRUCE_LOG, new ItemStack(Material.SPRUCE_PLANKS, 4)),
     DARK_OAK_LOG(BlockCooldownEnum.WOOD.getSeconds(), Material.DARK_OAK_LOG, new ItemStack(Material.DARK_OAK_PLANKS, 4)),

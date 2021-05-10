@@ -37,18 +37,13 @@ public class StructureCommands implements CommandExecutor {
             region = WEH.getSelection();
 
             if (region != null) {
-                System.out.println(((region.getLength() + 1) / 8.0) % 1 + " " + ((region.getWidth() + 1) / 8.0) % 1);
-                System.out.println(((region.getLength() + 1) / 8.0) % 2 + " " + ((region.getWidth() + 1) / 8.0) % 2);
 
                 if (((region.getLength() + 1) / 8.0) % 2 == 0 || ((region.getWidth() + 1) / 8.0) % 2 == 0) {
-
-                    System.out.println(((region.getLength() + 1) / 8.0) + " " + ((region.getWidth() + 1) / 8.0));
                     player.sendMessage(Message.getPlayerPrefixe() + "§cWrong structure size :§6 " + region.getWidth() + " / " + region.getLength());
                     return false;
 
                 }
                 if (((region.getLength() + 1) / 8.0) % 1 != 0 || ((region.getWidth() + 1) / 8.0) % 1 != 0) {
-                    System.out.println(((region.getLength() + 1) / 8.0) + " " + ((region.getWidth() + 1) / 8.0));
                     player.sendMessage(Message.getPlayerPrefixe() + "§cWrong structure size :§6 " + region.getWidth() + " / " + region.getLength());
                     return false;
                 }

@@ -57,6 +57,8 @@ public class StructureManager {
 
         /*Dungeons init*/
         this.dungeons.add(new Structure(StructureEnum.DUNGEON1));
+        this.dungeons.add(new Structure(StructureEnum.DUNGEON2));
+        this.dungeons.add(new Structure(StructureEnum.DUNGEON3));
 
         /*Fixed structures init*/
         this.fixedStructures.add(new Structure(StructureEnum.TEAM_RED));
@@ -102,8 +104,7 @@ public class StructureManager {
         }
         /*Dungeons draw*/
         for (int x = 0; x < GameSettings.DUNGEONS_COUNT; x++) {
-            //int random = 0 + (int) (Math.random() * ((this.dungeons.size() - 0) + 1));
-            generatedList.add(this.dungeons.get(0));
+            generatedList.add(this.dungeons.get(ThreadLocalRandom.current().nextInt(0, this.dungeons.size())));
         }
 
         /*Circee draw*/

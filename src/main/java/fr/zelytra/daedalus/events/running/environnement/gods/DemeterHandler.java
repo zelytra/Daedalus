@@ -40,6 +40,7 @@ public class DemeterHandler implements Listener {
                             new Demeter(playerTeam);
                             vfx(player);
                             removeHeldItem(e,invocMaterial);
+                            e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
                         } catch (Exception exception) {
                             System.out.println("ERROR team not found");
                         }
