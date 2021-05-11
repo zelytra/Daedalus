@@ -73,7 +73,7 @@ public final class Daedalus extends JavaPlugin {
         getCommand("maze").setTabCompleter(new MazeTabCommands());
 
         getCommand("structure").setExecutor(new StructureCommands());
-        getCommand("wiki").setExecutor(new Wiki()   );
+        getCommand("wiki").setExecutor(new Wiki());
 
         getCommand("state").setExecutor(new StateCommands());
         getCommand("state").setTabCompleter(new StateTabs());
@@ -98,6 +98,12 @@ public final class Daedalus extends JavaPlugin {
         Bukkit.getWorld("world").setGameRule(GameRule.DO_TRADER_SPAWNING, false);
         Bukkit.getWorld("world").setGameRule(GameRule.MOB_GRIEFING, false);
         Bukkit.getWorld("world").setGameRule(GameRule.MAX_ENTITY_CRAMMING, 50);
+
+        Bukkit.getWorld("world").setGameRule(GameRule.DO_TILE_DROPS, true);
+        Bukkit.getWorld("world").setGameRule(GameRule.DO_ENTITY_DROPS, true);
+        Bukkit.getWorld("world").setGameRule(GameRule.KEEP_INVENTORY, false);
+
+
 
     }
 }

@@ -6,7 +6,6 @@ import fr.zelytra.daedalus.managers.game.GameStatesEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,8 +30,9 @@ public class PlayerJoinListener implements Listener {
 
         if (state.equals(GameStatesEnum.WAIT)) {
             p.setGameMode(GameMode.ADVENTURE);
-            p.setFoodLevel(200000);
-            p.setHealth(p.getMaxHealth());
+            p.setFoodLevel(20);
+            p.setSaturation(20);
+            p.setMaxHealth(20);
 
             if (Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId()) != null) {
 
@@ -94,7 +94,7 @@ public class PlayerJoinListener implements Listener {
             }else
                 p.getInventory().setItem(4, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
 
-            // TP TO SPAWN
+            //TODO TP TO SPAWN
         } else if (state.equals(GameStatesEnum.RUNNING)) {
             if (Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId()) != null)
                 setupTeam(p);
@@ -108,7 +108,6 @@ public class PlayerJoinListener implements Listener {
         }
 
         p.setPlayerListHeader("\n§7[§6Daedalus§7]\n");
-        p.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(16);
 
     }
 

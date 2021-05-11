@@ -1,5 +1,6 @@
 package fr.zelytra.daedalus.events.waiting.players;
 
+import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.builders.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -11,13 +12,13 @@ import org.bukkit.event.server.ServerCommandEvent;
 public class PlayerOpCommandListener implements Listener {
 
     @EventHandler
-    public void onCommand(PlayerCommandPreprocessEvent e){
+    public void onCommand(PlayerCommandPreprocessEvent e) {
 
-        if(e.getPlayer().isOp() && e.getMessage().startsWith("/op") && e.getMessage().split(" ").length == 2){
+        if (e.getPlayer().isOp() && e.getMessage().startsWith("/op") && e.getMessage().split(" ").length == 2 && Daedalus.getInstance().getGameManager().isWaiting()) {
 
             String pn = e.getMessage().split(" ")[1];
 
-            if(Bukkit.getPlayer(pn) != null){
+            if (Bukkit.getPlayer(pn) != null) {
                 Bukkit.getPlayer(pn).getInventory().clear();
                 Bukkit.getPlayer(pn).getInventory().setItem(8, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
                 Bukkit.getPlayer(pn).getInventory().setItem(0, new ItemBuilder(Material.COMPARATOR, "§7Game settings").getSettings());
@@ -25,11 +26,11 @@ public class PlayerOpCommandListener implements Listener {
             }
         }
 
-        if(e.getMessage().startsWith("/deop") && e.getMessage().split(" ").length == 2){
+        if (e.getMessage().startsWith("/deop") && e.getMessage().split(" ").length == 2 && Daedalus.getInstance().getGameManager().isWaiting()) {
 
             String pn = e.getMessage().split(" ")[1];
 
-            if(Bukkit.getPlayer(pn) != null){
+            if (Bukkit.getPlayer(pn) != null) {
                 Bukkit.getPlayer(pn).getInventory().clear();
                 Bukkit.getPlayer(pn).getInventory().setItem(4, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
             }
@@ -39,13 +40,13 @@ public class PlayerOpCommandListener implements Listener {
     }
 
     @EventHandler
-    public void onCommandServer(ServerCommandEvent e){
+    public void onCommandServer(ServerCommandEvent e) {
 
-        if(e.getCommand().startsWith("/op") && e.getCommand().split(" ").length == 2){
+        if (e.getCommand().startsWith("/op") && e.getCommand().split(" ").length == 2 && Daedalus.getInstance().getGameManager().isWaiting()) {
 
             String pn = e.getCommand().split(" ")[1];
 
-            if(Bukkit.getPlayer(pn) != null){
+            if (Bukkit.getPlayer(pn) != null) {
                 Bukkit.getPlayer(pn).getInventory().clear();
                 Bukkit.getPlayer(pn).getInventory().setItem(8, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
                 Bukkit.getPlayer(pn).getInventory().setItem(0, new ItemBuilder(Material.COMPARATOR, "§7Game settings").getSettings());
@@ -54,11 +55,11 @@ public class PlayerOpCommandListener implements Listener {
 
         }
 
-        if(e.getCommand().startsWith("/deop") && e.getCommand().split(" ").length == 2){
+        if (e.getCommand().startsWith("/deop") && e.getCommand().split(" ").length == 2 && Daedalus.getInstance().getGameManager().isWaiting()) {
 
             String pn = e.getCommand().split(" ")[1];
 
-            if(Bukkit.getPlayer(pn) != null){
+            if (Bukkit.getPlayer(pn) != null) {
                 Bukkit.getPlayer(pn).getInventory().clear();
                 Bukkit.getPlayer(pn).getInventory().setItem(4, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
             }

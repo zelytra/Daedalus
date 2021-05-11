@@ -5,6 +5,7 @@ import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.BlockState;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -70,9 +71,9 @@ public class PlayerBreakBlockListener implements Listener {
             }
 
             giveXP(block, e);
-
+            final BlockState state = e.getBlock().getState();
             if (block.getMaterial() != Material.ANCIENT_DEBRIS) {
-                Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), () -> replaceBlock(e.getBlock().getLocation(), block.getMaterial()), block.getSeconds() * 20L);
+                Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), () -> replaceBlock(state), block.getSeconds() * 20L);
             }
 
         } catch (IllegalArgumentException ignored) {
@@ -108,11 +109,11 @@ public class PlayerBreakBlockListener implements Listener {
 
     }
 
-    private void replaceBlock(Location loc, Material material) {
-
-        if (loc.getBlock().getType() != Material.AIR)
-            loc.getBlock().breakNaturally();
-        loc.getBlock().setType(material);
+    private void replaceBlock(BlockState state) {
+        if (state.getBlock().getLocation().getBlock().getType() != Material.AIR) {
+            state.getBlock().getLocation().getBlock().breakNaturally();
+        }
+        state.update(true);
 
     }
 

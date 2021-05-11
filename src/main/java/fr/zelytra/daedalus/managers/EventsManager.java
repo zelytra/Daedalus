@@ -5,13 +5,20 @@ import fr.zelytra.daedalus.commands.wiki.Wiki;
 import fr.zelytra.daedalus.events.running.DeathHandler;
 import fr.zelytra.daedalus.events.running.WinListener;
 import fr.zelytra.daedalus.events.running.environnement.MilkDrink;
+import fr.zelytra.daedalus.events.running.environnement.PortalListener;
+import fr.zelytra.daedalus.events.running.environnement.WitherSpawn;
 import fr.zelytra.daedalus.events.running.environnement.gods.*;
 import fr.zelytra.daedalus.events.running.environnement.items.*;
+import fr.zelytra.daedalus.events.running.environnement.mobCutclean.MobCutClean;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.PlayerBreakBlockListener;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.TreeGrowthListener;
 import fr.zelytra.daedalus.events.running.environnement.structure.BreakBlockListener;
+import fr.zelytra.daedalus.events.running.environnement.structure.InteractListener;
 import fr.zelytra.daedalus.events.running.environnement.structure.PlaceBlockListener;
 import fr.zelytra.daedalus.events.running.players.PlayerChatRListener;
+import fr.zelytra.daedalus.events.running.pvp.CoolDown;
+import fr.zelytra.daedalus.events.running.pvp.DamagerHandler;
+import fr.zelytra.daedalus.events.running.pvp.PlayerRegen;
 import fr.zelytra.daedalus.events.waiting.entities.EntityDamageListener;
 import fr.zelytra.daedalus.events.waiting.entities.EntityTargetListener;
 import fr.zelytra.daedalus.events.waiting.environment.BlockPlaceListener;
@@ -28,6 +35,7 @@ public class EventsManager {
         /* Maze */
         pm.registerEvents(new BreakBlockListener(),pl);
         pm.registerEvents(new PlaceBlockListener(),pl);
+        pm.registerEvents(new InteractListener(),pl);
 
         /*Custom Items*/
         pm.registerEvents(new ZeusLightning(),pl);
@@ -55,6 +63,9 @@ public class EventsManager {
         pm.registerEvents(new BlockPlaceListener(), pl);
         pm.registerEvents(new TreeGrowthListener(), pl);
         pm.registerEvents(new MilkDrink(), pl);
+        pm.registerEvents(new PortalListener(), pl);
+        pm.registerEvents(new MobCutClean(), pl);
+        pm.registerEvents(new WitherSpawn(), pl);
         pm.registerEvents(new WinListener(), pl);
         pm.registerEvents(new DeathHandler(), pl);
 
@@ -69,11 +80,17 @@ public class EventsManager {
         pm.registerEvents(new PlayerBreakBlockListener(), pl);
         pm.registerEvents(new PlayerChatWListener(), pl);
         pm.registerEvents(new PlayerChatRListener(), pl);
+        pm.registerEvents(new PlayerFoodListener(), pl);
         pm.registerEvents(new PlayerOpCommandListener(), pl);
 
         /* Entities */
         pm.registerEvents(new EntityTargetListener(), pl);
         pm.registerEvents(new EntityDamageListener(), pl);
+
+        /* PVP */
+        pm.registerEvents(new CoolDown(),pl);
+        pm.registerEvents(new PlayerRegen(),pl);
+        pm.registerEvents(new DamagerHandler(),pl);
 
     }
 }

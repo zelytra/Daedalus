@@ -9,7 +9,6 @@ public class PlayerFoodListener implements Listener {
 
     @EventHandler
     public void playerHungry(FoodLevelChangeEvent e){
-
         if(Daedalus.getInstance().getGameManager().isWaiting())
             e.setCancelled(true);
     }
