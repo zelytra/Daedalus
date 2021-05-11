@@ -47,7 +47,7 @@ public class DeathHandler implements Listener {
             e.setCancelled(true);
             player.setHealth(player.getMaxHealth());
             //Definitive death
-            if (!isMinotaure || (((EntityDamageByEntityEvent) e).getDamager() instanceof Player && Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(((EntityDamageByEntityEvent) e).getDamager().getUniqueId()).getGodEnum() == GodsEnum.MINOTAURE)) {
+            if (!isMinotaure || (e instanceof EntityDamageByEntityEvent && ((EntityDamageByEntityEvent) e).getDamager() instanceof Player && Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(((EntityDamageByEntityEvent) e).getDamager().getUniqueId()).getGodEnum() == GodsEnum.MINOTAURE)) {
                 player.setGameMode(GameMode.SPECTATOR);
                 for (ItemStack content : player.getInventory().getContents()) {
                     if (!CustomItemStack.hasTag(content) && content != null) {

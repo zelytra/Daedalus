@@ -53,7 +53,7 @@ public class PlayerInteractListener implements Listener {
                         p.sendMessage("§c[SETTINGS ALERT] Your gods selection doesn't match with the set limit ! Please adjust your selection correctly or your game will not be able to start.");
                         p.playSound(p.getLocation(), Sound.ENTITY_WITCH_HURT, 1.f, 1.f);
                     }else{
-                        if(Daedalus.getInstance().getGameManager().isStarting()){
+                        if(Daedalus.getInstance().getGameManager().isStarted()){
                             p.sendMessage("§7(You can cancel the start by opening game settings)");
                             return;
                         }

@@ -12,6 +12,9 @@ import fr.zelytra.daedalus.managers.team.Team;
 import fr.zelytra.daedalus.managers.team.TeamManager;
 import fr.zelytra.daedalus.managers.team.TeamsEnum;
 import fr.zelytra.daedalus.utils.Message;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 
@@ -67,10 +70,6 @@ public class GameManager {
 
     public boolean isFinished() {
         return state == GameStatesEnum.FINISHED;
-    }
-
-    public boolean isStarting() {
-        return state == GameStatesEnum.STARTING;
     }
 
     public boolean isStarted() {
@@ -130,30 +129,17 @@ public class GameManager {
     }
 
     public void preStart(Player op) {
-
         Bukkit.broadcastMessage("§aThe game is about to start !");
         op.sendMessage("§7(You can cancel the start by opening game settings)");
-        AtomicInteger countdown = new AtomicInteger(30);
+        AtomicInteger countdown = new AtomicInteger(10);
         started = true;
         preStartRunnable = Bukkit.getScheduler().scheduleSyncRepeatingTask(Daedalus.getInstance(), () -> {
 
-            if (!started)
+            if (!started) {
+                logPlayers("§cStart canceled");
                 Bukkit.getScheduler().cancelTask(preStartRunnable);
-            Daedalus.getInstance().getGameManager().setState(GameStatesEnum.STARTING);
-
-            if (countdown.get() == 30) {
-                for (Player p : Bukkit.getOnlinePlayers()) {
-                    p.sendTitle("§a30", "", 10, 20, 10);
-                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 0.5f, 1f);
-                }
             }
-
-            if (countdown.get() == 20) {
-                for (Player p : Bukkit.getOnlinePlayers()) {
-                    p.sendTitle("§e20", "", 10, 20, 10);
-                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 0.5f, 1f);
-                }
-            }
+            Daedalus.getInstance().getGameManager().setState(GameStatesEnum.WAIT);
 
             if (countdown.get() == 10) {
                 for (Player p : Bukkit.getOnlinePlayers()) {
@@ -173,7 +159,7 @@ public class GameManager {
                 Bukkit.getScheduler().cancelTask(preStartRunnable);
                 start();
             }
-
+            logPlayers("§a§lGame starting in [§2" + countdown.get() + "s§a]");
             countdown.getAndDecrement();
 
         }, 0L, 20L);
@@ -222,6 +208,14 @@ public class GameManager {
         this.state = GameStatesEnum.FINISHED;
         //TODO Mettre tout le monde en créatif
         //TODO FX de victoire
+
+    }
+
+    private void logPlayers(String msg) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            BaseComponent txt = new TextComponent(msg);
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, txt);
+        }
 
     }
 

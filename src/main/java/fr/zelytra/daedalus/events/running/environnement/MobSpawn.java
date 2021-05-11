@@ -20,6 +20,15 @@ public class MobSpawn implements Listener {
         whitelist.add(EntityType.COW);
         whitelist.add(EntityType.PIG);
         whitelist.add(EntityType.SHEEP);
+        whitelist.add(EntityType.DROPPED_ITEM);
+        whitelist.add(EntityType.ARROW);
+        whitelist.add(EntityType.SPECTRAL_ARROW);
+        whitelist.add(EntityType.SPLASH_POTION);
+        whitelist.add(EntityType.ITEM_FRAME);
+        whitelist.add(EntityType.EXPERIENCE_ORB);
+        whitelist.add(EntityType.FALLING_BLOCK);
+        whitelist.add(EntityType.FIREWORK);
+        whitelist.add(EntityType.TRIDENT);
     }
 
     @EventHandler

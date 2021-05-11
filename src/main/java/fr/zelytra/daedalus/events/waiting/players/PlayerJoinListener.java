@@ -5,6 +5,7 @@ import fr.zelytra.daedalus.builders.ItemBuilder;
 import fr.zelytra.daedalus.managers.game.GameStatesEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,11 +29,14 @@ public class PlayerJoinListener implements Listener {
 
         Bukkit.broadcastMessage("§7[§a+§7] §f" + p.getName());
 
-        if (state.equals(GameStatesEnum.WAIT)) {
+        if (state.equals(GameStatesEnum.WAIT) || Daedalus.getInstance().getGameManager().isStarted()) {
             p.setGameMode(GameMode.ADVENTURE);
             p.setFoodLevel(20);
             p.setSaturation(20);
             p.setMaxHealth(20);
+            p.setLevel(0);
+            p.getInventory().clear();
+            p.teleport(new Location(p.getWorld(), 669, 162, 675));
 
             if (Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId()) != null) {
 
@@ -41,7 +45,7 @@ public class PlayerJoinListener implements Listener {
                 switch (Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId()).getTeamColor()) {
 
                     case RED: {
-                        if(p.isOp())
+                        if (p.isOp())
                             p.getInventory().setItem(0, new ItemBuilder(Material.RED_BANNER, "§7Team selection").getItemStack());
                         else
                             p.getInventory().setItem(4, new ItemBuilder(Material.RED_BANNER, "§7Team selection").getItemStack());
@@ -50,7 +54,7 @@ public class PlayerJoinListener implements Listener {
                     }
 
                     case BLUE: {
-                        if(p.isOp())
+                        if (p.isOp())
                             p.getInventory().setItem(0, new ItemBuilder(Material.BLUE_BANNER, "§7Team selection").getItemStack());
                         else
                             p.getInventory().setItem(4, new ItemBuilder(Material.BLUE_BANNER, "§7Team selection").getItemStack());
@@ -58,7 +62,7 @@ public class PlayerJoinListener implements Listener {
                     }
 
                     case GREEN: {
-                        if(p.isOp())
+                        if (p.isOp())
                             p.getInventory().setItem(0, new ItemBuilder(Material.GREEN_BANNER, "§7Team selection").getItemStack());
                         else
                             p.getInventory().setItem(4, new ItemBuilder(Material.GREEN_BANNER, "§7Team selection").getItemStack());
@@ -66,7 +70,7 @@ public class PlayerJoinListener implements Listener {
                     }
 
                     case YELLOW: {
-                        if(p.isOp())
+                        if (p.isOp())
                             p.getInventory().setItem(0, new ItemBuilder(Material.YELLOW_BANNER, "§7Team selection").getItemStack());
                         else
                             p.getInventory().setItem(4, new ItemBuilder(Material.YELLOW_BANNER, "§7Team selection").getItemStack());
@@ -74,7 +78,7 @@ public class PlayerJoinListener implements Listener {
                     }
 
                     case GRAY: {
-                        if(p.isOp())
+                        if (p.isOp())
                             p.getInventory().setItem(0, new ItemBuilder(Material.GRAY_BANNER, "§7Team selection").getItemStack());
                         else
                             p.getInventory().setItem(4, new ItemBuilder(Material.GRAY_BANNER, "§7Team selection").getItemStack());
@@ -87,11 +91,11 @@ public class PlayerJoinListener implements Listener {
                 Daedalus.getInstance().getGameManager().getTeamManager().getSpectatorTeam().addPlayer(p.getUniqueId());
             }
 
-            if(p.isOp()) {
+            if (p.isOp()) {
                 p.getInventory().setItem(8, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
                 p.getInventory().setItem(0, new ItemBuilder(Material.COMPARATOR, "§7Game settings").getSettings());
                 p.getInventory().setItem(4, new ItemBuilder(Material.BELL, "§6Start game", "§7Click here to start your game with the actual configuration").getItemStack());
-            }else
+            } else
                 p.getInventory().setItem(4, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
 
             //TODO TP TO SPAWN
@@ -102,7 +106,6 @@ public class PlayerJoinListener implements Listener {
                 setSpectator(p);
 
 
-
         } else {
             setSpectator(p);
         }
@@ -111,7 +114,7 @@ public class PlayerJoinListener implements Listener {
 
     }
 
-    private void setSpectator(Player p){
+    private void setSpectator(Player p) {
         p.setGameMode(GameMode.SPECTATOR);
         Daedalus.getInstance().getGameManager().getTeamManager().getSpectatorTeam().addPlayer(p.getUniqueId());
     }
