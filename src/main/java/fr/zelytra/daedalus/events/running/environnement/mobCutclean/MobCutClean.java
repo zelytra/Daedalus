@@ -21,7 +21,6 @@ public class MobCutClean implements Listener {
             FoodEnum animal = FoodEnum.getByMob(e.getEntityType());
             List<ItemStack> loots = new ArrayList<>();
             for (ItemStack item : e.getDrops()) {
-                System.out.println(item);
                 if (item.getType() == animal.getRaw()) {
                     loots.add(new ItemStack(animal.getCooked(), item.getAmount()));
                     continue;

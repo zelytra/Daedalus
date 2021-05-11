@@ -27,6 +27,7 @@ public class MedusaHead implements Listener {
     @EventHandler
     public void playerMove(PlayerMoveEvent e) {
         //TODO Evenement test
+
         if (!Daedalus.getInstance().getGameManager().isRunning()) {
             return;
         }

@@ -4,9 +4,7 @@ import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.commands.wiki.Wiki;
 import fr.zelytra.daedalus.events.running.DeathHandler;
 import fr.zelytra.daedalus.events.running.WinListener;
-import fr.zelytra.daedalus.events.running.environnement.MilkDrink;
-import fr.zelytra.daedalus.events.running.environnement.PortalListener;
-import fr.zelytra.daedalus.events.running.environnement.WitherSpawn;
+import fr.zelytra.daedalus.events.running.environnement.*;
 import fr.zelytra.daedalus.events.running.environnement.gods.*;
 import fr.zelytra.daedalus.events.running.environnement.items.*;
 import fr.zelytra.daedalus.events.running.environnement.mobCutclean.MobCutClean;
@@ -44,7 +42,7 @@ public class EventsManager {
         pm.registerEvents(new DemeterSickle(),pl);
         pm.registerEvents(new DionysosCup(),pl);
         pm.registerEvents(new MinotaurCharge(),pl);
-        pm.registerEvents(new MedusaHead(),pl);
+        //pm.registerEvents(new MedusaHead(),pl);
 
         /*Gods Summoning*/
         pm.registerEvents(new ZeusHandler(),pl);
@@ -68,6 +66,8 @@ public class EventsManager {
         pm.registerEvents(new WitherSpawn(), pl);
         pm.registerEvents(new WinListener(), pl);
         pm.registerEvents(new DeathHandler(), pl);
+        pm.registerEvents(new MobSpawn(), pl);
+        pm.registerEvents(new HostileMob(), pl);
 
         /* Inventory */
         pm.registerEvents(new InventoryListener(), pl);

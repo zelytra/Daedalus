@@ -27,7 +27,7 @@ public class InteractListener implements Listener {
         }
         int groundY = (int) maze.getOrigin().getY();
         if (e.getAction() == Action.LEFT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            if (e.getClickedBlock().getY() >= groundY + (wallHigh - limit) || e.getClickedBlock().getY() <= groundY - 1)
+            if (e.getClickedBlock().getY() >= groundY + (wallHigh - limit))
                 e.setCancelled(true);
         }
 
