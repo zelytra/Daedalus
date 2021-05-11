@@ -69,6 +69,10 @@ public class GameManager {
         return state == GameStatesEnum.FINISHED;
     }
 
+    public boolean isStarting() {
+        return state == GameStatesEnum.STARTING;
+    }
+
     public boolean isStarted() {
         return started;
     }
@@ -135,6 +139,7 @@ public class GameManager {
 
             if (!started)
                 Bukkit.getScheduler().cancelTask(preStartRunnable);
+            Daedalus.getInstance().getGameManager().setState(GameStatesEnum.STARTING);
 
             if (countdown.get() == 30) {
                 for (Player p : Bukkit.getOnlinePlayers()) {

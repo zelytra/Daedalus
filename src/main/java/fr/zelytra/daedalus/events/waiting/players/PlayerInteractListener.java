@@ -27,7 +27,7 @@ public class PlayerInteractListener implements Listener {
         if(e.getItem() == null)
             return;
 
-        if(Daedalus.getInstance().getGameManager().isWaiting()){
+        if(Daedalus.getInstance().getGameManager().isWaiting()||Daedalus.getInstance().getGameManager().isStarted()){
 
             if(e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_BLOCK){
 
@@ -53,6 +53,10 @@ public class PlayerInteractListener implements Listener {
                         p.sendMessage("§c[SETTINGS ALERT] Your gods selection doesn't match with the set limit ! Please adjust your selection correctly or your game will not be able to start.");
                         p.playSound(p.getLocation(), Sound.ENTITY_WITCH_HURT, 1.f, 1.f);
                     }else{
+                        if(Daedalus.getInstance().getGameManager().isStarting()){
+                            p.sendMessage("§7(You can cancel the start by opening game settings)");
+                            return;
+                        }
                         Daedalus.getInstance().getGameManager().preStart(p);
                     }
 
