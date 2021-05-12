@@ -5,6 +5,8 @@ import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.gods.list.Ares;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
+import fr.zelytra.daedalus.managers.structure.Structure;
+import fr.zelytra.daedalus.managers.structure.StructureType;
 import fr.zelytra.daedalus.managers.team.Team;
 import fr.zelytra.daedalus.utils.Message;
 import fr.zelytra.daedalus.utils.Utils;
@@ -21,6 +23,9 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.BoundingBox;
+
+import java.util.Map;
 
 public class AresHandler implements Listener {
     private final Material invocationBlock = Material.LODESTONE;
@@ -33,20 +38,26 @@ public class AresHandler implements Listener {
                 if ((e.getHand() == EquipmentSlot.HAND && CustomItemStack.hasCustomItemInMainHand(invocMaterial.getName(), e.getPlayer())) || (e.getHand() == EquipmentSlot.OFF_HAND && CustomItemStack.hasCustomItemInOffHand(invocMaterial.getName(), e.getPlayer()))) {
                     if (e.getClickedBlock().getType() == invocationBlock) {
                         Player player = e.getPlayer();
-                        try {
-                            Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
-                            if (playerTeam.getGod() != null) {
-                                player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
+                        for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
+                            if (entry.getKey().contains(e.getClickedBlock().getX(), e.getClickedBlock().getY(), e.getClickedBlock().getZ()) && entry.getValue().getType() == StructureType.TEMPLE && entry.getValue().getGod() == GodsEnum.ARES) {
+                                try {
+                                    Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
+                                    if (playerTeam.getGod() != null) {
+                                        player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
+                                        return;
+                                    }
+                                    playerTeam.setGod(player, GodsEnum.ARES);
+                                    new Ares(playerTeam);
+                                    vfx(player);
+                                    removeHeldItem(e, invocMaterial);
+                                    e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
+                                } catch (Exception exception) {
+                                    System.out.println("ERROR team not found");
+                                }
                                 return;
                             }
-                            playerTeam.setGod(player, GodsEnum.ARES);
-                            new Ares(playerTeam);
-                            vfx(player);
-                            removeHeldItem(e,invocMaterial);
-                            e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
-                        } catch (Exception exception) {
-                            System.out.println("ERROR team not found");
                         }
+                        player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon this god here.");
                     }
                 }
             }
@@ -64,8 +75,8 @@ public class AresHandler implements Listener {
                         return;
                     }
                     if (playerTeam.getGodEnum() == GodsEnum.ARES) {
-                        killer.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 200, 1, false, false,true));
-                        killer.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 1, false, false,true));
+                        killer.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 200, 1, false, false, true));
+                        killer.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 1, false, false, true));
                     }
                 } catch (Exception exception) {
                     System.out.println("ERROR team not found");

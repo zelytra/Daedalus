@@ -29,7 +29,7 @@ public class PlayerJoinListener implements Listener {
 
         Bukkit.broadcastMessage("§7[§a+§7] §f" + p.getName());
 
-        if (state.equals(GameStatesEnum.WAIT) || Daedalus.getInstance().getGameManager().isStarted()) {
+        if (state.equals(GameStatesEnum.WAIT)) {
             p.setGameMode(GameMode.ADVENTURE);
             p.setFoodLevel(20);
             p.setSaturation(20);

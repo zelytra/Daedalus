@@ -43,7 +43,7 @@ public class InventoryListener implements Listener {
                                 Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.WHITE).addPlayer(p.getUniqueId());
                                 p.sendMessage("§8You joined the §fspectator team");
                                 if (p.isOp()) {
-                                    p.getInventory().setItem(0, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
+                                    p.getInventory().setItem(8, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
                                 }else {
                                     p.getInventory().setItem(4, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
                                 }
@@ -52,7 +52,7 @@ public class InventoryListener implements Listener {
                                 Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.RED).addPlayer(p.getUniqueId());
                                 p.sendMessage("§8You joined the §cred team");
                                 if (p.isOp()) {
-                                    p.getInventory().setItem(0, new ItemBuilder(Material.RED_BANNER, "§7Team selection").getItemStack());
+                                    p.getInventory().setItem(8, new ItemBuilder(Material.RED_BANNER, "§7Team selection").getItemStack());
                                 }else {
                                     p.getInventory().setItem(4, new ItemBuilder(Material.RED_BANNER, "§7Team selection").getItemStack());
                                 }
@@ -67,7 +67,7 @@ public class InventoryListener implements Listener {
                                 Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.WHITE).addPlayer(p.getUniqueId());
                                 p.sendMessage("§8You joined the §fspectator team");
                                 if (p.isOp()) {
-                                    p.getInventory().setItem(0, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
+                                    p.getInventory().setItem(8, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
                                 }else {
                                     p.getInventory().setItem(4, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
                                 }
@@ -76,7 +76,7 @@ public class InventoryListener implements Listener {
                                 Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.BLUE).addPlayer(p.getUniqueId());
                                 p.sendMessage("§8You joined the §9blue team");
                                 if (p.isOp()) {
-                                    p.getInventory().setItem(0, new ItemBuilder(Material.BLUE_BANNER, "§7Team selection").getItemStack());
+                                    p.getInventory().setItem(8, new ItemBuilder(Material.BLUE_BANNER, "§7Team selection").getItemStack());
                                 }else {
                                     p.getInventory().setItem(4, new ItemBuilder(Material.BLUE_BANNER, "§7Team selection").getItemStack());
                                 }
@@ -91,7 +91,7 @@ public class InventoryListener implements Listener {
                                 Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.WHITE).addPlayer(p.getUniqueId());
                                 p.sendMessage("§8You joined the §fspectator team");
                                 if (p.isOp()) {
-                                    p.getInventory().setItem(0, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
+                                    p.getInventory().setItem(8, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
                                 }else {
                                     p.getInventory().setItem(4, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
                                 }
@@ -100,7 +100,7 @@ public class InventoryListener implements Listener {
                                 Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.GREEN).addPlayer(p.getUniqueId());
                                 p.sendMessage("§8You joined the §agreen team");
                                 if (p.isOp()) {
-                                    p.getInventory().setItem(0, new ItemBuilder(Material.GREEN_BANNER, "§7Team selection").getItemStack());
+                                    p.getInventory().setItem(8, new ItemBuilder(Material.GREEN_BANNER, "§7Team selection").getItemStack());
                                 }else {
                                     p.getInventory().setItem(4, new ItemBuilder(Material.GREEN_BANNER, "§7Team selection").getItemStack());
                                 }
@@ -115,7 +115,7 @@ public class InventoryListener implements Listener {
                                 Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.WHITE).addPlayer(p.getUniqueId());
                                 p.sendMessage("§8You joined the §fspectator team");
                                 if (p.isOp()) {
-                                    p.getInventory().setItem(0, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
+                                    p.getInventory().setItem(8, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
                                 }else {
                                     p.getInventory().setItem(4, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
                                 }
@@ -124,7 +124,7 @@ public class InventoryListener implements Listener {
                                 Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.YELLOW).addPlayer(p.getUniqueId());
                                 p.sendMessage("§8You joined the §eyellow team");
                                 if (p.isOp()) {
-                                    p.getInventory().setItem(0, new ItemBuilder(Material.YELLOW_BANNER, "§7Team selection").getItemStack());
+                                    p.getInventory().setItem(8, new ItemBuilder(Material.YELLOW_BANNER, "§7Team selection").getItemStack());
                                 }else {
                                     p.getInventory().setItem(4, new ItemBuilder(Material.YELLOW_BANNER, "§7Team selection").getItemStack());
                                 }
@@ -139,7 +139,7 @@ public class InventoryListener implements Listener {
                                 Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.WHITE).addPlayer(p.getUniqueId());
                                 p.sendMessage("§8You joined the §fspectator team");
                                 if (p.isOp()) {
-                                    p.getInventory().setItem(0, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
+                                    p.getInventory().setItem(8, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
                                 }else {
                                     p.getInventory().setItem(4, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
                                 }
@@ -148,7 +148,7 @@ public class InventoryListener implements Listener {
                                 Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.GRAY).addPlayer(p.getUniqueId());
                                 p.sendMessage("§8You joined the §7minos team");
                                 if (p.isOp()) {
-                                    p.getInventory().setItem(0, new ItemBuilder(Material.GRAY_BANNER, "§7Team selection").getItemStack());
+                                    p.getInventory().setItem(8, new ItemBuilder(Material.GRAY_BANNER, "§7Team selection").getItemStack());
                                 }else {
                                     p.getInventory().setItem(4, new ItemBuilder(Material.GRAY_BANNER, "§7Team selection").getItemStack());
                                 }
