@@ -1,10 +1,11 @@
 package fr.zelytra.daedalus.managers.team;
 
 import org.bukkit.Bukkit;
-import org.bukkit.DyeColor;
 import org.bukkit.scoreboard.Scoreboard;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class TeamManager {
 
@@ -37,9 +38,9 @@ public class TeamManager {
 
     }
 
-    public Team getTeamOfColor(DyeColor color) {
+    public Team getTeamOfEnum(TeamsEnum teamsEnum) {
         for (Team team : teamList) {
-            if (team.getColor() == color) {
+            if (team.getTeamEnum() == teamsEnum) {
                 return team;
             }
         }

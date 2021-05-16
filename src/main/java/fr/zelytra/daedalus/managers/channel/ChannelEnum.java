@@ -1,7 +1,6 @@
-package fr.zelytra.daedalus.events.running.players;
+package fr.zelytra.daedalus.managers.channel;
 
 public enum ChannelEnum {
-
     GLOBAL,
     TEAM,
     SPECTATOR;

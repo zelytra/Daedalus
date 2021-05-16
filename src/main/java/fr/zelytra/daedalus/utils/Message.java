@@ -11,7 +11,7 @@ public abstract class Message {
 
 
     public static String getPlayerPrefixe(){
-        return new String("§2[§aDaedalus§2]§r ");
+        return new String("§6Daedalus§8§l>>§r ");
     }
 
     public static String getConsolePrefixe(){

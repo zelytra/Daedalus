@@ -49,10 +49,10 @@ public enum StructureEnum {
     private final String name;
     private final StructureType type;
     private BlockVector origin;
-    private BlockVector offset;
+    private final BlockVector offset;
     private GodsEnum god;
-    private Boolean canBlock;
-    private int id;
+    private final Boolean canBlock;
+    private final int id;
 
 
     StructureEnum(String name, int id, StructureType type, Boolean canBlock, BlockVector offset) {

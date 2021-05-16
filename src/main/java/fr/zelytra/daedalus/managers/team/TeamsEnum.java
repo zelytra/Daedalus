@@ -12,8 +12,8 @@ public enum TeamsEnum {
     BLUE("Blue", DyeColor.BLUE, ChatColor.BLUE, "§9", "§r",new Location(Bukkit.getWorld("world"),-485,89,483)),
     YELLOW("Yellow", DyeColor.YELLOW, ChatColor.YELLOW, "§e", "§r",new Location(Bukkit.getWorld("world"),475,89,483)),
     GREEN("Green", DyeColor.GREEN, ChatColor.GREEN, "§a", "§r",new Location(Bukkit.getWorld("world"),476,89,-477)),
-    SPECTATOR("Spectator", DyeColor.WHITE, ChatColor.WHITE, "§f[SPECTATOR] ", "§r",new Location(Bukkit.getWorld("world"),0,81,0)),
-    MINOS("Minos", DyeColor.GRAY, ChatColor.GRAY, "§7", "§r",new Location(Bukkit.getWorld("world"),0,81,0));
+    SPECTATOR("Spectator", DyeColor.WHITE, ChatColor.WHITE, "§f", "§r",new Location(Bukkit.getWorld("world"),0,81,0)),
+    MINOS("Minos", DyeColor.ORANGE, ChatColor.GOLD, "§7", "§r",new Location(Bukkit.getWorld("world"),0,81,0));
 
     private final String name;
     private final DyeColor teamColor;

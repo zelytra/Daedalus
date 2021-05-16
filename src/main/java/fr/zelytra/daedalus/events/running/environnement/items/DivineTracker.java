@@ -10,6 +10,7 @@ import fr.zelytra.daedalus.managers.team.Team;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -117,8 +118,9 @@ public class DivineTracker implements Listener {
         int deltaX = (int) (box.getCenter().getX() - player.getLocation().getX());
         int deltaZ = (int) (box.getCenter().getZ() - player.getLocation().getZ());
         int distance = (int) Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaZ, 2));
+        player.setCompassTarget(new Location(player.getWorld(),box.getCenterX(),box.getMaxY(),box.getCenterZ()));
 
-        BaseComponent txt = new TextComponent("§1" + distance + "§r§8 block(s) away from §1§l" + structure.getGod().getName() + " temple");
+        BaseComponent txt = new TextComponent("§1" + distance + "§r§8 block away from §1§l" + structure.getGod().getName() + " temple");
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, txt);
     }
 
@@ -126,8 +128,9 @@ public class DivineTracker implements Listener {
         int deltaX = (int) (target.getLocation().getX() - player.getLocation().getX());
         int deltaZ = (int) (target.getLocation().getZ() - player.getLocation().getZ());
         int distance = (int) Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaZ, 2));
+        player.setCompassTarget(target.getLocation());
 
-        BaseComponent txt = new TextComponent("§1" + distance + "§r§8 block(s) away from §1§l" + god.getName());
+        BaseComponent txt = new TextComponent("§1" + distance + "§r§8 block away from §1§l" + god.getName());
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, txt);
     }
 

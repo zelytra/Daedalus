@@ -54,13 +54,13 @@ public class Team {
         ItemMeta meta;
         ArrayList<String> lore = new ArrayList<>();
 
-        switch (getTeamColor()) {
+        switch (getTeamEnum()) {
 
             case RED:
                 banner = new ItemStack(Material.RED_BANNER);
                 meta = banner.getItemMeta();
                 assert meta != null;
-                meta.setDisplayName("§cEquipe rouge");
+                meta.setDisplayName("§cRed team");
                 if (!getPlayerList().isEmpty()) {
                     lore.add("");
                     for (UUID uuid : getPlayerList()) {
@@ -79,7 +79,7 @@ public class Team {
                 banner = new ItemStack(Material.BLUE_BANNER);
                 meta = banner.getItemMeta();
                 assert meta != null;
-                meta.setDisplayName("§9Equipe bleue");
+                meta.setDisplayName("§9Blue team");
                 if (!getPlayerList().isEmpty()) {
                     lore.add("");
                     for (UUID uuid : getPlayerList()) {
@@ -97,7 +97,7 @@ public class Team {
                 banner = new ItemStack(Material.GREEN_BANNER);
                 meta = banner.getItemMeta();
                 assert meta != null;
-                meta.setDisplayName("§aEquipe verte");
+                meta.setDisplayName("§aGreen team");
                 if (!getPlayerList().isEmpty()) {
                     lore.add("");
                     for (UUID uuid : getPlayerList()) {
@@ -111,11 +111,11 @@ public class Team {
                 banner.setItemMeta(meta);
                 break;
 
-            case GRAY:
+            case MINOS:
                 banner = new ItemStack(Material.GRAY_BANNER);
                 meta = banner.getItemMeta();
                 assert meta != null;
-                meta.setDisplayName("§7Equipe minotaure");
+                meta.setDisplayName("§7Minotaure team");
                 if (!getPlayerList().isEmpty()) {
                     lore.add("");
                     for (UUID uuid : getPlayerList()) {
@@ -133,7 +133,7 @@ public class Team {
                 banner = new ItemStack(Material.YELLOW_BANNER);
                 meta = banner.getItemMeta();
                 assert meta != null;
-                meta.setDisplayName("§eEquipe jaune");
+                meta.setDisplayName("§eYellow team");
                 if (!getPlayerList().isEmpty()) {
                     lore.add("");
                     for (UUID uuid : getPlayerList()) {

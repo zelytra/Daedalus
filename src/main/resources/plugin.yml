@@ -1,5 +1,5 @@
 name: Daedalus
-version: ${project.version}
+version: 1.0
 main: fr.zelytra.daedalus.Daedalus
 softdepend:
   - WorldEdit
@@ -33,3 +33,11 @@ commands:
   wiki:
     permission: daedalus.wiki
     description: Show wiki
+
+  coordinate:
+    permission: daedalus.coordinate
+    description: Share your location to your mates
+    aliases:
+      - co
+      - loc
+      - coo

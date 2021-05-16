@@ -2,6 +2,7 @@ package fr.zelytra.daedalus;
 
 import fr.zelytra.daedalus.commands.DebugCommands;
 import fr.zelytra.daedalus.commands.SettingsCommand;
+import fr.zelytra.daedalus.commands.location.ShareLocation;
 import fr.zelytra.daedalus.commands.state.StateCommands;
 import fr.zelytra.daedalus.commands.item.ItemsCommands;
 import fr.zelytra.daedalus.commands.item.ItemsTabs;
@@ -74,6 +75,7 @@ public final class Daedalus extends JavaPlugin {
 
         getCommand("structure").setExecutor(new StructureCommands());
         getCommand("wiki").setExecutor(new Wiki());
+        getCommand("coordinate").setExecutor(new ShareLocation());
 
         getCommand("state").setExecutor(new StateCommands());
         getCommand("state").setTabCompleter(new StateTabs());

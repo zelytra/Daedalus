@@ -4,7 +4,7 @@ import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.builders.InventoryBuilder;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
-import org.bukkit.DyeColor;
+import fr.zelytra.daedalus.managers.team.TeamsEnum;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,11 +35,11 @@ public class PlayerInteractListener implements Listener {
 
                     Inventory inv = new InventoryBuilder("§3Team selection", InventoryType.DROPPER).getInventory();
 
-                    inv.setItem(0, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.RED).getBanner());
-                    inv.setItem(2, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.GREEN).getBanner());
-                    inv.setItem(6, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.BLUE).getBanner());
-                    inv.setItem(8, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.YELLOW).getBanner());
-                    inv.setItem(4, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfColor(DyeColor.GRAY).getBanner());
+                    inv.setItem(0, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfEnum(TeamsEnum.RED).getBanner());
+                    inv.setItem(2, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfEnum(TeamsEnum.GREEN).getBanner());
+                    inv.setItem(6, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfEnum(TeamsEnum.BLUE).getBanner());
+                    inv.setItem(8, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfEnum(TeamsEnum.YELLOW).getBanner());
+                    inv.setItem(4, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfEnum(TeamsEnum.MINOS).getBanner());
 
                     if(!p.getOpenInventory().getTitle().contains("§3"))
                         p.openInventory(inv);

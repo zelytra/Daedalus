@@ -1,15 +1,14 @@
 package fr.zelytra.daedalus.events.running.players;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.channel.ChannelEnum;
+import fr.zelytra.daedalus.managers.channel.MessageManager;
 import fr.zelytra.daedalus.managers.team.Team;
 import fr.zelytra.daedalus.managers.team.TeamsEnum;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-
-import java.util.UUID;
 
 public class PlayerChatRListener implements Listener {
 
@@ -19,7 +18,6 @@ public class PlayerChatRListener implements Listener {
         if(!Daedalus.getInstance().getGameManager().isRunning())
             return;
 
-
         final Player p = e.getPlayer();
         final Team t = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId());
 
@@ -27,29 +25,23 @@ public class PlayerChatRListener implements Listener {
 
             if(e.getMessage().startsWith("!")){
 
-                for(Player pl : Bukkit.getOnlinePlayers()){
-                    pl.sendMessage(getFormattedMessage(p, t, e.getMessage(), ChannelEnum.GLOBAL));
-                }
+                MessageManager message = new MessageManager(p,e.getMessage(),ChannelEnum.GLOBAL,t);
+                message.playerSendMessage();
+
 
             }else{
 
-                for(UUID uuid : t.getPlayerList()){
-                    Player pl = Bukkit.getPlayer(uuid);
-                    assert pl != null;
-                    pl.sendMessage(getFormattedMessage(p, t, e.getMessage(), ChannelEnum.TEAM));
-                }
+                MessageManager message = new MessageManager(p,e.getMessage(),ChannelEnum.TEAM,t);
+                message.playerSendMessage();
 
 
             }
         }else{
 
             Team spec = Daedalus.getInstance().getGameManager().getTeamManager().getSpectatorTeam();
+            MessageManager message = new MessageManager(p,e.getMessage(),ChannelEnum.TEAM,spec);
+            message.playerSendMessage();
 
-            for(UUID uuid : spec.getPlayerList()){
-                Player pl = Bukkit.getPlayer(uuid);
-                assert pl != null;
-                pl.sendMessage(getFormattedMessage(p, t, e.getMessage(), ChannelEnum.SPECTATOR));
-            }
         }
 
 
@@ -57,24 +49,5 @@ public class PlayerChatRListener implements Listener {
 
     }
 
-    private String getFormattedMessage(Player p, Team t, String message, ChannelEnum channel){
-
-        switch (channel){
-
-            case GLOBAL: {
-
-                return t.getPrefix()+p.getName()+"§7: §f"+message.substring(1);
-            }
-            case TEAM: {
-
-                return t.getPrefix()+p.getName()+"§7: §3"+message;
-            }
-            case SPECTATOR: {
-
-                return t.getPrefix()+"§7"+p.getName()+": §3"+message;
-            }
-        }
-        return "";
-    }
 }
  
