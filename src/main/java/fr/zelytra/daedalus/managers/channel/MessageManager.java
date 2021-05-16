@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.managers.channel;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.team.Team;
 import fr.zelytra.daedalus.managers.team.TeamsEnum;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -74,11 +75,16 @@ public class MessageManager {
                         continue;
                     }
                     pl.sendMessage(getFormattedMessage());
-                    break;
                 }
+                break;
             case TEAM:
                 for (UUID id : senderTeam.getPlayerList()) {
                     Objects.requireNonNull(Bukkit.getPlayer(id)).sendMessage(getFormattedMessage());
+                }
+                break;
+            case SPECTATOR:
+                for (UUID uuid : Daedalus.getInstance().getGameManager().getTeamManager().getSpectatorTeam().getPlayerList()) {
+                    Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(getFormattedMessage());
                 }
                 break;
         }
@@ -89,15 +95,15 @@ public class MessageManager {
 
             case GLOBAL: {
 
-                return senderTeam.getPrefix() + sender.getName() + "§7: §f" + message.substring(1);
+                return ChatColor.of("#808080") + "[Global] " + senderTeam.getPrefix() + sender.getName() + "§7 > §f" + message.substring(1);
             }
             case TEAM: {
 
-                return senderTeam.getPrefix() + sender.getName() + "§7: §3" + message;
+                return ChatColor.of("#808080") + "[Team] " + senderTeam.getPrefix() + sender.getName() + "§7 > §f" + message;
             }
             case SPECTATOR: {
 
-                return senderTeam.getPrefix() + "§7" + sender.getName() + ": §3" + message;
+                return ChatColor.of("#808080") + "[Spec] " + senderTeam.getPrefix() + "§7" + sender.getName() + "§7 > §f" + message;
             }
         }
         return "";

@@ -39,7 +39,7 @@ public class PlayerChatRListener implements Listener {
         }else{
 
             Team spec = Daedalus.getInstance().getGameManager().getTeamManager().getSpectatorTeam();
-            MessageManager message = new MessageManager(p,e.getMessage(),ChannelEnum.TEAM,spec);
+            MessageManager message = new MessageManager(p,e.getMessage(),ChannelEnum.SPECTATOR,spec);
             message.playerSendMessage();
 
         }
