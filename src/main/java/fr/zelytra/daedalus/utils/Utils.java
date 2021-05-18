@@ -7,6 +7,7 @@ import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,7 +56,9 @@ public abstract class Utils {
 
     public static ItemStack EnchantedItemStack(Material material, Enchantment enchantment, int lvl) {
         ItemStack item = new ItemStack(material);
-        item.addUnsafeEnchantment(enchantment, lvl);
+        EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
+        meta.addStoredEnchant(enchantment,lvl,false);
+        item.setItemMeta(meta);
         return item;
     }
 

@@ -21,7 +21,7 @@ public class Structure {
     public Structure(StructureEnum structure) {
         this.structure = structure;
 
-        InputStream is = Daedalus.getInstance().getResource(this.structure.getName() + ".struct");
+        InputStream is = Daedalus.getInstance().getResource("structures/" + this.structure.getName() + ".struct");
         BuiltInClipboardFormat format = BuiltInClipboardFormat.SPONGE_SCHEMATIC;
         try (ClipboardReader reader = format.getReader(is)) {
             this.clipboard = reader.read();

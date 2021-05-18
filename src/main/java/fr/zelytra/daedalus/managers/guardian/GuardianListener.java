@@ -58,6 +58,9 @@ public class GuardianListener implements Listener {
             return;
         }
         Guardian guardian = Guardian.getGuardianFromList(e.getEntity());
+        if(guardian==null){
+            return;
+        }
         guardian.death();
         e.setDroppedExp(150);
         e.getDrops().removeAll(e.getDrops());

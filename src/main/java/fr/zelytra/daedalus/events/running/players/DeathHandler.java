@@ -1,8 +1,9 @@
-package fr.zelytra.daedalus.events.running;
+package fr.zelytra.daedalus.events.running.players;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
+import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import fr.zelytra.daedalus.managers.team.PlayerStatus;
 import fr.zelytra.daedalus.managers.team.Team;
 import fr.zelytra.daedalus.managers.team.TeamsEnum;
@@ -16,9 +17,18 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class DeathHandler implements Listener {
+    private final List<CustomMaterial> whitelist = new ArrayList<>();
+
+    {
+        whitelist.add(CustomMaterial.DIVINE_FRAGMENT);
+        whitelist.add(CustomMaterial.DIVINE_HEART);
+        whitelist.add(CustomMaterial.DIVINE_TRACKER);
+    }
 
     @EventHandler
     public void onPlayerDeath(EntityDamageEvent e) {
@@ -51,7 +61,7 @@ public class DeathHandler implements Listener {
             if (!isMinotaure || (e instanceof EntityDamageByEntityEvent && ((EntityDamageByEntityEvent) e).getDamager() instanceof Player && Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(((EntityDamageByEntityEvent) e).getDamager().getUniqueId()).getGodEnum() == GodsEnum.MINOTAURE)) {
                 player.setGameMode(GameMode.SPECTATOR);
                 for (ItemStack content : player.getInventory().getContents()) {
-                    if (!CustomItemStack.hasTag(content) && content != null) {
+                    if ((!CustomItemStack.hasTag(content) || whitelist.contains(CustomItemStack.getCustomMaterial(content))) && content != null) {
                         player.getWorld().dropItem(player.getLocation(), content);
                     }
                 }
@@ -67,7 +77,7 @@ public class DeathHandler implements Listener {
                 player.setSaturation(20.0f);
                 for (int x = 0; x < player.getInventory().getContents().length; x++) {
                     ItemStack item = player.getInventory().getContents()[x];
-                    if (!CustomItemStack.hasTag(item) && item != null) {
+                    if ((!CustomItemStack.hasTag(item) || whitelist.contains(CustomItemStack.getCustomMaterial(item))) && item != null) {
                         player.getWorld().dropItem(player.getLocation(), item);
                         player.getInventory().getContents()[x].setType(Material.AIR);
                     }

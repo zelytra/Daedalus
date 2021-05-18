@@ -22,20 +22,17 @@ commands:
 
   state:
     permission: daedalus.configuration
-    description: change game state
+    description: Change game state
 
   dgive:
-    permission: daedalus.dgive
-    description: give custom items
-  debug:
-    description: debug
+    permission: daedalus.configuration
+    description: Give custom items
+
 
   wiki:
-    permission: daedalus.wiki
-    description: Show wiki
+    description: Show item wiki
 
   coordinate:
-    permission: daedalus.coordinate
     description: Share your location to your mates
     aliases:
       - co

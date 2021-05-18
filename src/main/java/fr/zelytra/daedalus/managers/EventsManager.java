@@ -2,7 +2,8 @@ package fr.zelytra.daedalus.managers;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.commands.wiki.Wiki;
-import fr.zelytra.daedalus.events.running.DeathHandler;
+import fr.zelytra.daedalus.events.ForcedTexturePack;
+import fr.zelytra.daedalus.events.running.players.DeathHandler;
 import fr.zelytra.daedalus.events.running.environnement.*;
 import fr.zelytra.daedalus.events.running.environnement.gods.*;
 import fr.zelytra.daedalus.events.running.environnement.items.*;
@@ -37,6 +38,9 @@ public class EventsManager {
 
         /* Guardian */
         pm.registerEvents(new GuardianListener(),pl);
+
+        /* Texture Pack */
+        pm.registerEvents(new ForcedTexturePack(),pl);
 
         /*Custom Items*/
         pm.registerEvents(new ZeusLightning(),pl);

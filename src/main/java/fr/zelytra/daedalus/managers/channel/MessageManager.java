@@ -2,7 +2,6 @@ package fr.zelytra.daedalus.managers.channel;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.team.Team;
-import fr.zelytra.daedalus.managers.team.TeamsEnum;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -16,20 +15,12 @@ public class MessageManager {
     private final ChannelEnum channel;
     private Player sender;
     private Team senderTeam;
-    private TeamsEnum teamsEnum;
+
 
     public MessageManager(String message, ChannelEnum channel) {
 
         this.channel = channel;
         this.message = message;
-
-    }
-
-    public MessageManager(String message, ChannelEnum channel, TeamsEnum teamsEnum) {
-
-        this.channel = channel;
-        this.message = message;
-        this.teamsEnum = teamsEnum;
 
     }
 
@@ -49,17 +40,20 @@ public class MessageManager {
                 for (Player pl : Bukkit.getOnlinePlayers()) {
                     pl.sendMessage(message);
                 }
+                Bukkit.getConsoleSender().sendMessage(message);
                 break;
             case TEAM:
                 for (UUID uuid : senderTeam.getPlayerList()) {
                     Bukkit.getPlayer(uuid).sendMessage(message);
                 }
+                Bukkit.getConsoleSender().sendMessage(message);
                 break;
 
             case SPECTATOR:
                 for (UUID uuid : Daedalus.getInstance().getGameManager().getTeamManager().getSpectatorTeam().getPlayerList()) {
                     Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(message);
                 }
+                Bukkit.getConsoleSender().sendMessage(message);
                 break;
         }
     }
@@ -73,16 +67,20 @@ public class MessageManager {
                 for (Player pl : Bukkit.getOnlinePlayers()) {
                     pl.sendMessage(getFormattedMessage());
                 }
+                Bukkit.getConsoleSender().sendMessage(getFormattedMessage());
                 break;
             case TEAM:
                 for (UUID id : senderTeam.getPlayerList()) {
                     Objects.requireNonNull(Bukkit.getPlayer(id)).sendMessage(getFormattedMessage());
                 }
+                Bukkit.getConsoleSender().sendMessage(getFormattedMessage());
                 break;
+
             case SPECTATOR:
                 for (UUID uuid : Daedalus.getInstance().getGameManager().getTeamManager().getSpectatorTeam().getPlayerList()) {
                     Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(getFormattedMessage());
                 }
+                Bukkit.getConsoleSender().sendMessage(getFormattedMessage());
                 break;
         }
     }

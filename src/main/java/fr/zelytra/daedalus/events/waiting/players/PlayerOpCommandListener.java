@@ -42,7 +42,7 @@ public class PlayerOpCommandListener implements Listener {
     @EventHandler
     public void onCommandServer(ServerCommandEvent e) {
 
-        if (e.getCommand().startsWith("/op") && e.getCommand().split(" ").length == 2 && Daedalus.getInstance().getGameManager().isWaiting()) {
+        if (e.getCommand().startsWith("op") && e.getCommand().split(" ").length == 2 && Daedalus.getInstance().getGameManager().isWaiting()) {
 
             String pn = e.getCommand().split(" ")[1];
 
@@ -55,7 +55,7 @@ public class PlayerOpCommandListener implements Listener {
 
         }
 
-        if (e.getCommand().startsWith("/deop") && e.getCommand().split(" ").length == 2 && Daedalus.getInstance().getGameManager().isWaiting()) {
+        if (e.getCommand().startsWith("deop") && e.getCommand().split(" ").length == 2 && Daedalus.getInstance().getGameManager().isWaiting()) {
 
             String pn = e.getCommand().split(" ")[1];
 

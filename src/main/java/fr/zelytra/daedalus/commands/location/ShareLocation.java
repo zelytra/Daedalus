@@ -22,6 +22,10 @@ public class ShareLocation implements CommandExecutor {
         if (!(sender instanceof Player)) {
             return false;
         }
+        if(!Daedalus.getInstance().getGameManager().isRunning()){
+            sender.sendMessage(Message.getPlayerPrefixe()+"§cThere is no maze yet generated");
+            return false;
+        }
         Player player = (Player) sender;
         Location ploc = player.getLocation();
         if (!Daedalus.getInstance().getStructureManager().getStructuresPosition().isEmpty()) {

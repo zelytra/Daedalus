@@ -1,14 +1,13 @@
 package fr.zelytra.daedalus;
 
-import fr.zelytra.daedalus.commands.DebugCommands;
 import fr.zelytra.daedalus.commands.SettingsCommand;
-import fr.zelytra.daedalus.commands.location.ShareLocation;
-import fr.zelytra.daedalus.commands.state.StateCommands;
 import fr.zelytra.daedalus.commands.item.ItemsCommands;
 import fr.zelytra.daedalus.commands.item.ItemsTabs;
+import fr.zelytra.daedalus.commands.location.ShareLocation;
 import fr.zelytra.daedalus.commands.maze.MazeCommands;
 import fr.zelytra.daedalus.commands.maze.MazeTabCommands;
 import fr.zelytra.daedalus.commands.maze.StructureCommands;
+import fr.zelytra.daedalus.commands.state.StateCommands;
 import fr.zelytra.daedalus.commands.state.StateTabs;
 import fr.zelytra.daedalus.commands.test;
 import fr.zelytra.daedalus.commands.wiki.Wiki;
@@ -85,13 +84,12 @@ public final class Daedalus extends JavaPlugin {
         getCommand("dgive").setExecutor(new ItemsCommands());
         getCommand("dgive").setTabCompleter(new ItemsTabs());
 
-        getCommand("debug").setExecutor(new DebugCommands());
     }
 
     private void setupServer() {
 
         Bukkit.getWorld("world").setTime(6000);
-        Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+        Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
         Bukkit.getWorld("world").setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
         Bukkit.getWorld("world").setGameRule(GameRule.DISABLE_RAIDS, true);
         Bukkit.getWorld("world").setGameRule(GameRule.DO_FIRE_TICK, false);
