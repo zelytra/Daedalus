@@ -13,7 +13,7 @@ public class InteractListener implements Listener {
     private static final int limit = 4;
 
     @EventHandler
-    public void onBreak(PlayerInteractEvent e) {
+    public void onInteract(PlayerInteractEvent e) {
         if (Daedalus.getInstance().getGameManager().getState() != GameStatesEnum.RUNNING) {
             return;
         }

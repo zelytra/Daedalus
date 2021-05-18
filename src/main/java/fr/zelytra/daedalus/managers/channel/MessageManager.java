@@ -71,9 +71,6 @@ public class MessageManager {
         switch (channel) {
             case GLOBAL:
                 for (Player pl : Bukkit.getOnlinePlayers()) {
-                    if (pl == sender) {
-                        continue;
-                    }
                     pl.sendMessage(getFormattedMessage());
                 }
                 break;

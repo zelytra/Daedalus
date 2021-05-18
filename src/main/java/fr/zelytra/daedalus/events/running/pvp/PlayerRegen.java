@@ -26,7 +26,7 @@ public class PlayerRegen implements Listener {
                     player.setExhaustion(3);
                     reganPlayer.put(player.getUniqueId(), System.currentTimeMillis() / 1000);
                 } else {
-                    if ((System.currentTimeMillis() / 1000) - reganPlayer.get(player.getUniqueId()) >= 4) {
+                    if ((System.currentTimeMillis() / 1000) - reganPlayer.get(player.getUniqueId()) >= 2) {
                         reganPlayer.remove(player.getUniqueId());
                     } else {
                         e.setCancelled(true);

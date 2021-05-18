@@ -19,6 +19,7 @@ public enum BlockEnum {
     ANCIENT_DEBRIS(BlockCooldownEnum.ANCIENT_DEBRIS.getSeconds(), Material.ANCIENT_DEBRIS, new ItemStack(Material.NETHERITE_SCRAP)),
     REDSTONE_ORE(BlockCooldownEnum.REDSTONE_ORE.getSeconds(), Material.REDSTONE_ORE),
     SAND(BlockCooldownEnum.SAND.getSeconds(), Material.SAND, new ItemStack(Material.GLASS)),
+    GRAVEL(BlockCooldownEnum.SAND.getSeconds(), Material.GRAVEL, new ItemStack(Material.FLINT)),
     RED_SAND(BlockCooldownEnum.RED_SAND.getSeconds(), Material.RED_SAND, new ItemStack(Material.GLASS)),
     STONE(BlockCooldownEnum.STONE.getSeconds(), Material.STONE, new ItemStack(Material.COBBLESTONE)),
     OAK_LOG(BlockCooldownEnum.WOOD.getSeconds(), Material.OAK_LOG, new ItemStack(Material.OAK_PLANKS, 4)),

@@ -42,6 +42,7 @@ public class PlayerBreakBlockListener implements Listener {
                 case SPRUCE_LOG:
                 case SPRUCE_WOOD:
                 case DARK_OAK_LOG:
+                case GRAVEL:
                 case DARK_OAK_WOOD: {
                     if (GameSettings.CUT_CLEAN) {
                         e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), block.getItemStack());

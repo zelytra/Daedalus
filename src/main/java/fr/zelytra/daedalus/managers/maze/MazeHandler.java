@@ -2,10 +2,12 @@ package fr.zelytra.daedalus.managers.maze;
 
 import com.sk89q.worldedit.world.block.BlockTypes;
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.guardian.Guardian;
 import fr.zelytra.daedalus.managers.loottable.LootTable;
 import fr.zelytra.daedalus.managers.loottable.LootsEnum;
 import fr.zelytra.daedalus.managers.structure.GridBlockEnum;
 import fr.zelytra.daedalus.managers.structure.Structure;
+import fr.zelytra.daedalus.managers.structure.StructureType;
 import fr.zelytra.daedalus.managers.structure.WorldEditHandler;
 import fr.zelytra.daedalus.utils.Message;
 import net.md_5.bungee.api.ChatMessageType;
@@ -13,6 +15,7 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Barrel;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
@@ -116,7 +119,7 @@ public class MazeHandler {
         Location block = origin.clone();
 
         Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
-            //Generate maze walls
+            /* Generate maze walls */
             Bukkit.broadcastMessage("§6§lGenerating blocks...");
             WorldEditHandler WEH = new WorldEditHandler(block.getWorld());
             int count = 0;
@@ -128,11 +131,11 @@ public class MazeHandler {
                     if (grid[x][z] == 1) {
                         for (int y = (int) origin.getY(); y < origin.getY() + this.wallHeight; y++) {
                             block.setY(y);
-                            count++;
                             WEH.setBlock(block, BlockTypes.SMOOTH_SANDSTONE);
                         }
                     }
-                    if ((System.currentTimeMillis() - timer) % 3000 == 0) {
+                    count++;
+                    if ((System.currentTimeMillis() - timer) % 100 == 0) {
                         int progress = (int) (count * 100 / (Math.pow(grid.length, 2)));
                         logPlayers("§6§lGenerating blocks... [§e" + progress + "%§6]");
                     }
@@ -140,7 +143,7 @@ public class MazeHandler {
             }
             WEH.getEditSession().close();
 
-            //Generate structure schematics
+            /* Generate structure schematics */
             Bukkit.broadcastMessage("§6§lGenerating structures...");
             count = 0;
             for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
@@ -153,7 +156,7 @@ public class MazeHandler {
                 count++;
             }
 
-            //Generate loots
+            /* Generate loots */
             count = 0;
             timer = System.currentTimeMillis();
             Bukkit.broadcastMessage("§6§lGenerating loots...");
@@ -193,11 +196,30 @@ public class MazeHandler {
                         }
                     }
                 }
-                if ((System.currentTimeMillis() - timer) % 1000 == 0) {
+                if ((System.currentTimeMillis() - timer) % 20 == 0) {
                     int progress = (int) ((count * 100) / Daedalus.getInstance().getStructureManager().getStructuresPosition().size());
                     logPlayers("§6§lGenerating loots... [§e" + progress + "%§6]");
                 }
                 count++;
+            }
+            /* Generating Temple Guardian */
+            Bukkit.broadcastMessage("§6§lGenerating temple guardians...");
+            for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
+                if (entry.getValue().getType() == StructureType.TEMPLE) {
+                    for (int x = (int) entry.getKey().getMinX(); x <= entry.getKey().getMaxX(); x++) {
+                        for (int y = (int) entry.getKey().getMinY(); y <= entry.getKey().getMaxY(); y++) {
+                            for (int z = (int) entry.getKey().getMinZ(); z <= entry.getKey().getMaxZ(); z++) {
+                                Block bl = Bukkit.getWorld("world").getBlockAt(x, y, z);
+                                if (bl.getType() == Material.BEACON) {
+                                    bl.setType(Material.AIR);
+                                    bl.getChunk().load();
+                                    System.out.println(bl.getLocation());
+                                    new Guardian(bl.getLocation());
+                                }
+                            }
+                        }
+                    }
+                }
             }
             Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§aMaze generating in " + ((System.currentTimeMillis() - generatingTime) / 1000) % 60 + "s");
         });

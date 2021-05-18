@@ -5,6 +5,7 @@ import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.team.PlayerStatus;
 import fr.zelytra.daedalus.managers.team.Team;
+import fr.zelytra.daedalus.managers.team.TeamsEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -115,6 +116,9 @@ public class DeathHandler implements Listener {
         int teamAliveCount = 0;
         if (Daedalus.getInstance().getGameManager().isRunning()) {
             for (Team team : Daedalus.getInstance().getGameManager().getTeamManager().getTeamList()) {
+                if (team.getTeamEnum() == TeamsEnum.SPECTATOR) {
+                    continue;
+                }
                 int playerCount = 0;
                 for (UUID uuid : team.getPlayerList()) {
                     if (team.isAlive(Bukkit.getPlayer(uuid))) {

@@ -38,6 +38,11 @@ public class DivineTracker implements Listener {
                 if ((e.getHand() == EquipmentSlot.HAND && CustomItemStack.hasCustomItemInMainHand(CustomMaterial.DIVINE_TRACKER.getName(), e.getPlayer())) || (e.getHand() == EquipmentSlot.OFF_HAND && CustomItemStack.hasCustomItemInOffHand(CustomMaterial.DIVINE_TRACKER.getName(), e.getPlayer()))) {
                     Player player = e.getPlayer();
                     LinkedHashMap<BoundingBox, Structure> temples = new LinkedHashMap<>();
+                    if (Daedalus.getInstance().getStructureManager().getStructuresPosition() == null || Daedalus.getInstance().getStructureManager().getStructuresPosition().isEmpty()) {
+                        BaseComponent txt = new TextComponent("§cNo structure around you");
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, txt);
+                        return;
+                    }
                     for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                         if (entry.getValue().getType() == StructureType.TEMPLE) {
                             temples.put(entry.getKey(), entry.getValue());
@@ -99,6 +104,8 @@ public class DivineTracker implements Listener {
                 if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.COMPASS) {
                     e.setCancelled(true);
                 }
+            } else if (e.getPlayer().isOp() && (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) && e.getPlayer().getInventory().getItemInMainHand().getType() == Material.COMPASS) {
+                e.setCancelled(true);
             }
         }
     }
@@ -118,7 +125,7 @@ public class DivineTracker implements Listener {
         int deltaX = (int) (box.getCenter().getX() - player.getLocation().getX());
         int deltaZ = (int) (box.getCenter().getZ() - player.getLocation().getZ());
         int distance = (int) Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaZ, 2));
-        player.setCompassTarget(new Location(player.getWorld(),box.getCenterX(),box.getMaxY(),box.getCenterZ()));
+        player.setCompassTarget(new Location(player.getWorld(), box.getCenterX(), box.getMaxY(), box.getCenterZ()));
 
         BaseComponent txt = new TextComponent("§1" + distance + "§r§8 block away from §1§l" + structure.getGod().getName() + " temple");
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, txt);

@@ -3,7 +3,6 @@ package fr.zelytra.daedalus.managers;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.commands.wiki.Wiki;
 import fr.zelytra.daedalus.events.running.DeathHandler;
-import fr.zelytra.daedalus.events.running.WinListener;
 import fr.zelytra.daedalus.events.running.environnement.*;
 import fr.zelytra.daedalus.events.running.environnement.gods.*;
 import fr.zelytra.daedalus.events.running.environnement.items.*;
@@ -22,6 +21,7 @@ import fr.zelytra.daedalus.events.waiting.entities.EntityTargetListener;
 import fr.zelytra.daedalus.events.waiting.environment.BlockPlaceListener;
 import fr.zelytra.daedalus.events.waiting.inventory.InventoryListener;
 import fr.zelytra.daedalus.events.waiting.players.*;
+import fr.zelytra.daedalus.managers.guardian.GuardianListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
@@ -34,6 +34,9 @@ public class EventsManager {
         pm.registerEvents(new BreakBlockListener(),pl);
         pm.registerEvents(new PlaceBlockListener(),pl);
         pm.registerEvents(new InteractListener(),pl);
+
+        /* Guardian */
+        pm.registerEvents(new GuardianListener(),pl);
 
         /*Custom Items*/
         pm.registerEvents(new ZeusLightning(),pl);
@@ -65,7 +68,6 @@ public class EventsManager {
         pm.registerEvents(new PortalListener(), pl);
         pm.registerEvents(new MobCutClean(), pl);
         pm.registerEvents(new WitherSpawn(), pl);
-        pm.registerEvents(new WinListener(), pl);
         pm.registerEvents(new DeathHandler(), pl);
         pm.registerEvents(new MobSpawn(), pl);
         pm.registerEvents(new HostileMob(), pl);

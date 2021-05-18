@@ -29,11 +29,12 @@ public class MobSpawn implements Listener {
         whitelist.add(EntityType.FALLING_BLOCK);
         whitelist.add(EntityType.FIREWORK);
         whitelist.add(EntityType.TRIDENT);
+        whitelist.add(EntityType.VINDICATOR);
     }
 
     @EventHandler
     public void onMobSpawn(EntitySpawnEvent e) {
-        if (!Daedalus.getInstance().getGameManager().isRunning()) {
+        if(!Daedalus.getInstance().getGameManager().isRunning()){
             e.setCancelled(true);
             return;
         }

@@ -195,6 +195,7 @@ public class GameManager {
                 }
                 //GameManager start
                 getTimeManager().start();
+                started = false;
                 Bukkit.broadcastMessage("§cGame start GLHF !");
                 setState(GameStatesEnum.RUNNING);
             });
