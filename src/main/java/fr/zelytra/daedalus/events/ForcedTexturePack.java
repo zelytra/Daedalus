@@ -18,7 +18,7 @@ public class ForcedTexturePack implements Listener {
     public void resourcePackStatus(PlayerResourcePackStatusEvent e){
         switch (e.getStatus()){
             case ACCEPTED:
-                e.getPlayer().sendMessage(Message.getPlayerPrefixe()+"§6Loading texture pack");
+                e.getPlayer().sendMessage(Message.getPlayerPrefixe()+"§6Loading texture pack...");
                 break;
             case DECLINED:
                 e.getPlayer().kickPlayer("§cYou need to accept the texture pack before playing");

@@ -54,11 +54,16 @@ public abstract class Utils {
         return true;
     }
 
-    public static ItemStack EnchantedItemStack(Material material, Enchantment enchantment, int lvl) {
+    public static ItemStack BookEnchantedItemStack(Material material, Enchantment enchantment, int lvl) {
         ItemStack item = new ItemStack(material);
         EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
         meta.addStoredEnchant(enchantment,lvl,false);
         item.setItemMeta(meta);
+        return item;
+    }
+    public static ItemStack EnchantedItemStack(Material material, Enchantment enchantment, int lvl) {
+        ItemStack item = new ItemStack(material);
+        item.addUnsafeEnchantment(enchantment,lvl);
         return item;
     }
 

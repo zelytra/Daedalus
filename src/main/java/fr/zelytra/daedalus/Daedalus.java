@@ -103,9 +103,8 @@ public final class Daedalus extends JavaPlugin {
 
         Bukkit.getWorld("world").setGameRule(GameRule.DO_TILE_DROPS, true);
         Bukkit.getWorld("world").setGameRule(GameRule.DO_ENTITY_DROPS, true);
+        Bukkit.getWorld("world").setGameRule(GameRule.DO_MOB_LOOT, true);
         Bukkit.getWorld("world").setGameRule(GameRule.KEEP_INVENTORY, false);
-
-
 
     }
 }

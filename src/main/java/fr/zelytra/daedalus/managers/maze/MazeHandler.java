@@ -2,6 +2,7 @@ package fr.zelytra.daedalus.managers.maze;
 
 import com.sk89q.worldedit.world.block.BlockTypes;
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.guardian.Guardian;
 import fr.zelytra.daedalus.managers.loottable.LootTable;
 import fr.zelytra.daedalus.managers.loottable.LootsEnum;
@@ -203,6 +204,7 @@ public class MazeHandler {
                 count++;
             }
             /* Generating Temple Guardian */
+            count = 0;
             Bukkit.broadcastMessage("§6§lGenerating temple guardians...");
             for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                 if (entry.getValue().getType() == StructureType.TEMPLE) {
@@ -213,8 +215,10 @@ public class MazeHandler {
                                 if (bl.getType() == Material.BEACON) {
                                     bl.setType(Material.AIR);
                                     bl.getChunk().load();
-                                    System.out.println(bl.getLocation());
                                     new Guardian(bl.getLocation());
+                                    count++;
+                                    int progress = ((count * 100) / GameSettings.GOD_LIMIT);
+                                    logPlayers("§6§lGenerating guardians... [§e" + progress + "%§6]");
                                 }
                             }
                         }

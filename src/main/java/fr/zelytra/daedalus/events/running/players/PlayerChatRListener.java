@@ -21,7 +21,7 @@ public class PlayerChatRListener implements Listener {
         final Player p = e.getPlayer();
         final Team t = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId());
 
-        if(t.isAlive(p) && t.getTeamEnum() != TeamsEnum.SPECTATOR){
+        if(t.getTeamEnum() != TeamsEnum.SPECTATOR){
 
             if(e.getMessage().startsWith("!")){
 

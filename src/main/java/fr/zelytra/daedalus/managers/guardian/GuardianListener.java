@@ -19,6 +19,9 @@ public class GuardianListener implements Listener {
 
     @EventHandler
     public void onGuardianDamage(EntityDamageEvent e) {
+        if (e.getEntityType() != EntityType.VINDICATOR) {
+            return;
+        }
         if (!Guardian.isGuardian((LivingEntity) e.getEntity())) {
             return;
         }
