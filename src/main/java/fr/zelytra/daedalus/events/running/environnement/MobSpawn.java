@@ -4,10 +4,9 @@ import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.maze.Maze;
 import fr.zelytra.daedalus.managers.maze.Vector2;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +15,6 @@ public class MobSpawn implements Listener {
     private List<EntityType> whitelist = new ArrayList<>();
 
     {
-        whitelist.add(EntityType.CHICKEN);
-        whitelist.add(EntityType.COW);
-        whitelist.add(EntityType.PIG);
-        whitelist.add(EntityType.SHEEP);
         whitelist.add(EntityType.DROPPED_ITEM);
         whitelist.add(EntityType.ARROW);
         whitelist.add(EntityType.SPECTRAL_ARROW);
@@ -29,11 +24,16 @@ public class MobSpawn implements Listener {
         whitelist.add(EntityType.FALLING_BLOCK);
         whitelist.add(EntityType.FIREWORK);
         whitelist.add(EntityType.TRIDENT);
+
         whitelist.add(EntityType.VINDICATOR);
+
+        whitelist.add(EntityType.EVOKER_FANGS);
+        whitelist.add(EntityType.FIREBALL);
+
     }
 
     @EventHandler
-    public void onMobSpawn(EntitySpawnEvent e) {
+    public void onMobSpawn(CreatureSpawnEvent e) {
         if (!Daedalus.getInstance().getGameManager().isRunning() && e.getEntityType() != EntityType.VINDICATOR) {
             e.setCancelled(true);
             return;
@@ -54,7 +54,7 @@ public class MobSpawn implements Listener {
             return;
         }
         if (e.getEntityType() == EntityType.VEX) {
-            ((LivingEntity) e.getEntity()).setMaxHealth(1);
+            e.getEntity().setMaxHealth(1);
             return;
         }
 
@@ -71,7 +71,7 @@ public class MobSpawn implements Listener {
             case -4:
             case -5:
             case -6:
-                if (e.getEntity().getCustomName() != null && !e.getEntity().getCustomName().isEmpty()) {
+                if (e.getSpawnReason() == CreatureSpawnEvent.SpawnReason.CUSTOM || e.getSpawnReason() == CreatureSpawnEvent.SpawnReason.SPAWNER) {
                     break;
                 }
                 e.setCancelled(true);

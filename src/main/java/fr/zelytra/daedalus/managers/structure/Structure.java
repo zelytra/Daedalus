@@ -16,6 +16,7 @@ public class Structure {
     private final StructureEnum structure;
     private Clipboard clipboard;
     private final Region region;
+    private boolean firstEntrance = false;
 
 
     public Structure(StructureEnum structure) {
@@ -30,6 +31,14 @@ public class Structure {
         }
 
         this.region = this.clipboard.getRegion();
+    }
+
+    public boolean hasFirstEntrance() {
+        return firstEntrance;
+    }
+
+    public void setFirstEntrance(boolean entrance) {
+        this.firstEntrance = firstEntrance;
     }
 
     public String getName() {

@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.managers;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.commands.wiki.Wiki;
 import fr.zelytra.daedalus.events.ForcedTexturePack;
+import fr.zelytra.daedalus.events.running.environnement.structure.EntranceEvent;
 import fr.zelytra.daedalus.events.running.players.DeathHandler;
 import fr.zelytra.daedalus.events.running.environnement.*;
 import fr.zelytra.daedalus.events.running.environnement.gods.*;
@@ -22,6 +23,7 @@ import fr.zelytra.daedalus.events.waiting.entities.EntityTargetListener;
 import fr.zelytra.daedalus.events.waiting.environment.BlockPlaceListener;
 import fr.zelytra.daedalus.events.waiting.inventory.InventoryListener;
 import fr.zelytra.daedalus.events.waiting.players.*;
+import fr.zelytra.daedalus.managers.guardian.GuardianBossBar;
 import fr.zelytra.daedalus.managers.guardian.GuardianListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -38,6 +40,9 @@ public class EventsManager {
 
         /* Guardian */
         pm.registerEvents(new GuardianListener(),pl);
+        pm.registerEvents(new EntranceEvent(),pl);
+        new GuardianBossBar();
+
 
         /* Texture Pack */
         pm.registerEvents(new ForcedTexturePack(),pl);

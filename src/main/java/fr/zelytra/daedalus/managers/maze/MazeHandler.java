@@ -2,13 +2,10 @@ package fr.zelytra.daedalus.managers.maze;
 
 import com.sk89q.worldedit.world.block.BlockTypes;
 import fr.zelytra.daedalus.Daedalus;
-import fr.zelytra.daedalus.managers.game.settings.GameSettings;
-import fr.zelytra.daedalus.managers.guardian.Guardian;
 import fr.zelytra.daedalus.managers.loottable.LootTable;
 import fr.zelytra.daedalus.managers.loottable.LootsEnum;
 import fr.zelytra.daedalus.managers.structure.GridBlockEnum;
 import fr.zelytra.daedalus.managers.structure.Structure;
-import fr.zelytra.daedalus.managers.structure.StructureType;
 import fr.zelytra.daedalus.managers.structure.WorldEditHandler;
 import fr.zelytra.daedalus.utils.Message;
 import net.md_5.bungee.api.ChatMessageType;
@@ -16,7 +13,6 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Barrel;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
@@ -202,28 +198,6 @@ public class MazeHandler {
                     logPlayers("§6§lGenerating loots... [§e" + progress + "%§6]");
                 }
                 count++;
-            }
-            /* Generating Temple Guardian */
-            count = 0;
-            Bukkit.broadcastMessage("§6§lGenerating temple guardians...");
-            for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
-                if (entry.getValue().getType() == StructureType.TEMPLE) {
-                    for (int x = (int) entry.getKey().getMinX(); x <= entry.getKey().getMaxX(); x++) {
-                        for (int y = (int) entry.getKey().getMinY(); y <= entry.getKey().getMaxY(); y++) {
-                            for (int z = (int) entry.getKey().getMinZ(); z <= entry.getKey().getMaxZ(); z++) {
-                                Block bl = Bukkit.getWorld("world").getBlockAt(x, y, z);
-                                if (bl.getType() == Material.BEACON) {
-                                    bl.setType(Material.AIR);
-                                    bl.getChunk().load();
-                                    new Guardian(bl.getLocation());
-                                    count++;
-                                    int progress = ((count * 100) / GameSettings.GOD_LIMIT);
-                                    logPlayers("§6§lGenerating guardians... [§e" + progress + "%§6]");
-                                }
-                            }
-                        }
-                    }
-                }
             }
             Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§aMaze generating in " + ((System.currentTimeMillis() - generatingTime) / 1000) % 60 + "s");
         });
