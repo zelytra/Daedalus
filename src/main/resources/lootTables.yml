@@ -739,3 +739,188 @@ yellowTeam:
       material: golden_apple
       amount: 1
       luck: 0.1
+minotaure:
+  containers:
+    - chest
+    - barrel
+  loots:
+    loot1:
+      material: cooked_porkchop
+      amount: 5
+      luck: 5
+    loot2:
+      material: cooked_cod
+      amount: 3
+      luck: 5
+    loot3:
+      material: cooked_salmon
+      amount: 3
+      luck: 5
+    loot4:
+      material: cooked_beef
+      amount: 5
+      luck: 5
+    loot5:
+      material: cooked_chicken
+      amount: 5
+      luck: 5
+    loot6:
+      material: cooked_mutton
+      amount: 5
+      luck: 5
+    loot7:
+      material: cooked_rabbit
+      amount: 3
+      luck: 5
+    loot8:
+      material: oak_planks
+      amount: 4
+      luck: 5
+    loot9:
+      material: stick
+      amount: 2
+      luck: 5
+    loot10:
+      material: string
+      amount: 3
+      luck: 4
+    loot12:
+      material: leather
+      amount: 3
+      luck: 4
+    loot13:
+      material: wheat
+      amount: 6
+      luck: 4
+    loot14:
+      material: paper
+      amount: 2
+      luck: 3
+    loot15:
+      material: feather
+      amount: 3
+      luck: 3
+    loot16:
+      material: flint
+      amount: 3
+      luck: 3
+    loot17:
+      material: arrow
+      amount: 10
+      luck: 3
+    loot18:
+      material: glass_bottle
+      amount: 5
+      luck: 3
+    loot19:
+      material: apple
+      amount: 2
+      luck: 2.9
+    loot20:
+      material: iron_nugget
+      amount: 7
+      luck: 2
+    loot21:
+      material: coal
+      amount: 10
+      luck: 2
+    loot22:
+      material: book
+      amount: 1
+      luck: 2
+    loot23:
+      material: pumpkin_seeds
+      amount: 1
+      luck: 2
+    loot24:
+      material: melon_seeds
+      amount: 1
+      luck: 2
+    loot25:
+      material: cocoa_beans
+      amount: 1
+      luck: 2
+    loot26:
+      material: iron_ingot
+      amount: 5
+      luck: 1.5
+    loot27:
+      material: gold_nugget
+      amount: 7
+      luck: 1
+    loot28:
+      material: bucket
+      amount: 1
+      luck: 1
+    loot29:
+      material: egg
+      amount: 2
+      luck: 1
+    loot30:
+      material: bow
+      amount: 1
+      luck: 1
+    loot31:
+      material: crossbow
+      amount: 1
+      luck: 1
+    loot32:
+      material: shield
+      amount: 1
+      luck: 1
+    loot33:
+      material: iron_pickaxe
+      amount: 1
+      luck: 0.7
+    loot34:
+      material: iron_axe
+      amount: 1
+      luck: 0.7
+    loot35:
+      material: gold_ingot
+      amount: 8
+      luck: 0.5
+    loot36:
+      material: iron_sword
+      amount: 1
+      luck: 0.5
+    loot37:
+      material: experience_bottle
+      amount: 1
+      luck: 0.5
+    loot38:
+      material: chainmail_helmet
+      amount: 1
+      luck: 0.3
+    loot39:
+      material: chainmail_chestplate
+      amount: 1
+      luck: 0.3
+    loot40:
+      material: chainmail_leggings
+      amount: 1
+      luck: 0.3
+    loot41:
+      material: chainmail_boots
+      amount: 1
+      luck: 0.3
+    loot42:
+      material: iron_helmet
+      amount: 1
+      luck: 0.1
+    loot43:
+      material: iron_chestplate
+      amount: 1
+      luck: 0.1
+    loot44:
+      material: iron_leggings
+      amount: 1
+      luck: 0.1
+    loot45:
+      material: iron_boots
+      amount: 1
+      luck: 0.1
+    loot46:
+      material: golden_apple
+      amount: 1
+      luck: 0.1

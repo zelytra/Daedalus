@@ -2,10 +2,12 @@ package fr.zelytra.daedalus.managers.maze;
 
 import com.sk89q.worldedit.world.block.BlockTypes;
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.loottable.Loot;
 import fr.zelytra.daedalus.managers.loottable.LootTable;
 import fr.zelytra.daedalus.managers.structure.GridBlockEnum;
 import fr.zelytra.daedalus.managers.structure.Structure;
+import fr.zelytra.daedalus.managers.structure.StructureType;
 import fr.zelytra.daedalus.managers.structure.WorldEditHandler;
 import fr.zelytra.daedalus.utils.Message;
 import net.md_5.bungee.api.ChatMessageType;
@@ -13,6 +15,8 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Barrel;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
@@ -162,11 +166,12 @@ public class MazeHandler {
                 if (lootTable == null) {
                     continue;
                 }
+                World world = Bukkit.getWorld("world");
                 for (int x = (int) entry.getKey().getMinX(); x <= entry.getKey().getMaxX(); x++) {
                     for (int y = (int) entry.getKey().getMinY(); y <= entry.getKey().getMaxY(); y++) {
                         for (int z = (int) entry.getKey().getMinZ(); z <= entry.getKey().getMaxZ(); z++) {
 
-                            Block container = Bukkit.getWorld("world").getBlockAt(x, y, z);
+                            Block container = world.getBlockAt(x, y, z);
                             if (lootTable.getContainerWhiteList().contains(container.getType())) {
 
                                 ItemStack[] content;
@@ -193,6 +198,33 @@ public class MazeHandler {
                 }
                 int progress = ((count * 100) / Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet().size());
                 logPlayers("§6§lGenerating loots... [§e" + progress + "%§6]");
+            }
+            /* Locating boss spawn area */
+            Bukkit.broadcastMessage("§6Locating bosses...");
+            count = 0;
+            for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
+                if (entry.getValue().getType() == StructureType.TEMPLE) {
+                    World world = Bukkit.getWorld("world");
+
+                    for (int x = (int) entry.getKey().getMinX(); x <= entry.getKey().getMaxX(); x++) {
+                        for (int y = (int) entry.getKey().getMinY(); y <= entry.getKey().getMaxY(); y++) {
+                            for (int z = (int) entry.getKey().getMinZ(); z <= entry.getKey().getMaxZ(); z++) {
+                                Block bl = world.getBlockAt(x, y, z);
+                                if (bl.getType() == Material.BEACON) {
+                                    Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
+                                        bl.setType(Material.AIR);
+                                        entry.getValue().setBossSpawnLocation(bl.getLocation());
+                                    });
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    count++;
+                    int progress = ((count * 100) / GameSettings.GOD_LIMIT);
+                    logPlayers("§6§lLocating bosses... [§e" + progress + "%§6]");
+                }
+
             }
             Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§aMaze generating in " + ((System.currentTimeMillis() - generatingTime) / 1000) % 60 + "s");
         });

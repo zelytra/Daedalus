@@ -3,17 +3,14 @@ package fr.zelytra.daedalus.managers;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.commands.wiki.Wiki;
 import fr.zelytra.daedalus.events.ForcedTexturePack;
-import fr.zelytra.daedalus.events.running.environnement.structure.EntranceEvent;
-import fr.zelytra.daedalus.events.running.players.DeathHandler;
 import fr.zelytra.daedalus.events.running.environnement.*;
 import fr.zelytra.daedalus.events.running.environnement.gods.*;
 import fr.zelytra.daedalus.events.running.environnement.items.*;
 import fr.zelytra.daedalus.events.running.environnement.mobCutclean.MobCutClean;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.PlayerBreakBlockListener;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.TreeGrowthListener;
-import fr.zelytra.daedalus.events.running.environnement.structure.BreakBlockListener;
-import fr.zelytra.daedalus.events.running.environnement.structure.InteractListener;
-import fr.zelytra.daedalus.events.running.environnement.structure.PlaceBlockListener;
+import fr.zelytra.daedalus.events.running.environnement.structure.*;
+import fr.zelytra.daedalus.events.running.players.DeathHandler;
 import fr.zelytra.daedalus.events.running.players.PlayerChatRListener;
 import fr.zelytra.daedalus.events.running.pvp.CoolDown;
 import fr.zelytra.daedalus.events.running.pvp.DamagerHandler;
@@ -42,6 +39,7 @@ public class EventsManager {
         pm.registerEvents(new GuardianListener(),pl);
         pm.registerEvents(new EntranceEvent(),pl);
         new GuardianBossBar();
+        new StructureListener();
 
 
         /* Texture Pack */

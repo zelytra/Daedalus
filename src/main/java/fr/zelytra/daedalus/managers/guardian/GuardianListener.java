@@ -2,6 +2,7 @@ package fr.zelytra.daedalus.managers.guardian;
 
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
+import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -10,6 +11,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GuardianListener implements Listener {
 
@@ -41,6 +45,7 @@ public class GuardianListener implements Listener {
         e.setDroppedExp(150);
         e.getDrops().removeAll(e.getDrops());
         e.getDrops().add(new CustomItemStack(CustomMaterial.DIVINE_HEART, 1).getItem());
+        e.getDrops().add(new ItemStack(Material.GOLDEN_APPLE,(ThreadLocalRandom.current().nextInt(1, 7))));
     }
 
     @EventHandler

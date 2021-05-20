@@ -1,7 +1,6 @@
 package fr.zelytra.daedalus.managers.game;
 
 import fr.zelytra.daedalus.Daedalus;
-import fr.zelytra.daedalus.events.running.environnement.structure.StructureListener;
 import fr.zelytra.daedalus.managers.game.scoreboard.ScoreBoardManager;
 import fr.zelytra.daedalus.managers.game.settings.DayCycleEnum;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
@@ -198,10 +197,10 @@ public class GameManager {
                 getTimeManager().start();
                 started = false;
                 Bukkit.broadcastMessage("§cGame start GLHF !");
-                new StructureListener();
                 setState(GameStatesEnum.RUNNING);
             });
         });
+
 
     }
 

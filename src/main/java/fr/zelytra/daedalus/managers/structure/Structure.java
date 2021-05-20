@@ -6,6 +6,7 @@ import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
 import com.sk89q.worldedit.regions.Region;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
+import org.bukkit.Location;
 import org.bukkit.util.BlockVector;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ public class Structure {
     private Clipboard clipboard;
     private final Region region;
     private boolean firstEntrance = false;
+    private Location bossSpawnLocation;
 
 
     public Structure(StructureEnum structure) {
@@ -38,7 +40,7 @@ public class Structure {
     }
 
     public void setFirstEntrance(boolean entrance) {
-        this.firstEntrance = firstEntrance;
+        this.firstEntrance = entrance;
     }
 
     public String getName() {
@@ -75,5 +77,13 @@ public class Structure {
 
     public int getID() {
         return this.structure.getId();
+    }
+
+    public void setBossSpawnLocation(Location bossSpawnLocation) {
+        this.bossSpawnLocation = bossSpawnLocation;
+    }
+
+    public Location getBossSpawnLocation() {
+        return bossSpawnLocation;
     }
 }
