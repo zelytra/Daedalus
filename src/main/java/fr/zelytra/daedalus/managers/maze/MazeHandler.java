@@ -2,8 +2,8 @@ package fr.zelytra.daedalus.managers.maze;
 
 import com.sk89q.worldedit.world.block.BlockTypes;
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.loottable.Loot;
 import fr.zelytra.daedalus.managers.loottable.LootTable;
-import fr.zelytra.daedalus.managers.loottable.LootsEnum;
 import fr.zelytra.daedalus.managers.structure.GridBlockEnum;
 import fr.zelytra.daedalus.managers.structure.Structure;
 import fr.zelytra.daedalus.managers.structure.WorldEditHandler;
@@ -117,7 +117,7 @@ public class MazeHandler {
 
         Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
             /* Generate maze walls */
-            Bukkit.broadcastMessage("§6§lGenerating blocks...");
+            Bukkit.broadcastMessage("§6Generating blocks...");
             WorldEditHandler WEH = new WorldEditHandler(block.getWorld());
             int count = 0;
             long timer = System.currentTimeMillis();
@@ -141,7 +141,7 @@ public class MazeHandler {
             WEH.getEditSession().close();
 
             /* Generate structure schematics */
-            Bukkit.broadcastMessage("§6§lGenerating structures...");
+            Bukkit.broadcastMessage("§6Generating structures...");
             count = 0;
             for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                 Location location = new Location(origin.getWorld(), entry.getKey().getMinX() + entry.getValue().getOffset().getX(), origin.getY() + entry.getValue().getOffset().getY(), entry.getKey().getMinZ() + entry.getValue().getOffset().getZ());
@@ -155,10 +155,10 @@ public class MazeHandler {
 
             /* Generate loots */
             count = 0;
-            timer = System.currentTimeMillis();
-            Bukkit.broadcastMessage("§6§lGenerating loots...");
+            Bukkit.broadcastMessage("§6Generating loots...");
             for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                 LootTable lootTable = Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(entry.getValue().getName());
+                count++;
                 if (lootTable == null) {
                     continue;
                 }
@@ -170,21 +170,19 @@ public class MazeHandler {
                             if (lootTable.getContainerWhiteList().contains(container.getType())) {
 
                                 ItemStack[] content;
-                                Chest chest;
-                                Barrel barrel;
 
                                 switch (container.getType()) {
                                     case CHEST:
-                                        chest = (Chest) container.getState();
+                                        Chest chest = (Chest) container.getState();
                                         content = chest.getInventory().getContents();
                                         chest.getInventory().setContents(randomLoot(content, lootTable));
-                                        chest.update();
+
                                         break;
                                     case BARREL:
-                                        barrel = (Barrel) container.getState();
+                                        Barrel barrel = (Barrel) container.getState();
                                         content = barrel.getInventory().getContents();
                                         barrel.getInventory().setContents(randomLoot(content, lootTable));
-                                        barrel.update();
+
                                         break;
                                     default:
                                         throw new IllegalStateException("Unexpected value: " + container.getType());
@@ -193,11 +191,8 @@ public class MazeHandler {
                         }
                     }
                 }
-                if ((System.currentTimeMillis() - timer) % 20 == 0) {
-                    int progress = (int) ((count * 100) / Daedalus.getInstance().getStructureManager().getStructuresPosition().size());
-                    logPlayers("§6§lGenerating loots... [§e" + progress + "%§6]");
-                }
-                count++;
+                int progress = ((count * 100) / Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet().size());
+                logPlayers("§6§lGenerating loots... [§e" + progress + "%§6]");
             }
             Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§aMaze generating in " + ((System.currentTimeMillis() - generatingTime) / 1000) % 60 + "s");
         });
@@ -210,7 +205,7 @@ public class MazeHandler {
                 continue;
             }
             double random = Math.random();
-            for (LootsEnum loot : lootTable.getLoots()) {
+            for (Loot loot : lootTable.getLoots()) {
                 if (loot.getLuck() > random) {
                     content[slotRandom] = loot.getItem();
                     break;

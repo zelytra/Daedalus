@@ -81,11 +81,11 @@ public class DionysosHandler implements Listener {
                         }
                         random = ThreadLocalRandom.current().nextInt(1, 100 + 1);
                         if (random <= 65) {
-                            int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.DIONYSUS.getName() + "_tier1").getLoots().size());
-                            e.getPlayer().addPotionEffect(Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.DIONYSUS.getName() + "_tier1").getLoots().get(loot).getPotionEffect());
+                            int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.DIONYSUS.getName() + "_tier1").getLootsEnum().size());
+                            e.getPlayer().addPotionEffect(Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.DIONYSUS.getName() + "_tier1").getLootsEnum().get(loot).getPotionEffect());
                         } else {
-                            int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.DIONYSUS.getName() + "_tier2").getLoots().size());
-                            e.getPlayer().addPotionEffect(Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.DIONYSUS.getName() + "_tier2").getLoots().get(loot).getPotionEffect());
+                            int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.DIONYSUS.getName() + "_tier2").getLootsEnum().size());
+                            e.getPlayer().addPotionEffect(Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.DIONYSUS.getName() + "_tier2").getLootsEnum().get(loot).getPotionEffect());
                         }
 
                     } else {

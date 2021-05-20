@@ -76,28 +76,28 @@ public class AthenaHandler implements Listener {
                         case PLAYER:
                             int random = ThreadLocalRandom.current().nextInt(1, 100 + 1);
                             if (random <= 60) {//lvl 3
-                                int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier3").getLoots().size());
-                                e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier3").getLoots().get(loot).getItem());
+                                int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier3").getLootsEnum().size());
+                                e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier3").getLootsEnum().get(loot).getItem());
 
                             } else if (random > 60 && random <= 85) {//lvl 2
-                                int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier2").getLoots().size());
-                                e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier2").getLoots().get(loot).getItem());
+                                int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier2").getLootsEnum().size());
+                                e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier2").getLootsEnum().get(loot).getItem());
                             } else if (random > 85) {//lvl 1
-                                int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier1").getLoots().size());
-                                e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier1").getLoots().get(loot).getItem());
+                                int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier1").getLootsEnum().size());
+                                e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier1").getLootsEnum().get(loot).getItem());
                             }
                             break;
                         default:
                             random = ThreadLocalRandom.current().nextInt(1, 100 + 1);
                             if (random == 1) {//lvl 3
-                                int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier3").getLoots().size());
-                                e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier3").getLoots().get(loot).getItem());
+                                int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier3").getLootsEnum().size());
+                                e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier3").getLootsEnum().get(loot).getItem());
                             } else if (random > 1 && random <= 5) {//lvl 2
-                                int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier2").getLoots().size());
-                                e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier2").getLoots().get(loot).getItem());
+                                int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier2").getLootsEnum().size());
+                                e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier2").getLootsEnum().get(loot).getItem());
                             } else if (random > 5 && random <= 20) {//lvl 1
-                                int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier1").getLoots().size());
-                                e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier1").getLoots().get(loot).getItem());
+                                int loot = ThreadLocalRandom.current().nextInt(0, Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier1").getLootsEnum().size());
+                                e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(GodsEnum.ATHENA.getName() + "_tier1").getLootsEnum().get(loot).getItem());
                             }
                             break;
                     }

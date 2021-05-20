@@ -9,54 +9,6 @@ import org.bukkit.potion.PotionEffectType;
 
 public enum LootsEnum {
 
-    /*STRUCTURE LOOTS*/
-    COOKED_PORKCHOP(new ItemStack(Material.COOKED_PORKCHOP, 5), 5),
-    COOKED_FISH(new ItemStack(Material.COOKED_COD, 3), 5),
-    COOKED_SALMON(new ItemStack(Material.COOKED_SALMON, 3), 5),
-    COOKED_BEEF(new ItemStack(Material.COOKED_BEEF, 5), 5),
-    COOKED_CHICKEN(new ItemStack(Material.COOKED_CHICKEN, 1), 5),
-    COOKED_MUTTON(new ItemStack(Material.COOKED_MUTTON, 1), 5),
-    COOKED_RABBIT(new ItemStack(Material.COOKED_RABBIT, 1), 5),
-    OAK_PLANKS(new ItemStack(Material.OAK_PLANKS, 1), 5),
-    STICK(new ItemStack(Material.STICK, 1), 5),
-    STRING(new ItemStack(Material.STRING, 1), 4),
-    LEATHER(new ItemStack(Material.LEATHER, 1), 4),
-    PAPER(new ItemStack(Material.PAPER, 1), 4),
-    WHEAT(new ItemStack(Material.WHEAT, 1), 4),
-    FEATHER(new ItemStack(Material.FEATHER, 1), 3),
-    FLINT(new ItemStack(Material.FLINT, 1), 3),
-    ARROW(new ItemStack(Material.ARROW, 1), 3),
-    GLASS_BOTTLE(new ItemStack(Material.GLASS_BOTTLE, 2), 3),
-    APPLE(new ItemStack(Material.APPLE, 2), 0.029),
-    IRON_NUGGET(new ItemStack(Material.IRON_NUGGET, 6), 2),
-    COAL(new ItemStack(Material.COAL, 1), 2),
-    BOOK(new ItemStack(Material.BOOK, 1), 2),
-    PUMPKIN_SEEDS(new ItemStack(Material.PUMPKIN_SEEDS, 1), 2),
-    MELON_SEEDS(new ItemStack(Material.MELON_SEEDS, 1), 2),
-    COCOA_BEANS(new ItemStack(Material.COCOA_BEANS, 1), 2),
-    IRON_INGOT(new ItemStack(Material.IRON_INGOT, 1), 2),
-    GOLD_NUGGET(new ItemStack(Material.GOLD_NUGGET, 1), 2),
-    BUCKET(new ItemStack(Material.BUCKET, 1), 1),
-    EGG(new ItemStack(Material.EGG, 1), 1),
-    BOW(new ItemStack(Material.BOW, 1), 1),
-    CROSSBOW(new ItemStack(Material.CROSSBOW, 1), 1),
-    SHIELD(new ItemStack(Material.SHIELD, 1), 1),
-    IRON_PICKAXE(new ItemStack(Material.IRON_PICKAXE, 1), 0.7),
-    IRON_AXE(new ItemStack(Material.IRON_AXE, 1), 0.7),
-    GOLD_INGOT(new ItemStack(Material.GOLD_INGOT, 1), 0.5),
-    IRON_SWORD(new ItemStack(Material.IRON_SWORD, 1), 0.5),
-    EXPERIENCE_BOTTLE(new ItemStack(Material.EXPERIENCE_BOTTLE, 1), 0.5),
-
-    CHAINMAIL_HELMET(new ItemStack(Material.CHAINMAIL_HELMET, 1), 0.3),
-    CHAINMAIL_CHESTPLATE(new ItemStack(Material.CHAINMAIL_CHESTPLATE, 1), 0.3),
-    CHAINMAIL_LEGGINGS(new ItemStack(Material.CHAINMAIL_LEGGINGS, 1), 0.3),
-    CHAINMAIL_BOOTS(new ItemStack(Material.CHAINMAIL_BOOTS, 1), 0.3),
-
-    IRON_HELMET(new ItemStack(Material.IRON_HELMET, 1), 0.1),
-    IRON_CHESTPLATE(new ItemStack(Material.IRON_CHESTPLATE, 1), 0.1),
-    IRON_LEGGINGS(new ItemStack(Material.IRON_LEGGINGS, 1), 0.1),
-    IRON_BOOTS(new ItemStack(Material.IRON_BOOTS, 1), 0.1),
-    GOLDEN_APPLE(new ItemStack(Material.GOLDEN_APPLE, 1), 0.1),
 
     /*ARTEMIS LOOTS*/
     TIER1_DEPTHSTRIDER1(Utils.BookEnchantedItemStack(Material.ENCHANTED_BOOK, Enchantment.DEPTH_STRIDER, 1)),
@@ -164,10 +116,6 @@ public enum LootsEnum {
     private double luck;
     private PotionEffect potionEffect;
 
-    LootsEnum(ItemStack item, double luck) {
-        this.item = item;
-        this.luck = luck / 100;
-    }
 
     LootsEnum(ItemStack item) {
         this.item = item;
