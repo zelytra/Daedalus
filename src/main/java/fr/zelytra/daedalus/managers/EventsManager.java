@@ -37,7 +37,6 @@ public class EventsManager {
 
         /* Guardian */
         pm.registerEvents(new GuardianListener(),pl);
-        pm.registerEvents(new EntranceEvent(),pl);
         new GuardianBossBar();
         new StructureListener();
 

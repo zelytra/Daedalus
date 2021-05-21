@@ -37,7 +37,7 @@ public class Guardian implements Listener {
 
     private final int health = 100;
     private final BossBar bossBar;
-    private final int respawnCooldown = 300; //in seconds
+    private final int respawnCooldown = 30;//600; //in seconds
 
     public Guardian(Location location) {
         this.spawnLoc = location;
@@ -52,7 +52,6 @@ public class Guardian implements Listener {
 
     private LivingEntity initGuardian() {
 
-        /*  Frontend   */
 
         /* Guardian */
         Entity guardianEntity = this.spawnLoc.getWorld().spawn(this.spawnLoc, Vindicator.class, entity -> {

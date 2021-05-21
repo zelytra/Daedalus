@@ -231,7 +231,7 @@ public class MazeHandler {
     }
 
     private ItemStack[] randomLoot(ItemStack[] content, LootTable lootTable) {
-        for (int i = 0; i <= 16; i++) {
+        for (int i = 0; i <= 8; i++) {
             int slotRandom = (int) (Math.random() * (content.length));
             if (content[slotRandom] != null) {
                 continue;

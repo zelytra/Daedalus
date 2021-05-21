@@ -33,9 +33,18 @@ public class LootTableManager {
 
     private void lootTableInit() {
         this.structuresLoot.put(StructureEnum.TEAM_RED.getName(), lootParser.getByName(StructureEnum.TEAM_RED.getName()));
-        this.structuresLoot.put(StructureEnum.TEAM_GREEN.getName(), lootParser.getByName(StructureEnum.TEAM_GREEN.getName()));
-        this.structuresLoot.put(StructureEnum.TEAM_BLUE.getName(), lootParser.getByName(StructureEnum.TEAM_BLUE.getName()));
-        this.structuresLoot.put(StructureEnum.TEAM_YELLOW.getName(), lootParser.getByName(StructureEnum.TEAM_YELLOW.getName()));
+        this.structuresLoot.put(StructureEnum.TEAM_GREEN.getName(), lootParser.getByName(StructureEnum.TEAM_RED.getName()));
+        this.structuresLoot.put(StructureEnum.TEAM_BLUE.getName(), lootParser.getByName(StructureEnum.TEAM_RED.getName()));
+        this.structuresLoot.put(StructureEnum.TEAM_YELLOW.getName(), lootParser.getByName(StructureEnum.TEAM_RED.getName()));
+        this.structuresLoot.put(StructureEnum.MINOTAURE.getName(), lootParser.getByName(StructureEnum.TEAM_RED.getName()));
+
+        this.structuresLoot.put(StructureEnum.MINE1.getName(), lootParser.getByName(StructureEnum.MINE1.getName()));
+        this.structuresLoot.put(StructureEnum.MINE2.getName(), lootParser.getByName(StructureEnum.MINE1.getName()));
+        this.structuresLoot.put(StructureEnum.MINE3.getName(), lootParser.getByName(StructureEnum.MINE1.getName()));
+
+        this.structuresLoot.put(StructureEnum.DUNGEON1.getName(), lootParser.getByName(StructureEnum.DUNGEON1.getName()));
+        this.structuresLoot.put(StructureEnum.DUNGEON2.getName(), lootParser.getByName(StructureEnum.DUNGEON1.getName()));
+        this.structuresLoot.put(StructureEnum.DUNGEON3.getName(), lootParser.getByName(StructureEnum.DUNGEON1.getName()));
 
         this.athenaLoot.put(GodsEnum.ATHENA.getName() + "_tier1", athenaTableT1());
         this.athenaLoot.put(GodsEnum.ATHENA.getName() + "_tier2", athenaTableT2());
