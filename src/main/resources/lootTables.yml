@@ -5,31 +5,31 @@ redTeam:
   loots:
     loot1:
       material: cooked_porkchop
-      amount: 5
+      amount: 2
       luck: 5
     loot2:
       material: cooked_cod
-      amount: 3
+      amount: 1
       luck: 5
     loot3:
       material: cooked_salmon
-      amount: 3
+      amount: 1
       luck: 5
     loot4:
       material: cooked_beef
-      amount: 5
+      amount: 3
       luck: 5
     loot5:
       material: cooked_chicken
-      amount: 5
+      amount: 3
       luck: 5
     loot6:
       material: cooked_mutton
-      amount: 5
+      amount: 2
       luck: 5
     loot7:
       material: cooked_rabbit
-      amount: 3
+      amount: 1
       luck: 5
     loot8:
       material: oak_planks
@@ -65,7 +65,7 @@ redTeam:
       luck: 3
     loot17:
       material: arrow
-      amount: 10
+      amount: 5
       luck: 3
     loot18:
       material: glass_bottle
@@ -190,28 +190,28 @@ mine1:
     - barrel
   loots:
     loot1:
-      material: coal
-      amount: 10
-      luck: 7
-    loot2:
-      material: iron_ingot
-      amount: 5
-      luck: 7
-    loot3:
       material: oak_planks
       amount: 4
-      luck: 5
-    loot4:
+      luck: 9
+    loot2:
       material: stick
       amount: 5
-      luck: 5
+      luck: 9
+    loot3:
+      material: coal
+      amount: 5
+      luck: 7
+    loot4:
+      material: iron_ingot
+      amount: 2
+      luck: 6
     loot5:
       material: cooked_porkchop
-      amount: 3
+      amount: 2
       luck: 5
     loot6:
       material: cooked_beef
-      amount: 4
+      amount: 3
       luck: 5
     loot7:
       material: redstone
@@ -219,11 +219,11 @@ mine1:
       luck: 4.5
     loot8:
       material: gold_ingot
-      amount: 8
+      amount: 2
       luck: 4
     loot9:
       material: lapis_lazuli
-      amount: 10
+      amount: 3
       luck: 4
     loot10:
       material: string
@@ -235,32 +235,32 @@ mine1:
       luck: 4
     loot12:
       material: arrow
-      amount: 10
+      amount: 5
       luck: 4
     loot13:
-      material: emerald
-      amount: 1
-      luck: 3.5
-    loot14:
       material: flint
       amount: 3
       luck: 3
-    loot15:
+    loot14:
       material: feather
       amount: 3
       luck: 3
-    loot16:
+    loot15:
       material: glass_bottle
-      amount: 5
+      amount: 3
       luck: 3
-    loot17:
+    loot16:
       material: paper
       amount: 2
       luck: 3
-    loot18:
+    loot17:
       material: shield
       amount: 1
       luck: 3
+    loot18:
+      material: emerald
+      amount: 1
+      luck: 2.5
     loot19:
       material: iron_pickaxe
       amount: 1
@@ -274,31 +274,31 @@ mine1:
       amount: 1
       luck: 2
     loot22:
-      material: enchanted_book
-      enchant:
-        type: dig_speed
-        level: 1
+      material: book
       amount: 1
       luck: 2
     loot23:
       material: enchanted_book
       enchant:
+        type: dig_speed
+        level: 1
+      amount: 1
+      luck: 1
+    loot24:
+      material: enchanted_book
+      enchant:
         type: durability
         level: 1
       amount: 1
-      luck: 2
-    loot24:
-      material: book
-      amount: 1
-      luck: 2
+      luck: 1
     loot25:
       material: diamond
       amount: 1
-      luck: 1.5
+      luck: 1
     loot26:
       material: iron_sword
       amount: 1
-      luck: 1.5
+      luck: 1
     loot27:
       material: golden_apple
       amount: 1
@@ -313,39 +313,39 @@ mine1:
         type: dig_speed
         level: 2
       amount: 1
-      luck: 1
+      luck: 0.5
     loot30:
       material: enchanted_book
       enchant:
         type: durability
         level: 2
       amount: 1
-      luck: 1
+      luck: 0.5
     loot31:
       material: enchanted_book
       enchant:
         type: damage_all
         level: 1
       amount: 1
-      luck: 1
+      luck: 0.5
     loot32:
       material: enchanted_book
       enchant:
         type: arrow_damage
         level: 1
       amount: 1
-      luck: 1
+      luck: 0.5
     loot33:
       material: enchanted_book
       enchant:
         type: protection_environmental
         level: 1
       amount: 1
-      luck: 1
+      luck: 0.5
     loot34:
       material: anvil
       amount: 1
-      luck: 1
+      luck: 0.5
 
 
 dungeon1:
@@ -359,15 +359,15 @@ dungeon1:
       luck: 5
     loot2:
       material: cooked_beef
-      amount: 4
+      amount: 3
       luck: 5
     loot3:
       material: cooked_chicken
-      amount: 3
+      amount: 1
       luck: 5
     loot4:
       material: cooked_porkchop
-      amount: 3
+      amount: 2
       luck: 5
     loot5:
       material: stick
@@ -375,7 +375,7 @@ dungeon1:
       luck: 5
     loot6:
       material: arrow
-      amount: 10
+      amount: 5
       luck: 5
     loot7:
       material: golden_apple

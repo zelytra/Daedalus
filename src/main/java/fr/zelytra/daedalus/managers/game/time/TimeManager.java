@@ -2,56 +2,38 @@ package fr.zelytra.daedalus.managers.game.time;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
+import fr.zelytra.daedalus.managers.structure.Structure;
+import fr.zelytra.daedalus.managers.structure.StructureEnum;
+import fr.zelytra.daedalus.managers.structure.doors.Doors;
+import fr.zelytra.daedalus.managers.structure.doors.DoorsDirection;
+import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
+import org.bukkit.util.BoundingBox;
 
 import java.text.SimpleDateFormat;
+import java.util.Map;
 
 public class TimeManager {
     private int time = GameSettings.TIME_PER_EPISODE;
     private String timer = "20:00";
     private int episode = 1;
+    private int lastEpisode = 0;
     private int runnable;
     private boolean pause = false;
 
-    public TimeManager(){
+    public TimeManager() {
     }
 
-    public void start(){
+    public void start() {
 
-        runnable = Bukkit.getScheduler().scheduleSyncRepeatingTask(Daedalus.getInstance(), ()-> {
+        runnable = Bukkit.getScheduler().scheduleSyncRepeatingTask(Daedalus.getInstance(), () -> {
 
-            if(time == 0)
+            if (time == 0)
                 next();
 
-            switch (episode){
-
-
-                case 2:{
-
-                    //System.out.println("Minotaure");
-
-                    break;
-                }
-                case 3:{
-
-                    //System.out.println("Malédictions");
-
-                    break;
-                }
-
-                case 6:{
-
-                    //System.out.println("Go middle");
-
-                    break;
-                }
-                default:{
-
-                    break;
-                }
-
-            }
-            if(!isPause())
+            if (!isPause())
                 time--;
             updateTimer();
             Daedalus.getInstance().getGameManager().getScoreBoardManager().update();
@@ -59,11 +41,11 @@ public class TimeManager {
 
     }
 
-    public void stop(){
+    public void stop() {
         Bukkit.getScheduler().cancelTask(runnable);
     }
 
-    public void setPause(boolean pause){
+    public void setPause(boolean pause) {
         this.pause = pause;
     }
 
@@ -71,21 +53,68 @@ public class TimeManager {
         return pause;
     }
 
-    private void next(){
+    private void next() {
         time = GameSettings.TIME_PER_EPISODE;
         episode++;
+        episodeChangeEvent();
+        lastEpisode = episode - 1;
+    }
+
+    private void episodeChangeEvent() {
+        switch (episode) {
+
+            case 2: {
+
+                Bukkit.broadcastMessage("");
+                Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Minotaure §6has been released in the Maze... May Divinities be with you !");
+                Bukkit.broadcastMessage("");
+
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    player.playSound(player.getLocation(), Sound.ENTITY_WITHER_AMBIENT,1, 0.5F);
+                }
+
+                for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
+                    if(entry.getValue().getName()== StructureEnum.MINOTAURE.getName()){
+                        Doors doors = new Doors(entry.getKey());
+                        doors.open(DoorsDirection.ALL);
+                    }
+                }
+
+                break;
+            }
+            case 3: {
+
+                System.out.println("Malédictions");
+
+
+                break;
+            }
+
+            case 6: {
+
+                System.out.println("Go middle");
+
+
+                break;
+            }
+            default: {
+
+                break;
+            }
+
+        }
     }
 
     public int getEpisode() {
         return episode;
     }
 
-    private void updateTimer(){
+    private void updateTimer() {
         timer = (new SimpleDateFormat("mm:ss")).format(time * 1000);
     }
 
-    public String getTimer(){
-        return  timer;
+    public String getTimer() {
+        return timer;
     }
 }
  

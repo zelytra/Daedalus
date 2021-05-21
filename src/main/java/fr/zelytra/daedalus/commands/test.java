@@ -1,6 +1,5 @@
 package fr.zelytra.daedalus.commands;
 
-import fr.zelytra.daedalus.managers.guardian.Guardian;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,7 +13,7 @@ public class test implements CommandExecutor {
         if(!(sender instanceof Player)){
             return false;
         }
-       new Guardian(((Player) sender).getLocation());
+
 
         return true;
     }

@@ -204,6 +204,10 @@ public class GameManager {
 
     }
 
+    public TimeManager getTimer(){
+        return this.timeManager;
+    }
+
     // FONCTION DE FIN DE PARTIE
     public void stop() {
         getTimeManager().stop();

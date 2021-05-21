@@ -23,6 +23,7 @@ import java.util.UUID;
 
 public class DeathHandler implements Listener {
     private final List<CustomMaterial> whitelist = new ArrayList<>();
+    private boolean hasMinotaureSpawn = false;
 
     {
         whitelist.add(CustomMaterial.DIVINE_FRAGMENT);
@@ -45,6 +46,7 @@ public class DeathHandler implements Listener {
 
             for (Team team : Daedalus.getInstance().getGameManager().getTeamManager().getTeamList()) {
                 if (team.getGodEnum() == GodsEnum.MINOTAURE && team.getGod() != null) {
+                    hasMinotaureSpawn = false; // TODO Test de l'Alpha-03 à passer en true après
                     isMinotaure = true;
                     break;
                 }
@@ -57,8 +59,9 @@ public class DeathHandler implements Listener {
 
             e.setCancelled(true);
             player.setHealth(player.getMaxHealth());
+
             //Definitive death
-            if (!isMinotaure || (e instanceof EntityDamageByEntityEvent && ((EntityDamageByEntityEvent) e).getDamager() instanceof Player && Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(((EntityDamageByEntityEvent) e).getDamager().getUniqueId()).getGodEnum() == GodsEnum.MINOTAURE)) {
+            if (hasMinotaureSpawn && (!isMinotaure || (e instanceof EntityDamageByEntityEvent && ((EntityDamageByEntityEvent) e).getDamager() instanceof Player && Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(((EntityDamageByEntityEvent) e).getDamager().getUniqueId()).getGodEnum() == GodsEnum.MINOTAURE))) {
                 player.setGameMode(GameMode.SPECTATOR);
                 for (ItemStack content : player.getInventory().getContents()) {
                     if ((!CustomItemStack.hasTag(content) || whitelist.contains(CustomItemStack.getCustomMaterial(content))) && content != null) {

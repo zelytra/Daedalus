@@ -5,10 +5,9 @@ import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.loottable.Loot;
 import fr.zelytra.daedalus.managers.loottable.LootTable;
-import fr.zelytra.daedalus.managers.structure.GridBlockEnum;
-import fr.zelytra.daedalus.managers.structure.Structure;
-import fr.zelytra.daedalus.managers.structure.StructureType;
-import fr.zelytra.daedalus.managers.structure.WorldEditHandler;
+import fr.zelytra.daedalus.managers.structure.*;
+import fr.zelytra.daedalus.managers.structure.doors.Doors;
+import fr.zelytra.daedalus.managers.structure.doors.DoorsDirection;
 import fr.zelytra.daedalus.utils.Message;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -161,6 +160,10 @@ public class MazeHandler {
             count = 0;
             Bukkit.broadcastMessage("§6Generating loots...");
             for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
+                if(entry.getValue().getName()== StructureEnum.MINOTAURE.getName()){
+                    Doors doors = new Doors(entry.getKey());
+                    doors.close(DoorsDirection.ALL);
+                }
                 LootTable lootTable = Daedalus.getInstance().getStructureManager().getLootTableManager().getByName(entry.getValue().getName());
                 count++;
                 if (lootTable == null) {

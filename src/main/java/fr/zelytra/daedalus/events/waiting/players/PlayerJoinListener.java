@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.potion.PotionEffectType;
 
 public class PlayerJoinListener implements Listener {
 
@@ -37,6 +38,7 @@ public class PlayerJoinListener implements Listener {
             p.setLevel(0);
             p.getInventory().clear();
             p.teleport(new Location(p.getWorld(), 669, 162, 675));
+            p.removePotionEffect(PotionEffectType.NIGHT_VISION);
 
             if (Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId()) != null) {
 
@@ -98,7 +100,7 @@ public class PlayerJoinListener implements Listener {
             } else
                 p.getInventory().setItem(4, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
 
-            //TODO TP TO SPAWN
+
         } else if (state.equals(GameStatesEnum.RUNNING)) {
             if (Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId()) != null)
                 setupTeam(p);

@@ -17,6 +17,7 @@ import fr.zelytra.daedalus.managers.items.CraftManager;
 import fr.zelytra.daedalus.managers.structure.StructureManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
+import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Daedalus extends JavaPlugin {
@@ -105,6 +106,13 @@ public final class Daedalus extends JavaPlugin {
         Bukkit.getWorld("world").setGameRule(GameRule.DO_ENTITY_DROPS, true);
         Bukkit.getWorld("world").setGameRule(GameRule.DO_MOB_LOOT, true);
         Bukkit.getWorld("world").setGameRule(GameRule.KEEP_INVENTORY, false);
+
+        for (World world : Bukkit.getWorlds()) {
+            world.setMonsterSpawnLimit(60);
+            world.setAnimalSpawnLimit(10);
+            world.setAmbientSpawnLimit(15);
+            world.setWaterAnimalSpawnLimit(5);
+        }
 
     }
 }
