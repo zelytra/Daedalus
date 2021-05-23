@@ -90,7 +90,7 @@ public final class Daedalus extends JavaPlugin {
     private void setupServer() {
 
         Bukkit.getWorld("world").setTime(6000);
-        Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+        Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
         Bukkit.getWorld("world").setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
         Bukkit.getWorld("world").setGameRule(GameRule.DISABLE_RAIDS, true);
         Bukkit.getWorld("world").setGameRule(GameRule.DO_FIRE_TICK, false);

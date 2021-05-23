@@ -5,43 +5,48 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
 
 import java.util.HashMap;
 import java.util.UUID;
 
 public class PlayerRegen implements Listener {
-    private HashMap<UUID, Long> reganPlayer = new HashMap<>();
+    private HashMap<UUID, Long> regenPlayer = new HashMap<>();
+    private HashMap<UUID, Float> lastSaturation = new HashMap<>();
 
     @EventHandler
     public void foodEvent(EntityRegainHealthEvent e) {
 
         if (Daedalus.getInstance().getGameManager().isRunning()) {
-
             if (e.getEntity() instanceof Player && (e.getRegainReason() == EntityRegainHealthEvent.RegainReason.SATIATED || e.getRegainReason() == EntityRegainHealthEvent.RegainReason.REGEN)) {
-                Player player =(Player) e.getEntity();
+                Player player = (Player) e.getEntity();
 
-                if (!reganPlayer.containsKey(player.getUniqueId())) {
-                    e.setAmount(e.getAmount() * 0.1);//10% regen speed
-                    player.setExhaustion(3);
-                    reganPlayer.put(player.getUniqueId(), System.currentTimeMillis() / 1000);
+                if (!regenPlayer.containsKey(player.getUniqueId())) {
+
+                    if(!lastSaturation.containsKey(player.getUniqueId()))
+                        lastSaturation.put(player.getUniqueId(),player.getSaturation());
+
+                    if (lastSaturation.get(player.getUniqueId()) >= 3.0) {
+                        player.setSaturation(lastSaturation.get(player.getUniqueId()));
+                        e.setAmount(e.getAmount()*0.1);
+                        player.setSaturation(player.getSaturation() - 2);
+                        lastSaturation.put(player.getUniqueId(),player.getSaturation());
+                        regenPlayer.put(player.getUniqueId(), System.currentTimeMillis() / 1000);
+                    } else {
+                        lastSaturation.remove(player.getUniqueId());
+                        e.setCancelled(true);
+                    }
                 } else {
-                    if ((System.currentTimeMillis() / 1000) - reganPlayer.get(player.getUniqueId()) >= 2) {
-                        reganPlayer.remove(player.getUniqueId());
+                    if ((System.currentTimeMillis() / 1000) - regenPlayer.get(player.getUniqueId()) >= 2) {
+                        regenPlayer.remove(player.getUniqueId());
                     } else {
                         e.setCancelled(true);
                         player.setExhaustion(0);
+
                     }
                 }
-            }
-        }
-    }
-
-    @EventHandler
-    public void exhaustion(FoodLevelChangeEvent e){
-        if (Daedalus.getInstance().getGameManager().isRunning()) {
-            if (reganPlayer.containsKey(e.getEntity().getUniqueId())){
-                e.getEntity().setExhaustion(0);
+                System.out.println("Food: " + ((Player) e.getEntity()).getFoodLevel());
+                System.out.println("Saturation: " + lastSaturation.get(player.getUniqueId()));
+                System.out.println("Exhaustion: " + ((Player) e.getEntity()).getExhaustion());
             }
         }
     }

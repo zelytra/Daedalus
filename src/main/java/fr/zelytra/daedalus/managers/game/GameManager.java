@@ -182,6 +182,8 @@ public class GameManager {
             MazeHandler maze = new MazeHandler(origin, 300, true, Daedalus.getInstance().getStructureManager().getGeneratedList());
             maze.generateScaleMaze();
             Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
+                Bukkit.getWorld("world").setTime(0);
+                Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
                 //Player Manager
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId());
