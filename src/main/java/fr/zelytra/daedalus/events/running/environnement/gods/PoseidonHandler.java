@@ -39,20 +39,24 @@ public class PoseidonHandler implements Listener {
                     if (e.getClickedBlock().getType() == invocationBlock) {
                         Player player = e.getPlayer();
 
+
+                        Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
+                        /*if (playerTeam.getGod() != null) {
+                            player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
+                            return;
+                        }*/
+                        playerTeam.setGod(player, GodsEnum.POSEIDON);
+                        new Poseidon(playerTeam);
+                        playerInWater();
+                        vfx(player);
+                        removeHeldItem(e, invocMaterial);
+                        e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
+
+
                         for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                             if (entry.getKey().contains(e.getClickedBlock().getX(), e.getClickedBlock().getY(), e.getClickedBlock().getZ()) && entry.getValue().getType() == StructureType.TEMPLE && entry.getValue().getGod() == GodsEnum.POSEIDON) {
                                 try {
-                                    Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
-                                    if (playerTeam.getGod() != null) {
-                                        player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
-                                        return;
-                                    }
-                                    playerTeam.setGod(player, GodsEnum.POSEIDON);
-                                    new Poseidon(playerTeam);
-                                    playerInWater();
-                                    vfx(player);
-                                    removeHeldItem(e, invocMaterial);
-                                    e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
+                                    //TODO
                                 } catch (Exception exception) {
                                     System.out.println("ERROR team not found");
                                 }
@@ -76,7 +80,9 @@ public class PoseidonHandler implements Listener {
                 for (UUID uuid : team.getPlayerList()) {
                     Player player = Bukkit.getPlayer(uuid);
                     if (player.getLocation().getBlock().getType() == Material.WATER) {
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20, 0, false, true, true));
+                        if (player.getPotionEffect(PotionEffectType.REGENERATION) != null)
+                            continue;
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 50, 0, false, true, true));
                     }
                 }
             }

@@ -5,7 +5,7 @@ public enum BlockCooldownEnum {
     COAL_ORE(30),
     IRON_ORE(45),
     GOLD_ORE(120),
-    DIAMOND_ORE(300),
+    DIAMOND_ORE(180),
     LAPIS_ORE(120),
     EMERALD_ORE(240),
     REDSTONE_ORE(85),

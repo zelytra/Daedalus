@@ -22,6 +22,7 @@ public class CraftManager {
         recipes.addAll(Bukkit.getRecipesFor(new ItemStack(Material.TNT)));
         recipes.addAll(Bukkit.getRecipesFor(new ItemStack(Material.TNT_MINECART)));
         recipes.addAll(Bukkit.getRecipesFor(new ItemStack(Material.STONE)));
+        recipes.addAll(Bukkit.getRecipesFor(new ItemStack(Material.MAP)));
         recipes.stream().filter(r -> r instanceof Keyed).map(r -> ((Keyed) r).getKey()).forEach(Bukkit::removeRecipe);
     }
 

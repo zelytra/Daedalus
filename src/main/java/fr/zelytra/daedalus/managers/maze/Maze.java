@@ -100,7 +100,7 @@ public class Maze {
             int length = (area.getRegion().getLength() + 1) / (this.scale + 1) + ((area.getRegion().getLength() + 1) / (this.scale + 1)) - 1;
             int originX;
             int originZ;
-            if (area.getType() == StructureType.FIXED) {
+            if (area.getType() == StructureType.BASE) {
                 originX = (int) (area.getOrigin().getX() - (width / 2.0));
                 originZ = (int) (area.getOrigin().getZ() - (length / 2.0));
                 generateStructureGrid(new Vector2(originX, originZ), area, width, length);

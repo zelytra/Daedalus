@@ -9,7 +9,7 @@ import org.bukkit.util.BoundingBox;
 public class Doors {
 
     private final BoundingBox area;
-    private final Material doorMaterial = Material.NETHERITE_BLOCK;
+    private final Material doorMaterial = Material.SMOOTH_SANDSTONE;
 
     public Doors(BoundingBox box) {
         this.area = box;

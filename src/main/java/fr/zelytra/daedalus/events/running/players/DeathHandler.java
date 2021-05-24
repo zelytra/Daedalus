@@ -36,17 +36,18 @@ public class DeathHandler implements Listener {
         if (!(e.getEntity() instanceof Player)) {
             return;
         }
-
-        Player player = (Player) e.getEntity();
-        if (((player.getHealth() - e.getFinalDamage()) > 0)) {
-            return;
-        }
         if (Daedalus.getInstance().getGameManager().isRunning()) {
+
+            Player player = (Player) e.getEntity();
+            if (((player.getHealth() - e.getFinalDamage()) > 0) || (e.getCause() == EntityDamageEvent.DamageCause.FALL && Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId()).getGod() != null && Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId()).getGodEnum() == GodsEnum.ZEUS)) {
+                return;
+            }
+
             boolean isMinotaure = false;
 
             for (Team team : Daedalus.getInstance().getGameManager().getTeamManager().getTeamList()) {
                 if (team.getGodEnum() == GodsEnum.MINOTAURE && team.getGod() != null) {
-                    hasMinotaureSpawn = false; // TODO Test de l'Alpha-03 à passer en true après
+                    hasMinotaureSpawn = true;
                     isMinotaure = true;
                     break;
                 }

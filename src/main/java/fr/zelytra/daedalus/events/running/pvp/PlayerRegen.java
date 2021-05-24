@@ -17,7 +17,9 @@ public class PlayerRegen implements Listener {
     public void foodEvent(EntityRegainHealthEvent e) {
 
         if (Daedalus.getInstance().getGameManager().isRunning()) {
-            if (e.getEntity() instanceof Player && (e.getRegainReason() == EntityRegainHealthEvent.RegainReason.SATIATED || e.getRegainReason() == EntityRegainHealthEvent.RegainReason.REGEN)) {
+            System.out.println("trigger");
+            System.out.println(e.getRegainReason());
+            if (e.getEntity() instanceof Player && e.getRegainReason() == EntityRegainHealthEvent.RegainReason.SATIATED) {
                 Player player = (Player) e.getEntity();
 
                 if (!regenPlayer.containsKey(player.getUniqueId())) {
@@ -44,9 +46,6 @@ public class PlayerRegen implements Listener {
 
                     }
                 }
-                System.out.println("Food: " + ((Player) e.getEntity()).getFoodLevel());
-                System.out.println("Saturation: " + lastSaturation.get(player.getUniqueId()));
-                System.out.println("Exhaustion: " + ((Player) e.getEntity()).getExhaustion());
             }
         }
     }

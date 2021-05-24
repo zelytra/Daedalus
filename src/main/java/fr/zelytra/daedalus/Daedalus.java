@@ -15,10 +15,15 @@ import fr.zelytra.daedalus.managers.EventsManager;
 import fr.zelytra.daedalus.managers.game.GameManager;
 import fr.zelytra.daedalus.managers.items.CraftManager;
 import fr.zelytra.daedalus.managers.structure.StructureManager;
+import net.minecraft.server.v1_16_R3.DedicatedServer;
+import net.minecraft.server.v1_16_R3.DedicatedServerProperties;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.World;
+import org.bukkit.craftbukkit.v1_16_R3.CraftServer;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.lang.reflect.Field;
 
 public final class Daedalus extends JavaPlugin {
 
@@ -48,10 +53,10 @@ public final class Daedalus extends JavaPlugin {
         craftManager = new CraftManager();
         getServer().getConsoleSender().sendMessage(
                 "§a   ___    ___     ____  ___    ___     __     __  __  ____§r\n" +
-                "§a  / _ \\  / _ |   / __/ / _ \\  / _ |   / /    / / / / / __/§r\n" +
-                "§a / // / / __ |  / _/  / // / / __ |  / /__  / /_/ / _\\ \\  §r\n" +
-                "§a/____/ /_/ |_| /___/ /____/ /_/ |_| /____/  \\____/ /___/  §r\n" +
-                "                                                          ");
+                        "§a  / _ \\  / _ |   / __/ / _ \\  / _ |   / /    / / / / / __/§r\n" +
+                        "§a / // / / __ |  / _/  / // / / __ |  / /__  / /_/ / _\\ \\  §r\n" +
+                        "§a/____/ /_/ |_| /___/ /____/ /_/ |_| /____/  \\____/ /___/  §r\n" +
+                        "                                                          ");
         getServer().getConsoleSender().sendMessage("§e[DAEDALUS] §6STATUS §7>> §2loaded");
     }
 
@@ -106,6 +111,15 @@ public final class Daedalus extends JavaPlugin {
         Bukkit.getWorld("world").setGameRule(GameRule.DO_ENTITY_DROPS, true);
         Bukkit.getWorld("world").setGameRule(GameRule.DO_MOB_LOOT, true);
         Bukkit.getWorld("world").setGameRule(GameRule.KEEP_INVENTORY, false);
+        try {
+            DedicatedServer server = ((CraftServer) Bukkit.getServer()).getServer();
+            DedicatedServerProperties properties = server.getDedicatedServerProperties();
+
+            Field spawnProtectionField = properties.getClass().getField("spawnProtection");
+            spawnProtectionField.setAccessible(true);
+            spawnProtectionField.set(properties, 0);
+        } catch (NoSuchFieldException | IllegalAccessException ignored) {
+        }
 
         for (World world : Bukkit.getWorlds()) {
             world.setMonsterSpawnLimit(60);

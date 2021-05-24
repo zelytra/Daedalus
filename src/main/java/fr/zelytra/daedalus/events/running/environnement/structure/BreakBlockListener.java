@@ -19,6 +19,7 @@ public class BreakBlockListener implements Listener {
 
     static {
         blacklist.add(Material.SMOOTH_SANDSTONE);
+        blacklist.add(Material.BROWN_MUSHROOM_BLOCK);
     }
 
     @EventHandler
@@ -68,6 +69,9 @@ public class BreakBlockListener implements Listener {
                 break;
             //Corridor case
             default:
+                if (blacklist.contains(e.getBlock().getType())) 
+                    e.setCancelled(true);
+
                 int groundY = (int) maze.getOrigin().getY();
                 if (e.getBlock().getY() <= groundY - 1)
                     e.setCancelled(true);
