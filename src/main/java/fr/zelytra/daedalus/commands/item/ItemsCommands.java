@@ -22,6 +22,11 @@ public class ItemsCommands implements CommandExecutor {
         }
         Player player = (Player) sender;
 
+        if (!player.isOp()){
+            player.sendMessage(Message.getPlayerPrefixe()+"§cYou don't have permission to perform this command");
+            return false;
+        }
+
         if (args.length == 1 && args[0].equalsIgnoreCase("help")) {
             HelpCommands help = new HelpCommands("dgive");
             help.addCommand("[customMaterial]", "{amount}");

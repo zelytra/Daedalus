@@ -13,33 +13,38 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 public class PlayerChatRListener implements Listener {
 
     @EventHandler
-    public void onChat(AsyncPlayerChatEvent e){
+    public void onChat(AsyncPlayerChatEvent e) {
 
-        if(!Daedalus.getInstance().getGameManager().isRunning())
+        if (!Daedalus.getInstance().getGameManager().isRunning())
             return;
 
         final Player p = e.getPlayer();
         final Team t = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId());
 
-        if(t.getTeamEnum() != TeamsEnum.SPECTATOR){
+        if (t.getTeamEnum() != TeamsEnum.SPECTATOR && t.isAlive(p)) {
 
-            if(e.getMessage().startsWith("!")){
+            if (e.getMessage().startsWith("!")) {
 
-                MessageManager message = new MessageManager(p,e.getMessage(),ChannelEnum.GLOBAL,t);
+                MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.GLOBAL, t);
                 message.playerSendMessage();
 
 
-            }else{
+            } else {
 
-                MessageManager message = new MessageManager(p,e.getMessage(),ChannelEnum.TEAM,t);
+                MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.TEAM, t);
                 message.playerSendMessage();
 
 
             }
-        }else{
+        } else if (!t.isAlive(p)) {
+
+            MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.SPECTATOR, t);
+            message.playerSendMessage();
+
+        } else {
 
             Team spec = Daedalus.getInstance().getGameManager().getTeamManager().getSpectatorTeam();
-            MessageManager message = new MessageManager(p,e.getMessage(),ChannelEnum.SPECTATOR,spec);
+            MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.SPECTATOR, spec);
             message.playerSendMessage();
 
         }

@@ -2,6 +2,7 @@ package fr.zelytra.daedalus.managers.channel;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.team.Team;
+import fr.zelytra.daedalus.managers.team.TeamsEnum;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -77,12 +78,21 @@ public class MessageManager {
                 break;
 
             case SPECTATOR:
-                for (UUID uuid : Daedalus.getInstance().getGameManager().getTeamManager().getSpectatorTeam().getPlayerList()) {
-                    Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(getFormattedMessage());
+
+                for (Team team : Daedalus.getInstance().getGameManager().getTeamManager().getTeamList()) {
+                    for (UUID uuid : team.getPlayerList()) {
+                        if (team.getTeamEnum() == TeamsEnum.SPECTATOR) {
+                            Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(getFormattedMessage());
+                        } else if (!team.isAlive(Bukkit.getPlayer(uuid))) {
+                            Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(getFormattedMessage());
+                        } else
+                            continue;
+                    }
                 }
                 Bukkit.getConsoleSender().sendMessage(getFormattedMessage());
                 break;
         }
+
     }
 
     public String getFormattedMessage() {
@@ -97,8 +107,10 @@ public class MessageManager {
                 return ChatColor.of("#808080") + "[Team] " + senderTeam.getPrefix() + sender.getName() + "§7 > §f" + message;
             }
             case SPECTATOR: {
-
-                return ChatColor.of("#808080") + "[Spec] " + senderTeam.getPrefix() + "§7" + sender.getName() + "§7 > §f" + message;
+                if (!senderTeam.isAlive(sender))
+                    return ChatColor.of("#808080") + "[Spec] " + senderTeam.getPrefix() + senderTeam.getPrefix() + sender.getName() + "§7 > §f" + message;
+                else
+                    return ChatColor.of("#808080") + "[Spec] " + senderTeam.getPrefix() + "§7" + sender.getName() + "§7 > §f" + message;
             }
         }
         return "";

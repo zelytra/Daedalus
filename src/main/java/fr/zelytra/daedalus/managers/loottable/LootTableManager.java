@@ -36,7 +36,7 @@ public class LootTableManager {
         this.structuresLoot.put(StructureEnum.TEAM_GREEN.getName(), lootParser.getByName(StructureEnum.TEAM_RED.getName()));
         this.structuresLoot.put(StructureEnum.TEAM_BLUE.getName(), lootParser.getByName(StructureEnum.TEAM_RED.getName()));
         this.structuresLoot.put(StructureEnum.TEAM_YELLOW.getName(), lootParser.getByName(StructureEnum.TEAM_RED.getName()));
-        this.structuresLoot.put(StructureEnum.MINOTAURE.getName(), lootParser.getByName(StructureEnum.TEAM_RED.getName()));
+        this.structuresLoot.put(StructureEnum.MINOTAURE.getName(), lootParser.getByName(StructureEnum.MINOTAURE.getName()));
 
         this.structuresLoot.put(StructureEnum.MINE1.getName(), lootParser.getByName(StructureEnum.MINE1.getName()));
         this.structuresLoot.put(StructureEnum.MINE2.getName(), lootParser.getByName(StructureEnum.MINE1.getName()));

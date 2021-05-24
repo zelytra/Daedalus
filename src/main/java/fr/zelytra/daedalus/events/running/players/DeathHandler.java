@@ -23,7 +23,7 @@ import java.util.UUID;
 
 public class DeathHandler implements Listener {
     private final List<CustomMaterial> whitelist = new ArrayList<>();
-    private boolean hasMinotaureSpawn = false;
+    private boolean hasMinotaureSpawn = true;
 
     {
         whitelist.add(CustomMaterial.DIVINE_FRAGMENT);
@@ -90,6 +90,7 @@ public class DeathHandler implements Listener {
                 respawnFX(e);
                 Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
                 player.teleport(playerTeam.getTeamEnum().getSpawn());
+
             }
             winListener();
 

@@ -17,6 +17,11 @@ public class StateCommands implements CommandExecutor {
 
         if (sender instanceof Player && sender.isOp()) {
 
+            if (!sender.isOp()){
+                sender.sendMessage(Message.getPlayerPrefixe()+"§cYou don't have permission to perform this command");
+                return false;
+            }
+
             if (args.length == 1) {
 
                 try {

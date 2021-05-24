@@ -7,6 +7,8 @@ import fr.zelytra.daedalus.commands.location.ShareLocation;
 import fr.zelytra.daedalus.commands.maze.MazeCommands;
 import fr.zelytra.daedalus.commands.maze.MazeTabCommands;
 import fr.zelytra.daedalus.commands.maze.StructureCommands;
+import fr.zelytra.daedalus.commands.revive.Revive;
+import fr.zelytra.daedalus.commands.revive.ReviveTabs;
 import fr.zelytra.daedalus.commands.state.StateCommands;
 import fr.zelytra.daedalus.commands.state.StateTabs;
 import fr.zelytra.daedalus.commands.test;
@@ -83,6 +85,9 @@ public final class Daedalus extends JavaPlugin {
         getCommand("wiki").setExecutor(new Wiki());
         getCommand("coordinate").setExecutor(new ShareLocation());
         getCommand("test").setExecutor(new test());
+
+        getCommand("revive").setExecutor(new Revive());
+        getCommand("revive").setTabCompleter(new ReviveTabs());
 
         getCommand("state").setExecutor(new StateCommands());
         getCommand("state").setTabCompleter(new StateTabs());

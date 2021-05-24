@@ -6,16 +6,21 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockState;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitTask;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PlayerBreakBlockListener implements Listener {
+    private static HashMap<Location, BukkitTask> taskIDs = new HashMap<>();
 
     @EventHandler
     public void onBreak(BlockBreakEvent e) {
@@ -114,7 +119,23 @@ public class PlayerBreakBlockListener implements Listener {
         if (state.getBlock().getLocation().getBlock().getType() != Material.AIR) {
             state.getBlock().getLocation().getBlock().breakNaturally();
         }
-        state.update(true);
+
+        Collection<Entity> list = state.getWorld().getNearbyEntities(state.getLocation(), 1, 1, 1);
+        if (!list.isEmpty()) {
+            BukkitTask taskID = Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
+                Collection<Entity> nearbyEntities = state.getWorld().getNearbyEntities(state.getLocation(), 1, 1, 1);
+                if (nearbyEntities.isEmpty()) {
+                    state.update(true);
+                    int id = taskIDs.get(state.getLocation()).getTaskId();
+                    taskIDs.remove(state.getLocation());
+                    Bukkit.getScheduler().cancelTask(id);
+
+                }
+            }, 0, 40);
+            taskIDs.put(state.getLocation(), taskID);
+
+        } else
+            state.update(true);
 
     }
 

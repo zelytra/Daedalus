@@ -28,6 +28,9 @@ commands:
     permission: daedalus.configuration
     description: Give custom items
 
+  revive:
+    permission: daedalus.revive
+    description: Revive a player
 
   wiki:
     description: Show item wiki

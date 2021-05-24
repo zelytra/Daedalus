@@ -67,7 +67,6 @@ public class ZeusHandler implements Listener {
         if (Daedalus.getInstance().getGameManager().isRunning()) {
             if (e.getEntity() instanceof Player) {
                 Player player = ((Player) e.getEntity());
-                System.out.println(e.getCause());
                 if (e.getCause() == EntityDamageEvent.DamageCause.FALL) {
                     try {
                         Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());

@@ -21,6 +21,12 @@ public class MazeCommands implements CommandExecutor {
             return false;
         }
         Player player = (Player) sender;
+
+        if (!player.isOp()){
+            player.sendMessage(Message.getPlayerPrefixe()+"§cYou don't have permission to perform this command");
+            return false;
+        }
+
         if (args.length == 2 && args[0].equalsIgnoreCase("generateGrid")) {
             player.sendMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
             Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {

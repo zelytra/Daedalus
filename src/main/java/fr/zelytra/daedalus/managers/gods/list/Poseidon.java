@@ -43,6 +43,7 @@ public class Poseidon implements Gods {
         item = new ItemStack(Material.TRIDENT);
         item.addEnchantment(Enchantment.LOYALTY, 3);
         item.addEnchantment(Enchantment.IMPALING, 3);
+        item.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 3);
         items.add(item);
         meta = item.getItemMeta();
         meta.setUnbreakable(true);

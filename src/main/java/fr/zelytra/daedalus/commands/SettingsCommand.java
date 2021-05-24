@@ -5,6 +5,7 @@ import fr.zelytra.daedalus.builders.InventoryBuilder;
 import fr.zelytra.daedalus.builders.ItemBuilder;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
+import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -21,6 +22,11 @@ public class SettingsCommand implements CommandExecutor {
         if (sender instanceof Player) {
 
             Player p = (Player) sender;
+
+            if (!p.isOp()){
+                p.sendMessage(Message.getPlayerPrefixe()+"§cYou don't have permission to perform this command");
+                return false;
+            }
 
             if(args.length > 0){
 
