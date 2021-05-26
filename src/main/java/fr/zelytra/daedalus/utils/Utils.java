@@ -83,7 +83,7 @@ public abstract class Utils {
 
     public static void setTabFX(Player player) {
         player.setPlayerListHeader("§6「 §8<< §6Daedalus §8>>§6 」\n§r");
-        player.setPlayerListFooter("\n§7Alpha-04\n§8<< §7Developed by : §6Zelytra  §8>>§6\n§8<< §7Designed by : §6Spirit & Ichabodt  §8>>§6");
+        player.setPlayerListFooter("\n§8<< §7Developed by : §6Zelytra  §8>>§6\n§8<< §7Designed by : §6Spirit & Ichabodt  §8>>§6\n\n§8[Alpha-04]");
 
     }
 }

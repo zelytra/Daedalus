@@ -17,8 +17,11 @@
 # Credits
 * **Spirit__10** : Project Founder & Builder
 * **Ichabodt** : Artistic Director & Builder
-* [**punisher5**](https://github.com/JohnPoliakov) : Developer
 * [**Zelytra**](https://github.com/zelytra) : Developer
+
+# Contributors
+* [**Nicolas61x**](https://github.com/Nicolas62x) : Help on maze optimization
+* [**punisher5**](https://github.com/JohnPoliakov) : Help on teamManager & gameManager
 
 
 
