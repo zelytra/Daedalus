@@ -36,15 +36,14 @@ public class Team {
 
     private void build() {
 
-        getTeamEnum().setTeam(scoreboard.registerNewTeam(getTeamEnum().getName()));
-        getTeamEnum().getTeam().setDisplayName("");
-        getTeamEnum().getTeam().setAllowFriendlyFire(GameSettings.FRIENDLY_FIRE);
-        getTeamEnum().getTeam().setColor(getChatColor());
-        getTeamEnum().getTeam().setPrefix(getPrefix());
-        getTeamEnum().getTeam().setSuffix(getSuffix());
-        getTeamEnum().getTeam().setOption(org.bukkit.scoreboard.Team.Option.COLLISION_RULE, org.bukkit.scoreboard.Team.OptionStatus.NEVER);
-        getTeamEnum().getTeam().setOption(org.bukkit.scoreboard.Team.Option.DEATH_MESSAGE_VISIBILITY, org.bukkit.scoreboard.Team.OptionStatus.NEVER);
-        getTeamEnum().getTeam().setOption(org.bukkit.scoreboard.Team.Option.NAME_TAG_VISIBILITY, org.bukkit.scoreboard.Team.OptionStatus.ALWAYS);
+        this.team.setTeam(scoreboard.registerNewTeam(getTeamEnum().getName()));
+        this.team.getTeam().setAllowFriendlyFire(GameSettings.FRIENDLY_FIRE);
+        this.team.getTeam().setColor(this.getChatColor());
+        this.team.getTeam().setPrefix(this.getPrefix());
+        this.team.getTeam().setSuffix(this.getSuffix());
+        this.team.getTeam().setOption(org.bukkit.scoreboard.Team.Option.COLLISION_RULE, org.bukkit.scoreboard.Team.OptionStatus.NEVER);
+        this.team.getTeam().setOption(org.bukkit.scoreboard.Team.Option.DEATH_MESSAGE_VISIBILITY, org.bukkit.scoreboard.Team.OptionStatus.NEVER);
+        this.team.getTeam().setOption(org.bukkit.scoreboard.Team.Option.NAME_TAG_VISIBILITY, org.bukkit.scoreboard.Team.OptionStatus.ALWAYS);
 
     }
 
@@ -159,9 +158,9 @@ public class Team {
         Player p = Bukkit.getPlayer(uuid);
         if (p != null && !hasPlayer(uuid)) {
             getPlayerList().add(uuid);
-            getTeamEnum().getTeam().addEntry(uuid.toString());
-            p.setDisplayName(getPrefix() + p.getName() + getSuffix());
+            team.getTeam().addEntry(p.getName());
             p.setPlayerListName(getPrefix() + p.getName() + getSuffix());
+            setScoreboardForPlayers();
             playerStatusList.put(p.getUniqueId(), PlayerStatus.ALIVE);
         }
     }
@@ -171,8 +170,7 @@ public class Team {
         Player p = Bukkit.getPlayer(uuid);
         if (p != null && hasPlayer(uuid)) {
             getPlayerList().remove(uuid);
-            getTeamEnum().getTeam().removeEntry(uuid.toString());
-            p.setDisplayName("§r" + p.getName() + "§r");
+            team.getTeam().removeEntry(p.getName());
             p.setPlayerListName("§r" + p.getName() + "§r");
             playerStatusList.remove(p.getUniqueId());
         }
@@ -206,22 +204,23 @@ public class Team {
         return getTeamEnum().getSuffix();
     }
 
-    public boolean isAlive(Player p){
-        if(playerStatusList.containsKey(p.getUniqueId())){
+    public boolean isAlive(Player p) {
+        if (playerStatusList.containsKey(p.getUniqueId())) {
             return playerStatusList.get(p.getUniqueId()) == PlayerStatus.ALIVE;
         }
         return false;
     }
-    public boolean isDead(Player p){
-        if(playerStatusList.containsKey(p.getUniqueId())){
+
+    public boolean isDead(Player p) {
+        if (playerStatusList.containsKey(p.getUniqueId())) {
             return playerStatusList.get(p.getUniqueId()) == PlayerStatus.DEAD;
         }
         return false;
     }
 
-    public void setPlayerStatus(Player p,PlayerStatus status){
-        if(playerStatusList.containsKey(p.getUniqueId())){
-            playerStatusList.put(p.getUniqueId(),status);
+    public void setPlayerStatus(Player p, PlayerStatus status) {
+        if (playerStatusList.containsKey(p.getUniqueId())) {
+            playerStatusList.put(p.getUniqueId(), status);
         }
     }
 
@@ -254,4 +253,13 @@ public class Team {
     public GodsEnum getGodEnum() {
         return this.godsEnum;
     }
+
+    private void setScoreboardForPlayers() {
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.setScoreboard(scoreboard);
+        }
+    }
 }
+
+

@@ -29,12 +29,8 @@ public class TeamManager {
 
     public void setupTeams() {
 
-        teamList.add(new Team(TeamsEnum.RED, this.scoreboard));
-        teamList.add(new Team(TeamsEnum.BLUE, this.scoreboard));
-        teamList.add(new Team(TeamsEnum.GREEN, this.scoreboard));
-        teamList.add(new Team(TeamsEnum.YELLOW, this.scoreboard));
-        teamList.add(new Team(TeamsEnum.SPECTATOR, this.scoreboard));
-        teamList.add(new Team(TeamsEnum.MINOS, this.scoreboard));
+        for (TeamsEnum teamsEnum : TeamsEnum.values())
+            teamList.add(new Team(teamsEnum, this.scoreboard));
 
     }
 

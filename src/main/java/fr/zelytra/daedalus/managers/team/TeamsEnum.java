@@ -8,12 +8,12 @@ import org.bukkit.scoreboard.Team;
 
 public enum TeamsEnum {
 
-    RED("Red", DyeColor.RED, ChatColor.RED, "§c", "§r",new Location(Bukkit.getWorld("world"),-485,89,-477)),
-    BLUE("Blue", DyeColor.BLUE, ChatColor.BLUE, "§9", "§r",new Location(Bukkit.getWorld("world"),-485,89,483)),
-    YELLOW("Yellow", DyeColor.YELLOW, ChatColor.YELLOW, "§e", "§r",new Location(Bukkit.getWorld("world"),475,89,483)),
-    GREEN("Green", DyeColor.GREEN, ChatColor.GREEN, "§a", "§r",new Location(Bukkit.getWorld("world"),476,89,-477)),
-    SPECTATOR("Spectator", DyeColor.WHITE, ChatColor.WHITE, "§f", "§r",new Location(Bukkit.getWorld("world"),0,81,0)),
-    MINOS("Minos", DyeColor.ORANGE, ChatColor.GOLD, "§7", "§r",new Location(Bukkit.getWorld("world"),-3,90,0));
+    RED("aRed", DyeColor.RED, ChatColor.RED, "§c", "§r",new Location(Bukkit.getWorld("world"),-485,89,-477)),
+    BLUE("bBlue", DyeColor.BLUE, ChatColor.BLUE, "§9", "§r",new Location(Bukkit.getWorld("world"),-485,89,483)),
+    YELLOW("cYellow", DyeColor.YELLOW, ChatColor.YELLOW, "§e", "§r",new Location(Bukkit.getWorld("world"),475,89,483)),
+    GREEN("dGreen", DyeColor.GREEN, ChatColor.GREEN, "§a", "§r",new Location(Bukkit.getWorld("world"),476,89,-477)),
+    SPECTATOR("eSpectator", DyeColor.WHITE, ChatColor.WHITE, "§f", "§r",new Location(Bukkit.getWorld("world"),0,81,0)),
+    MINOS("fMinos", DyeColor.ORANGE, ChatColor.GOLD, "§6", "§r",new Location(Bukkit.getWorld("world"),-3,90,0));
 
     private final String name;
     private final DyeColor teamColor;

@@ -53,10 +53,6 @@ public class MobSpawn implements Listener {
             e.setCancelled(true);
             return;
         }
-        if (e.getEntityType() == EntityType.VEX) {
-            e.getEntity().setMaxHealth(1);
-            return;
-        }
 
         Vector2 matrixCoordinate = new Vector2((int) (e.getLocation().getX() - maze.getOrigin().getX() + 1), (int) (e.getLocation().getZ() - maze.getOrigin().getZ() + 1));
         if (matrixCoordinate.x > (4 * maze.getSize() - 3) || matrixCoordinate.x < 0 || matrixCoordinate.z < 0 || matrixCoordinate.z > (4 * maze.getSize() - 3)) {

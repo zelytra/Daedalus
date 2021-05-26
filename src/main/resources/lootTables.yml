@@ -190,31 +190,31 @@ minotaure:
   loots:
     loot1:
       material: cooked_porkchop
-      amount: 10
+      amount: 7
       luck: 5
     loot2:
       material: cooked_cod
-      amount: 10
+      amount: 4
       luck: 5
     loot3:
       material: cooked_salmon
-      amount: 10
+      amount: 3
       luck: 5
     loot4:
       material: cooked_beef
-      amount: 10
+      amount: 6
       luck: 5
     loot5:
       material: cooked_chicken
-      amount: 10
+      amount: 6
       luck: 5
     loot6:
       material: cooked_mutton
-      amount: 10
+      amount: 5
       luck: 5
     loot7:
       material: cooked_rabbit
-      amount: 10
+      amount: 3
       luck: 5
     loot8:
       material: oak_planks
@@ -530,6 +530,8 @@ mine1:
       material: anvil
       amount: 1
       luck: 0.5
+
+
 dungeon1:
   containers:
     - chest

@@ -7,6 +7,7 @@ import fr.zelytra.daedalus.events.running.environnement.*;
 import fr.zelytra.daedalus.events.running.environnement.gods.*;
 import fr.zelytra.daedalus.events.running.environnement.items.*;
 import fr.zelytra.daedalus.events.running.environnement.mobCutclean.MobCutClean;
+import fr.zelytra.daedalus.events.running.environnement.respawnable.AxeStripped;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.PlayerBreakBlockListener;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.TreeGrowthListener;
 import fr.zelytra.daedalus.events.running.environnement.structure.*;
@@ -77,6 +78,8 @@ public class EventsManager {
         pm.registerEvents(new DeathHandler(), pl);
         pm.registerEvents(new MobSpawn(), pl);
         pm.registerEvents(new HostileMob(), pl);
+        pm.registerEvents(new AxeStripped(), pl);
+        pm.registerEvents(new BucketListener(), pl);
 
         /* Inventory */
         pm.registerEvents(new InventoryListener(), pl);
@@ -84,6 +87,7 @@ public class EventsManager {
 
         /* Players */
         pm.registerEvents(new PlayerJoinListener(), pl);
+        pm.registerEvents(new PlayerPreLoginListener(), pl);
         pm.registerEvents(new PlayerQuitListener(), pl);
         pm.registerEvents(new PlayerInteractListener(), pl);
         pm.registerEvents(new PlayerBreakBlockListener(), pl);

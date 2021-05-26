@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.events.waiting.players;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.builders.ItemBuilder;
 import fr.zelytra.daedalus.managers.game.GameStatesEnum;
+import fr.zelytra.daedalus.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -20,10 +21,14 @@ public class PlayerJoinListener implements Listener {
 
         final Player p = e.getPlayer();
 
+
+
         e.setJoinMessage(null);
+        Utils.setTabFX(p);
         preparePlayer(p, Daedalus.getInstance().getGameManager().getState());
 
     }
+
 
 
     private void preparePlayer(Player p, GameStatesEnum state) {
@@ -111,8 +116,6 @@ public class PlayerJoinListener implements Listener {
         } else {
             setSpectator(p);
         }
-
-        p.setPlayerListHeader("\n§7[§6Daedalus§7]\n");
 
     }
 

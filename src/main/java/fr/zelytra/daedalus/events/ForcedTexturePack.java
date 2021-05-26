@@ -25,7 +25,6 @@ public class ForcedTexturePack implements Listener {
                 break;
             case FAILED_DOWNLOAD:
                 e.getPlayer().sendMessage(Message.getPlayerPrefixe()+"§6Failed to download trying again...");
-                e.getPlayer().setResourcePack(url);
                 break;
             case SUCCESSFULLY_LOADED:
                 e.getPlayer().sendMessage(Message.getPlayerPrefixe()+"§aTexture pack loaded !");

@@ -39,24 +39,20 @@ public class PoseidonHandler implements Listener {
                     if (e.getClickedBlock().getType() == invocationBlock) {
                         Player player = e.getPlayer();
 
-
-                        Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
-                        /*if (playerTeam.getGod() != null) {
-                            player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
-                            return;
-                        }*/
-                        playerTeam.setGod(player, GodsEnum.POSEIDON);
-                        new Poseidon(playerTeam);
-                        playerInWater();
-                        vfx(player);
-                        removeHeldItem(e, invocMaterial);
-                        e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
-
-
                         for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                             if (entry.getKey().contains(e.getClickedBlock().getX(), e.getClickedBlock().getY(), e.getClickedBlock().getZ()) && entry.getValue().getType() == StructureType.TEMPLE && entry.getValue().getGod() == GodsEnum.POSEIDON) {
                                 try {
-                                    //TODO
+                                    Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
+                                    if (playerTeam.getGod() != null) {
+                                        player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
+                                        return;
+                                    }
+                                    playerTeam.setGod(player, GodsEnum.POSEIDON);
+                                    new Poseidon(playerTeam);
+                                    playerInWater();
+                                    vfx(player);
+                                    removeHeldItem(e, invocMaterial);
+                                    e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
                                 } catch (Exception exception) {
                                     System.out.println("ERROR team not found");
                                 }
