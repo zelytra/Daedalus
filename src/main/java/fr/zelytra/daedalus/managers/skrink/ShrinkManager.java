@@ -18,7 +18,6 @@ public abstract class ShrinkManager {
         }
 
         Bukkit.getScheduler().runTask(daedalus, () -> {
-            System.out.println("Start task");
             workloadThread.run();
         });
 

@@ -25,8 +25,10 @@ public class WorkloadThread implements Runnable {
     public void run() {
         task = Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
             long stopTime = System.currentTimeMillis() + MAX_MS_PER_TICK;
-            while (!workloadDeque.isEmpty() && System.currentTimeMillis() <= stopTime) {
+            int count = 0;
+            while (!workloadDeque.isEmpty() && System.currentTimeMillis() <= stopTime && (workloadDeque.size() <= 1000000 ? count < 100 : count < 250)) {
                 workloadDeque.poll().compute();
+                count++;
             }
             if (workloadDeque.isEmpty())
                 cancelTask();

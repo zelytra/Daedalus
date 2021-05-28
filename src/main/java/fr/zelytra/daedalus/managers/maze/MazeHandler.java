@@ -239,42 +239,49 @@ public class MazeHandler {
             ShrinkManager.workloadThread = new WorkloadThread();
 
             int radius = grid.length / 2;
-            Vector2 center = new Vector2(origin.getBlockX() + grid.length / 2, origin.getBlockZ()+ grid.length / 2);
+            Vector2 center = new Vector2(origin.getBlockX() + grid.length / 2, origin.getBlockZ() + grid.length / 2);
 
-            for (int r = radius; r > 0; r--) {
+            for (int r = radius; r > 84; r--) {
 
                 for (int x = -r; x <= r; x++) {
 
-                    Vector2 pos = new Vector2(x,r);
+                    Vector2 pos = new Vector2(x, r);
                     pos.add(center);
-                    addShrinkPos(pos,origin);
+                    addShrinkPos(pos, origin);
                     count++;
 
                 }
 
-                for (int z = 1-r; z <= r; z++) {
 
-                    Vector2 pos = new Vector2(r,-z);
+                for (int z = 1 - r; z <= r; z++) {
+
+                    Vector2 pos = new Vector2(r, -z);
                     pos.add(center);
-                    addShrinkPos(pos,origin);
+                    addShrinkPos(pos, origin);
                     count++;
 
                 }
 
-                for (int x = 1-r; x <= r; x++) {
+                if ((System.currentTimeMillis() - timer) % 100 == 0) {
+                    int progress = (int) (count * 100 / (Math.pow(grid.length, 2)));
+                    logPlayers("§6§lMapping shrink array... [§e" + progress + "%§6]");
+                }
 
-                    Vector2 pos = new Vector2(-x,-r);
+                for (int x = 1 - r; x <= r; x++) {
+
+                    Vector2 pos = new Vector2(-x, -r);
                     pos.add(center);
-                    addShrinkPos(pos,origin);
+                    addShrinkPos(pos, origin);
                     count++;
 
                 }
 
-                for (int z = 1-r; z <= r; z++) {
 
-                    Vector2 pos = new Vector2(-r,z);
+                for (int z = 1 - r; z <= r; z++) {
+
+                    Vector2 pos = new Vector2(-r, z);
                     pos.add(center);
-                    addShrinkPos(pos,origin);
+                    addShrinkPos(pos, origin);
                     count++;
 
                 }
@@ -322,12 +329,17 @@ public class MazeHandler {
         return new Location(center.getWorld(), center.getX() - (gridSize / 2.0) + 1, center.getY(), center.getZ() - (gridSize / 2.0) + 1);
     }
 
-    private void addShrinkPos(Vector2 v,Location origin){
+    private void addShrinkPos(Vector2 v, Location origin) {
 
-        for (int y = (int)origin.getY(); y < origin.getY() + this.wallHeight; y++){
+        for (int y = (int) origin.getY(); y < origin.getY() + this.wallHeight; y++) {
 
-            if (origin.getWorld().getBlockAt(v.x,y,v.z).getType() == Material.SMOOTH_SANDSTONE)
+            if (origin.getWorld().getBlockAt(v.x, y, v.z).getType() == Material.SMOOTH_SANDSTONE) {
+                for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
+                    if (entry.getKey().contains(v.x, y, v.z))
+                        return;
+                }
                 ShrinkManager.workloadThread.addLoad(new WallBreaker(origin.getWorld(), v.x, y, v.z));
+            }
 
         }
     }
