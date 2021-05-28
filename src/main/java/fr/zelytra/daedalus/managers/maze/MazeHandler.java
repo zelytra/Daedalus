@@ -5,6 +5,9 @@ import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.loottable.Loot;
 import fr.zelytra.daedalus.managers.loottable.LootTable;
+import fr.zelytra.daedalus.managers.skrink.ShrinkManager;
+import fr.zelytra.daedalus.managers.skrink.WallBreaker;
+import fr.zelytra.daedalus.managers.skrink.WorkloadThread;
 import fr.zelytra.daedalus.managers.structure.*;
 import fr.zelytra.daedalus.managers.structure.doors.Doors;
 import fr.zelytra.daedalus.managers.structure.doors.DoorsDirection;
@@ -124,12 +127,13 @@ public class MazeHandler {
             WorldEditHandler WEH = new WorldEditHandler(block.getWorld());
             int count = 0;
             long timer = System.currentTimeMillis();
+
             for (int x = 0; x < grid.length; x++) {
                 for (int z = 0; z < grid.length; z++) {
                     block.setX(origin.getX() + x);
                     block.setZ(origin.getZ() + z);
                     if (grid[x][z] == 1) {
-                        for (int y = (int) origin.getY(); y < origin.getY() + this.wallHeight; y++) {
+                        for (int y = (int) origin.getY() - 1; y < origin.getY() + this.wallHeight; y++) {
                             block.setY(y);
                             WEH.setBlock(block, BlockTypes.SMOOTH_SANDSTONE);
                         }
@@ -160,7 +164,7 @@ public class MazeHandler {
             count = 0;
             Bukkit.broadcastMessage("§6Generating loots...");
             for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
-                if(entry.getValue().getName()== StructureEnum.MINOTAURE.getName()){
+                if (entry.getValue().getName() == StructureEnum.MINOTAURE.getName()) {
                     Doors doors = new Doors(entry.getKey());
                     doors.close(DoorsDirection.ALL);
                 }
@@ -229,6 +233,59 @@ public class MazeHandler {
                 }
 
             }
+
+            Bukkit.broadcastMessage("§6Mapping shrink array...");
+            count = 0;
+            ShrinkManager.workloadThread = new WorkloadThread();
+
+            int radius = grid.length / 2;
+            Vector2 center = new Vector2(origin.getBlockX() + grid.length / 2, origin.getBlockZ()+ grid.length / 2);
+
+            for (int r = radius; r > 0; r--) {
+
+                for (int x = -r; x <= r; x++) {
+
+                    Vector2 pos = new Vector2(x,r);
+                    pos.add(center);
+                    addShrinkPos(pos,origin);
+                    count++;
+
+                }
+
+                for (int z = 1-r; z <= r; z++) {
+
+                    Vector2 pos = new Vector2(r,-z);
+                    pos.add(center);
+                    addShrinkPos(pos,origin);
+                    count++;
+
+                }
+
+                for (int x = 1-r; x <= r; x++) {
+
+                    Vector2 pos = new Vector2(-x,-r);
+                    pos.add(center);
+                    addShrinkPos(pos,origin);
+                    count++;
+
+                }
+
+                for (int z = 1-r; z <= r; z++) {
+
+                    Vector2 pos = new Vector2(-r,z);
+                    pos.add(center);
+                    addShrinkPos(pos,origin);
+                    count++;
+
+                }
+
+                if ((System.currentTimeMillis() - timer) % 100 == 0) {
+                    int progress = (int) (count * 100 / (Math.pow(grid.length, 2)));
+                    logPlayers("§6§lMapping shrink array... [§e" + progress + "%§6]");
+                }
+
+            }
+
             Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§aMaze generating in " + ((System.currentTimeMillis() - generatingTime) / 1000) % 60 + "s");
         });
     }
@@ -263,6 +320,16 @@ public class MazeHandler {
 
     private Location getOrigin(int gridSize) {
         return new Location(center.getWorld(), center.getX() - (gridSize / 2.0) + 1, center.getY(), center.getZ() - (gridSize / 2.0) + 1);
+    }
+
+    private void addShrinkPos(Vector2 v,Location origin){
+
+        for (int y = (int)origin.getY(); y < origin.getY() + this.wallHeight; y++){
+
+            if (origin.getWorld().getBlockAt(v.x,y,v.z).getType() == Material.SMOOTH_SANDSTONE)
+                ShrinkManager.workloadThread.addLoad(new WallBreaker(origin.getWorld(), v.x, y, v.z));
+
+        }
     }
 
 }

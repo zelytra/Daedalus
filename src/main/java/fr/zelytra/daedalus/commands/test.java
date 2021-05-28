@@ -1,5 +1,6 @@
 package fr.zelytra.daedalus.commands;
 
+import fr.zelytra.daedalus.managers.skrink.ShrinkManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,7 +15,7 @@ public class test implements CommandExecutor {
             return false;
         }
 
-
+        ShrinkManager.startShrinking();
         return true;
     }
 }

@@ -21,17 +21,17 @@ import java.util.Objects;
 public class PlayerInteractListener implements Listener {
 
     @EventHandler
-    public void onInteract(PlayerInteractEvent e){
+    public void onInteract(PlayerInteractEvent e) {
 
         final Player p = e.getPlayer();
-        if(e.getItem() == null)
+        if (e.getItem() == null)
             return;
 
-        if(Daedalus.getInstance().getGameManager().isWaiting()||Daedalus.getInstance().getGameManager().isStarted()){
+        if (Daedalus.getInstance().getGameManager().isWaiting() || Daedalus.getInstance().getGameManager().isStarted()) {
 
-            if(e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_BLOCK){
+            if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_AIR ) {
 
-                if(Objects.requireNonNull(e.getItem().getItemMeta()).getDisplayName().equals("§7Team selection")){
+                if (Objects.requireNonNull(e.getItem().getItemMeta()).getDisplayName().equals("§7Team selection")) {
 
                     Inventory inv = new InventoryBuilder("§3Team selection", InventoryType.DROPPER).getInventory();
 
@@ -41,19 +41,19 @@ public class PlayerInteractListener implements Listener {
                     inv.setItem(8, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfEnum(TeamsEnum.YELLOW).getBanner());
                     inv.setItem(4, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfEnum(TeamsEnum.MINOS).getBanner());
 
-                    if(!p.getOpenInventory().getTitle().contains("§3"))
+                    if (!p.getOpenInventory().getTitle().contains("§3"))
                         p.openInventory(inv);
 
-                }else if(Objects.requireNonNull(e.getItem().getItemMeta()).getDisplayName().equals("§7Game settings")){
-                    if(!p.getOpenInventory().getTitle().contains("§3"))
+                } else if (Objects.requireNonNull(e.getItem().getItemMeta()).getDisplayName().equals("§7Game settings")) {
+                    if (!p.getOpenInventory().getTitle().contains("§3"))
                         p.performCommand("settings");
-                }else if(Objects.requireNonNull(e.getItem().getItemMeta()).getDisplayName().equals("§6Start game")){
+                } else if (Objects.requireNonNull(e.getItem().getItemMeta()).getDisplayName().equals("§6Start game")) {
 
-                    if(GameSettings.GOD_LIMIT != GameSettings.GOD_LIST.size() && GameSettings.GOD_SELECTION == TemplesGenerationEnum.CHOSEN){
+                    if (GameSettings.GOD_LIMIT != GameSettings.GOD_LIST.size() && GameSettings.GOD_SELECTION == TemplesGenerationEnum.CHOSEN) {
                         p.sendMessage("§c[SETTINGS ALERT] Your gods selection doesn't match with the set limit ! Please adjust your selection correctly or your game will not be able to start.");
                         p.playSound(p.getLocation(), Sound.ENTITY_WITCH_HURT, 1.f, 1.f);
-                    }else{
-                        if(Daedalus.getInstance().getGameManager().isStarted()){
+                    } else {
+                        if (Daedalus.getInstance().getGameManager().isStarted()) {
                             p.sendMessage("§7(You can cancel the start by opening game settings)");
                             return;
                         }
@@ -69,15 +69,15 @@ public class PlayerInteractListener implements Listener {
     }
 
     @EventHandler
-    public void onDrop(PlayerDropItemEvent e){
-        if(Daedalus.getInstance().getGameManager().isWaiting())
+    public void onDrop(PlayerDropItemEvent e) {
+        if (Daedalus.getInstance().getGameManager().isWaiting())
             e.setCancelled(true);
     }
 
     @EventHandler
-    public void onSwap(PlayerSwapHandItemsEvent e){
+    public void onSwap(PlayerSwapHandItemsEvent e) {
 
-        if(Daedalus.getInstance().getGameManager().isWaiting())
+        if (Daedalus.getInstance().getGameManager().isWaiting())
             e.setCancelled(true);
 
     }

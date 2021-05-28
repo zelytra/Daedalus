@@ -63,8 +63,8 @@ public class Wiki implements CommandExecutor, Listener {
         content[44] = VisualType.BLANK_BLACK_GLASSE.getItem();
         content[53] = VisualType.BLANK_GRAY_GLASSE.getItem();
 
-        content[48] = VisualType.PREVIOUS_ARROW.getItem();
-        content[50] = VisualType.NEXT_ARROW.getItem();
+        content[48] = VisualType.BLANK_BLACK_GLASSE.getItem();
+        content[50] = VisualType.BLANK_BLACK_GLASSE.getItem();
 
         int count = page * 28;
         content[49] = new VisualItemStack(Material.SPRUCE_SIGN, "§dPage " + page, false).getItem();
