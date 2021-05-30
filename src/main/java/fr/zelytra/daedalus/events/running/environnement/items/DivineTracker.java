@@ -1,12 +1,12 @@
 package fr.zelytra.daedalus.events.running.environnement.items;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import fr.zelytra.daedalus.managers.structure.Structure;
 import fr.zelytra.daedalus.managers.structure.StructureType;
-import fr.zelytra.daedalus.managers.team.Team;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -142,8 +142,8 @@ public class DivineTracker implements Listener {
     }
 
     private Player isSummon(Structure structure) {
-        for (Team team : Daedalus.getInstance().getGameManager().getTeamManager().getTeamList()) {
-            if (team.getGodEnum() != null && team.getGodEnum() == structure.getGod()) {
+        for (Faction team : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
+            if (team.getGodsEnum() != null && team.getGodsEnum() == structure.getGod()) {
                 return team.getGod();
             }
         }

@@ -1,16 +1,14 @@
 package fr.zelytra.daedalus.managers.game;
 
 import fr.zelytra.daedalus.Daedalus;
-import fr.zelytra.daedalus.managers.game.scoreboard.ScoreBoardManager;
+import fr.zelytra.daedalus.managers.faction.Faction;
+import fr.zelytra.daedalus.managers.faction.FactionManager;
+import fr.zelytra.daedalus.managers.faction.FactionsEnum;
 import fr.zelytra.daedalus.managers.game.settings.DayCycleEnum;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.game.time.TimeManager;
-import fr.zelytra.daedalus.managers.gods.MinosObject;
 import fr.zelytra.daedalus.managers.maze.MazeHandler;
-import fr.zelytra.daedalus.managers.team.Team;
-import fr.zelytra.daedalus.managers.team.TeamManager;
-import fr.zelytra.daedalus.managers.team.TeamsEnum;
 import fr.zelytra.daedalus.utils.Message;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -22,31 +20,24 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameManager {
 
-    private final TeamManager teamManager;
+    private final FactionManager factionManager;
     private final TimeManager timeManager;
-    private final ScoreBoardManager scoreBoardManager;
     private GameStatesEnum state;
     private boolean started = false;
     private int preStartRunnable;
-    private final MinosObject minos;
 
     public GameManager() {
 
-        this.teamManager = new TeamManager();
+        this.factionManager = new FactionManager();
         this.timeManager = new TimeManager();
-        this.scoreBoardManager = new ScoreBoardManager(timeManager);
-        this.minos = new MinosObject();
         this.state = GameStatesEnum.WAIT;
 
     }
 
-    public TeamManager getTeamManager() {
-        return teamManager;
+    public FactionManager getFactionManager() {
+        return factionManager;
     }
 
-    public ScoreBoardManager getScoreBoardManager() {
-        return scoreBoardManager;
-    }
 
     public TimeManager getTimeManager() {
         return timeManager;
@@ -107,10 +98,6 @@ public class GameManager {
             GameSettings.GOD_LIMIT -= 1;
 
         return true;
-    }
-
-    public MinosObject getMinos() {
-        return minos;
     }
 
     private void applySettings() {
@@ -181,18 +168,19 @@ public class GameManager {
             origin.setY(Bukkit.getWorld("world").getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()) + 1);
             MazeHandler maze = new MazeHandler(origin, 300, true, Daedalus.getInstance().getStructureManager().getGeneratedList());
             maze.generateScaleMaze();
+
             Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
                 Bukkit.getWorld("world").setTime(0);
                 Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
                 //Player Manager
                 for (Player p : Bukkit.getOnlinePlayers()) {
-                    Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId());
-                    if (playerTeam.getTeamEnum() == TeamsEnum.SPECTATOR) {
+                    Faction playerFaction = factionManager.getFactionOf(p);
+                    if (playerFaction.getType() == FactionsEnum.SPECTATOR) {
                         p.setGameMode(GameMode.SPECTATOR);
                         p.teleport(new Location(p.getWorld(), 0, 125, 0));
                     } else {
                         p.setGameMode(GameMode.SURVIVAL);
-                        p.teleport(playerTeam.getTeamEnum().getSpawn());
+                        p.teleport(playerFaction.getType().getSpawn());
                     }
                 }
                 //GameManager start

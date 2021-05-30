@@ -2,9 +2,9 @@ package fr.zelytra.daedalus.events.running.environnement.items;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.cooldown.Cooldown;
+import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
-import fr.zelytra.daedalus.managers.team.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -60,14 +60,14 @@ public class MinotaurCharge implements Listener {
                             cancelTask();
                         }
                         try {
-                            Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
+                            Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
                             Collection<Entity> nearbyEntities = player.getWorld().getNearbyEntities(player.getLocation(), radius, radius, radius);
                             Collection<Entity> toStrike = new ArrayList<>();
                             for (Entity entity : nearbyEntities) {
                                 if (entity instanceof Player) {
                                     Player target = (Player) entity;
-                                    Team targetPlayerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(target.getUniqueId());
-                                    if (targetPlayerTeam.getTeamEnum() == playerTeam.getTeamEnum()) {
+                                    Faction targetPlayerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
+                                    if (targetPlayerTeam.getType() == playerTeam.getType()) {
                                         continue;
                                     }
                                     toStrike.add(entity);

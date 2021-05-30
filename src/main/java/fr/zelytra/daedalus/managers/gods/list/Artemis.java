@@ -1,7 +1,7 @@
 package fr.zelytra.daedalus.managers.gods.list;
 
+import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.Gods;
-import fr.zelytra.daedalus.managers.team.Team;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -14,7 +14,7 @@ import java.util.Collection;
 
 public class Artemis implements Gods {
 
-    public Artemis(Team team) {
+    public Artemis(Faction team) {
         init(team);
     }
 

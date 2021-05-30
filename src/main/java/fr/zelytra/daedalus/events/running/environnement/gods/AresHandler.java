@@ -1,13 +1,13 @@
 package fr.zelytra.daedalus.events.running.environnement.gods;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.gods.list.Ares;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import fr.zelytra.daedalus.managers.structure.Structure;
 import fr.zelytra.daedalus.managers.structure.StructureType;
-import fr.zelytra.daedalus.managers.team.Team;
 import fr.zelytra.daedalus.utils.Message;
 import fr.zelytra.daedalus.utils.Utils;
 import org.bukkit.Bukkit;
@@ -41,7 +41,7 @@ public class AresHandler implements Listener {
                         for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                             if (entry.getKey().contains(e.getClickedBlock().getX(), e.getClickedBlock().getY(), e.getClickedBlock().getZ()) && entry.getValue().getType() == StructureType.TEMPLE && entry.getValue().getGod() == GodsEnum.ARES) {
                                 try {
-                                    Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
+                                    Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
                                     if (playerTeam.getGod() != null) {
                                         player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
                                         return;
@@ -70,11 +70,11 @@ public class AresHandler implements Listener {
             if (e.getEntity().getKiller() != null) {
                 try {
                     Player killer = e.getEntity().getKiller();
-                    Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(killer.getUniqueId());
+                    Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(killer);
                     if (playerTeam.getGod() == null) {
                         return;
                     }
-                    if (playerTeam.getGodEnum() == GodsEnum.ARES) {
+                    if (playerTeam.getGodsEnum() == GodsEnum.ARES) {
                         killer.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 200, 1, false, false, true));
                         killer.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 1, false, false, true));
                     }

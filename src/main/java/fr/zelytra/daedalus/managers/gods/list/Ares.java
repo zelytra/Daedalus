@@ -1,7 +1,7 @@
 package fr.zelytra.daedalus.managers.gods.list;
 
+import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.Gods;
-import fr.zelytra.daedalus.managers.team.Team;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -14,7 +14,7 @@ import java.util.Collection;
 
 public class Ares implements Gods {
 
-    public Ares(Team team) {
+    public Ares(Faction team) {
         init(team);
     }
 

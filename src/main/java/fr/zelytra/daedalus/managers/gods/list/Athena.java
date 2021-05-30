@@ -1,7 +1,7 @@
 package fr.zelytra.daedalus.managers.gods.list;
 
+import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.Gods;
-import fr.zelytra.daedalus.managers.team.Team;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -13,7 +13,7 @@ import java.util.Collection;
 
 public class Athena implements Gods {
 
-    public Athena(Team team) {
+    public Athena(Faction team) {
         init(team);
     }
 

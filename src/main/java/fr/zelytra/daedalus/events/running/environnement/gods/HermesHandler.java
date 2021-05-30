@@ -1,13 +1,13 @@
 package fr.zelytra.daedalus.events.running.environnement.gods;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.gods.list.Hermes;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import fr.zelytra.daedalus.managers.structure.Structure;
 import fr.zelytra.daedalus.managers.structure.StructureType;
-import fr.zelytra.daedalus.managers.team.Team;
 import fr.zelytra.daedalus.utils.Message;
 import fr.zelytra.daedalus.utils.Utils;
 import org.bukkit.Bukkit;
@@ -42,7 +42,7 @@ public class HermesHandler implements Listener {
                         for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                             if (entry.getKey().contains(e.getClickedBlock().getX(), e.getClickedBlock().getY(), e.getClickedBlock().getZ()) && entry.getValue().getType() == StructureType.TEMPLE && entry.getValue().getGod() == GodsEnum.HERMES) {
                                 try {
-                                    Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
+                                    Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
                                     if (playerTeam.getGod() != null) {
                                         player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
                                         return;
@@ -73,8 +73,8 @@ public class HermesHandler implements Listener {
                 Player player = ((Player) e.getEntity());
                 if (e.getCause() == EntityDamageEvent.DamageCause.FALL) {
                     try {
-                        Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
-                        if (playerTeam.getGodEnum() != null && playerTeam.getGodEnum() == GodsEnum.HERMES && playerTeam.getGod().getUniqueId() == e.getEntity().getUniqueId()) {
+                        Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                        if (playerTeam.getGodsEnum() != null && playerTeam.getGodsEnum() == GodsEnum.HERMES && playerTeam.getGod().getUniqueId() == e.getEntity().getUniqueId()) {
                             e.setCancelled(true);
                         }
                     } catch (Exception exception) {
@@ -125,8 +125,8 @@ public class HermesHandler implements Listener {
 
     public void doubleJump() {
         Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
-            for (Team team : Daedalus.getInstance().getGameManager().getTeamManager().getTeamList()) {
-                if (team.getGodEnum() != GodsEnum.HERMES) {
+            for (Faction team : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
+                if (team.getGodsEnum() != GodsEnum.HERMES) {
                     continue;
                 }
 

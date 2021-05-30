@@ -1,7 +1,9 @@
 package fr.zelytra.daedalus.events.waiting.players;
 
 import fr.zelytra.daedalus.Daedalus;
-import fr.zelytra.daedalus.builders.ItemBuilder;
+import fr.zelytra.daedalus.builders.guiBuilder.VisualItemStack;
+import fr.zelytra.daedalus.managers.faction.Faction;
+import fr.zelytra.daedalus.managers.faction.FactionsEnum;
 import fr.zelytra.daedalus.managers.game.GameStatesEnum;
 import fr.zelytra.daedalus.utils.Utils;
 import org.bukkit.Bukkit;
@@ -21,8 +23,6 @@ public class PlayerJoinListener implements Listener {
 
         final Player p = e.getPlayer();
 
-
-
         e.setJoinMessage(null);
         Utils.setTabFX(p);
         preparePlayer(p, Daedalus.getInstance().getGameManager().getState());
@@ -30,102 +30,44 @@ public class PlayerJoinListener implements Listener {
     }
 
 
-
     private void preparePlayer(Player p, GameStatesEnum state) {
 
         Bukkit.broadcastMessage("§7[§a+§7] §f" + p.getName());
+        Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(p);
 
-        if (state.equals(GameStatesEnum.WAIT)) {
-            p.setGameMode(GameMode.ADVENTURE);
-            p.setFoodLevel(20);
-            p.setSaturation(20);
-            p.setMaxHealth(20);
-            p.setLevel(0);
-            p.getInventory().clear();
-            p.teleport(new Location(p.getWorld(), 669, 162, 675));
-            p.removePotionEffect(PotionEffectType.NIGHT_VISION);
+        switch (state) {
+            case WAIT:
+                p.setGameMode(GameMode.ADVENTURE);
+                p.setFoodLevel(20);
+                p.setSaturation(20);
+                p.setMaxHealth(20);
+                p.setLevel(0);
+                p.getInventory().clear();
+                p.teleport(new Location(p.getWorld(), 669, 162, 675));
+                p.removePotionEffect(PotionEffectType.NIGHT_VISION);
 
-            if (Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId()) != null) {
+                if (playerFaction != null) {
 
-                setupTeam(p);
-
-                switch (Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId()).getTeamColor()) {
-
-                    case RED: {
-                        if (p.isOp())
-                            p.getInventory().setItem(0, new ItemBuilder(Material.RED_BANNER, "§7Team selection").getItemStack());
-                        else
-                            p.getInventory().setItem(4, new ItemBuilder(Material.RED_BANNER, "§7Team selection").getItemStack());
-
-                        break;
+                    if (p.isOp()) {
+                        p.getInventory().setItem(8, new VisualItemStack(playerFaction.getType().getBanner(), "§7Team selection", false).getItem());
+                        p.getInventory().setItem(0, new VisualItemStack(Material.COMPARATOR, "§7Game settings", false).getItem());
+                        p.getInventory().setItem(4, new VisualItemStack(Material.BELL, "§6Start game", false, "§7Click here to start your game with the actual configuration").getItem());
                     }
 
-                    case BLUE: {
-                        if (p.isOp())
-                            p.getInventory().setItem(0, new ItemBuilder(Material.BLUE_BANNER, "§7Team selection").getItemStack());
-                        else
-                            p.getInventory().setItem(4, new ItemBuilder(Material.BLUE_BANNER, "§7Team selection").getItemStack());
-                        break;
-                    }
+                } else
+                    p.getInventory().setItem(4, new VisualItemStack(Material.WHITE_BANNER, "§7Team selection", false).getItem());
 
-                    case GREEN: {
-                        if (p.isOp())
-                            p.getInventory().setItem(0, new ItemBuilder(Material.GREEN_BANNER, "§7Team selection").getItemStack());
-                        else
-                            p.getInventory().setItem(4, new ItemBuilder(Material.GREEN_BANNER, "§7Team selection").getItemStack());
-                        break;
-                    }
+                break;
 
-                    case YELLOW: {
-                        if (p.isOp())
-                            p.getInventory().setItem(0, new ItemBuilder(Material.YELLOW_BANNER, "§7Team selection").getItemStack());
-                        else
-                            p.getInventory().setItem(4, new ItemBuilder(Material.YELLOW_BANNER, "§7Team selection").getItemStack());
-                        break;
-                    }
+            case RUNNING:
+            case FINISHED:
 
-                    case GRAY: {
-                        if (p.isOp())
-                            p.getInventory().setItem(0, new ItemBuilder(Material.GRAY_BANNER, "§7Team selection").getItemStack());
-                        else
-                            p.getInventory().setItem(4, new ItemBuilder(Material.GRAY_BANNER, "§7Team selection").getItemStack());
-                        break;
-                    }
-
+                if (playerFaction == null) {
+                    Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(FactionsEnum.SPECTATOR).add(p);
+                    p.teleport(FactionsEnum.SPECTATOR.getSpawn());
+                    p.setGameMode(GameMode.SPECTATOR);
                 }
-
-            } else {
-                Daedalus.getInstance().getGameManager().getTeamManager().getSpectatorTeam().addPlayer(p.getUniqueId());
-            }
-
-            if (p.isOp()) {
-                p.getInventory().setItem(8, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
-                p.getInventory().setItem(0, new ItemBuilder(Material.COMPARATOR, "§7Game settings").getSettings());
-                p.getInventory().setItem(4, new ItemBuilder(Material.BELL, "§6Start game", "§7Click here to start your game with the actual configuration").getItemStack());
-            } else
-                p.getInventory().setItem(4, new ItemBuilder(Material.WHITE_BANNER, "§7Team selection").getItemStack());
-
-
-        } else if (state.equals(GameStatesEnum.RUNNING)) {
-            if (Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId()) != null)
-                setupTeam(p);
-            else
-                setSpectator(p);
-
-
-        } else {
-            setSpectator(p);
+                break;
         }
-
-    }
-
-    private void setSpectator(Player p) {
-        p.setGameMode(GameMode.SPECTATOR);
-        Daedalus.getInstance().getGameManager().getTeamManager().getSpectatorTeam().addPlayer(p.getUniqueId());
-    }
-
-    private void setupTeam(Player p) {
-        p.setDisplayName(Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId()).getPrefix() + p.getName() + Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId()).getSuffix());
-        p.setPlayerListName(Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId()).getPrefix() + p.getName() + Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId()).getSuffix());
     }
 }

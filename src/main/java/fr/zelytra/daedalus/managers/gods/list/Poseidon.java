@@ -1,7 +1,7 @@
 package fr.zelytra.daedalus.managers.gods.list;
 
+import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.Gods;
-import fr.zelytra.daedalus.managers.team.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class Poseidon implements Gods {
 
-    public Poseidon(Team team) {
+    public Poseidon(Faction team) {
         init(team);
         Player god = team.getGod();
         ArrayList<UUID> playerList = (ArrayList<UUID>) team.getPlayerList().clone();

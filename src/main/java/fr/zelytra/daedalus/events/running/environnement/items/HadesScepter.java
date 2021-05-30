@@ -2,9 +2,9 @@ package fr.zelytra.daedalus.events.running.environnement.items;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.cooldown.Cooldown;
+import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
-import fr.zelytra.daedalus.managers.team.Team;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.*;
@@ -40,7 +40,7 @@ public class HadesScepter implements Listener {
                     Cooldown cd = new Cooldown(player, itemCooldown, CustomMaterial.HADES_SCEPTER.getName());
 
                     try {
-                        Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
+                        Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
                         //Item action
                         for (int x = 1; x <= skeletonNumber; x++) {
                             Location spawnLoc = player.getLocation();
@@ -49,7 +49,7 @@ public class HadesScepter implements Listener {
                             spawnLoc.setZ((int) (Math.random() * (spawnLoc.getZ() + spawnRadius - spawnLoc.getZ() - spawnRadius)) + (spawnLoc.getZ() - spawnRadius));
                             Entity entity = player.getWorld().spawnEntity(player.getLocation(), EntityType.WITHER_SKELETON);
                             PersistentDataContainer pdc = entity.getPersistentDataContainer();
-                            pdc.set(hadesKey, PersistentDataType.STRING, playerTeam.getTeamEnum().getName());
+                            pdc.set(hadesKey, PersistentDataType.STRING, playerTeam.getType().getName());
 
                         }
                     } catch (Exception exception) {
@@ -78,8 +78,8 @@ public class HadesScepter implements Listener {
                     if (target instanceof LivingEntity) {
                         if (target instanceof Player) {
                             Player targetedPlayer = (Player) target;
-                            Team targetPlayerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(targetedPlayer.getUniqueId());
-                            if (!targetPlayerTeam.getTeamEnum().getName().equals(pdc.get(hadesKey, PersistentDataType.STRING))) {
+                            Faction targetPlayerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(targetedPlayer);
+                            if (!targetPlayerTeam.getType().getName().equals(pdc.get(hadesKey, PersistentDataType.STRING))) {
                                 toTargetPlayer.add(target);
                             }
                         } else if (!(target instanceof WitherSkeleton)) {

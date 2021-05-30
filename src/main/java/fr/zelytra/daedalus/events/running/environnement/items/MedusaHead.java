@@ -2,9 +2,9 @@ package fr.zelytra.daedalus.events.running.environnement.items;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.cooldown.Cooldown;
+import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
-import fr.zelytra.daedalus.managers.team.Team;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
@@ -47,8 +47,8 @@ public class MedusaHead implements Listener {
             petrifiedPlayer.add(player);
             player.getWorld().spawnParticle(Particle.MOB_APPEARANCE, player.getLocation(), 10);
             try {
-                Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
-                Team targetTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(target.getUniqueId());
+                Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                Faction targetTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
                 if (playerTeam == targetTeam) {
                     new Cooldown(player, freezeTeammate, petrifiedTag);
                     new Cooldown(target, cooldownTeammate, CustomMaterial.MEDUSA_HEAD.getName());
