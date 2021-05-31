@@ -54,7 +54,6 @@ public class MinotaureHandler implements Listener {
                                     removeHeldItem(e, invocMaterial);
                                     e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
                                 } catch (Exception exception) {
-                                    exception.printStackTrace();
                                     System.out.println("ERROR team not found");
                                 }
                                 return;

@@ -169,7 +169,7 @@ public class GameManager {
         }
         Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
             //Maze generation
-            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
+            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§6Starting generation...");
             Location origin = new Location(Bukkit.getWorld("world"), 0, 0, 0);
             origin.setY(Bukkit.getWorld("world").getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()) + 1);
             MazeHandler maze = new MazeHandler(origin, 300, true, Daedalus.getInstance().getStructureManager().getGeneratedList());

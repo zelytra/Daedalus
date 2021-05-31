@@ -123,7 +123,7 @@ public class MazeHandler {
 
         Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
             /* Generate maze walls */
-            Bukkit.broadcastMessage("§6Generating blocks...");
+            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Generating walls...");
             WorldEditHandler WEH = new WorldEditHandler(block.getWorld());
             int count = 0;
             long timer = System.currentTimeMillis();
@@ -141,14 +141,14 @@ public class MazeHandler {
                     count++;
                     if ((System.currentTimeMillis() - timer) % 100 == 0) {
                         int progress = (int) (count * 100 / (Math.pow(grid.length, 2)));
-                        logPlayers("§6§lGenerating blocks... [§e" + progress + "%§6]");
+                        logPlayers("§6§lGenerating blocks... §8[§f" + progress + "%§8]");
                     }
                 }
             }
             WEH.getEditSession().close();
 
             /* Generate structure schematics */
-            Bukkit.broadcastMessage("§6Generating structures...");
+            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Generating structures...");
             count = 0;
             for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                 Location location = new Location(origin.getWorld(), entry.getKey().getMinX() + entry.getValue().getOffset().getX(), origin.getY() + entry.getValue().getOffset().getY(), entry.getKey().getMinZ() + entry.getValue().getOffset().getZ());
@@ -156,13 +156,13 @@ public class MazeHandler {
                 pasteWE.pasteStructure();
 
                 int progress = ((count * 100) / Daedalus.getInstance().getStructureManager().getStructuresPosition().size());
-                logPlayers("§6§lGenerating structures... [§e" + progress + "%§6]");
+                logPlayers("§6§lGenerating structures... §8[§f" + progress + "%§8]");
                 count++;
             }
 
             /* Generate loots */
             count = 0;
-            Bukkit.broadcastMessage("§6Generating loots...");
+            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Generating loots...");
             for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                 if (entry.getValue().getName() == StructureEnum.MINOTAURE.getName()) {
                     Doors doors = new Doors(entry.getKey());
@@ -204,10 +204,10 @@ public class MazeHandler {
                     }
                 }
                 int progress = ((count * 100) / Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet().size());
-                logPlayers("§6§lGenerating loots... [§e" + progress + "%§6]");
+                logPlayers("§6§lGenerating loots... §8[§f" + progress + "%§8]");
             }
             /* Locating boss spawn area */
-            Bukkit.broadcastMessage("§6Locating bosses...");
+            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Locating bosses...");
             count = 0;
             for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                 if (entry.getValue().getType() == StructureType.TEMPLE) {
@@ -229,12 +229,12 @@ public class MazeHandler {
                     }
                     count++;
                     int progress = ((count * 100) / GameSettings.GOD_LIMIT);
-                    logPlayers("§6§lLocating bosses... [§e" + progress + "%§6]");
+                    logPlayers("§6§lLocating bosses... §8[§f" + progress + "%§8]");
                 }
 
             }
 
-            Bukkit.broadcastMessage("§6Mapping shrink array...");
+            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Mapping shrink area...");
             count = 0;
             ShrinkManager.workloadThread = new WorkloadThread();
 
@@ -264,7 +264,7 @@ public class MazeHandler {
 
                 if ((System.currentTimeMillis() - timer) % 100 == 0) {
                     int progress = (int) (count * 100 / (Math.pow(grid.length, 2)));
-                    logPlayers("§6§lMapping shrink array... [§e" + progress + "%§6]");
+                    logPlayers("§6§lMapping shrink array... §8[§f" + progress + "%§8]");
                 }
 
                 for (int x = 1 - r; x <= r; x++) {
@@ -288,12 +288,12 @@ public class MazeHandler {
 
                 if ((System.currentTimeMillis() - timer) % 100 == 0) {
                     int progress = (int) (count * 100 / (Math.pow(grid.length, 2)));
-                    logPlayers("§6§lMapping shrink array... [§e" + progress + "%§6]");
+                    logPlayers("§6§lMapping shrink array... §8[§f" + progress + "%§8]");
                 }
 
             }
 
-            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§aMaze generating in " + ((System.currentTimeMillis() - generatingTime) / 1000) % 60 + "s");
+            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§6Maze generating in §8[§f" + ((System.currentTimeMillis() - generatingTime) / 1000) % 60 + "s§8]");
         });
     }
 

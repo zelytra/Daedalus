@@ -59,7 +59,7 @@ public class Maze {
     private void generateGrid() {
         // Fill outline with wall
         // Wall = 1| void = 0
-        Bukkit.broadcastMessage("§6§lGenerating grid...");
+        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Generating grid...");
 
         int[] line = new int[this.size];
         //Generate line and wall matrix;
@@ -93,7 +93,7 @@ public class Maze {
         }
         //Generating structure area
 
-        Bukkit.broadcastMessage("§6§lLocking structures area... ");
+        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Locking structures area... ");
         for (Structure area : land) {
 
             int width = (area.getRegion().getWidth() + 1) / (this.scale + 1) + ((area.getRegion().getWidth() + 1) / (this.scale + 1)) - 1;
@@ -151,7 +151,7 @@ public class Maze {
             }
         }
         long timer = System.currentTimeMillis();
-        Bukkit.broadcastMessage("§6§lGenerating maze...");
+        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Generating maze...");
         while (idx > 0) {
 
             int pos = (int) (Math.random() * (idx));
@@ -200,7 +200,7 @@ public class Maze {
             }
             if ((System.currentTimeMillis() - timer) % 500 == 0) {
                 progress = (int) ((((Math.pow(this.size - 1, 2) / 4.0) - progress) * 100) / (Math.pow(this.size - 1, 2) / 4.0));
-                logPlayer("§6§lGenerating maze... [§e" + progress + "%§6]");
+                logPlayer("§6Generating maze... §8[§f" + progress + "%§8]");
             }
         }
         if (complexity) {
@@ -232,13 +232,13 @@ public class Maze {
             }
         }
 
-        Bukkit.broadcastMessage("§6§lMaze generated in " + (System.currentTimeMillis() - time) + "ms");
+        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§6Maze matrix generated in §8[§f" + (System.currentTimeMillis() - time) + "ms§8]");
     }
 
     //Thanks Nicolas61x
     private int[][] generateScaleMaze(int scale) {
         int X = 0;
-        Bukkit.broadcastMessage("§6§lScaling maze...");
+        Bukkit.broadcastMessage(Message.getPlayerPrefixe()+"§8Scaling maze...");
         for (int i = 0; i < this.size; i++) {
             if (i % 2 == 0) {
                 X++;
