@@ -20,6 +20,7 @@ import fr.zelytra.daedalus.events.waiting.entities.EntityDamageListener;
 import fr.zelytra.daedalus.events.waiting.entities.EntityTargetListener;
 import fr.zelytra.daedalus.events.waiting.environment.BlockPlaceListener;
 import fr.zelytra.daedalus.events.waiting.gui.TeamSelector;
+import fr.zelytra.daedalus.events.waiting.item.GameStarter;
 import fr.zelytra.daedalus.events.waiting.players.*;
 import fr.zelytra.daedalus.managers.guardian.GuardianBossBar;
 import fr.zelytra.daedalus.managers.guardian.GuardianListener;
@@ -84,6 +85,7 @@ public class EventsManager {
         /* Interface */
         pm.registerEvents(new Wiki(), pl);
         pm.registerEvents(new TeamSelector(), pl);
+        pm.registerEvents(new GameStarter(), pl);
 
         /* Players */
         pm.registerEvents(new PlayerJoinListener(), pl);

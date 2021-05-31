@@ -1,8 +1,6 @@
 package fr.zelytra.daedalus.managers.faction;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +8,10 @@ import java.util.List;
 public class FactionManager {
 
     private final List<Faction> factionList = new ArrayList<>();
-    private final Scoreboard commonScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
     public FactionManager() {
         for (FactionsEnum faction : FactionsEnum.values()) {
-            factionList.add(new Faction(faction,commonScoreboard));
+            factionList.add(new Faction(faction));
         }
     }
 
@@ -38,7 +35,4 @@ public class FactionManager {
         return null;
     }
 
-    public Scoreboard getCommonScoreboard() {
-        return commonScoreboard;
-    }
 }

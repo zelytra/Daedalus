@@ -46,7 +46,7 @@ public class PlayerJoinListener implements Listener {
                 p.teleport(new Location(p.getWorld(), 669, 162, 675));
                 p.removePotionEffect(PotionEffectType.NIGHT_VISION);
 
-                if (playerFaction != null)
+                if (playerFaction == null)
                     Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(FactionsEnum.SPECTATOR).add(p);
 
                 if (p.isOp()) {

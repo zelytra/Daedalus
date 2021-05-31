@@ -115,9 +115,14 @@ public class GameManager {
 
     }
 
-    public void preStart(Player op) {
-        Bukkit.broadcastMessage("§aThe game is about to start !");
-        op.sendMessage("§7(You can cancel the start by opening game settings)");
+    public void preStart() {
+        Bukkit.broadcastMessage("");
+        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§aThe game is about to start");
+        Bukkit.broadcastMessage("");
+        for (Player player : Bukkit.getOnlinePlayers())
+            if (player.isOp())
+                player.sendMessage(Message.getPlayerPrefixe() + "§8You can cancel the start by opening the game settings");
+
         AtomicInteger countdown = new AtomicInteger(10);
         started = true;
         preStartRunnable = Bukkit.getScheduler().scheduleSyncRepeatingTask(Daedalus.getInstance(), () -> {
@@ -156,6 +161,7 @@ public class GameManager {
 
     // FONCTION DE DEBUT DE PARTIE
     public void start() {
+
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.getInventory().clear();
             player.getActivePotionEffects().clear();
@@ -195,7 +201,7 @@ public class GameManager {
 
     }
 
-    public TimeManager getTimer(){
+    public TimeManager getTimer() {
         return this.timeManager;
     }
 
