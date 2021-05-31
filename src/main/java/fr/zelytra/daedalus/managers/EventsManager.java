@@ -19,7 +19,8 @@ import fr.zelytra.daedalus.events.running.pvp.PlayerRegen;
 import fr.zelytra.daedalus.events.waiting.entities.EntityDamageListener;
 import fr.zelytra.daedalus.events.waiting.entities.EntityTargetListener;
 import fr.zelytra.daedalus.events.waiting.environment.BlockPlaceListener;
-import fr.zelytra.daedalus.events.waiting.inventory.InventoryListener;
+import fr.zelytra.daedalus.events.waiting.gui.TeamSelector;
+import fr.zelytra.daedalus.events.waiting.item.GameStarter;
 import fr.zelytra.daedalus.events.waiting.players.*;
 import fr.zelytra.daedalus.managers.guardian.GuardianBossBar;
 import fr.zelytra.daedalus.managers.guardian.GuardianListener;
@@ -81,15 +82,15 @@ public class EventsManager {
         pm.registerEvents(new AxeStripped(), pl);
         pm.registerEvents(new BucketListener(), pl);
 
-        /* Inventory */
-        pm.registerEvents(new InventoryListener(), pl);
+        /* Interface */
         pm.registerEvents(new Wiki(), pl);
+        pm.registerEvents(new TeamSelector(), pl);
+        pm.registerEvents(new GameStarter(), pl);
 
         /* Players */
         pm.registerEvents(new PlayerJoinListener(), pl);
         pm.registerEvents(new PlayerPreLoginListener(), pl);
         pm.registerEvents(new PlayerQuitListener(), pl);
-        pm.registerEvents(new PlayerInteractListener(), pl);
         pm.registerEvents(new PlayerBreakBlockListener(), pl);
         pm.registerEvents(new PlayerChatWListener(), pl);
         pm.registerEvents(new PlayerChatRListener(), pl);

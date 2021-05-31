@@ -17,7 +17,7 @@ public class StructureListener {
 
     public StructureListener() {
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(Daedalus.getInstance(), () -> {
-            if (Daedalus.getInstance().getGameManager().isRunning()) {
+            if (Daedalus.getInstance().getGameManager() != null && Daedalus.getInstance().getGameManager().isRunning()) {
 
                 for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                     if (entry.getValue().getType() != StructureType.TEMPLE || entry.getValue().hasFirstEntrance()) {

@@ -2,9 +2,9 @@ package fr.zelytra.daedalus.events.running.environnement.items;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.cooldown.Cooldown;
+import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
-import fr.zelytra.daedalus.managers.team.Team;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -34,15 +34,15 @@ public class DemeterSickle implements Listener {
 
                     //Item action
                     try {
-                        Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
+                        Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
                         Collection<Entity> nearbyEntity = player.getNearbyEntities(effectRadius, effectRadius, effectRadius);
                         ArrayList<Entity> targetList = new ArrayList<>();
                         for (Entity entity : nearbyEntity) {
                             if (entity instanceof LivingEntity) {
                                 if (entity instanceof Player) {
                                     Player target = (Player) entity;
-                                    Team targetPlayerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(target.getUniqueId());
-                                    if (targetPlayerTeam.getTeamEnum() == playerTeam.getTeamEnum()) {
+                                    Faction targetPlayerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
+                                    if (targetPlayerTeam.getType() == playerTeam.getType()) {
                                         continue;
                                     }
                                     targetList.add(entity);

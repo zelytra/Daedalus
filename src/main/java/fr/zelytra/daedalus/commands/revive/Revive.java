@@ -1,8 +1,8 @@
 package fr.zelytra.daedalus.commands.revive;
 
 import fr.zelytra.daedalus.Daedalus;
-import fr.zelytra.daedalus.managers.team.PlayerStatus;
-import fr.zelytra.daedalus.managers.team.Team;
+import fr.zelytra.daedalus.managers.faction.Faction;
+import fr.zelytra.daedalus.managers.faction.PlayerStatus;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -34,20 +34,20 @@ public class Revive implements CommandExecutor {
                 return false;
             }
 
-            Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(target.getUniqueId());
-            if (playerTeam.isAlive(target)) {
+            Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
+            if (playerFaction.isAlive(target)) {
                 player.sendMessage(Message.getPlayerPrefixe() + "§cThis player is still alive");
                 return false;
             } else {
-                playerTeam.setPlayerStatus(target, PlayerStatus.ALIVE);
-                target.teleport(playerTeam.getTeamEnum().getSpawn());
+                playerFaction.setPlayerStatus(target, PlayerStatus.ALIVE);
+                target.teleport(playerFaction.getType().getSpawn());
                 target.setGameMode(GameMode.SURVIVAL);
 
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     p.playSound(p.getLocation(), Sound.ENTITY_WITCH_HURT, 2, 0.1f);
                 }
 
-                Bukkit.broadcastMessage(Message.getPlayerPrefixe() + playerTeam.getChatColor() + target.getName() + "§6has been revived");
+                Bukkit.broadcastMessage(Message.getPlayerPrefixe() + playerFaction.getType().getChatColor() + target.getName() + "§6has been revived");
                 return true;
             }
 

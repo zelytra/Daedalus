@@ -1,7 +1,7 @@
 package fr.zelytra.daedalus.commands.revive;
 
 import fr.zelytra.daedalus.Daedalus;
-import fr.zelytra.daedalus.managers.team.Team;
+import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -21,7 +21,7 @@ public class ReviveTabs implements TabCompleter {
         if (args.length == 1) {
 
             for (Player p : Bukkit.getOnlinePlayers()) {
-                Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId());
+                Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(p);
                 if (!playerTeam.isAlive(p)) {
                     commandsList.add(p.getName());
                 }

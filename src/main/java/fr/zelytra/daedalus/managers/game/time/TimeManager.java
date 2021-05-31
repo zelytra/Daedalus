@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.managers.game.time;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.structure.Structure;
 import fr.zelytra.daedalus.managers.structure.StructureEnum;
@@ -36,7 +37,11 @@ public class TimeManager {
             if (!isPause())
                 time--;
             updateTimer();
-            Daedalus.getInstance().getGameManager().getScoreBoardManager().update();
+
+            for (Faction faction : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
+                faction.getFactionScoreBoard().update(this);
+            }
+
         }, 0L, 20L);
 
     }
@@ -70,11 +75,11 @@ public class TimeManager {
                 Bukkit.broadcastMessage("");
 
                 for (Player player : Bukkit.getOnlinePlayers()) {
-                    player.playSound(player.getLocation(), Sound.ENTITY_WITHER_AMBIENT,1, 0.5F);
+                    player.playSound(player.getLocation(), Sound.ENTITY_WITHER_AMBIENT, 1, 0.5F);
                 }
 
                 for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
-                    if(entry.getValue().getName()== StructureEnum.MINOTAURE.getName()){
+                    if (entry.getValue().getName() == StructureEnum.MINOTAURE.getName()) {
                         Doors doors = new Doors(entry.getKey());
                         doors.open(DoorsDirection.ALL);
                     }

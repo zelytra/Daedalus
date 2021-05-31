@@ -1,6 +1,5 @@
 package fr.zelytra.daedalus;
 
-import fr.zelytra.daedalus.commands.SettingsCommand;
 import fr.zelytra.daedalus.commands.item.ItemsCommands;
 import fr.zelytra.daedalus.commands.item.ItemsTabs;
 import fr.zelytra.daedalus.commands.location.ShareLocation;
@@ -76,7 +75,6 @@ public final class Daedalus extends JavaPlugin {
     }
 
     private void regCommands() {
-        getCommand("settings").setExecutor(new SettingsCommand());
 
         getCommand("maze").setExecutor(new MazeCommands());
         getCommand("maze").setTabCompleter(new MazeTabCommands());

@@ -1,12 +1,12 @@
 package fr.zelytra.daedalus.events.running.players;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.faction.Faction;
+import fr.zelytra.daedalus.managers.faction.FactionsEnum;
+import fr.zelytra.daedalus.managers.faction.PlayerStatus;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
-import fr.zelytra.daedalus.managers.team.PlayerStatus;
-import fr.zelytra.daedalus.managers.team.Team;
-import fr.zelytra.daedalus.managers.team.TeamsEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -19,7 +19,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class DeathHandler implements Listener {
     private final List<CustomMaterial> whitelist = new ArrayList<>();
@@ -39,22 +38,22 @@ public class DeathHandler implements Listener {
         if (Daedalus.getInstance().getGameManager().isRunning()) {
 
             Player player = (Player) e.getEntity();
-            if (((player.getHealth() - e.getFinalDamage()) > 0) || (e.getCause() == EntityDamageEvent.DamageCause.FALL && Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId()).getGod() != null && Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId()).getGodEnum() == GodsEnum.ZEUS)) {
+            if (((player.getHealth() - e.getFinalDamage()) > 0) || (e.getCause() == EntityDamageEvent.DamageCause.FALL && Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player).getGod() != null && Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player).getGodsEnum() == GodsEnum.ZEUS)) {
                 return;
             }
 
             boolean isMinotaure = false;
 
-            for (Team team : Daedalus.getInstance().getGameManager().getTeamManager().getTeamList()) {
-                if (team.getGodEnum() == GodsEnum.MINOTAURE && team.getGod() != null) {
+            for (Faction team : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
+                if (team.getGodsEnum() == GodsEnum.MINOTAURE && team.getGod() != null) {
                     hasMinotaureSpawn = true;
                     isMinotaure = true;
                     break;
                 }
             }
-            if (Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId()).getGod() != null && Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId()).getGod().getUniqueId() == player.getUniqueId()) {
+            if (Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player).getGod() != null && Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player).getGod().getUniqueId() == player.getUniqueId()) {
                 isMinotaure = false;
-                Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId()).removeGod();
+                Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player).removeGod();
                 minotaursDeathFX();
             }
 
@@ -62,7 +61,7 @@ public class DeathHandler implements Listener {
             player.setHealth(player.getMaxHealth());
 
             //Definitive death
-            if (hasMinotaureSpawn && (!isMinotaure || (e instanceof EntityDamageByEntityEvent && ((EntityDamageByEntityEvent) e).getDamager() instanceof Player && Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(((EntityDamageByEntityEvent) e).getDamager().getUniqueId()).getGodEnum() == GodsEnum.MINOTAURE))) {
+            if (hasMinotaureSpawn && (!isMinotaure || (e instanceof EntityDamageByEntityEvent && ((EntityDamageByEntityEvent) e).getDamager() instanceof Player && Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getGodsEnum() == GodsEnum.MINOTAURE))) {
                 player.setGameMode(GameMode.SPECTATOR);
                 for (ItemStack content : player.getInventory().getContents()) {
                     if ((!CustomItemStack.hasTag(content) || whitelist.contains(CustomItemStack.getCustomMaterial(content))) && content != null) {
@@ -74,7 +73,7 @@ public class DeathHandler implements Listener {
                 player.getActivePotionEffects().clear();
                 player.setMaxHealth(20.0);
                 deathFX(e);
-                Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
+                Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
                 playerTeam.setPlayerStatus(player, PlayerStatus.DEAD);
 
             } else { // Respawn
@@ -88,8 +87,8 @@ public class DeathHandler implements Listener {
                 }
                 player.getInventory().clear();
                 respawnFX(e);
-                Team playerTeam = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId());
-                player.teleport(playerTeam.getTeamEnum().getSpawn());
+                Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                player.teleport(playerTeam.getType().getSpawn());
 
             }
             winListener();
@@ -127,16 +126,16 @@ public class DeathHandler implements Listener {
     }
 
     private void winListener() {
-        Team winner = null;
+        Faction winner = null;
         int teamAliveCount = 0;
         if (Daedalus.getInstance().getGameManager().isRunning()) {
-            for (Team team : Daedalus.getInstance().getGameManager().getTeamManager().getTeamList()) {
-                if (team.getTeamEnum() == TeamsEnum.SPECTATOR) {
+            for (Faction team : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
+                if (team.getType() == FactionsEnum.SPECTATOR) {
                     continue;
                 }
                 int playerCount = 0;
-                for (UUID uuid : team.getPlayerList()) {
-                    if (team.isAlive(Bukkit.getPlayer(uuid))) {
+                for (Player player : team.getPlayerList()) {
+                    if (team.isAlive(player)) {
                         playerCount++;
                     }
                 }
@@ -154,9 +153,9 @@ public class DeathHandler implements Listener {
         }
     }
 
-    private void winFX(Team team) {
+    private void winFX(Faction team) {
         for (Player p : Bukkit.getOnlinePlayers()) {
-            p.sendTitle(team.getChatColor() + team.getTeamEnum().getName() + "§6§l win !", "help", 5, 100, 5);
+            p.sendTitle(team.getType().getChatColor() + team.getType().getName() + "§6§l win !", "help", 5, 100, 5);
         }
 
 

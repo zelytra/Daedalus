@@ -1,9 +1,9 @@
 package fr.zelytra.daedalus.managers.gods.list;
 
+import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.Gods;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
-import fr.zelytra.daedalus.managers.team.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class Hermes implements Gods {
 
-    public Hermes(Team team) {
+    public Hermes(Faction team) {
         init(team);
         Player god = team.getGod();
         ArrayList<UUID> playerList = (ArrayList<UUID>) team.getPlayerList().clone();

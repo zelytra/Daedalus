@@ -31,16 +31,16 @@ public class ShareLocation implements CommandExecutor {
         if (!Daedalus.getInstance().getStructureManager().getStructuresPosition().isEmpty()) {
             for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                 if (entry.getKey().contains(ploc.getX(), ploc.getY(), ploc.getZ())) {
-                    MessageManager message = new MessageManager(player, printLocation(player) + " §8|§6 " + entry.getValue().getType(), ChannelEnum.TEAM, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId()));
+                    MessageManager message = new MessageManager(player, printLocation(player) + " §8|§6 " + entry.getValue().getType(), ChannelEnum.TEAM, Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player));
                     message.sendMessage();
                     return true;
                 }
             }
-            MessageManager message = new MessageManager(player, printLocation(player), ChannelEnum.TEAM, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId()));
+            MessageManager message = new MessageManager(player, printLocation(player), ChannelEnum.TEAM, Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player));
             message.sendMessage();
             return true;
         } else {
-            MessageManager message = new MessageManager(player, printLocation(player), ChannelEnum.TEAM, Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(player.getUniqueId()));
+            MessageManager message = new MessageManager(player, printLocation(player), ChannelEnum.TEAM, Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player));
             message.sendMessage();
             return true;
         }

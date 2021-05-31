@@ -3,8 +3,8 @@ package fr.zelytra.daedalus.events.running.players;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.channel.ChannelEnum;
 import fr.zelytra.daedalus.managers.channel.MessageManager;
-import fr.zelytra.daedalus.managers.team.Team;
-import fr.zelytra.daedalus.managers.team.TeamsEnum;
+import fr.zelytra.daedalus.managers.faction.Faction;
+import fr.zelytra.daedalus.managers.faction.FactionsEnum;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,9 +19,9 @@ public class PlayerChatRListener implements Listener {
             return;
 
         final Player p = e.getPlayer();
-        final Team t = Daedalus.getInstance().getGameManager().getTeamManager().getTeamOfPlayer(p.getUniqueId());
+        final Faction t = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(p);
 
-        if (t.getTeamEnum() != TeamsEnum.SPECTATOR && t.isAlive(p)) {
+        if (t.getType() != FactionsEnum.SPECTATOR && t.isAlive(p)) {
 
             if (e.getMessage().startsWith("!")) {
 
@@ -43,7 +43,7 @@ public class PlayerChatRListener implements Listener {
 
         } else {
 
-            Team spec = Daedalus.getInstance().getGameManager().getTeamManager().getSpectatorTeam();
+            Faction spec = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(FactionsEnum.SPECTATOR);
             MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.SPECTATOR, spec);
             message.playerSendMessage();
 
