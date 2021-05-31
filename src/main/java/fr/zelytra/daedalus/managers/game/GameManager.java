@@ -170,6 +170,7 @@ public class GameManager {
             maze.generateScaleMaze();
 
             Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
+                //TODO Parameter
                 Bukkit.getWorld("world").setTime(0);
                 Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
                 //Player Manager

@@ -1,6 +1,5 @@
 package fr.zelytra.daedalus.builders.guiBuilder;
 
-import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -14,8 +13,6 @@ public enum VisualType {
     BLANK_GRAY_GLASSE(new VisualItemStack(Material.GRAY_STAINED_GLASS_PANE, " ", false)),
     BLANK_LIGHT_GRAY_GLASSE(new VisualItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE, " ", false)),
 
-    NEXT_ARROW(new VisualItemStack(CustomMaterial.NEXT_ARROW, "§bNext", false)),
-    PREVIOUS_ARROW(new VisualItemStack(CustomMaterial.PREVIOUS_ARROW, "§bPrevious", false)),
     RETURN(new VisualItemStack(Material.BARRIER, "§cBack", false,"Back to main page"));
 
     private final VisualItemStack item;

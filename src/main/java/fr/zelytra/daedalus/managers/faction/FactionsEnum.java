@@ -9,11 +9,12 @@ import org.bukkit.Material;
 @AllArgsConstructor
 public enum FactionsEnum {
     RED("Red", "Ared", ChatColor.RED, "§c", "§r", new Location(Bukkit.getWorld("world"), -485, 89, -477), Material.RED_BANNER),
-    YELLOW("Yellow", "Byellow", ChatColor.YELLOW, "§e", "§r", new Location(Bukkit.getWorld("world"), 475, 89, 483),Material.RED_BANNER),
-    BLUE("Blue", "Cblue", ChatColor.BLUE, "§9", "§r", new Location(Bukkit.getWorld("world"), -485, 89, 483),Material.RED_BANNER),
-    GREEN("Green", "Dgreen", ChatColor.GREEN, "§a", "§r", new Location(Bukkit.getWorld("world"), 476, 89, -477),Material.RED_BANNER),
-    MINOTAUR("Minotaur", "Eminotaur", ChatColor.GOLD, "§6", "§r", new Location(Bukkit.getWorld("world"), -3, 90, 0),Material.RED_BANNER),
-    SPECTATOR("Spectator", "Fspectator", ChatColor.GRAY, "§8", "§r", new Location(Bukkit.getWorld("world"), 0, 81, 0),Material.RED_BANNER);
+    GREEN("Green", "Dgreen", ChatColor.GREEN, "§a", "§r", new Location(Bukkit.getWorld("world"), 476, 89, -477),Material.GREEN_BANNER),
+    MINOTAUR("Minotaur", "Eminotaur", ChatColor.GOLD, "§6", "§r", new Location(Bukkit.getWorld("world"), -3, 90, 0),Material.BROWN_BANNER),
+    BLUE("Blue", "Cblue", ChatColor.BLUE, "§9", "§r", new Location(Bukkit.getWorld("world"), -485, 89, 483),Material.BLUE_BANNER),
+    YELLOW("Yellow", "Byellow", ChatColor.YELLOW, "§e", "§r", new Location(Bukkit.getWorld("world"), 475, 89, 483),Material.YELLOW_BANNER),
+
+    SPECTATOR("Spectator", "Fspectator", ChatColor.WHITE, "§f", "§r", new Location(Bukkit.getWorld("world"), 0, 81, 0),Material.WHITE_BANNER);
 
     private String name;
     private String tag;

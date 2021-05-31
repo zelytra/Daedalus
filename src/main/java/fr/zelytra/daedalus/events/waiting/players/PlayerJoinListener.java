@@ -46,14 +46,17 @@ public class PlayerJoinListener implements Listener {
                 p.teleport(new Location(p.getWorld(), 669, 162, 675));
                 p.removePotionEffect(PotionEffectType.NIGHT_VISION);
 
-                if (playerFaction != null) {
+                if (playerFaction != null)
+                    Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(FactionsEnum.SPECTATOR).add(p);
 
-                    if (p.isOp()) {
+                if (p.isOp()) {
+                    if (playerFaction != null)
                         p.getInventory().setItem(8, new VisualItemStack(playerFaction.getType().getBanner(), "§7Team selection", false).getItem());
-                        p.getInventory().setItem(0, new VisualItemStack(Material.COMPARATOR, "§7Game settings", false).getItem());
-                        p.getInventory().setItem(4, new VisualItemStack(Material.BELL, "§6Start game", false, "§7Click here to start your game with the actual configuration").getItem());
-                    }
+                    else
+                        p.getInventory().setItem(8, new VisualItemStack(Material.WHITE_BANNER, "§7Team selection", false).getItem());
 
+                    p.getInventory().setItem(0, new VisualItemStack(Material.COMPARATOR, "§7Game settings", false).getItem());
+                    p.getInventory().setItem(4, new VisualItemStack(Material.BELL, "§6Start game", false, "§7Click here to start your game with the actual configuration").getItem());
                 } else
                     p.getInventory().setItem(4, new VisualItemStack(Material.WHITE_BANNER, "§7Team selection", false).getItem());
 
