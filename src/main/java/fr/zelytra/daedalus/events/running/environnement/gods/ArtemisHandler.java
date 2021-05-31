@@ -40,13 +40,13 @@ public class ArtemisHandler implements Listener {
                         for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                             if (entry.getKey().contains(e.getClickedBlock().getX(), e.getClickedBlock().getY(), e.getClickedBlock().getZ()) && entry.getValue().getType() == StructureType.TEMPLE && entry.getValue().getGod() == GodsEnum.ARTEMIS) {
                                 try {
-                                    Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
-                                    if (playerTeam.getGod() != null) {
+                                    Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                                    if (playerFaction.getGod() != null) {
                                         player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
                                         return;
                                     }
-                                    playerTeam.setGod(player, GodsEnum.ARTEMIS);
-                                    new Artemis(playerTeam);
+                                    playerFaction.setGod(player, GodsEnum.ARTEMIS);
+                                    new Artemis(playerFaction);
                                     vfx(player);
                                     removeHeldItem(e, invocMaterial);
                                     e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
@@ -72,8 +72,8 @@ public class ArtemisHandler implements Listener {
             if (e.getEntityType() == EntityType.ARROW && e.getEntity().getShooter() instanceof Player && e.getHitEntity() instanceof Player) {
                 Player shooter = (Player) e.getEntity().getShooter();
                 try {
-                    Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(shooter);
-                    if (playerTeam.getGod() != null && playerTeam.getGodsEnum() == GodsEnum.ARTEMIS && playerTeam.getGod() == shooter) {
+                    Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(shooter);
+                    if (playerFaction.getGod() != null && playerFaction.getGodsEnum() == GodsEnum.ARTEMIS && playerFaction.getGod() == shooter) {
                         Player target = (Player) e.getHitEntity();
                         double distance = Math.sqrt(Math.pow((shooter.getLocation().getX() - target.getLocation().getX()), 2) + Math.pow((shooter.getLocation().getZ() - target.getLocation().getZ()), 2));
                         if (distance >= 15.0) {

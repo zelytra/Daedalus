@@ -31,7 +31,7 @@ public class ZeusLightning implements Listener {
 
                     //Item action
                     try {
-                        Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                        Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
 
                         Collection<Entity> nearbyEntities = player.getWorld().getNearbyEntities(player.getLocation(), radius, radius, radius);
                         Collection<Entity> toStrike = new ArrayList<>();
@@ -39,7 +39,7 @@ public class ZeusLightning implements Listener {
                             if (entity instanceof Player) {
                                 Player target = (Player) entity;
                                 Faction targetPlayerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
-                                if (targetPlayerTeam.getType() == playerTeam.getType()) {
+                                if (targetPlayerTeam.getType() == playerFaction.getType()) {
                                     continue;
                                 }
                             }

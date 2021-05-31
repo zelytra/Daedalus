@@ -34,7 +34,7 @@ public class DemeterSickle implements Listener {
 
                     //Item action
                     try {
-                        Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                        Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
                         Collection<Entity> nearbyEntity = player.getNearbyEntities(effectRadius, effectRadius, effectRadius);
                         ArrayList<Entity> targetList = new ArrayList<>();
                         for (Entity entity : nearbyEntity) {
@@ -42,7 +42,7 @@ public class DemeterSickle implements Listener {
                                 if (entity instanceof Player) {
                                     Player target = (Player) entity;
                                     Faction targetPlayerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
-                                    if (targetPlayerTeam.getType() == playerTeam.getType()) {
+                                    if (targetPlayerTeam.getType() == playerFaction.getType()) {
                                         continue;
                                     }
                                     targetList.add(entity);

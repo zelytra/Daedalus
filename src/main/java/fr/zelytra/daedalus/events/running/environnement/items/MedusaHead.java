@@ -47,9 +47,9 @@ public class MedusaHead implements Listener {
             petrifiedPlayer.add(player);
             player.getWorld().spawnParticle(Particle.MOB_APPEARANCE, player.getLocation(), 10);
             try {
-                Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
                 Faction targetTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
-                if (playerTeam == targetTeam) {
+                if (playerFaction == targetTeam) {
                     new Cooldown(player, freezeTeammate, petrifiedTag);
                     new Cooldown(target, cooldownTeammate, CustomMaterial.MEDUSA_HEAD.getName());
                 } else {

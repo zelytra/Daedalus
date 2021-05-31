@@ -36,7 +36,6 @@ public class AphroditeHandler implements Listener {
                 if ((e.getHand() == EquipmentSlot.HAND && CustomItemStack.hasCustomItemInMainHand(invocMaterial.getName(), e.getPlayer())) || (e.getHand() == EquipmentSlot.OFF_HAND && CustomItemStack.hasCustomItemInOffHand(invocMaterial.getName(), e.getPlayer()))) {
                     if (e.getClickedBlock().getType() == invocationBlock) {
                         Player player = e.getPlayer();
-
                         for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                             if (entry.getKey().contains(e.getClickedBlock().getX(), e.getClickedBlock().getY(), e.getClickedBlock().getZ()) && entry.getValue().getType() == StructureType.TEMPLE && entry.getValue().getGod() == GodsEnum.APHRODITE) {
                                 try {
@@ -51,6 +50,7 @@ public class AphroditeHandler implements Listener {
                                     removeHeldItem(e, invocMaterial);
                                     e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
                                 } catch (Exception exception) {
+                                    exception.printStackTrace();
                                     System.out.println("ERROR team not found");
                                 }
                                 return;
@@ -86,7 +86,7 @@ public class AphroditeHandler implements Listener {
     }
 
     private void vfx(Player player) {
-        Bukkit.broadcastMessage("§c§l☢ Ares as appear in the maze ☢");
+        Bukkit.broadcastMessage("§d§l❤ Aphrodite as appear in the maze ❤");
         Utils.runTotemDisplay(player);
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.playSound(p.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_MIRROR, 10, 0.1f);

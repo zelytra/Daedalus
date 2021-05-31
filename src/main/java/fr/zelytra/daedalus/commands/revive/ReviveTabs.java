@@ -21,8 +21,8 @@ public class ReviveTabs implements TabCompleter {
         if (args.length == 1) {
 
             for (Player p : Bukkit.getOnlinePlayers()) {
-                Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(p);
-                if (!playerTeam.isAlive(p)) {
+                Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(p);
+                if (!playerFaction.isAlive(p)) {
                     commandsList.add(p.getName());
                 }
             }

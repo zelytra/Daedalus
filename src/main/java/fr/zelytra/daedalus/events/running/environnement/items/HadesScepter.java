@@ -40,7 +40,7 @@ public class HadesScepter implements Listener {
                     Cooldown cd = new Cooldown(player, itemCooldown, CustomMaterial.HADES_SCEPTER.getName());
 
                     try {
-                        Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                        Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
                         //Item action
                         for (int x = 1; x <= skeletonNumber; x++) {
                             Location spawnLoc = player.getLocation();
@@ -49,7 +49,7 @@ public class HadesScepter implements Listener {
                             spawnLoc.setZ((int) (Math.random() * (spawnLoc.getZ() + spawnRadius - spawnLoc.getZ() - spawnRadius)) + (spawnLoc.getZ() - spawnRadius));
                             Entity entity = player.getWorld().spawnEntity(player.getLocation(), EntityType.WITHER_SKELETON);
                             PersistentDataContainer pdc = entity.getPersistentDataContainer();
-                            pdc.set(hadesKey, PersistentDataType.STRING, playerTeam.getType().getName());
+                            pdc.set(hadesKey, PersistentDataType.STRING, playerFaction.getType().getName());
 
                         }
                     } catch (Exception exception) {

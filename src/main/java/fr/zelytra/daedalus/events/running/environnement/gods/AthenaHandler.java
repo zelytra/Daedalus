@@ -40,13 +40,13 @@ public class AthenaHandler implements Listener {
                         for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                             if (entry.getKey().contains(e.getClickedBlock().getX(), e.getClickedBlock().getY(), e.getClickedBlock().getZ()) && entry.getValue().getType() == StructureType.TEMPLE && entry.getValue().getGod() == GodsEnum.ATHENA) {
                                 try {
-                                    Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
-                                    if (playerTeam.getGod() != null) {
+                                    Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                                    if (playerFaction.getGod() != null) {
                                         player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
                                         return;
                                     }
-                                    playerTeam.setGod(player, GodsEnum.ATHENA);
-                                    new Athena(playerTeam);
+                                    playerFaction.setGod(player, GodsEnum.ATHENA);
+                                    new Athena(playerFaction);
                                     vfx(player);
                                     removeHeldItem(e, invocMaterial);
                                     e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
@@ -70,8 +70,8 @@ public class AthenaHandler implements Listener {
                 return;
             }
             try {
-                Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(e.getEntity().getKiller());
-                if (playerTeam.getGodsEnum() == GodsEnum.ATHENA) {
+                Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(e.getEntity().getKiller());
+                if (playerFaction.getGodsEnum() == GodsEnum.ATHENA) {
                     switch (e.getEntity().getType()) {
                         case PLAYER:
                             int random = ThreadLocalRandom.current().nextInt(1, 100 + 1);

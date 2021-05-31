@@ -2,7 +2,6 @@ package fr.zelytra.daedalus.managers.gods.list;
 
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.Gods;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
@@ -13,17 +12,15 @@ import org.bukkit.potion.PotionEffect;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.UUID;
 
 public class Poseidon implements Gods {
 
-    public Poseidon(Faction team) {
-        init(team);
-        Player god = team.getGod();
-        ArrayList<UUID> playerList = (ArrayList<UUID>) team.getPlayerList().clone();
+    public Poseidon(Faction faction) {
+        init(faction);
+        Player god = faction.getGod();
+        ArrayList<Player> playerList = (ArrayList<Player>) faction.getPlayerList().clone();
         playerList.remove(god.getUniqueId());
-        for (UUID uuid : playerList) {
-            Player player = Bukkit.getPlayer(uuid);
+        for (Player player : playerList) {
             player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(22.0);
         }
     }

@@ -39,13 +39,13 @@ public class ZeusHandler implements Listener {
                         for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                             if (entry.getKey().contains(e.getClickedBlock().getX(), e.getClickedBlock().getY(), e.getClickedBlock().getZ()) && entry.getValue().getType() == StructureType.TEMPLE && entry.getValue().getGod() == GodsEnum.ZEUS) {
                                 try {
-                                    Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
-                                    if (playerTeam.getGod() != null) {
+                                    Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                                    if (playerFaction.getGod() != null) {
                                         player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
                                         return;
                                     }
-                                    playerTeam.setGod(player, GodsEnum.ZEUS);
-                                    new Zeus(playerTeam);
+                                    playerFaction.setGod(player, GodsEnum.ZEUS);
+                                    new Zeus(playerFaction);
                                     vfx(player);
                                     removeHeldItem(e, invocMaterial);
                                     e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
@@ -69,8 +69,8 @@ public class ZeusHandler implements Listener {
                 Player player = ((Player) e.getEntity());
                 if (e.getCause() == EntityDamageEvent.DamageCause.FALL) {
                     try {
-                        Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
-                        if (playerTeam.getGodsEnum() != null && playerTeam.getGodsEnum() == GodsEnum.ZEUS) {
+                        Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                        if (playerFaction.getGodsEnum() != null && playerFaction.getGodsEnum() == GodsEnum.ZEUS) {
                             e.setCancelled(true);
                         }
                     } catch (Exception exception) {

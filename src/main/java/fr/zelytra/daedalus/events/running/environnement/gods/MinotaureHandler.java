@@ -42,18 +42,19 @@ public class MinotaureHandler implements Listener {
                         for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                             if (entry.getKey().contains(e.getClickedBlock().getX(), e.getClickedBlock().getY(), e.getClickedBlock().getZ()) && entry.getValue().getType() == StructureType.BASE) {
                                 try {
-                                    Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
-                                    if (playerTeam.getGod() != null) {
+                                    Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                                    if (playerFaction.getGod() != null) {
                                         player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
                                         return;
                                     }
-                                    playerTeam.setGod(player, GodsEnum.MINOTAURE);
-                                    new Minotaure(playerTeam);
+                                    playerFaction.setGod(player, GodsEnum.MINOTAURE);
+                                    new Minotaure(playerFaction);
                                     growlTask();
                                     vfx(player);
                                     removeHeldItem(e, invocMaterial);
                                     e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
                                 } catch (Exception exception) {
+                                    exception.printStackTrace();
                                     System.out.println("ERROR team not found");
                                 }
                                 return;
@@ -80,17 +81,17 @@ public class MinotaureHandler implements Listener {
                     for (Entity e : entities) {
                         if (e instanceof Player) {
                             Player target = ((Player) e).getPlayer();
-                            Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
+                            Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
                             if (growlList.contains(player)) {
                                 return;
                             }
 
-                            if (playerTeam.getGodsEnum() == null) {
+                            if (playerFaction.getGodsEnum() == null) {
                                 growlHandler(player);
                                 return;
                             }
-                            if (playerTeam.getGodsEnum() != null && playerTeam.getGodsEnum() != GodsEnum.MINOTAURE) {
-                                if (playerTeam.getGod().getUniqueId() != target.getUniqueId()) {
+                            if (playerFaction.getGodsEnum() != null && playerFaction.getGodsEnum() != GodsEnum.MINOTAURE) {
+                                if (playerFaction.getGod().getUniqueId() != target.getUniqueId()) {
                                     growlHandler(player);
                                     return;
                                 }

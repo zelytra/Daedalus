@@ -4,7 +4,6 @@ import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.Gods;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
-import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -13,18 +12,16 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.UUID;
 
 public class Hermes implements Gods {
 
-    public Hermes(Faction team) {
-        init(team);
-        Player god = team.getGod();
-        ArrayList<UUID> playerList = (ArrayList<UUID>) team.getPlayerList().clone();
+    public Hermes(Faction faction) {
+        init(faction);
+        Player god = faction.getGod();
+        ArrayList<Player> playerList = (ArrayList<Player>) faction.getPlayerList().clone();
         god.setAllowFlight(true);
         playerList.remove(god.getUniqueId());
-        for (UUID uuid : playerList) {
-            Player player = Bukkit.getPlayer(uuid);
+        for (Player player : playerList) {
             player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(24.0);
         }
     }

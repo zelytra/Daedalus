@@ -42,13 +42,13 @@ public class HermesHandler implements Listener {
                         for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                             if (entry.getKey().contains(e.getClickedBlock().getX(), e.getClickedBlock().getY(), e.getClickedBlock().getZ()) && entry.getValue().getType() == StructureType.TEMPLE && entry.getValue().getGod() == GodsEnum.HERMES) {
                                 try {
-                                    Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
-                                    if (playerTeam.getGod() != null) {
+                                    Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                                    if (playerFaction.getGod() != null) {
                                         player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
                                         return;
                                     }
-                                    playerTeam.setGod(player, GodsEnum.HERMES);
-                                    new Hermes(playerTeam);
+                                    playerFaction.setGod(player, GodsEnum.HERMES);
+                                    new Hermes(playerFaction);
                                     vfx(e.getPlayer());
                                     removeHeldItem(e, invocMaterial);
                                     doubleJump();
@@ -73,8 +73,8 @@ public class HermesHandler implements Listener {
                 Player player = ((Player) e.getEntity());
                 if (e.getCause() == EntityDamageEvent.DamageCause.FALL) {
                     try {
-                        Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
-                        if (playerTeam.getGodsEnum() != null && playerTeam.getGodsEnum() == GodsEnum.HERMES && playerTeam.getGod().getUniqueId() == e.getEntity().getUniqueId()) {
+                        Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                        if (playerFaction.getGodsEnum() != null && playerFaction.getGodsEnum() == GodsEnum.HERMES && playerFaction.getGod().getUniqueId() == e.getEntity().getUniqueId()) {
                             e.setCancelled(true);
                         }
                     } catch (Exception exception) {

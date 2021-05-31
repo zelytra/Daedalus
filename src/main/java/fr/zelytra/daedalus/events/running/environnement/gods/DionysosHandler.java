@@ -41,13 +41,13 @@ public class DionysosHandler implements Listener {
                         for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                             if (entry.getKey().contains(e.getClickedBlock().getX(), e.getClickedBlock().getY(), e.getClickedBlock().getZ()) && entry.getValue().getType() == StructureType.TEMPLE && entry.getValue().getGod() == GodsEnum.DIONYSUS) {
                                 try {
-                                    Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
-                                    if (playerTeam.getGod() != null) {
+                                    Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                                    if (playerFaction.getGod() != null) {
                                         player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
                                         return;
                                     }
-                                    playerTeam.setGod(player, GodsEnum.DIONYSUS);
-                                    new Dionysos(playerTeam);
+                                    playerFaction.setGod(player, GodsEnum.DIONYSUS);
+                                    new Dionysos(playerFaction);
                                     vfx(player);
                                     removeHeldItem(e, invocMaterial);
                                     e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
@@ -68,11 +68,11 @@ public class DionysosHandler implements Listener {
     public void onDrinking(PlayerItemConsumeEvent e) {
         if (e.getItem().getType() == Material.POTION) {
             try {
-                Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(e.getPlayer());
-                if (playerTeam.getGod() == null) {
+                Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(e.getPlayer());
+                if (playerFaction.getGod() == null) {
                     return;
                 }
-                if (playerTeam.getGodsEnum() == GodsEnum.DIONYSUS) {
+                if (playerFaction.getGodsEnum() == GodsEnum.DIONYSUS) {
                     int random = ThreadLocalRandom.current().nextInt(1, 100 + 1);
                     if (random <= 80) {
                         random = ThreadLocalRandom.current().nextInt(1, 100 + 1);

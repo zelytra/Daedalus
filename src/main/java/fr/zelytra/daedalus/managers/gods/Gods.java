@@ -14,7 +14,7 @@ public interface Gods {
     default void init(Faction faction) {
         Player god = faction.getGod();
         ArrayList<Player> playerList = (ArrayList<Player>) faction.getPlayerList().clone();
-        playerList.remove(god.getUniqueId());
+        playerList.remove(god);
         god.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(30);
         //God init
         if (this.godEffects() != null) {

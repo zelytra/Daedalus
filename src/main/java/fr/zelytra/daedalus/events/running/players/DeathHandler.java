@@ -73,8 +73,8 @@ public class DeathHandler implements Listener {
                 player.getActivePotionEffects().clear();
                 player.setMaxHealth(20.0);
                 deathFX(e);
-                Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
-                playerTeam.setPlayerStatus(player, PlayerStatus.DEAD);
+                Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                playerFaction.setPlayerStatus(player, PlayerStatus.DEAD);
 
             } else { // Respawn
                 player.setSaturation(20.0f);
@@ -87,8 +87,8 @@ public class DeathHandler implements Listener {
                 }
                 player.getInventory().clear();
                 respawnFX(e);
-                Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
-                player.teleport(playerTeam.getType().getSpawn());
+                Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                player.teleport(playerFaction.getType().getSpawn());
 
             }
             winListener();

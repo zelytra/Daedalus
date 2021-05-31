@@ -41,13 +41,13 @@ public class HadesHandler implements Listener {
                         for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                             if (entry.getKey().contains(e.getClickedBlock().getX(), e.getClickedBlock().getY(), e.getClickedBlock().getZ()) && entry.getValue().getType() == StructureType.TEMPLE && entry.getValue().getGod() == GodsEnum.HADES) {
                                 try {
-                                    Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
-                                    if (playerTeam.getGod() != null) {
+                                    Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                                    if (playerFaction.getGod() != null) {
                                         player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
                                         return;
                                     }
-                                    playerTeam.setGod(player, GodsEnum.HADES);
-                                    new Hades(playerTeam);
+                                    playerFaction.setGod(player, GodsEnum.HADES);
+                                    new Hades(playerFaction);
                                     vfx(player);
                                     removeHeldItem(e, invocMaterial);
                                     e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
@@ -70,11 +70,11 @@ public class HadesHandler implements Listener {
             if (e.getEntity().getKiller() != null) {
                 try {
                     Player killer = e.getEntity().getKiller();
-                    Faction playerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(killer);
-                    if (playerTeam.getGod() == null) {
+                    Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(killer);
+                    if (playerFaction.getGod() == null) {
                         return;
                     }
-                    if (playerTeam.getGodsEnum() == GodsEnum.HADES) {
+                    if (playerFaction.getGodsEnum() == GodsEnum.HADES) {
                         killer.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 1, false, false, true));
                     }
                 } catch (Exception exception) {
