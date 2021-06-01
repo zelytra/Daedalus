@@ -21,7 +21,7 @@
 
 # Contributors
 * [**Nicolas61x**](https://github.com/Nicolas62x) : Help on maze optimization
-* [**punisher5**](https://github.com/JohnPoliakov) : Help on teamManager & gameManager
+* [**punisher5**](https://github.com/JohnPoliakov) : Help on some GameManager part
 
 
 
