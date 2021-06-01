@@ -41,17 +41,6 @@ public final class Daedalus extends JavaPlugin {
     @Override
     public void onLoad() {
         instance = this;
-        try {
-            DedicatedServer server = ((CraftServer) Bukkit.getServer()).getServer();
-            DedicatedServerProperties properties = server.getDedicatedServerProperties();
-
-            Field spawnProtectionField = properties.getClass().getField("level-name");
-            spawnProtectionField.setAccessible(true);
-            spawnProtectionField.set(properties, "DaedalusMap");
-        } catch (NoSuchFieldException | IllegalAccessException ignored) {
-        }
-
-
         new StartupManager();
     }
 

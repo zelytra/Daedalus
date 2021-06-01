@@ -6,11 +6,14 @@ import org.bukkit.Bukkit;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class StartupManager {
-    private final String mapURL = "https://raw.githubusercontent.com/zelytra/Daedalus/master/resources/DaedalusMap_0.1.zip";
+    private final String mapURL = "https://raw.githubusercontent.com/zelytra/Daedalus/master/resources/DaedalusMap_0.3.zip";
     private final File folder;
     private final File zip;
 
@@ -22,6 +25,7 @@ public class StartupManager {
         zip = new File(folder + File.separator + "DaedalusMap.zip");
         if(zip.exists()){
             log("§aMap already downloaded !");
+            moveFile();
             return;
         }
         try {
@@ -36,6 +40,20 @@ public class StartupManager {
         extractZip();
 
 
+    }
+
+    private void moveFile() {
+        String fromFile = folder + File.separator + "map"+File.separator+"";
+        String toFile =folder+File.separator+"world";
+
+        Path source = Paths.get(fromFile);
+        Path target = Paths.get(toFile);
+
+        try {
+            Files.move(source, target);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void downloadMap() {
