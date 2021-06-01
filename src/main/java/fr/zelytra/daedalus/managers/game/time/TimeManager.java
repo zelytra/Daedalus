@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.managers.game.time;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
+import fr.zelytra.daedalus.managers.skrink.ShrinkManager;
 import fr.zelytra.daedalus.managers.structure.Structure;
 import fr.zelytra.daedalus.managers.structure.StructureEnum;
 import fr.zelytra.daedalus.managers.structure.doors.Doors;
@@ -17,10 +18,9 @@ import java.text.SimpleDateFormat;
 import java.util.Map;
 
 public class TimeManager {
-    private int time = GameSettings.TIME_PER_EPISODE;
-    private String timer = "20:00";
+    private int time = 0;
+    private String timer = "00:00";
     private int episode = 1;
-    private int lastEpisode = 0;
     private int runnable;
     private boolean pause = false;
 
@@ -31,11 +31,11 @@ public class TimeManager {
 
         runnable = Bukkit.getScheduler().scheduleSyncRepeatingTask(Daedalus.getInstance(), () -> {
 
-            if (time == 0)
+            if (time == GameSettings.TIME_PER_EPISODE)
                 next();
 
             if (!isPause())
-                time--;
+                time++;
             updateTimer();
 
             for (Faction faction : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
@@ -59,10 +59,9 @@ public class TimeManager {
     }
 
     private void next() {
-        time = GameSettings.TIME_PER_EPISODE;
+        time = 0;
         episode++;
         episodeChangeEvent();
-        lastEpisode = episode - 1;
     }
 
     private void episodeChangeEvent() {
@@ -97,7 +96,7 @@ public class TimeManager {
 
             case 6: {
 
-                System.out.println("Go middle");
+                ShrinkManager.startShrinking();
 
 
                 break;

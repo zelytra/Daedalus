@@ -1,4 +1,4 @@
-package fr.zelytra.daedalus.events.running.environnement;
+package fr.zelytra.daedalus.events.running.environnement.mobCutclean;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.maze.Maze;

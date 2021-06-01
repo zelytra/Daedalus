@@ -6,21 +6,36 @@ import fr.zelytra.daedalus.managers.game.GameStatesEnum;
 import fr.zelytra.daedalus.managers.maze.Maze;
 import fr.zelytra.daedalus.managers.maze.Vector2;
 import fr.zelytra.daedalus.managers.structure.Structure;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.util.BoundingBox;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class PlaceBlockListener implements Listener {
+    private List<Material> blacklist = new ArrayList<>();
     private static final int wallHigh = 20;
     private static final int limit = 4;
+
+    {
+        for (BlockEnum blocks : BlockEnum.values()) {
+            blacklist.add(blocks.getMaterial());
+        }
+
+    }
 
 
     @EventHandler
     public void onPlace(BlockPlaceEvent e) {
         if (Daedalus.getInstance().getGameManager().getState() != GameStatesEnum.RUNNING) {
+            return;
+        }
+        if (blacklist.contains(e.getBlock().getType())) {
+            e.setCancelled(true);
             return;
         }
         if (Daedalus.getInstance().getStructureManager().getStructuresPosition().isEmpty()) {

@@ -3,6 +3,8 @@ package fr.zelytra.daedalus.managers.faction;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.time.TimeManager;
+import fr.zelytra.daedalus.managers.gods.GodsEnum;
+import fr.zelytra.daedalus.managers.skrink.ShrinkManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -30,6 +32,8 @@ public class FactionScoreBoard {
 
         scoreboard.getTeam("episode").setPrefix("Episode §6: §a" + timeManager.getEpisode());
         scoreboard.getTeam("timer").setPrefix("Timer §6: §a" + timeManager.getTimer());
+        scoreboard.getTeam("border").setPrefix("Border §6: §a" + ShrinkManager.getBorderRadius());
+        scoreboard.getTeam("stateMino").setPrefix("State §6: " + (isMinotaur() ? "§aAlive" : "§cDead"));
         scoreboard.getTeam("alive").setPrefix("Folks §6: §a" + faction.getAliveCount() + "§6/§a" + faction.getPlayerList().size());
         if (faction.getGodsEnum() != null)
             scoreboard.getTeam("divinity").setPrefix(" §6• §b" + faction.getGodsEnum().getName());
@@ -82,7 +86,7 @@ public class FactionScoreBoard {
 
     }
 
-    private Scoreboard getScoreboard(){
+    private Scoreboard getScoreboard() {
         return scoreboard;
     }
 
@@ -112,7 +116,6 @@ public class FactionScoreBoard {
     }
 
 
-
     public static void addEntry(Player player, FactionsEnum factionsEnum) {
         for (Faction faction : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
             faction.getFactionScoreBoard().getScoreboard().getTeam(factionsEnum.getTag()).addEntry(player.getName());
@@ -130,6 +133,14 @@ public class FactionScoreBoard {
             for (Player player : faction.getPlayerList())
                 player.setScoreboard(faction.getFactionScoreBoard().scoreboard);
         }
+    }
+
+    private boolean isMinotaur() {
+        for (Faction team : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
+            if (team.getGodsEnum() == GodsEnum.MINOTAURE && team.getGod() != null)
+                return true;
+        }
+        return false;
     }
 
 

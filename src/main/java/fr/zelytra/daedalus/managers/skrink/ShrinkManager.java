@@ -24,6 +24,10 @@ public abstract class ShrinkManager {
 
     }
 
+    public static int getBorderRadius() {
+        return ((512 * workloadThread.getTotalCount()) / workloadThread.getInitialSize()) + 84;
+    }
+
 
 }
 

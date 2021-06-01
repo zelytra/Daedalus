@@ -1,4 +1,4 @@
-package fr.zelytra.daedalus.events.running.environnement;
+package fr.zelytra.daedalus.events.running.environnement.mobCutclean;
 
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;

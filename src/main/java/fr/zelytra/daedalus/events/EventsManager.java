@@ -1,12 +1,10 @@
-package fr.zelytra.daedalus.managers;
+package fr.zelytra.daedalus.events;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.commands.wiki.Wiki;
-import fr.zelytra.daedalus.events.ForcedTexturePack;
-import fr.zelytra.daedalus.events.running.environnement.*;
 import fr.zelytra.daedalus.events.running.environnement.gods.*;
 import fr.zelytra.daedalus.events.running.environnement.items.*;
-import fr.zelytra.daedalus.events.running.environnement.mobCutclean.MobCutClean;
+import fr.zelytra.daedalus.events.running.environnement.mobCutclean.*;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.AxeStripped;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.PlayerBreakBlockListener;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.TreeGrowthListener;
@@ -81,6 +79,7 @@ public class EventsManager {
         pm.registerEvents(new HostileMob(), pl);
         pm.registerEvents(new AxeStripped(), pl);
         pm.registerEvents(new BucketListener(), pl);
+        pm.registerEvents(new PistonListener(), pl);
 
         /* Interface */
         pm.registerEvents(new Wiki(), pl);

@@ -9,6 +9,8 @@ import java.util.ArrayDeque;
 
 public class WorkloadThread implements Runnable {
     private static final int MAX_MS_PER_TICK = 35;
+    private int totalCount = 0;
+    private int initialSize = 1;
 
     private final ArrayDeque<Workload> workloadDeque;
     private BukkitTask task;
@@ -19,14 +21,16 @@ public class WorkloadThread implements Runnable {
 
     public void addLoad(Workload workload) {
         workloadDeque.add(workload);
+        initialSize = workloadDeque.size();
     }
 
     @Override
     public void run() {
+        initialSize = workloadDeque.size();
         task = Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
             long stopTime = System.currentTimeMillis() + MAX_MS_PER_TICK;
             int count = 0;
-            while (!workloadDeque.isEmpty() && System.currentTimeMillis() <= stopTime && (workloadDeque.size() <= 1000000 ? count < 100 : count < 250)) {
+            while (!workloadDeque.isEmpty() || System.currentTimeMillis() <= stopTime || count <= 100) {
                 workloadDeque.poll().compute();
                 count++;
             }
@@ -38,5 +42,13 @@ public class WorkloadThread implements Runnable {
 
     private void cancelTask() {
         Bukkit.getScheduler().cancelTask(this.task.getTaskId());
+    }
+
+    public int getTotalCount() {
+        return workloadDeque.size();
+    }
+
+    public int getInitialSize() {
+        return initialSize;
     }
 }
