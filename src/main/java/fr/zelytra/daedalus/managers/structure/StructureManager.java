@@ -1,8 +1,6 @@
 package fr.zelytra.daedalus.managers.structure;
 
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
-import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
-import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.loottable.LootTableManager;
 import fr.zelytra.daedalus.managers.maze.Maze;
 import org.bukkit.util.BoundingBox;
@@ -18,7 +16,7 @@ public class StructureManager {
     private ArrayList<Structure> fixedStructures;
     private ArrayList<Structure> mine;
     private ArrayList<Structure> generatedList;
-    private HashMap<BoundingBox,Structure> structuresPosition;
+    private HashMap<BoundingBox, Structure> structuresPosition;
     private Maze maze;
     public StructureSurrounded structureSurrounded;
     private LootTableManager lootTableManager;
@@ -88,20 +86,12 @@ public class StructureManager {
         }
 
         /*Temples draw*/
-        if (GameSettings.GOD_SELECTION == TemplesGenerationEnum.RANDOM) {
-            for (int x = 0; x < GameSettings.GOD_LIMIT; x++) {
-                //int random = 0 + (int) (Math.random() * ((this.temples.size() - 0) + 1));
-                generatedList.add(this.temples.get(x));
-            }
-        } else {
-            for (GodsEnum god : GameSettings.GOD_LIST) {
-                for (Structure temple : this.temples) {
-                    if (temple.getGod() == god) {
-                        generatedList.add(temple);
-                    }
-                }
-            }
+
+        for (int x = 0; x < GameSettings.GOD_LIMIT; x++) {
+            generatedList.add(this.temples.get(x));
         }
+
+
         /*Dungeons draw*/
         for (int x = 0; x < GameSettings.DUNGEONS_COUNT; x++) {
             generatedList.add(this.dungeons.get(ThreadLocalRandom.current().nextInt(0, this.dungeons.size())));

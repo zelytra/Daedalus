@@ -48,13 +48,17 @@ public class PlayerBreakBlockListener implements Listener {
                 case SPRUCE_WOOD:
                 case DARK_OAK_LOG:
                 case GRAVEL:
-                case END_STONE:
                 case DARK_OAK_WOOD: {
                     if (GameSettings.CUT_CLEAN) {
                         e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), block.getItemStack());
-                    }
+                    }else
+                        e.setDropItems(true);
                     break;
                 }
+                case END_STONE:
+                    e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), block.getItemStack());
+                    break;
+
                 case OBSIDIAN:
                 case DIAMOND_ORE:
                 case EMERALD_ORE:

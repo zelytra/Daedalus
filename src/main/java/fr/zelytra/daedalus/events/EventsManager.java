@@ -11,12 +11,14 @@ import fr.zelytra.daedalus.events.running.environnement.respawnable.TreeGrowthLi
 import fr.zelytra.daedalus.events.running.environnement.structure.*;
 import fr.zelytra.daedalus.events.running.players.DeathHandler;
 import fr.zelytra.daedalus.events.running.players.PlayerChatRListener;
+import fr.zelytra.daedalus.events.running.players.PlayerEatGoldenApple;
 import fr.zelytra.daedalus.events.running.pvp.CoolDown;
 import fr.zelytra.daedalus.events.running.pvp.DamagerHandler;
 import fr.zelytra.daedalus.events.running.pvp.PlayerRegen;
 import fr.zelytra.daedalus.events.waiting.entities.EntityDamageListener;
 import fr.zelytra.daedalus.events.waiting.entities.EntityTargetListener;
 import fr.zelytra.daedalus.events.waiting.environment.BlockPlaceListener;
+import fr.zelytra.daedalus.events.waiting.gui.GameSettingsInterface;
 import fr.zelytra.daedalus.events.waiting.gui.TeamSelector;
 import fr.zelytra.daedalus.events.waiting.item.GameStarter;
 import fr.zelytra.daedalus.events.waiting.players.*;
@@ -85,9 +87,12 @@ public class EventsManager {
         pm.registerEvents(new Wiki(), pl);
         pm.registerEvents(new TeamSelector(), pl);
         pm.registerEvents(new GameStarter(), pl);
+        pm.registerEvents(new GameSettingsInterface(), pl);
 
         /* Players */
         pm.registerEvents(new PlayerJoinListener(), pl);
+        pm.registerEvents(new PlayerInventoryMoveListener(), pl);
+        pm.registerEvents(new PlayerEatGoldenApple(), pl);
         pm.registerEvents(new PlayerPreLoginListener(), pl);
         pm.registerEvents(new PlayerQuitListener(), pl);
         pm.registerEvents(new PlayerBreakBlockListener(), pl);

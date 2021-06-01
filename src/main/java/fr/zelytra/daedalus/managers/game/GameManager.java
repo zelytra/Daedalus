@@ -6,7 +6,6 @@ import fr.zelytra.daedalus.managers.faction.FactionManager;
 import fr.zelytra.daedalus.managers.faction.FactionsEnum;
 import fr.zelytra.daedalus.managers.game.settings.DayCycleEnum;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
-import fr.zelytra.daedalus.managers.game.settings.TemplesGenerationEnum;
 import fr.zelytra.daedalus.managers.game.time.TimeManager;
 import fr.zelytra.daedalus.managers.maze.MazeHandler;
 import fr.zelytra.daedalus.utils.Message;
@@ -71,50 +70,6 @@ public class GameManager {
         this.started = started;
     }
 
-    public void reverseTempleGeneration() {
-
-        if (GameSettings.GOD_SELECTION == TemplesGenerationEnum.CHOSEN)
-            GameSettings.GOD_SELECTION = TemplesGenerationEnum.RANDOM;
-        else
-            GameSettings.GOD_SELECTION = TemplesGenerationEnum.CHOSEN;
-
-    }
-
-    public boolean increaseGodLimit() {
-
-        if (GameSettings.GOD_LIMIT >= GameSettings.GOD_MAXIMUM)
-            return false;
-        else
-            GameSettings.GOD_LIMIT += 1;
-
-        return true;
-    }
-
-    public boolean decreaseGodLimit() {
-
-        if (GameSettings.GOD_LIMIT <= GameSettings.GOD_MINIMUM)
-            return false;
-        else
-            GameSettings.GOD_LIMIT -= 1;
-
-        return true;
-    }
-
-    private void applySettings() {
-
-        Bukkit.getWorld("world").setTime(GameSettings.DAY_CYCLE.getTicks());
-        if (GameSettings.DAY_CYCLE == DayCycleEnum.DEFAULT)
-            Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
-        else
-            Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
-
-        if (GameSettings.HARDCORE)
-            Bukkit.getWorld("world").setGameRule(GameRule.NATURAL_REGENERATION, false);
-        else
-            Bukkit.getWorld("world").setGameRule(GameRule.NATURAL_REGENERATION, true);
-
-    }
-
     public void preStart() {
         Bukkit.broadcastMessage("");
         Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§aThe game is about to start");
@@ -176,9 +131,9 @@ public class GameManager {
             maze.generateScaleMaze();
 
             Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
-                //TODO Parameter
-                Bukkit.getWorld("world").setTime(0);
-                Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+                if (GameSettings.DAY_CYCLE == DayCycleEnum.DEFAULT)
+                    Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+
                 //Player Manager
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     Faction playerFaction = factionManager.getFactionOf(p);
@@ -190,6 +145,7 @@ public class GameManager {
                         p.teleport(playerFaction.getType().getSpawn());
                     }
                 }
+
                 //GameManager start
                 getTimeManager().start();
                 started = false;

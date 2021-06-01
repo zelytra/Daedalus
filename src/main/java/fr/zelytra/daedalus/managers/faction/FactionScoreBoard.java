@@ -38,11 +38,12 @@ public class FactionScoreBoard {
         scoreboard.getTeam("timer").setPrefix("Timer §6: §a" + timeManager.getTimer());
         scoreboard.getTeam("border").setPrefix("Border §6: §a" + (ShrinkManager.workloadThread == null ? "§cNull" : ShrinkManager.getBorderRadius()));
         scoreboard.getTeam("stateMino").setPrefix("State §6: " + (isMinotaur() ? "§aAlive" : "§cDead"));
-        scoreboard.getTeam("alive").setPrefix("Folks §6: §a" + faction.getAliveCount() + "§6/§a" + faction.getPlayerList().size());
+        scoreboard.getTeam("alive").setPrefix("Alive §6: §a" + faction.getAliveCount() + "§6/§a" + faction.getPlayerList().size());
+
         if (faction.getGodsEnum() != null)
-            scoreboard.getTeam("divinity").setPrefix(" §6• §b" + faction.getGodsEnum().getName());
+            scoreboard.getTeam("divinity").setPrefix("§6• §b" + faction.getGodsEnum().getName());
         else
-            scoreboard.getTeam("divinity").setPrefix(" §6• §cNone");
+            scoreboard.getTeam("divinity").setPrefix("§6• §cNone");
 
     }
 
@@ -58,12 +59,12 @@ public class FactionScoreBoard {
 
         addLine("", "b", 10);
 
-        addLine("Folks §6: §a1§6/§a10", "alive", 9);
+        addLine("Alive §6: §a1§6/§a10", "alive", 9);
 
         addLine("", "c", 8);
 
         addLine("Team Divinity", "text", 7);
-        addLine(" §6• §cNone", "divinity", 6);
+        addLine("§6• §cNone", "divinity", 6);
 
         addLine("", "d", 5);
 

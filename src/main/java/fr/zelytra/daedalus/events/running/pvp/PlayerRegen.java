@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.events.running.pvp;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +19,7 @@ public class PlayerRegen implements Listener {
 
         if (Daedalus.getInstance().getGameManager().isRunning()) {
 
-            if (e.getEntity() instanceof Player && e.getRegainReason() == EntityRegainHealthEvent.RegainReason.SATIATED) {
+            if (e.getEntity() instanceof Player && e.getRegainReason() == EntityRegainHealthEvent.RegainReason.SATIATED && !GameSettings.HARDCORE) {
                 Player player = (Player) e.getEntity();
 
                 if (!regenPlayer.containsKey(player.getUniqueId())) {

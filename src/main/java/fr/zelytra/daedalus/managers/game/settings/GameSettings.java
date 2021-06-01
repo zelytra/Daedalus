@@ -1,16 +1,8 @@
 package fr.zelytra.daedalus.managers.game.settings;
 
-import fr.zelytra.daedalus.managers.gods.GodsEnum;
-
-import java.util.ArrayList;
-
 public final class GameSettings {
 
-    public final static ArrayList<GodsEnum> GOD_LIST = new ArrayList<>();
-    public static final int GOD_MINIMUM = 4;
-    public static final int GOD_MAXIMUM = 10;
     public static int GOD_LIMIT = 10;
-    public static TemplesGenerationEnum GOD_SELECTION = TemplesGenerationEnum.RANDOM;
     public static int HESPERIDES_GARDEN_COUNT = 1;
     public static int MINES_COUNT = 15;
     public static int DUNGEONS_COUNT = 10;
@@ -20,14 +12,12 @@ public final class GameSettings {
     public static boolean ABSORPTION = true;
     public static boolean CUT_CLEAN = true;
     public static int APPLE_DROP = 8;
-    public static DayCycleEnum DAY_CYCLE = DayCycleEnum.ETERNAL_DAY;
+    public static DayCycleEnum DAY_CYCLE = DayCycleEnum.DEFAULT;
     public static int TIME_PER_EPISODE = 1200;//seconds
 
     public static void reset() {
 
-        GOD_LIST.clear();
-        GOD_LIMIT = 6;
-        GOD_SELECTION = TemplesGenerationEnum.RANDOM;
+        GOD_LIMIT = 10;
         HESPERIDES_GARDEN_COUNT = 1;
         MINES_COUNT = 15;
         DUNGEONS_COUNT = 10;
@@ -37,6 +27,7 @@ public final class GameSettings {
         ABSORPTION = true;
         CUT_CLEAN = true;
         APPLE_DROP = 8;
+        DAY_CYCLE = DayCycleEnum.DEFAULT;
         TIME_PER_EPISODE = 1200;//seconds
     }
 }
