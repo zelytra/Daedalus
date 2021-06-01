@@ -10,7 +10,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class StartupManager {
-    private final String mapURL = "https://raw.githubusercontent.com/zelytra/Daedalus/master/resources/DaedalusMap.zip";
+    private final String mapURL = "https://raw.githubusercontent.com/zelytra/Daedalus/master/resources/DaedalusMap_0.1.zip";
     private final File folder;
     private final File zip;
 
@@ -19,8 +19,11 @@ public class StartupManager {
         folder = new File(Daedalus.getInstance().getDataFolder().toString());
         if (!folder.exists()) folder.mkdir();
 
-        zip = new File(folder + File.separator + "resources/DaedalusMap.zip");
-
+        zip = new File(folder + File.separator + "DaedalusMap.zip");
+        if(zip.exists()){
+            log("§aMap already downloaded !");
+            return;
+        }
         try {
             zip.createNewFile();
         } catch (IOException e) {
@@ -53,7 +56,7 @@ public class StartupManager {
 
     private void extractZip() {
         try {
-            File destDir = new File(folder + File.separator + "Daedalus");
+            File destDir = new File(folder + File.separator + "map");
             byte[] buffer = new byte[1024];
             ZipInputStream zis = new ZipInputStream(new FileInputStream(zip));
             ZipEntry zipEntry = zis.getNextEntry();

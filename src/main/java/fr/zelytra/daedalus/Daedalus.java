@@ -15,6 +15,7 @@ import fr.zelytra.daedalus.commands.wiki.Wiki;
 import fr.zelytra.daedalus.events.EventsManager;
 import fr.zelytra.daedalus.managers.game.GameManager;
 import fr.zelytra.daedalus.managers.items.CraftManager;
+import fr.zelytra.daedalus.managers.setup.StartupManager;
 import fr.zelytra.daedalus.managers.structure.StructureManager;
 import net.minecraft.server.v1_16_R3.DedicatedServer;
 import net.minecraft.server.v1_16_R3.DedicatedServerProperties;
@@ -40,6 +41,18 @@ public final class Daedalus extends JavaPlugin {
     @Override
     public void onLoad() {
         instance = this;
+        try {
+            DedicatedServer server = ((CraftServer) Bukkit.getServer()).getServer();
+            DedicatedServerProperties properties = server.getDedicatedServerProperties();
+
+            Field spawnProtectionField = properties.getClass().getField("level-name");
+            spawnProtectionField.setAccessible(true);
+            spawnProtectionField.set(properties, "DaedalusMap");
+        } catch (NoSuchFieldException | IllegalAccessException ignored) {
+        }
+
+
+        new StartupManager();
     }
 
     @Override

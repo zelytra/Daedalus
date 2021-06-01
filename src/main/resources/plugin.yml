@@ -1,6 +1,7 @@
 name: Daedalus
 version: 1.0
 main: fr.zelytra.daedalus.Daedalus
+load: POSTWORLD
 softdepend:
   - WorldEdit
 api-version: 1.16
