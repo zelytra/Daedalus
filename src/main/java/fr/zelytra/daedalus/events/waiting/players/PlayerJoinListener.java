@@ -63,6 +63,8 @@ public class PlayerJoinListener implements Listener {
                 break;
 
             case RUNNING:
+                if (playerFaction != null)
+                    p.setScoreboard(playerFaction.getFactionScoreBoard().getScoreboard());
             case FINISHED:
 
                 if (playerFaction == null) {

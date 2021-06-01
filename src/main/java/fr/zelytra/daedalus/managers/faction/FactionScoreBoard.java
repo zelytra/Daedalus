@@ -20,7 +20,7 @@ public class FactionScoreBoard {
 
     public FactionScoreBoard(Faction faction) {
         this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-        this.objective = scoreboard.registerNewObjective("ServerName", "dummy", "§6§lDAEDALUS");
+        this.objective = scoreboard.registerNewObjective(faction.getType().getName(), "dummy", "§6§lDAEDALUS");
         this.faction = faction;
         this.factionTeam = registerAllTeams();
         initialize();
@@ -28,11 +28,15 @@ public class FactionScoreBoard {
 
 
     public void update(TimeManager timeManager) {
-        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+        for (Player player : faction.getPlayerList()) {
+            if (player.getScoreboard().getObjective(faction.getType().getName()).getDisplaySlot() != DisplaySlot.SIDEBAR)
+                objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+        }
+
 
         scoreboard.getTeam("episode").setPrefix("Episode §6: §a" + timeManager.getEpisode());
         scoreboard.getTeam("timer").setPrefix("Timer §6: §a" + timeManager.getTimer());
-        scoreboard.getTeam("border").setPrefix("Border §6: §a" + ShrinkManager.getBorderRadius());
+        scoreboard.getTeam("border").setPrefix("Border §6: §a" + (ShrinkManager.workloadThread == null ? "§cNull" : ShrinkManager.getBorderRadius()));
         scoreboard.getTeam("stateMino").setPrefix("State §6: " + (isMinotaur() ? "§aAlive" : "§cDead"));
         scoreboard.getTeam("alive").setPrefix("Folks §6: §a" + faction.getAliveCount() + "§6/§a" + faction.getPlayerList().size());
         if (faction.getGodsEnum() != null)
@@ -86,7 +90,7 @@ public class FactionScoreBoard {
 
     }
 
-    private Scoreboard getScoreboard() {
+    public Scoreboard getScoreboard() {
         return scoreboard;
     }
 
