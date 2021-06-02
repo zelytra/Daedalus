@@ -5,7 +5,9 @@ import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
 
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -46,16 +48,52 @@ public class StartupManager {
         try {
             BufferedInputStream in = new BufferedInputStream(new URL(mapURL).openStream());
             FileOutputStream fileOutputStream = new FileOutputStream(zip);
-
+            int totalByte = getFileSize(new URL(mapURL));
+            int byteCount = 0;
             byte dataBuffer[] = new byte[1024];
             int bytesRead;
             while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
                 fileOutputStream.write(dataBuffer, 0, bytesRead);
-
+                byteCount++;
+                printProgress(byteCount, totalByte);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static int getFileSize(URL url) {
+        URLConnection conn = null;
+        try {
+            conn = url.openConnection();
+            if (conn instanceof HttpURLConnection) {
+                ((HttpURLConnection) conn).setRequestMethod("HEAD");
+            }
+            conn.getInputStream();
+            return conn.getContentLength() / 1024;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (conn instanceof HttpURLConnection) {
+                ((HttpURLConnection) conn).disconnect();
+            }
+        }
+    }
+
+    private void printProgress(int byteCount, int totalByte) {
+        StringBuilder progressString = new StringBuilder();
+        double progressPercent = ((byteCount * 100.0) / totalByte);
+        int starNumber = 30;
+
+        for (int x = 0; x <= ((progressPercent * starNumber) / 100); x++)
+            progressString.append("*");
+
+        if (((progressPercent * starNumber) / 100) != 30)
+            for (int x = 0; x <= (30 - ((progressPercent * starNumber) / 100)); x++)
+                progressString.append(" ");
+        if (progressPercent % 5 == 0)
+           Bukkit.getServer().getConsoleSender().sendMessage("§6Progress §8: |§f" + progressString + "§8| [§f" + progressPercent + "%§8]");
+
     }
 
     private void extractZip() {
