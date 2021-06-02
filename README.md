@@ -13,9 +13,12 @@
 # Setup
 ### Server:
 First,you need to install a [**spigot**](https://getbukkit.org/download/spigot) server in **1.16.4/1.16.5**. I advise you to allocate 4G ram:  
-``java -Xms1G -Xmx4G -jar server.jar nogui``  
+``java -Xms1G -Xmx4G -jar server.jar nogui``    
   
 After settings up the server, download the latest [**release**](https://github.com/zelytra/Daedalus/releases) of the plugin and put it inside *plugins* folder of your server.  
+
+**IMPORTANT** : you also need to install [**FAWE**](https://ci.athion.net/job/FastAsyncWorldEdit-1.16/) (FastAsyncWorldEdit). The plugin maze generation depend on it to generate the Labyrinth.
+
 ### On Start
 At the first boot, the plugin will download the map of the mini-game (you cannot use custom map).
 >The map size is about *85MB* so prepare the server before inviting your friends !  
