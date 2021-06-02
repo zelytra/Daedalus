@@ -84,6 +84,7 @@ public class EventsManager {
         pm.registerEvents(new PistonListener(), pl);
 
         /* Interface */
+        pm.registerEvents(new ServerPingListener(), pl);
         pm.registerEvents(new Wiki(), pl);
         pm.registerEvents(new TeamSelector(), pl);
         pm.registerEvents(new GameStarter(), pl);

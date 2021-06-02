@@ -37,7 +37,7 @@ public class Guardian implements Listener {
 
     private final int health = 100;
     private final BossBar bossBar;
-    private final int respawnCooldown = 30;//600; //in seconds
+    private final int respawnCooldown = 600; //in seconds
 
     public Guardian(Location location) {
         this.spawnLoc = location;

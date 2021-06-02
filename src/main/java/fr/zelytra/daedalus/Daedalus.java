@@ -70,6 +70,7 @@ public final class Daedalus extends JavaPlugin {
     @Override
     public void onDisable() {
         getServer().getConsoleSender().sendMessage("§e[DAEDALUS] §6STATUS §7>> §cunloaded");
+        Bukkit.unloadWorld(WORLD_NAME,false);
     }
 
 
@@ -122,6 +123,7 @@ public final class Daedalus extends JavaPlugin {
         Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_ENTITY_DROPS, true);
         Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_MOB_LOOT, true);
         Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.KEEP_INVENTORY, false);
+
         try {
             DedicatedServer server = ((CraftServer) Bukkit.getServer()).getServer();
             DedicatedServerProperties properties = server.getDedicatedServerProperties();
