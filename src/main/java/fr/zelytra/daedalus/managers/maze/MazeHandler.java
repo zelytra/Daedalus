@@ -173,7 +173,7 @@ public class MazeHandler {
                 if (lootTable == null) {
                     continue;
                 }
-                World world = Bukkit.getWorld("world");
+                World world = Bukkit.getWorld(Daedalus.WORLD_NAME);
                 for (int x = (int) entry.getKey().getMinX(); x <= entry.getKey().getMaxX(); x++) {
                     for (int y = (int) entry.getKey().getMinY(); y <= entry.getKey().getMaxY(); y++) {
                         for (int z = (int) entry.getKey().getMinZ(); z <= entry.getKey().getMaxZ(); z++) {
@@ -211,7 +211,7 @@ public class MazeHandler {
             count = 0;
             for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                 if (entry.getValue().getType() == StructureType.TEMPLE) {
-                    World world = Bukkit.getWorld("world");
+                    World world = Bukkit.getWorld(Daedalus.WORLD_NAME);
 
                     for (int x = (int) entry.getKey().getMinX(); x <= entry.getKey().getMaxX(); x++) {
                         for (int y = (int) entry.getKey().getMinY(); y <= entry.getKey().getMaxY(); y++) {

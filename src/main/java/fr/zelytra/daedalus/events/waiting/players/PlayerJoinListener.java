@@ -43,7 +43,7 @@ public class PlayerJoinListener implements Listener {
                 p.setMaxHealth(20);
                 p.setLevel(0);
                 p.getInventory().clear();
-                p.teleport(new Location(p.getWorld(), 669, 162, 675));
+                p.teleport(new Location(Bukkit.getWorld(Daedalus.WORLD_NAME), 669, 162, 675));
                 p.removePotionEffect(PotionEffectType.NIGHT_VISION);
 
                 if (playerFaction == null)

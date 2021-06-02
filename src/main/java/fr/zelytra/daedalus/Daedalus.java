@@ -22,6 +22,7 @@ import net.minecraft.server.v1_16_R3.DedicatedServerProperties;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.bukkit.craftbukkit.v1_16_R3.CraftServer;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -33,6 +34,7 @@ public final class Daedalus extends JavaPlugin {
     private GameManager gameManager;
     private StructureManager structureManager;
     private CraftManager craftManager;
+    public static String WORLD_NAME = "daedalus";
 
     public static Daedalus getInstance() {
         return instance;
@@ -46,6 +48,8 @@ public final class Daedalus extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        //Init world
+        Bukkit.createWorld(new WorldCreator("daedalus"));
         //Init registers
         EventsManager.registerEvents(this);
         regCommands();
@@ -67,6 +71,8 @@ public final class Daedalus extends JavaPlugin {
     public void onDisable() {
         getServer().getConsoleSender().sendMessage("§e[DAEDALUS] §6STATUS §7>> §cunloaded");
     }
+
+
 
     public GameManager getGameManager() {
         return gameManager;
@@ -99,23 +105,23 @@ public final class Daedalus extends JavaPlugin {
 
     private void setupServer() {
 
-        Bukkit.getWorld("world").setTime(23250);
-        Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
-        Bukkit.getWorld("world").setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
-        Bukkit.getWorld("world").setGameRule(GameRule.DISABLE_RAIDS, true);
-        Bukkit.getWorld("world").setGameRule(GameRule.DO_FIRE_TICK, false);
-        Bukkit.getWorld("world").setGameRule(GameRule.DO_ENTITY_DROPS, false);
-        Bukkit.getWorld("world").setGameRule(GameRule.DO_INSOMNIA, false);
-        Bukkit.getWorld("world").setGameRule(GameRule.DO_PATROL_SPAWNING, false);
-        Bukkit.getWorld("world").setGameRule(GameRule.DO_WEATHER_CYCLE, false);
-        Bukkit.getWorld("world").setGameRule(GameRule.DO_TRADER_SPAWNING, false);
-        Bukkit.getWorld("world").setGameRule(GameRule.MOB_GRIEFING, false);
-        Bukkit.getWorld("world").setGameRule(GameRule.MAX_ENTITY_CRAMMING, 50);
+        Bukkit.getWorld(Daedalus.WORLD_NAME).setTime(23250);
+        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
+        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DISABLE_RAIDS, true);
+        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_FIRE_TICK, false);
+        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_ENTITY_DROPS, false);
+        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_INSOMNIA, false);
+        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_PATROL_SPAWNING, false);
+        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_WEATHER_CYCLE, false);
+        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_TRADER_SPAWNING, false);
+        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.MOB_GRIEFING, false);
+        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.MAX_ENTITY_CRAMMING, 50);
 
-        Bukkit.getWorld("world").setGameRule(GameRule.DO_TILE_DROPS, true);
-        Bukkit.getWorld("world").setGameRule(GameRule.DO_ENTITY_DROPS, true);
-        Bukkit.getWorld("world").setGameRule(GameRule.DO_MOB_LOOT, true);
-        Bukkit.getWorld("world").setGameRule(GameRule.KEEP_INVENTORY, false);
+        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_TILE_DROPS, true);
+        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_ENTITY_DROPS, true);
+        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_MOB_LOOT, true);
+        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.KEEP_INVENTORY, false);
         try {
             DedicatedServer server = ((CraftServer) Bukkit.getServer()).getServer();
             DedicatedServerProperties properties = server.getDedicatedServerProperties();

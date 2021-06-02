@@ -125,14 +125,14 @@ public class GameManager {
         Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
             //Maze generation
             Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§6Starting generation...");
-            Location origin = new Location(Bukkit.getWorld("world"), 0, 0, 0);
-            origin.setY(Bukkit.getWorld("world").getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()) + 1);
+            Location origin = new Location(Bukkit.getWorld(Daedalus.WORLD_NAME), 0, 0, 0);
+            origin.setY(Bukkit.getWorld(Daedalus.WORLD_NAME).getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()) + 1);
             MazeHandler maze = new MazeHandler(origin, 300, true, Daedalus.getInstance().getStructureManager().getGeneratedList());
             maze.generateScaleMaze();
 
             Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
                 if (GameSettings.DAY_CYCLE == DayCycleEnum.DEFAULT)
-                    Bukkit.getWorld("world").setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+                    Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
 
                 //Player Manager
                 for (Player p : Bukkit.getOnlinePlayers()) {

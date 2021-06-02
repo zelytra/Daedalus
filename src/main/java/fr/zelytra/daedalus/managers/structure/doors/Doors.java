@@ -18,7 +18,7 @@ public class Doors {
     public void close(DoorsDirection direction) {
         int minY = Daedalus.getInstance().getStructureManager().getMaze().getOrigin().getBlockY();
         int maxY = minY + 20;
-        World world = Bukkit.getWorld("world");
+        World world = Bukkit.getWorld(Daedalus.WORLD_NAME);
         switch (direction) {
             case NORTH:
                 int minX = (int) (area.getMinX() + ((area.getWidthX() - 7) / 2.0));
@@ -117,7 +117,7 @@ public class Doors {
     public void open(DoorsDirection direction) {
         int minY = Daedalus.getInstance().getStructureManager().getMaze().getOrigin().getBlockY();
         int maxY = minY + 20;
-        World world = Bukkit.getWorld("world");
+        World world = Bukkit.getWorld(Daedalus.WORLD_NAME);
         switch (direction) {
             case NORTH:
                 int minX = (int) (area.getMinX() + ((area.getWidthX() - 7) / 2.0));
