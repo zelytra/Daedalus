@@ -65,6 +65,13 @@ public class PlayerJoinListener implements Listener {
             case RUNNING:
                 if (playerFaction != null)
                     p.setScoreboard(playerFaction.getFactionScoreBoard().getScoreboard());
+                else {
+                    Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(FactionsEnum.SPECTATOR).add(p);
+                    p.teleport(FactionsEnum.SPECTATOR.getSpawn());
+                    p.setGameMode(GameMode.SPECTATOR);
+                }
+                break;
+
             case FINISHED:
 
                 if (playerFaction == null) {
