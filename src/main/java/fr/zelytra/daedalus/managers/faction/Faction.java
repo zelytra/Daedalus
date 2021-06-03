@@ -44,7 +44,7 @@ public class Faction {
 
         factionMembers.put(player.getName(), PlayerStatus.ALIVE);
         player.setPlayerListName(factionsEnum.getPrefix() + player.getName() + factionsEnum.getSuffix());
-        FactionScoreBoard.addEntry(player,factionsEnum);
+        FactionScoreBoard.addEntry(player, factionsEnum);
         FactionScoreBoard.setScoreboardsForPlayer();
         joinTeamFX(player, factionsEnum);
     }
@@ -52,7 +52,7 @@ public class Faction {
     private void remove(Player player) {
         factionMembers.remove(player.getName());
         player.setPlayerListName(player.getName());
-        FactionScoreBoard.removeEntry(player,factionsEnum);
+        FactionScoreBoard.removeEntry(player, factionsEnum);
         FactionScoreBoard.setScoreboardsForPlayer();
     }
 
@@ -127,6 +127,9 @@ public class Faction {
     private void joinTeamFX(Player player, FactionsEnum factionsEnum) {
         player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
         player.sendMessage(Message.getPlayerPrefixe() + "§8You joined " + factionsEnum.getPrefix() + factionsEnum.getName() + " §8team");
-        player.getInventory().setItem(8, new VisualItemStack(factionsEnum.getBanner(), "§7Team selection", false).getItem());
+        if (player.isOp())
+            player.getInventory().setItem(8, new VisualItemStack(factionsEnum.getBanner(), "§7Team selection", false).getItem());
+        else
+            player.getInventory().setItem(4, new VisualItemStack(factionsEnum.getBanner(), "§7Team selection", false).getItem());
     }
 }
