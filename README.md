@@ -17,7 +17,7 @@ First, you need to setup a [**paper**](https://papermc.io/downloads) server in *
   
 After settings up the server, download the latest [**release**](https://github.com/zelytra/Daedalus/releases) of the plugin and put it inside *plugins* folder of your server.  
 
-**IMPORTANT** : you also need to install [**FAWE**](https://ci.athion.net/job/FastAsyncWorldEdit-1.16/) (FastAsyncWorldEdit). The plugin maze generation depend on it to generate the Labyrinth.
+**IMPORTANT** : you also need to install [**FAWE**](https://ci.athion.net/job/FastAsyncWorldEdit-1.16/) (FastAsyncWorldEdit). The plugin maze generation depend on it to generate the Labyrinth. (The bukkit version)
 
 -----------------
 
