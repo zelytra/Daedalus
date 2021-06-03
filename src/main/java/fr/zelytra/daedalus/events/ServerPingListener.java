@@ -43,9 +43,13 @@ public class ServerPingListener implements Listener {
 
     private File getServerIcon() {
         try {
-            URL url = new URL("https://github.com/zelytra/Daedalus/blob/master/img/server-icon.png");
+            URL url = new URL("https://raw.githubusercontent.com/zelytra/Daedalus/master/img/server-icon.png");
             BufferedImage img = ImageIO.read(url);
-            return new File("server-icon.png");
+            File file = new File("server-icon.png");
+            if(!file.exists())
+                file.createNewFile();
+            ImageIO.write(img, "png", file);
+            return file;
 
         } catch (Exception e) {
             e.printStackTrace();
