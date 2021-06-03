@@ -19,6 +19,10 @@ After settings up the server, download the latest [**release**](https://github.c
 
 **IMPORTANT** : you also need to install [**FAWE**](https://ci.athion.net/job/FastAsyncWorldEdit-1.16/) (FastAsyncWorldEdit). The plugin maze generation depend on it to generate the Labyrinth.
 
+-----------------
+
+**WARNING** : The plugin is not supported on spigot server. It can create some issues on labyrinth generation and shrink manager. 
+
 ### On Start
 Before starting the server, I advise you to change these two lines inside *paper.yml* file (to avoid warning spam in console while maze generation) :
 ```yml

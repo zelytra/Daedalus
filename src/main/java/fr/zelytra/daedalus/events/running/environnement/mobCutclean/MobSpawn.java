@@ -34,7 +34,7 @@ public class MobSpawn implements Listener {
 
     @EventHandler
     public void onMobSpawn(CreatureSpawnEvent e) {
-        if (!Daedalus.getInstance().getGameManager().isRunning() && e.getEntityType() != EntityType.VINDICATOR) {
+        if (!Daedalus.getInstance().getGameManager().isRunning()) {
             e.setCancelled(true);
             return;
         }

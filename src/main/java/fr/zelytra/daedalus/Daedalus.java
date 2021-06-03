@@ -19,10 +19,7 @@ import fr.zelytra.daedalus.managers.setup.StartupManager;
 import fr.zelytra.daedalus.managers.structure.StructureManager;
 import net.minecraft.server.v1_16_R3.DedicatedServer;
 import net.minecraft.server.v1_16_R3.DedicatedServerProperties;
-import org.bukkit.Bukkit;
-import org.bukkit.GameRule;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
+import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_16_R3.CraftServer;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -106,6 +103,7 @@ public final class Daedalus extends JavaPlugin {
     private void setupServer() {
 
         Bukkit.getWorld(Daedalus.WORLD_NAME).setTime(23250);
+        Bukkit.getWorld(Daedalus.WORLD_NAME).setDifficulty(Difficulty.NORMAL);
         Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
         Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
         Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DISABLE_RAIDS, true);
