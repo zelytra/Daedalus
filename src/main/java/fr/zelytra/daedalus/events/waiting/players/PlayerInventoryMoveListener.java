@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.player.PlayerDropItemEvent;
 
 public class PlayerInventoryMoveListener implements Listener {
 
@@ -14,6 +15,13 @@ public class PlayerInventoryMoveListener implements Listener {
             if (e.getClickedInventory() != null && e.getClickedInventory().getType() == InventoryType.PLAYER) {
                 e.setCancelled(true);
             }
+        }
+    }
+
+    @EventHandler
+    public void onItemDrop (PlayerDropItemEvent e ){
+        if(Daedalus.getInstance().getGameManager().isWaiting()){
+            e.setCancelled(true);
         }
     }
 }

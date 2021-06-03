@@ -194,6 +194,12 @@ public class Wiki implements CommandExecutor, Listener {
                     InterfaceBuilder interfaceBuilder = new InterfaceBuilder(54, wikiName);
                     interfaceBuilder.setContent(contentBuilder(0));
                     interfaceBuilder.open((Player) e.getWhoClicked());
+
+                } else if (e.getCurrentItem().getType() == Material.HEART_OF_THE_SEA) {
+                    InterfaceBuilder interfaceBuilder = new InterfaceBuilder(36, wikiName);
+                    interfaceBuilder.setContent(contentCraftBuilder(e.getCurrentItem()));
+                    interfaceBuilder.open((Player) e.getWhoClicked());
+
                 }
                 e.setCancelled(true);
             }
