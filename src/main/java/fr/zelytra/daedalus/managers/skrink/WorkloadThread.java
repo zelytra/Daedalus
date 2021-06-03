@@ -9,7 +9,6 @@ import java.util.ArrayDeque;
 
 public class WorkloadThread implements Runnable {
     private static final int MAX_MS_PER_TICK = 35;
-    private int totalCount = 0;
     private int initialSize = 1;
 
     private final ArrayDeque<Workload> workloadDeque;

@@ -12,7 +12,7 @@ public class PlayerQuitListener implements Listener {
 
         final Player p = e.getPlayer();
 
-        e.setQuitMessage("§7[§c-§7] §f"+p.getName());
+        e.setQuitMessage("§8[§c-§8] §f"+p.getName());
 
     }
 }

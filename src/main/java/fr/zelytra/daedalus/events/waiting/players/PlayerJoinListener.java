@@ -32,7 +32,7 @@ public class PlayerJoinListener implements Listener {
 
     private void preparePlayer(Player p, GameStatesEnum state) {
 
-        Bukkit.broadcastMessage("§7[§a+§7] §f" + p.getName());
+        Bukkit.broadcastMessage("§8[§a+§8] §f" + p.getName());
         Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(p);
 
         switch (state) {

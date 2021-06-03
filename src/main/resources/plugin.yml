@@ -3,7 +3,7 @@ version: 1.0
 main: fr.zelytra.daedalus.Daedalus
 load: POSTWORLD
 softdepend:
-  - WorldEdit
+  - FastAsyncWorldEdit
 api-version: 1.16
 commands:
 

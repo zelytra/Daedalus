@@ -50,6 +50,7 @@ public final class Daedalus extends JavaPlugin {
     public void onEnable() {
         //Init world
         Bukkit.createWorld(new WorldCreator("daedalus"));
+        checkFAWE();
         //Init registers
         EventsManager.registerEvents(this);
         regCommands();
@@ -58,21 +59,19 @@ public final class Daedalus extends JavaPlugin {
         gameManager = new GameManager();
         structureManager = new StructureManager();
         craftManager = new CraftManager();
-        getServer().getConsoleSender().sendMessage(
-                "§a   ___    ___     ____  ___    ___     __     __  __  ____§r\n" +
-                        "§a  / _ \\  / _ |   / __/ / _ \\  / _ |   / /    / / / / / __/§r\n" +
-                        "§a / // / / __ |  / _/  / // / / __ |  / /__  / /_/ / _\\ \\  §r\n" +
-                        "§a/____/ /_/ |_| /___/ /____/ /_/ |_| /____/  \\____/ /___/  §r\n" +
-                        "                                                          ");
+        getServer().getConsoleSender().sendMessage("§a   ___    ___     ____  ___    ___     __     __  __  ____§r");
+        getServer().getConsoleSender().sendMessage("§a  / _ \\  / _ |   / __/ / _ \\  / _ |   / /    / / / / / __/§r");
+        getServer().getConsoleSender().sendMessage("§a / // / / __ |  / _/  / // / / __ |  / /__  / /_/ / _\\ \\  §r");
+        getServer().getConsoleSender().sendMessage("§a/____/ /_/ |_| /___/ /____/ /_/ |_| /____/  \\____/ /___/  §r");
+        getServer().getConsoleSender().sendMessage("                                                          ");
         getServer().getConsoleSender().sendMessage("§e[DAEDALUS] §6STATUS §7>> §2loaded");
     }
 
     @Override
     public void onDisable() {
         getServer().getConsoleSender().sendMessage("§e[DAEDALUS] §6STATUS §7>> §cunloaded");
-        Bukkit.unloadWorld(WORLD_NAME,false);
+        Bukkit.unloadWorld(WORLD_NAME, false);
     }
-
 
 
     public GameManager getGameManager() {
@@ -141,5 +140,20 @@ public final class Daedalus extends JavaPlugin {
             world.setWaterAnimalSpawnLimit(5);
         }
 
+    }
+
+    public static boolean checkFAWE() {
+        if (Bukkit.getServer().getPluginManager().getPlugin("FastAsyncWorldEdit") == null) {
+            Bukkit.getConsoleSender().sendMessage("§c----------------------------------");
+            Bukkit.getConsoleSender().sendMessage("§e           ! WARNING !            ");
+            Bukkit.getConsoleSender().sendMessage("§e FastAsyncWorldEdit is not install");
+            Bukkit.getConsoleSender().sendMessage("§e  Please refer to github tutorial ");
+            Bukkit.getConsoleSender().sendMessage("                                    ");
+            Bukkit.getConsoleSender().sendMessage("§c       ! SERVER SHUTDOWN !        ");
+            Bukkit.getConsoleSender().sendMessage("§c----------------------------------");
+            Bukkit.getServer().shutdown();
+            return false;
+        }
+        return true;
     }
 }

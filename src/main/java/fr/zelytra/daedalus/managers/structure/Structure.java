@@ -6,6 +6,7 @@ import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
 import com.sk89q.worldedit.regions.Region;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.util.BlockVector;
 
@@ -16,13 +17,16 @@ public class Structure {
 
     private final StructureEnum structure;
     private Clipboard clipboard;
-    private final Region region;
+    private Region region;
     private boolean firstEntrance = false;
     private Location bossSpawnLocation;
 
 
     public Structure(StructureEnum structure) {
         this.structure = structure;
+
+        if (Bukkit.getServer().getPluginManager().getPlugin("FastAsyncWorldEdit") == null)
+            return;
 
         InputStream is = Daedalus.getInstance().getResource("structures/" + this.structure.getName() + ".struct");
         BuiltInClipboardFormat format = BuiltInClipboardFormat.SPONGE_SCHEMATIC;
