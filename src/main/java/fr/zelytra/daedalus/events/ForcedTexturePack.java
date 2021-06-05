@@ -7,7 +7,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 
 public class ForcedTexturePack implements Listener {
-    private final String url = "https://raw.githubusercontent.com/zelytra/Daedalus/master/resources/Daedalus_0.2.zip";
+    private final String url = "https://raw.githubusercontent.com/zelytra/Daedalus/master/resources/Daedalus_0.3.zip";
 
     @EventHandler
     public void joinListener(PlayerJoinEvent e){

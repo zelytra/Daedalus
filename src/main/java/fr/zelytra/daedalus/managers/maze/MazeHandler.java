@@ -288,7 +288,7 @@ public class MazeHandler {
 
                 if ((System.currentTimeMillis() - timer) % 100 == 0) {
                     int progress = (int) (count * 100 / (Math.pow(grid.length, 2)));
-                    logPlayers("§6§lMapping shrink array... §8[§f" + progress + "%§8]");
+                    logPlayers("§6§lMapping shrinkage area... §8[§f" + progress + "%§8]");
                 }
 
             }

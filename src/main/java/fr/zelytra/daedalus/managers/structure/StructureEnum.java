@@ -38,7 +38,7 @@ public enum StructureEnum {
     TEAM_BLUE("blueTeam", -1, StructureType.BASE, true, new BlockVector(30, 0, 270), new BlockVector(0, -3, 0)),
     MINOTAURE("minotaure", -1, StructureType.BASE, true, new BlockVector(150, 0, 150), new BlockVector(0, -33, 0)),
 
-    HESPERIDES_GARDEN("hesperidesGarden", -1, StructureType.HESPERIDES_GARDEN, true, new BlockVector(0, -3, 0)),
+    HESPERIDES_GARDEN("hesperidesGarden", -6, StructureType.HESPERIDES_GARDEN, true, new BlockVector(0, -3, 0)),
     CIRCEE_ISLAND("circeeIsland", -5, StructureType.CIRCE_ISLAND, true, new BlockVector(0, -3, 0)),
 
     DUNGEON1("dungeon1", -4, StructureType.DUNGEON, true, new BlockVector(0, -80, 0)),
