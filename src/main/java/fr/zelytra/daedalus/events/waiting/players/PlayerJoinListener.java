@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionEffect;
 
 public class PlayerJoinListener implements Listener {
 
@@ -44,7 +44,8 @@ public class PlayerJoinListener implements Listener {
                 p.setLevel(0);
                 p.getInventory().clear();
                 p.teleport(new Location(Bukkit.getWorld(Daedalus.WORLD_NAME), 669, 162, 675));
-                p.removePotionEffect(PotionEffectType.NIGHT_VISION);
+                for(PotionEffect potionEffectType : p.getActivePotionEffects())
+                    p.removePotionEffect(potionEffectType.getType());
 
                 if (playerFaction == null)
                     Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(FactionsEnum.SPECTATOR).add(p);

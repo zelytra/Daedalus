@@ -22,7 +22,7 @@ import java.util.List;
 
 public class DeathHandler implements Listener {
     private final List<CustomMaterial> whitelist = new ArrayList<>();
-    private boolean hasMinotaureSpawn = true;
+    private boolean hasMinotaureSpawn = false;
 
     {
         whitelist.add(CustomMaterial.DIVINE_FRAGMENT);

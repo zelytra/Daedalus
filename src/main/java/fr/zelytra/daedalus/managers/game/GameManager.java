@@ -71,6 +71,13 @@ public class GameManager {
     }
 
     public void preStart() {
+
+        if (isStarted()) {
+            for (Player player : Bukkit.getOnlinePlayers())
+                player.sendMessage(Message.getPlayerPrefixe() + "§8You can cancel the start by opening the game settings");
+            return;
+        }
+
         Bukkit.broadcastMessage("");
         Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§aThe game is about to start");
         Bukkit.broadcastMessage("");
@@ -85,6 +92,7 @@ public class GameManager {
             if (!started) {
                 logPlayers("§cStart canceled");
                 Bukkit.getScheduler().cancelTask(preStartRunnable);
+                return;
             }
             Daedalus.getInstance().getGameManager().setState(GameStatesEnum.WAIT);
 

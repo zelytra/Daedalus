@@ -2,6 +2,8 @@ package fr.zelytra.daedalus.managers.gods.list;
 
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.Gods;
+import fr.zelytra.daedalus.managers.items.CustomItemStack;
+import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -30,6 +32,7 @@ public class Athena implements Gods {
         meta.setUnbreakable(true);
         item.setItemMeta(meta);
         items.add(item);
+        items.add(new CustomItemStack(CustomMaterial.ATHENA_MAP).getItem());
         return items;
     }
 

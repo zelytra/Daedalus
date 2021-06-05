@@ -8,6 +8,8 @@ import fr.zelytra.daedalus.builders.guiBuilder.VisualType;
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.game.settings.DayCycleEnum;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
+import fr.zelytra.daedalus.utils.Message;
+import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -35,6 +37,13 @@ public class GameSettingsInterface implements Listener, Interface {
         if (Daedalus.getInstance().getGameManager().isWaiting() && e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR) {
 
             if (e.getItem() != null && e.getItem().getType() == material) {
+
+                if (Daedalus.getInstance().getGameManager().isStarted()) {
+                    Daedalus.getInstance().getGameManager().setStarted(false);
+                    Bukkit.broadcastMessage(Message.getPlayerPrefixe()+"§cCancel game start");
+                    return;
+                }
+
                 InterfaceBuilder interfaceBuilder = new InterfaceBuilder(54, interfaceName);
                 interfaceBuilder.setContent(contentBuilder());
                 interfaceBuilder.open(e.getPlayer());

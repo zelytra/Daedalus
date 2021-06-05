@@ -31,6 +31,8 @@ public enum CustomMaterial {
     HERMES_TRUC("§7§lHermesTruc", "hermes_truc", 22, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     DIVINE_TRACKER("§bDivine Tracker", "divine_tracker", 23, Material.COMPASS, ItemType.MISCELLANEOUS),
 
+    ATHENA_MAP("§cAthena's Map", "athena_map", 24, Material.FILLED_MAP, ItemType.MISCELLANEOUS),
+
     NEXT_ARROW("§bNext", "next_arrow",42, Material.POTATO, ItemType.SPECIAL),
     PREVIOUS_ARROW("§bPrevious","previous_arrow",43, Material.BAKED_POTATO, ItemType.SPECIAL),
     VALIDAY("§aConfirm","validay",46, Material.SLIME_BALL, ItemType.SPECIAL);

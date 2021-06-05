@@ -234,7 +234,7 @@ public class MazeHandler {
 
             }
 
-            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Mapping shrink area...");
+            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Mapping shrinkage area...");
             count = 0;
             ShrinkManager.workloadThread = new WorkloadThread();
 
@@ -264,7 +264,7 @@ public class MazeHandler {
 
                 if ((System.currentTimeMillis() - timer) % 100 == 0) {
                     int progress = (int) (count * 100 / (Math.pow(grid.length, 2)));
-                    logPlayers("§6§lMapping shrink array... §8[§f" + progress + "%§8]");
+                    logPlayers("§6§lMapping shrinkage area... §8[§f" + progress + "%§8]");
                 }
 
                 for (int x = 1 - r; x <= r; x++) {

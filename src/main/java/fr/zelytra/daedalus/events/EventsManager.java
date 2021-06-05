@@ -4,6 +4,7 @@ import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.commands.wiki.Wiki;
 import fr.zelytra.daedalus.events.running.environnement.gods.*;
 import fr.zelytra.daedalus.events.running.environnement.items.*;
+import fr.zelytra.daedalus.events.running.environnement.items.athenaMap.AthenaMap;
 import fr.zelytra.daedalus.events.running.environnement.mobCutclean.*;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.AxeStripped;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.PlayerBreakBlockListener;
@@ -54,6 +55,7 @@ public class EventsManager {
         pm.registerEvents(new DionysosCup(),pl);
         pm.registerEvents(new MinotaurCharge(),pl);
         pm.registerEvents(new DivineTracker(),pl);
+        pm.registerEvents(new AthenaMap(),pl);
         //pm.registerEvents(new MedusaHead(),pl);
 
         /*Gods Summoning*/
