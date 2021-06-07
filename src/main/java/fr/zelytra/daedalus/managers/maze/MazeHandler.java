@@ -5,9 +5,7 @@ import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.loottable.Loot;
 import fr.zelytra.daedalus.managers.loottable.LootTable;
-import fr.zelytra.daedalus.managers.skrink.ShrinkManager;
 import fr.zelytra.daedalus.managers.skrink.WallBreaker;
-import fr.zelytra.daedalus.managers.skrink.WorkloadThread;
 import fr.zelytra.daedalus.managers.structure.*;
 import fr.zelytra.daedalus.managers.structure.doors.Doors;
 import fr.zelytra.daedalus.managers.structure.doors.DoorsDirection;
@@ -236,7 +234,6 @@ public class MazeHandler {
 
             Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Mapping shrinkage area...");
             count = 0;
-            ShrinkManager.workloadThread = new WorkloadThread();
 
             int radius = grid.length / 2;
             Vector2 center = new Vector2(origin.getBlockX() + grid.length / 2, origin.getBlockZ() + grid.length / 2);
@@ -285,7 +282,7 @@ public class MazeHandler {
                     count++;
 
                 }
-
+                addShrinkPos(new Vector2(0, 0), origin);
                 if ((System.currentTimeMillis() - timer) % 100 == 0) {
                     int progress = (int) (count * 100 / (Math.pow(grid.length, 2)));
                     logPlayers("§6§lMapping shrinkage area... §8[§f" + progress + "%§8]");
@@ -330,6 +327,10 @@ public class MazeHandler {
     }
 
     private void addShrinkPos(Vector2 v, Location origin) {
+        if (v.x == 0 && v.z == 0) {
+            Daedalus.getInstance().getStructureManager().getShrinkManager().getWorkloadThread().addLoad(new WallBreaker(origin.getWorld(), v.x, 0, v.z));
+            return;
+        }
 
         for (int y = (int) origin.getY(); y < origin.getY() + this.wallHeight; y++) {
 
@@ -338,7 +339,7 @@ public class MazeHandler {
                     if (entry.getKey().contains(v.x, y, v.z))
                         return;
                 }
-                ShrinkManager.workloadThread.addLoad(new WallBreaker(origin.getWorld(), v.x, y, v.z));
+                Daedalus.getInstance().getStructureManager().getShrinkManager().getWorkloadThread().addLoad(new WallBreaker(origin.getWorld(), v.x, y, v.z));
             }
 
         }

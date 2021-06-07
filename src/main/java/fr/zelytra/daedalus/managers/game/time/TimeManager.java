@@ -3,7 +3,6 @@ package fr.zelytra.daedalus.managers.game.time;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
-import fr.zelytra.daedalus.managers.skrink.ShrinkManager;
 import fr.zelytra.daedalus.managers.structure.Structure;
 import fr.zelytra.daedalus.managers.structure.StructureEnum;
 import fr.zelytra.daedalus.managers.structure.doors.Doors;
@@ -96,7 +95,7 @@ public class TimeManager {
 
             case 6: {
 
-                ShrinkManager.startShrinking();
+                Daedalus.getInstance().getStructureManager().getShrinkManager().startShrinking();
 
 
                 break;

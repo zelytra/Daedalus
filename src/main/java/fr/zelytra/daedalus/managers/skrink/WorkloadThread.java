@@ -9,7 +9,7 @@ import java.util.ArrayDeque;
 
 public class WorkloadThread implements Runnable {
     private static final int MAX_MS_PER_TICK = 35;
-    private int initialSize = 1;
+    private int radius = 595;
 
     private final ArrayDeque<Workload> workloadDeque;
     private BukkitTask task;
@@ -20,19 +20,25 @@ public class WorkloadThread implements Runnable {
 
     public void addLoad(Workload workload) {
         workloadDeque.add(workload);
-        initialSize = workloadDeque.size();
+
     }
 
     @Override
     public void run() {
-        initialSize = workloadDeque.size();
+
         task = Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
             long stopTime = System.currentTimeMillis() + MAX_MS_PER_TICK;
             int count = 0;
-            while (!workloadDeque.isEmpty() || System.currentTimeMillis() <= stopTime || count <= 100) {
-                workloadDeque.poll().compute();
+            while (!workloadDeque.isEmpty() && System.currentTimeMillis() <= stopTime && count <= 100) {
+
+                WallBreaker wallBreaker = (WallBreaker) workloadDeque.poll();
+                wallBreaker.compute();
+                if (wallBreaker.isMarker())
+                    radius -= 1;
+
                 count++;
             }
+
             if (workloadDeque.isEmpty())
                 cancelTask();
         }, 0, 1);
@@ -43,11 +49,7 @@ public class WorkloadThread implements Runnable {
         Bukkit.getScheduler().cancelTask(this.task.getTaskId());
     }
 
-    public int getTotalCount() {
-        return workloadDeque.size();
-    }
-
-    public int getInitialSize() {
-        return initialSize;
+    public int getRadius() {
+        return radius;
     }
 }

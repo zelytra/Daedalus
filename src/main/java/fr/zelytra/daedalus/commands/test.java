@@ -14,8 +14,8 @@ public class test implements CommandExecutor {
         if(!(sender instanceof Player)){
             return false;
         }
-        Daedalus.getInstance().getGameManager().getTimeManager().start();
-        //ShrinkManager.startShrinking();
+
+        Daedalus.getInstance().getStructureManager().getShrinkManager().startShrinking();
         return true;
     }
 }

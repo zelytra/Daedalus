@@ -11,7 +11,7 @@ public class ForcedTexturePack implements Listener {
 
     @EventHandler
     public void joinListener(PlayerJoinEvent e){
-        e.getPlayer().setResourcePack(url);
+        //e.getPlayer().setResourcePack(url);
     }
 
     @EventHandler

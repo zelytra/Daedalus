@@ -4,7 +4,6 @@ import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.time.TimeManager;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
-import fr.zelytra.daedalus.managers.skrink.ShrinkManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -36,7 +35,7 @@ public class FactionScoreBoard {
 
         scoreboard.getTeam("episode").setPrefix("Episode §6: §a" + timeManager.getEpisode());
         scoreboard.getTeam("timer").setPrefix("Timer §6: §a" + timeManager.getTimer());
-        scoreboard.getTeam("border").setPrefix("Border §6: §a" + (ShrinkManager.workloadThread == null ? "§cNull" : ShrinkManager.getBorderRadius()));
+        scoreboard.getTeam("border").setPrefix("Border §6: §a" + (Daedalus.getInstance().getStructureManager().getShrinkManager().getWorkloadThread() == null ? "§cNull" : Daedalus.getInstance().getStructureManager().getShrinkManager().getBorderRadius()));
         scoreboard.getTeam("stateMino").setPrefix("State §6: " + (isMinotaur() ? "§aAlive" : "§cDead"));
         scoreboard.getTeam("alive").setPrefix("Alive §6: §a" + faction.getAliveCount() + "§6/§a" + faction.getPlayerList().size());
 

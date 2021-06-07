@@ -53,28 +53,27 @@ public class MobSpawn implements Listener {
             e.setCancelled(true);
             return;
         }
-
-        Vector2 matrixCoordinate = new Vector2((int) (e.getLocation().getX() - maze.getOrigin().getX() + 1), (int) (e.getLocation().getZ() - maze.getOrigin().getZ() + 1));
-        if (matrixCoordinate.x > (4 * maze.getSize() - 3) || matrixCoordinate.x < 0 || matrixCoordinate.z < 0 || matrixCoordinate.z > (4 * maze.getSize() - 3)) {
-            e.setCancelled(true);
-            return;
-        }
-        switch (maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z]) {
-            //Structure case
-            case -1:
-            case -2:
-            case -3:
-            case -4:
-            case -5:
-            case -6:
-                if (e.getSpawnReason() == CreatureSpawnEvent.SpawnReason.CUSTOM || e.getSpawnReason() == CreatureSpawnEvent.SpawnReason.SPAWNER) {
+        try {
+            Vector2 matrixCoordinate = new Vector2((int) (e.getLocation().getX() - maze.getOrigin().getX() + 1), (int) (e.getLocation().getZ() - maze.getOrigin().getZ() + 1));
+            switch (maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z]) {
+                //Structure case
+                case -1:
+                case -2:
+                case -3:
+                case -4:
+                case -5:
+                case -6:
+                    if (e.getSpawnReason() == CreatureSpawnEvent.SpawnReason.CUSTOM || e.getSpawnReason() == CreatureSpawnEvent.SpawnReason.SPAWNER) {
+                        break;
+                    }
+                    e.setCancelled(true);
+                case 1:
+                    e.setCancelled(true);
+                default:
                     break;
-                }
-                e.setCancelled(true);
-            case 1:
-                e.setCancelled(true);
-            default:
-                break;
+            }
+        }catch (Exception ignored){
+            e.setCancelled(true);
         }
     }
 }

@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.managers.structure;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.loottable.LootTableManager;
 import fr.zelytra.daedalus.managers.maze.Maze;
+import fr.zelytra.daedalus.managers.skrink.ShrinkManager;
 import org.bukkit.util.BoundingBox;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class StructureManager {
     private Maze maze;
     public StructureSurrounded structureSurrounded;
     private LootTableManager lootTableManager;
+    private ShrinkManager shrinkManager;
 
 
     public StructureManager() {
@@ -27,6 +29,11 @@ public class StructureManager {
         randomGenerationList();
         this.lootTableManager = new LootTableManager();
         this.structureSurrounded = new StructureSurrounded();
+        this.shrinkManager = new ShrinkManager();
+    }
+
+    public ShrinkManager getShrinkManager() {
+        return shrinkManager;
     }
 
     public LootTableManager getLootTableManager() {
