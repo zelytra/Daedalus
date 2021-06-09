@@ -151,6 +151,7 @@ public class GameManager {
                     } else {
                         p.setGameMode(GameMode.SURVIVAL);
                         p.teleport(playerFaction.getType().getSpawn());
+
                     }
                 }
 

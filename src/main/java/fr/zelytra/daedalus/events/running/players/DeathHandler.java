@@ -23,6 +23,7 @@ import java.util.List;
 public class DeathHandler implements Listener {
     private final List<CustomMaterial> whitelist = new ArrayList<>();
     private boolean hasMinotaureSpawn = false;
+    private Daedalus daedalus = Daedalus.getInstance();
 
     {
         whitelist.add(CustomMaterial.DIVINE_FRAGMENT);
@@ -35,25 +36,25 @@ public class DeathHandler implements Listener {
         if (!(e.getEntity() instanceof Player)) {
             return;
         }
-        if (Daedalus.getInstance().getGameManager().isRunning()) {
+        if (daedalus.getGameManager().isRunning() || daedalus.getGameManager().isFinished()) {
 
             Player player = (Player) e.getEntity();
-            if (((player.getHealth() - e.getFinalDamage()) > 0) || (e.getCause() == EntityDamageEvent.DamageCause.FALL && Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player).getGod() != null && Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player).getGodsEnum() == GodsEnum.ZEUS)) {
+            if (((player.getHealth() - e.getFinalDamage()) > 0) || (e.getCause() == EntityDamageEvent.DamageCause.FALL && daedalus.getGameManager().getFactionManager().getFactionOf(player).getGod() != null && daedalus.getGameManager().getFactionManager().getFactionOf(player).getGodsEnum() == GodsEnum.ZEUS)) {
                 return;
             }
 
             boolean isMinotaure = false;
 
-            for (Faction team : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
+            for (Faction team : daedalus.getGameManager().getFactionManager().getFactionList()) {
                 if (team.getGodsEnum() == GodsEnum.MINOTAURE && team.getGod() != null) {
                     hasMinotaureSpawn = true;
                     isMinotaure = true;
                     break;
                 }
             }
-            if (Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player).getGod() != null && Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player).getGod().getUniqueId() == player.getUniqueId()) {
+            if (daedalus.getGameManager().getFactionManager().getFactionOf(player).getGod() != null && daedalus.getGameManager().getFactionManager().getFactionOf(player).getGod().getUniqueId() == player.getUniqueId()) {
                 isMinotaure = false;
-                Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player).removeGod();
+                daedalus.getGameManager().getFactionManager().getFactionOf(player).removeGod();
                 minotaursDeathFX();
             }
 
@@ -61,7 +62,7 @@ public class DeathHandler implements Listener {
             player.setHealth(player.getMaxHealth());
 
             //Definitive death
-            if (hasMinotaureSpawn && (!isMinotaure || (e instanceof EntityDamageByEntityEvent && ((EntityDamageByEntityEvent) e).getDamager() instanceof Player && Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getGodsEnum() == GodsEnum.MINOTAURE))) {
+            if ((hasMinotaureSpawn && (!isMinotaure || (e instanceof EntityDamageByEntityEvent && ((EntityDamageByEntityEvent) e).getDamager() instanceof Player && daedalus.getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getGodsEnum() == GodsEnum.MINOTAURE))) || daedalus.getStructureManager().getShrinkManager().getBorderRadius() >= 495) {
                 player.setGameMode(GameMode.SPECTATOR);
                 for (ItemStack content : player.getInventory().getContents()) {
                     if ((!CustomItemStack.hasTag(content) || whitelist.contains(CustomItemStack.getCustomMaterial(content))) && content != null) {
@@ -73,7 +74,7 @@ public class DeathHandler implements Listener {
                 player.getActivePotionEffects().clear();
                 player.setMaxHealth(20.0);
                 deathFX(e);
-                Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                Faction playerFaction = daedalus.getGameManager().getFactionManager().getFactionOf(player);
                 playerFaction.setPlayerStatus(player, PlayerStatus.DEAD);
 
             } else { // Respawn
@@ -87,7 +88,7 @@ public class DeathHandler implements Listener {
                 }
                 player.getInventory().clear();
                 respawnFX(e);
-                Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+                Faction playerFaction = daedalus.getGameManager().getFactionManager().getFactionOf(player);
                 player.teleport(playerFaction.getType().getSpawn());
 
             }
@@ -97,17 +98,21 @@ public class DeathHandler implements Listener {
     }
 
     private void minotaursDeathFX() {
+        Bukkit.broadcastMessage("");
+        Bukkit.broadcastMessage("");
+        Bukkit.broadcastMessage("");
     }
 
     private void respawnFX(EntityDamageEvent e) {
         Player player = (Player) e.getEntity();
         player.getWorld().strikeLightningEffect(player.getLocation());
+        Faction faction = daedalus.getGameManager().getFactionManager().getFactionOf(player);
         switch (e.getCause()) {
             case ENTITY_ATTACK:
-                Bukkit.broadcastMessage(e.getEntity().getName() + " was killed.");
+                Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + " §8sent " + daedalus.getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getType().getPrefix() + ((EntityDamageByEntityEvent) e).getDamager().getName() + " §8from whence they came");
                 break;
             default:
-                Bukkit.broadcastMessage(e.getEntity().getName() + " is dead.");
+                Bukkit.broadcastMessage("§8The Labyrinth sent " + faction.getType().getPrefix() + e.getEntity().getName() + " §8from whence they came");
                 break;
         }
     }
@@ -115,12 +120,13 @@ public class DeathHandler implements Listener {
     private void deathFX(EntityDamageEvent e) {
         Player player = (Player) e.getEntity();
         player.getWorld().strikeLightningEffect(player.getLocation());
+        Faction faction = daedalus.getGameManager().getFactionManager().getFactionOf(player);
         switch (e.getCause()) {
             case ENTITY_ATTACK:
-                Bukkit.broadcastMessage(e.getEntity().getName() + " was killed.");
+                Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + " §8sent " + daedalus.getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getType().getPrefix() + ((EntityDamageByEntityEvent) e).getDamager().getName() + " §8from whence theire own §ldemise");
                 break;
             default:
-                Bukkit.broadcastMessage(e.getEntity().getName() + " is dead.");
+                Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + " §8met their own §ldemise");
                 break;
         }
     }
@@ -128,8 +134,8 @@ public class DeathHandler implements Listener {
     private void winListener() {
         Faction winner = null;
         int teamAliveCount = 0;
-        if (Daedalus.getInstance().getGameManager().isRunning()) {
-            for (Faction team : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
+        if (daedalus.getGameManager().isRunning()) {
+            for (Faction team : daedalus.getGameManager().getFactionManager().getFactionList()) {
                 if (team.getType() == FactionsEnum.SPECTATOR) {
                     continue;
                 }
@@ -145,7 +151,7 @@ public class DeathHandler implements Listener {
                 }
             }
             if (teamAliveCount == 1) {
-                Daedalus.getInstance().getGameManager().stop();
+                daedalus.getGameManager().stop();
                 winFX(winner);
             } else {
                 return;

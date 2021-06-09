@@ -24,14 +24,14 @@ public class PlayerRegen implements Listener {
 
                 if (!regenPlayer.containsKey(player.getUniqueId())) {
 
-                    if(!lastSaturation.containsKey(player.getUniqueId()))
-                        lastSaturation.put(player.getUniqueId(),player.getSaturation());
+                    if (!lastSaturation.containsKey(player.getUniqueId()))
+                        lastSaturation.put(player.getUniqueId(), player.getSaturation());
 
                     if (lastSaturation.get(player.getUniqueId()) >= 3.0) {
                         player.setSaturation(lastSaturation.get(player.getUniqueId()));
-                        e.setAmount(e.getAmount()*0.1);
+                        e.setAmount(e.getAmount() * 0.1);
                         player.setSaturation(player.getSaturation() - 2);
-                        lastSaturation.put(player.getUniqueId(),player.getSaturation());
+                        lastSaturation.put(player.getUniqueId(), player.getSaturation());
                         regenPlayer.put(player.getUniqueId(), System.currentTimeMillis() / 1000);
                     } else {
                         lastSaturation.remove(player.getUniqueId());

@@ -20,6 +20,7 @@ public class CraftManager {
         List<Recipe> recipes = Bukkit.getRecipesFor(new ItemStack(Material.PISTON));
         recipes.addAll(Bukkit.getRecipesFor(new ItemStack(Material.STICKY_PISTON)));
         recipes.addAll(Bukkit.getRecipesFor(new ItemStack(Material.TNT)));
+        recipes.addAll(Bukkit.getRecipesFor(new ItemStack(Material.LODESTONE)));
         recipes.addAll(Bukkit.getRecipesFor(new ItemStack(Material.TNT_MINECART)));
         recipes.addAll(Bukkit.getRecipesFor(new ItemStack(Material.STONE)));
         recipes.addAll(Bukkit.getRecipesFor(new ItemStack(Material.MAP)));

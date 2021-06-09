@@ -66,7 +66,7 @@ public class TimeManager {
     private void episodeChangeEvent() {
         switch (episode) {
 
-            case 2: {
+            case 2:
 
                 Bukkit.broadcastMessage("");
                 Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Minotaure §6has been released in the Maze... May Divinities be with you !");
@@ -84,26 +84,28 @@ public class TimeManager {
                 }
 
                 break;
-            }
-            case 3: {
+
+            case 3:
 
                 System.out.println("Malédictions");
 
 
                 break;
-            }
 
-            case 6: {
 
+            case 6:
+                Bukkit.broadcastMessage("");
+                Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§6The wall maze begin to fall... Advise : §cRUN.");
+                Bukkit.broadcastMessage("");
                 Daedalus.getInstance().getStructureManager().getShrinkManager().startShrinking();
 
 
                 break;
-            }
-            default: {
+
+            default:
 
                 break;
-            }
+
 
         }
     }
