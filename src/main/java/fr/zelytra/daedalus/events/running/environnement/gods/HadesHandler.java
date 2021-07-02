@@ -1,6 +1,8 @@
 package fr.zelytra.daedalus.events.running.environnement.gods;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.commands.revive.HadesRevive;
+import fr.zelytra.daedalus.events.running.players.DeathHandler.DefinitiveDeathEvent;
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.gods.list.Hades;
@@ -10,6 +12,10 @@ import fr.zelytra.daedalus.managers.structure.Structure;
 import fr.zelytra.daedalus.managers.structure.StructureType;
 import fr.zelytra.daedalus.utils.Message;
 import fr.zelytra.daedalus.utils.Utils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -30,6 +36,7 @@ import java.util.Map;
 public class HadesHandler implements Listener {
     private final Material invocationBlock = Material.LODESTONE;
     private final CustomMaterial invocMaterial = CustomMaterial.HADES_TOTEM;
+    private boolean hasRevive = false;
 
     @EventHandler
     public void playerInteract(PlayerInteractEvent e) {
@@ -86,7 +93,24 @@ public class HadesHandler implements Listener {
         }
     }
 
-    //TODO Hades respawn player event
+    @EventHandler
+    public void onDefinitiveDeathEvent(DefinitiveDeathEvent e) {
+        if (Daedalus.getInstance().getGameManager().isRunning()) {
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                Faction faction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(p);
+                if (faction.getGodsEnum() == GodsEnum.HADES && faction.getGod() != null && !HadesRevive.hadesHasRevive) {
+                    TextComponent processMessage = Component.text()
+                            .content(Message.getPlayerPrefixe())
+                            .append(Component.text().content("§8" + e.getPlayer().getName() + "§6 can be revive..."))
+                            .append(Component.text().content("[REVIVE]").color(NamedTextColor.GREEN).clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/hadesrevive " + e.getPlayer().getName())))
+                            .build();
+
+                    faction.getGod().sendMessage(processMessage);
+                }
+            }
+        }
+
+    }
 
     private void vfx(Player player) {
         Bukkit.broadcastMessage("§4§l☠ Hades as appear in the maze ☠");

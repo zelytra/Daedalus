@@ -4,7 +4,6 @@ import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.Gods;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -32,9 +31,13 @@ public class Minotaure implements Gods {
 
         faction.getGod().getInventory().setHelmet(item);
 
-        for (Player player : playerList) {
-            player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(30.0);
-        }
+    }
+
+    public Minotaure(){}
+
+    @Override
+    public double teamHeart() {
+        return 30.0;
     }
 
     @Override

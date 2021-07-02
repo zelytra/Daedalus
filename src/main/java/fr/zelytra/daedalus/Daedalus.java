@@ -6,6 +6,7 @@ import fr.zelytra.daedalus.commands.location.ShareLocation;
 import fr.zelytra.daedalus.commands.maze.MazeCommands;
 import fr.zelytra.daedalus.commands.maze.MazeTabCommands;
 import fr.zelytra.daedalus.commands.maze.StructureCommands;
+import fr.zelytra.daedalus.commands.revive.HadesRevive;
 import fr.zelytra.daedalus.commands.revive.Revive;
 import fr.zelytra.daedalus.commands.revive.ReviveTabs;
 import fr.zelytra.daedalus.commands.state.StateCommands;
@@ -45,14 +46,15 @@ public final class Daedalus extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        //Init world
+        /* Init world */
         Bukkit.createWorld(new WorldCreator("daedalus"));
         checkFAWE();
-        //Init registers
+        /* Init registers */
         EventsManager.registerEvents(this);
         regCommands();
         setupServer();
-        //Init managers
+
+        /* Init managers */
         gameManager = new GameManager();
         structureManager = new StructureManager();
         craftManager = new CraftManager();
@@ -97,6 +99,8 @@ public final class Daedalus extends JavaPlugin {
 
         getCommand("dgive").setExecutor(new ItemsCommands());
         getCommand("dgive").setTabCompleter(new ItemsTabs());
+
+        getCommand("hadesrevive").setExecutor(new HadesRevive());
 
     }
 

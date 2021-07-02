@@ -18,6 +18,13 @@ public class Artemis implements Gods {
         init(team);
     }
 
+    public Artemis(){};
+
+    @Override
+    public double teamHeart() {
+        return 20;
+    }
+
     @Override
     public ArrayList<ItemStack> godItems() {
         ArrayList<ItemStack> items = new ArrayList<>();

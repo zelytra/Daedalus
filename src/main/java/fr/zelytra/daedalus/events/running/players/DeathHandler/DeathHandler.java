@@ -1,4 +1,4 @@
-package fr.zelytra.daedalus.events.running.players;
+package fr.zelytra.daedalus.events.running.players.DeathHandler;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.faction.Faction;
@@ -16,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,26 +44,36 @@ public class DeathHandler implements Listener {
                 return;
             }
 
-            boolean isMinotaure = false;
+            boolean isMinotaureAlive = false;
 
             for (Faction team : daedalus.getGameManager().getFactionManager().getFactionList()) {
                 if (team.getGodsEnum() == GodsEnum.MINOTAURE && team.getGod() != null) {
                     hasMinotaureSpawn = true;
-                    isMinotaure = true;
+                    isMinotaureAlive = true;
                     break;
                 }
             }
             if (daedalus.getGameManager().getFactionManager().getFactionOf(player).getGod() != null && daedalus.getGameManager().getFactionManager().getFactionOf(player).getGod().getUniqueId() == player.getUniqueId()) {
-                isMinotaure = false;
                 daedalus.getGameManager().getFactionManager().getFactionOf(player).removeGod();
-                minotaursDeathFX();
+
+                if (daedalus.getGameManager().getFactionManager().getFactionOf(player).getGodsEnum() == GodsEnum.MINOTAURE)
+                    minotaursDeathFX();
             }
 
             e.setCancelled(true);
             player.setHealth(player.getMaxHealth());
 
             //Definitive death
-            if ((hasMinotaureSpawn && (!isMinotaure || (e instanceof EntityDamageByEntityEvent && ((EntityDamageByEntityEvent) e).getDamager() instanceof Player && daedalus.getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getGodsEnum() == GodsEnum.MINOTAURE))) || daedalus.getStructureManager().getShrinkManager().getBorderRadius() >= 495) {
+            boolean killByMinotaur = e instanceof EntityDamageByEntityEvent &&
+                    ((EntityDamageByEntityEvent) e).getDamager() instanceof Player &&
+                    daedalus.getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getGodsEnum() == GodsEnum.MINOTAURE;
+
+            boolean shrinkSaturation = daedalus.getStructureManager().getShrinkManager().getBorderRadius() >= 495;
+            boolean isAMinotaur = daedalus.getGameManager().getFactionManager().getFactionOf(player).getGodsEnum() == GodsEnum.MINOTAURE;
+
+            System.out.println(isMinotaureAlive + " " + isAMinotaur + " " + killByMinotaur + " " + shrinkSaturation + " " + hasMinotaureSpawn + " ");
+
+            if (hasMinotaureSpawn && (!isMinotaureAlive && (killByMinotaur || shrinkSaturation)) || isAMinotaur) {
                 player.setGameMode(GameMode.SPECTATOR);
                 for (ItemStack content : player.getInventory().getContents()) {
                     if ((!CustomItemStack.hasTag(content) || whitelist.contains(CustomItemStack.getCustomMaterial(content))) && content != null) {
@@ -71,11 +82,16 @@ public class DeathHandler implements Listener {
                 }
 
                 player.getInventory().clear();
-                player.getActivePotionEffects().clear();
+                for (PotionEffect effect : player.getActivePotionEffects())
+                    player.removePotionEffect(effect.getType());
                 player.setMaxHealth(20.0);
                 deathFX(e);
+
                 Faction playerFaction = daedalus.getGameManager().getFactionManager().getFactionOf(player);
                 playerFaction.setPlayerStatus(player, PlayerStatus.DEAD);
+
+                DefinitiveDeathEvent event = new DefinitiveDeathEvent(player);
+                Bukkit.getPluginManager().callEvent(event);
 
             } else { // Respawn
                 player.setSaturation(20.0f);
@@ -92,14 +108,14 @@ public class DeathHandler implements Listener {
                 player.teleport(playerFaction.getType().getSpawn());
 
             }
-            winListener();
+            //winListener();
 
         }
     }
 
     private void minotaursDeathFX() {
         Bukkit.broadcastMessage("");
-        Bukkit.broadcastMessage("");
+        Bukkit.broadcastMessage("§6The Minotaur has been killed. Now death is the only option");
         Bukkit.broadcastMessage("");
     }
 
@@ -109,7 +125,13 @@ public class DeathHandler implements Listener {
         Faction faction = daedalus.getGameManager().getFactionManager().getFactionOf(player);
         switch (e.getCause()) {
             case ENTITY_ATTACK:
-                Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + " §8sent " + daedalus.getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getType().getPrefix() + ((EntityDamageByEntityEvent) e).getDamager().getName() + " §8from whence they came");
+                if (((EntityDamageByEntityEvent) e).getDamager() instanceof Player)
+                    Bukkit.broadcastMessage(faction.getType().getPrefix() +
+                            e.getEntity().getName() + " §8sent " +
+                            daedalus.getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getType().getPrefix() +
+                            ((EntityDamageByEntityEvent) e).getDamager().getName() + " §8from whence they came");
+                else
+                    Bukkit.broadcastMessage("§8The Labyrinth sent " + faction.getType().getPrefix() + e.getEntity().getName() + " §8from whence they came");
                 break;
             default:
                 Bukkit.broadcastMessage("§8The Labyrinth sent " + faction.getType().getPrefix() + e.getEntity().getName() + " §8from whence they came");

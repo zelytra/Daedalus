@@ -19,6 +19,13 @@ public class Athena implements Gods {
         init(team);
     }
 
+    public Athena(){}
+
+    @Override
+    public double teamHeart() {
+        return 20;
+    }
+
     @Override
     public ArrayList<ItemStack> godItems() {
         ArrayList<ItemStack> items = new ArrayList<>();

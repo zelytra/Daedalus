@@ -17,6 +17,13 @@ public class Demeter implements Gods {
         init(team);
     }
 
+    public Demeter(){}
+
+    @Override
+    public double teamHeart() {
+        return 20;
+    }
+
     @Override
     public ArrayList<ItemStack> godItems() {
         ArrayList<ItemStack> items = new ArrayList<>();

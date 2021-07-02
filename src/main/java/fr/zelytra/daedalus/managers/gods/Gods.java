@@ -31,6 +31,10 @@ public interface Gods {
 
         //Player init
         for (Player player : playerList) {
+
+            player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(teamHeart());
+
+
             if (this.teamEffects() != null) {
                 player.addPotionEffects(this.teamEffects());
             }
@@ -46,6 +50,8 @@ public interface Gods {
 
 
     }
+
+    double teamHeart();
 
     ArrayList<ItemStack> godItems();
 

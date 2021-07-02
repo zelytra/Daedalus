@@ -3,7 +3,6 @@ package fr.zelytra.daedalus.managers.gods.list;
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.Gods;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -20,9 +19,13 @@ public class Poseidon implements Gods {
         Player god = faction.getGod();
         ArrayList<Player> playerList = (ArrayList<Player>) faction.getPlayerList().clone();
         playerList.remove(god.getUniqueId());
-        for (Player player : playerList) {
-            player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(22.0);
-        }
+    }
+
+    public Poseidon(){}
+
+    @Override
+    public double teamHeart() {
+        return 22.0;
     }
 
     @Override

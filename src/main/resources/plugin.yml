@@ -42,5 +42,10 @@ commands:
       - co
       - loc
       - coo
+
   test:
     description: test command
+
+  hadesrevive:
+    description: Hades revive power
+

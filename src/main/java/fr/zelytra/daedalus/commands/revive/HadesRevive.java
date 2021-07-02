@@ -15,8 +15,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class Revive implements CommandExecutor {
-
+public class HadesRevive implements CommandExecutor {
+    public static boolean hadesHasRevive = false;
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
@@ -29,7 +29,7 @@ public class Revive implements CommandExecutor {
         boolean canUseCommand = faction.getGodsEnum() == GodsEnum.HADES && faction.getGod() != null && faction.getGod().getName() == player.getName();
 
 
-        if (!player.isOp()) {
+        if (!canUseCommand || hadesHasRevive) {
             player.sendMessage(Message.getPlayerPrefixe() + "§cYou don't have permission to perform this command");
             return false;
         }
@@ -37,50 +37,58 @@ public class Revive implements CommandExecutor {
 
         if (args.length == 1) {
             Player target = Bukkit.getPlayer(args[0]);
-            reviveToSpawn(player, target);
+            if (reviveToExecutor(player, target))
+                hadesHasRevive = true;
+
             return true;
         } else {
             player.sendMessage(Message.getHelp(cmd.getName()));
             return false;
         }
-
     }
 
-    private void reviveToSpawn(Player executor, Player target) {
+    private boolean reviveToExecutor(Player executor, Player target) {
 
         if (target == null) {
             executor.sendMessage(Message.getPlayerPrefixe() + "§cThis player is not online");
-            return;
+            return false;
         }
 
         Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
         if (playerFaction.isAlive(target)) {
             executor.sendMessage(Message.getPlayerPrefixe() + "§cThis player is still alive");
-            return;
+            return false;
         } else {
             playerFaction.setPlayerStatus(target, PlayerStatus.ALIVE);
             target.setGameMode(GameMode.SURVIVAL);
 
-            target.teleport(playerFaction.getType().getSpawn());
-            if (playerFaction.getGodsEnum() != null)
-                applyTeamEffect(target, playerFaction.getGodsEnum());
+            target.teleport(executor.getLocation());
+            applyTeamEffect(target);
 
             for (Player p : Bukkit.getOnlinePlayers()) {
                 p.playSound(p.getLocation(), Sound.ENTITY_WITCH_HURT, 2, 0.1f);
             }
 
-            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + playerFaction.getType().getChatColor() + target.getName() + "§6 has been revived");
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                Faction faction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(p);
+                if (faction.getGodsEnum() == GodsEnum.HADES && faction.getGod() != null) {
+                    faction.add(target);
+                    playerFaction = faction;
+                }
+            }
+
+            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + playerFaction.getType().getChatColor() + target.getName() + "§6 has been revived (Hades)");
         }
+        return true;
     }
 
+    private void applyTeamEffect(Player player) {
 
-    private void applyTeamEffect(Player player, GodsEnum godsEnum) {
-
-        player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(godsEnum.getGod().teamHeart());
+        player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(GodsEnum.HADES.getGod().teamHeart());
 
 
-        if (godsEnum.getGod().teamEffects() != null) {
-            player.addPotionEffects(godsEnum.getGod().teamEffects());
+        if (GodsEnum.HADES.getGod().teamEffects() != null) {
+            player.addPotionEffects(GodsEnum.HADES.getGod().teamEffects());
         }
 
     }

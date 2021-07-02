@@ -15,7 +15,7 @@ public class PlayerChatRListener implements Listener {
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
 
-        if (!Daedalus.getInstance().getGameManager().isRunning())
+        if (!Daedalus.getInstance().getGameManager().isRunning() || !Daedalus.getInstance().getGameManager().isFinished())
             return;
 
         final Player p = e.getPlayer();

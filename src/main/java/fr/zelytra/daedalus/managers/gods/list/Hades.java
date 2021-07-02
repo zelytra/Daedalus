@@ -4,7 +4,6 @@ import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.Gods;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -20,9 +19,13 @@ public class Hades implements Gods {
         Player god = faction.getGod();
         ArrayList<Player> playerList = (ArrayList<Player>) faction.getPlayerList().clone();
         playerList.remove(god.getUniqueId());
-        for (Player player : playerList) {
-            player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(22.0);
-        }
+    }
+
+    public Hades(){}
+
+    @Override
+    public double teamHeart() {
+        return 22;
     }
 
     @Override

@@ -10,7 +10,7 @@ import fr.zelytra.daedalus.events.running.environnement.respawnable.AxeStripped;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.PlayerBreakBlockListener;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.TreeGrowthListener;
 import fr.zelytra.daedalus.events.running.environnement.structure.*;
-import fr.zelytra.daedalus.events.running.players.DeathHandler;
+import fr.zelytra.daedalus.events.running.players.DeathHandler.DeathHandler;
 import fr.zelytra.daedalus.events.running.players.PlayerChatRListener;
 import fr.zelytra.daedalus.events.running.players.PlayerEatGoldenApple;
 import fr.zelytra.daedalus.events.running.pvp.CoolDown;
