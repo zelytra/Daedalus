@@ -5,11 +5,9 @@ import fr.zelytra.daedalus.builders.guiBuilder.VisualItemStack;
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.faction.FactionsEnum;
 import fr.zelytra.daedalus.managers.game.GameStatesEnum;
+import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import fr.zelytra.daedalus.utils.Utils;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -34,6 +32,11 @@ public class PlayerJoinListener implements Listener {
 
         Bukkit.broadcastMessage("§8[§a+§8] §f" + p.getName());
         Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(p);
+
+        for (CustomMaterial material : CustomMaterial.values()){
+            NamespacedKey itemKey = new NamespacedKey(Daedalus.getInstance(), material.getName());
+            p.discoverRecipe(itemKey);
+        }
 
         switch (state) {
             case WAIT:

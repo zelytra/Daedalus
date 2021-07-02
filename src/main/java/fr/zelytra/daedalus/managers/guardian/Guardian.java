@@ -224,7 +224,7 @@ public class Guardian implements Listener {
     private void spell() {
         List<Entity> nearbyEntities = entity.getNearbyEntities(8, 8, 8);
         for (Entity e : nearbyEntities) {
-            if (e instanceof Player) {
+            if (e instanceof Player && ((Player) e).getGameMode() == GameMode.SURVIVAL) {
                 Player player = ((Player) e).getPlayer();
                 player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 1, false, false, true));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 1, false, false, true));

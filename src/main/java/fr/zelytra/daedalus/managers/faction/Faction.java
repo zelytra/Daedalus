@@ -127,9 +127,11 @@ public class Faction {
     private void joinTeamFX(Player player, FactionsEnum factionsEnum) {
         player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
         player.sendMessage(Message.getPlayerPrefixe() + "§8You joined " + factionsEnum.getPrefix() + factionsEnum.getName() + " §8team");
-        if (player.isOp())
-            player.getInventory().setItem(8, new VisualItemStack(factionsEnum.getBanner(), "§7Team selection", false).getItem());
-        else
-            player.getInventory().setItem(4, new VisualItemStack(factionsEnum.getBanner(), "§7Team selection", false).getItem());
+        if (Daedalus.getInstance().getGameManager().isWaiting()) {
+            if (player.isOp())
+                player.getInventory().setItem(8, new VisualItemStack(factionsEnum.getBanner(), "§7Team selection", false).getItem());
+            else
+                player.getInventory().setItem(4, new VisualItemStack(factionsEnum.getBanner(), "§7Team selection", false).getItem());
+        }
     }
 }

@@ -67,8 +67,10 @@ public class MobSpawn implements Listener {
                         break;
                     }
                     e.setCancelled(true);
+                    break;
                 case 1:
                     e.setCancelled(true);
+                    break;
                 default:
                     break;
             }

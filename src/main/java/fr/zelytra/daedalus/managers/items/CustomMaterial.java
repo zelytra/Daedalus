@@ -10,7 +10,7 @@ public enum CustomMaterial {
     DEMETER_SICKLE("§2§lDemeter's Sickle", "demeter_sickle", 4, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     DIONYSOS_CUP("§5§lDionysos's Cup", "dionysos_cup", 5, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
 
-    MINOTAUR_HEAD("§5§lMinotaur's Head", "minotaur_head", 6, Material.CARVED_PUMPKIN, ItemType.ARMOR, 3, 10,EquipmentSlot.HEAD),
+    MINOTAUR_HEAD("§5§lMinotaur's Head", "minotaur_head", 6, Material.CARVED_PUMPKIN, ItemType.ARMOR, 3, 0,EquipmentSlot.HEAD),
     DIVINE_FRAGMENT("§f§lDivine Fragment", "divine_fragment", 7, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     DIVINE_HEART("§c§lDivine Heart", "divine_heart", 8, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
 

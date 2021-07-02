@@ -36,7 +36,7 @@ public class TeamSelector implements Listener, Interface {
     @EventHandler
     public void onItemClick(PlayerInteractEvent e) {
 
-        if (Daedalus.getInstance().getGameManager().isWaiting() && e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR) {
+        if (Daedalus.getInstance().getGameManager().isWaiting() && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)) {
 
             if (e.getItem() != null && banners.contains(e.getItem().getType())) {
                 InterfaceBuilder interfaceBuilder = new InterfaceBuilder(InventoryType.DROPPER, interfaceName);
