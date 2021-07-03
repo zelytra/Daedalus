@@ -49,6 +49,8 @@ public class DefinitiveDeathListener implements Listener {
 
         Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
         playerFaction.setPlayerStatus(player, PlayerStatus.DEAD);
+        if (playerFaction.getGod() != null && player.getUniqueId() == playerFaction.getGod().getUniqueId())
+            playerFaction.removeGod();
 
     }
 

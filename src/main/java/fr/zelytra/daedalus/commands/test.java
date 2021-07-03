@@ -13,7 +13,6 @@ public class test implements CommandExecutor {
         if(!(sender instanceof Player)){
             return false;
         }
-
         sender.sendMessage("nice try");
         return true;
     }

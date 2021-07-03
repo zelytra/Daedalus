@@ -26,7 +26,7 @@ public class DeathListener implements Listener {
             return;
 
         Player player = (Player) e.getEntity();
-        boolean isDead = player.getHealth() - e.getFinalDamage() > 0;
+        boolean isDead = player.getHealth() - e.getFinalDamage() <= 0;
 
         if (daedalus.getGameManager().isRunning() && isDead) {
             e.setCancelled(true);
