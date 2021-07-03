@@ -48,13 +48,13 @@ public class DeathListener implements Listener {
 
             if ((hasMinoSpawn && isMinoDead) || killByAMino || shrinkHasReachSpawn || isMemberOfMino) {
 
-                DefinitiveDeathEvent event = new DefinitiveDeathEvent(player,e);
+                DefinitiveDeathEvent event = new DefinitiveDeathEvent(player, e);
                 Bukkit.getPluginManager().callEvent(event);
-                //winListener();
+                winListener();
 
             } else {
 
-                PartielDeathEvent event = new PartielDeathEvent(player,e);
+                PartielDeathEvent event = new PartielDeathEvent(player, e);
                 Bukkit.getPluginManager().callEvent(event);
 
             }
@@ -87,7 +87,7 @@ public class DeathListener implements Listener {
                 }
                 int playerCount = 0;
                 for (Player player : team.getPlayerList()) {
-                    if (team.isAlive(player)) {
+                    if (team.isAlive(player) && player.isOnline()) {
                         playerCount++;
                     }
                 }

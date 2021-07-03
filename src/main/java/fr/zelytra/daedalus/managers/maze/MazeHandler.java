@@ -1,10 +1,10 @@
 package fr.zelytra.daedalus.managers.maze;
 
-import com.sk89q.worldedit.world.block.BlockTypes;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.loottable.Loot;
 import fr.zelytra.daedalus.managers.loottable.LootTable;
+import fr.zelytra.daedalus.managers.maze.painter.LayerEnum;
 import fr.zelytra.daedalus.managers.skrink.WallBreaker;
 import fr.zelytra.daedalus.managers.structure.*;
 import fr.zelytra.daedalus.managers.structure.doors.Doors;
@@ -133,7 +133,7 @@ public class MazeHandler {
                     if (grid[x][z] == 1) {
                         for (int y = (int) origin.getY() - 1; y < origin.getY() + this.wallHeight; y++) {
                             block.setY(y);
-                            WEH.setBlock(block, BlockTypes.SMOOTH_SANDSTONE);
+                            WEH.setBlock(block, LayerEnum.getByLevel((int) (y - origin.getY())).getBlockTypes());
                         }
                     }
                     count++;

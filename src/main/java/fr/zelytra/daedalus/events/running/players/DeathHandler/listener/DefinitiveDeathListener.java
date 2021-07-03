@@ -61,7 +61,7 @@ public class DefinitiveDeathListener implements Listener {
 
         switch (e.getCause()) {
             case ENTITY_ATTACK:
-                Bukkit.broadcastMessage(faction.getType().getPrefix() + Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getType().getPrefix() + ((EntityDamageByEntityEvent) e).getDamager().getName() + " §8sent " + e.getEntity().getName() + " §8from whence theire own §ldemise");
+                Bukkit.broadcastMessage(faction.getType().getPrefix() + Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getType().getPrefix() + ((EntityDamageByEntityEvent) e).getDamager().getName() + " §8sent " + e.getEntity().getName() + " §8o their own §ldemise");
                 break;
             default:
                 Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + " §8met their own §ldemise");
