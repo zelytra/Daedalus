@@ -20,6 +20,9 @@ public class HostileMob implements Listener {
             case SPIDER:
                 e.getDrops().add(new ItemStack(Material.STRING, 1));
                 break;
+            case CREEPER:
+                e.getDrops().add(new ItemStack(Material.GUNPOWDER, 2));
+                break;
             case EVOKER:
                 List<ItemStack> loots = new ArrayList<>();
                 for (ItemStack item : e.getDrops()) {

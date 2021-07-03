@@ -37,7 +37,7 @@ public class FactionScoreBoard {
         scoreboard.getTeam("timer").setPrefix("Timer §6: §a" + timeManager.getTimer());
         scoreboard.getTeam("border").setPrefix("Border §6: §a" + (Daedalus.getInstance().getStructureManager().getShrinkManager().getWorkloadThread() == null ? "§cNull" : Daedalus.getInstance().getStructureManager().getShrinkManager().getBorderRadius()));
         scoreboard.getTeam("stateMino").setPrefix("State §6: " + (isMinotaur() ? "§aAlive" : "§cDead"));
-        scoreboard.getTeam("alive").setPrefix("Alive §6: §a" + faction.getAliveCount() + "§6/§a" + faction.getPlayerList().size());
+        scoreboard.getTeam("alive").setPrefix("Alive §6: §a" + faction.getAliveCount() + "§6/§a" + faction.getPlayerAmount());
 
         if (faction.getGodsEnum() != null)
             scoreboard.getTeam("divinity").setPrefix("§6• §b" + faction.getGodsEnum().getName());

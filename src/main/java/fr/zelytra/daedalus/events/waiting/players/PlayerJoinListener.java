@@ -22,7 +22,7 @@ public class PlayerJoinListener implements Listener {
         final Player p = e.getPlayer();
 
         e.setJoinMessage(null);
-        Utils.setTabFX(p);
+        Utils.setTabFX(Daedalus.getInstance().getServer().getOnlinePlayers().size());
         preparePlayer(p, Daedalus.getInstance().getGameManager().getState());
 
     }

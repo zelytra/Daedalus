@@ -6,6 +6,7 @@ import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import fr.zelytra.daedalus.utils.Message;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -39,7 +40,7 @@ public class DionysosCup implements Listener {
                         ArrayList<Entity> targetList = new ArrayList<>();
                         for (Entity entity : nearbyEntity) {
                             if (entity instanceof LivingEntity) {
-                                if (entity instanceof Player) {
+                                if (entity instanceof Player && ((Player) entity).getGameMode()== GameMode.SURVIVAL ) {
                                     Player target = (Player) entity;
                                     Faction targetPlayerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
                                     if (targetPlayerTeam.getType() == playerFaction.getType()) {

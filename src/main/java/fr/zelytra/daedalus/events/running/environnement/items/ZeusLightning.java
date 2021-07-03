@@ -6,6 +6,7 @@ import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import fr.zelytra.daedalus.utils.Message;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -36,7 +37,7 @@ public class ZeusLightning implements Listener {
                         Collection<Entity> nearbyEntities = player.getWorld().getNearbyEntities(player.getLocation(), radius, radius, radius);
                         Collection<Entity> toStrike = new ArrayList<>();
                         for (Entity entity : nearbyEntities) {
-                            if (entity instanceof Player) {
+                            if (entity instanceof Player && ((Player) entity).getGameMode() == GameMode.SURVIVAL) {
                                 Player target = (Player) entity;
                                 Faction targetPlayerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
                                 if (targetPlayerTeam.getType() == playerFaction.getType()) {
@@ -52,7 +53,7 @@ public class ZeusLightning implements Listener {
                             return;
                         }
                         //Cooldown check
-                        if(!Cooldown.cooldownCheck(player,CustomMaterial.ZEUS_LIGHTNING.getName())){
+                        if (!Cooldown.cooldownCheck(player, CustomMaterial.ZEUS_LIGHTNING.getName())) {
                             return;
                         }
                         Cooldown cd = new Cooldown(player, itemCooldown, CustomMaterial.ZEUS_LIGHTNING.getName());

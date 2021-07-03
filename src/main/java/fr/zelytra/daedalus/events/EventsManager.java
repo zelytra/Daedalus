@@ -2,7 +2,8 @@ package fr.zelytra.daedalus.events;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.commands.wiki.Wiki;
-import fr.zelytra.daedalus.events.running.environnement.gods.*;
+import fr.zelytra.daedalus.events.running.environnement.gods.events.GodSpawnHandler;
+import fr.zelytra.daedalus.events.running.environnement.gods.listener.*;
 import fr.zelytra.daedalus.events.running.environnement.items.*;
 import fr.zelytra.daedalus.events.running.environnement.items.athenaMap.AthenaMap;
 import fr.zelytra.daedalus.events.running.environnement.mobCutclean.*;
@@ -10,7 +11,9 @@ import fr.zelytra.daedalus.events.running.environnement.respawnable.AxeStripped;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.PlayerBreakBlockListener;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.TreeGrowthListener;
 import fr.zelytra.daedalus.events.running.environnement.structure.*;
-import fr.zelytra.daedalus.events.running.players.DeathHandler.DeathHandler;
+import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.DeathListener;
+import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.DefinitiveDeathListener;
+import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.PartielDeathListener;
 import fr.zelytra.daedalus.events.running.players.PlayerChatRListener;
 import fr.zelytra.daedalus.events.running.players.PlayerEatGoldenApple;
 import fr.zelytra.daedalus.events.running.pvp.CoolDown;
@@ -59,6 +62,7 @@ public class EventsManager {
         //pm.registerEvents(new MedusaHead(),pl);
 
         /*Gods Summoning*/
+        pm.registerEvents(new GodSpawnHandler(),pl);
         pm.registerEvents(new ZeusHandler(),pl);
         pm.registerEvents(new PoseidonHandler(),pl);
         pm.registerEvents(new HadesHandler(),pl);
@@ -78,12 +82,17 @@ public class EventsManager {
         pm.registerEvents(new PortalListener(), pl);
         pm.registerEvents(new MobCutClean(), pl);
         pm.registerEvents(new WitherSpawn(), pl);
-        pm.registerEvents(new DeathHandler(), pl);
         pm.registerEvents(new MobSpawn(), pl);
         pm.registerEvents(new HostileMob(), pl);
         pm.registerEvents(new AxeStripped(), pl);
         pm.registerEvents(new BucketListener(), pl);
         pm.registerEvents(new PistonListener(), pl);
+
+        /* Death */
+        pm.registerEvents(new DeathListener(), pl);
+        pm.registerEvents(new DefinitiveDeathListener(), pl);
+        pm.registerEvents(new PartielDeathListener(), pl);
+
 
         /* Interface */
         pm.registerEvents(new ServerPingListener(), pl);

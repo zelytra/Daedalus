@@ -610,6 +610,10 @@ dungeon1:
       material: potion
       amount: 1
       luck: 3
+      effect :
+        type : Heal
+        duration : 1
+        amplifier : 0
     loot17:
       material: book
       amount: 2
@@ -682,9 +686,13 @@ dungeon1:
       amount: 1
       luck: 2
     loot28:
-      material: potion
+      material: splash_potion
       amount: 1
-      luck: 1
+      luck: 2
+      effect :
+        type : Heal
+        duration : 1
+        amplifier : 0
     loot29:
       material: diamond
       amount: 2

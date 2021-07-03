@@ -39,7 +39,7 @@ public enum BlockEnum {
     DARK_OAK_LEAVES(BlockCooldownEnum.LEAVES.getSeconds(), Material.DARK_OAK_LEAVES, new ItemStack(Material.APPLE)),
     ACACIA_LEAVES(BlockCooldownEnum.LEAVES.getSeconds(), Material.ACACIA_LEAVES, new ItemStack(Material.APPLE)),
     SPRUCE_LEAVES(BlockCooldownEnum.LEAVES.getSeconds(), Material.SPRUCE_LEAVES, new ItemStack(Material.APPLE)),
-    BIRCH_LEAVES(BlockCooldownEnum.LEAVES.getSeconds(), Material.BIRCH_LEAVES, new ItemStack(Material.APPLE));
+    BIRCH_LEAVES(BlockCooldownEnum.LEAVES.getSeconds(), Material.BIRCH_LEAVES, new ItemStack(Material.GOLDEN_APPLE));
 
     private final int seconds;
     private final Material material;

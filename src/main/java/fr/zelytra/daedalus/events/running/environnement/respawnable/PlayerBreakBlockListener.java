@@ -51,7 +51,7 @@ public class PlayerBreakBlockListener implements Listener {
                 case DARK_OAK_WOOD: {
                     if (GameSettings.CUT_CLEAN) {
                         e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), block.getItemStack());
-                    }else
+                    } else
                         e.setDropItems(true);
                     break;
                 }
@@ -68,9 +68,11 @@ public class PlayerBreakBlockListener implements Listener {
                     e.setDropItems(true);
                     break;
                 }
+                case BIRCH_LEAVES:
+                    dropItem(e.getBlock().getLocation(), block.getItemStack(), GameSettings.APPLE_DROP * 0.01);
+                    break;
 
                 case OAK_LEAVES:
-                case BIRCH_LEAVES:
                 case ACACIA_LEAVES:
                 case JUNGLE_LEAVES:
                 case SPRUCE_LEAVES:
@@ -82,7 +84,7 @@ public class PlayerBreakBlockListener implements Listener {
 
             giveXP(block, e);
             final BlockState state = e.getBlock().getState();
-            if (block.getMaterial() != Material.ANCIENT_DEBRIS) {
+            if (block.getMaterial() != Material.ANCIENT_DEBRIS && block.getMaterial() != Material.BIRCH_LEAVES) {
                 Bukkit.getScheduler().scheduleSyncDelayedTask(Daedalus.getInstance(), () -> replaceBlock(state), block.getSeconds() * 20L);
             }
 
@@ -96,6 +98,11 @@ public class PlayerBreakBlockListener implements Listener {
             case IRON_ORE:
                 if (GameSettings.CUT_CLEAN) {
                     popXP(e.getBlock().getLocation(), 1);
+                }
+                break;
+            case END_STONE:
+                if (GameSettings.CUT_CLEAN) {
+                    popXP(e.getBlock().getLocation(), ThreadLocalRandom.current().nextInt(0, 30));
                 }
                 break;
             case GOLD_ORE:

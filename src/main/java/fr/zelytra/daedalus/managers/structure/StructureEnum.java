@@ -36,7 +36,7 @@ public enum StructureEnum {
     TEAM_GREEN("greenTeam", -1, StructureType.BASE, true, new BlockVector(270, 0, 30), new BlockVector(0, -3, 0)),
     TEAM_YELLOW("yellowTeam", -1, StructureType.BASE, true, new BlockVector(270, 0, 270), new BlockVector(0, -3, 0)),
     TEAM_BLUE("blueTeam", -1, StructureType.BASE, true, new BlockVector(30, 0, 270), new BlockVector(0, -3, 0)),
-    MINOTAURE("minotaure", -1, StructureType.BASE, true, new BlockVector(150, 0, 150), new BlockVector(0, -33, 0)),
+    MINOTAURE("minotaure", -1, StructureType.BASE, true, new BlockVector(150, 0, 150), new BlockVector(0, -33, 0),GodsEnum.MINOTAURE),
 
     HESPERIDES_GARDEN("hesperidesGarden", -6, StructureType.HESPERIDES_GARDEN, true, new BlockVector(0, -3, 0)),
     CIRCEE_ISLAND("circeeIsland", -5, StructureType.CIRCE_ISLAND, true, new BlockVector(0, -3, 0)),
@@ -78,6 +78,16 @@ public enum StructureEnum {
         this.origin = origin;
         this.offset = offset;
         this.canBlock = canBlock;
+        this.id = id;
+    }
+
+    StructureEnum(String name, int id, StructureType type, Boolean canBlock, BlockVector origin, BlockVector offset,GodsEnum god) {
+        this.name = name;
+        this.type = type;
+        this.origin = origin;
+        this.offset = offset;
+        this.canBlock = canBlock;
+        this.god = god;
         this.id = id;
     }
 

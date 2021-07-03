@@ -89,7 +89,8 @@ public class StructureManager {
 
         /*Mines draw*/
         for (int x = 0; x < GameSettings.MINES_COUNT; x++) {
-            generatedList.add(this.mine.get(ThreadLocalRandom.current().nextInt(0, 2 + 1)));
+            int random = ThreadLocalRandom.current().nextInt(0, 2 + 1);
+            generatedList.add(this.mine.get(random));
         }
 
         /*Temples draw*/

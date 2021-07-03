@@ -11,6 +11,8 @@ import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.BoundingBox;
 
 import java.text.SimpleDateFormat;
@@ -100,6 +102,18 @@ public class TimeManager {
                 Daedalus.getInstance().getStructureManager().getShrinkManager().startShrinking();
 
 
+                break;
+
+            case 8:
+                Bukkit.broadcastMessage("");
+                Bukkit.broadcastMessage("§eI feels like i'm walking on sunshine ");
+                Bukkit.broadcastMessage("");
+                for (Faction faction : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
+                    for (Player player: faction.getPlayerList())
+                        if(faction.isAlive(player))
+                            player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,9999999,0,true,false,true));
+
+                }
                 break;
 
             default:

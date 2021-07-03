@@ -5,10 +5,7 @@ import fr.zelytra.daedalus.managers.faction.FactionsEnum;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -49,7 +46,7 @@ public class ShrinkManager {
     private void startBorderListener() {
         task = Bukkit.getScheduler().runTaskTimerAsynchronously(Daedalus.getInstance(), () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                if (Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player).getType() == FactionsEnum.SPECTATOR)
+                if (Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player).getType() == FactionsEnum.SPECTATOR || player.getGameMode() == GameMode.SPECTATOR)
                     continue;
 
                 if (isInWarningArea(player.getLocation())) {

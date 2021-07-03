@@ -16,12 +16,13 @@ public class PlayerChatWListener implements Listener {
             return;
 
         final Player p = e.getPlayer();
+        String message = e.getMessage().replace("%","%%");
         if (Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(e.getPlayer()) != null) {
             Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(e.getPlayer());
-            e.setFormat(playerFaction.getType().getChatColor() + p.getName() + " §7> " + e.getMessage());
+            e.setFormat(playerFaction.getType().getChatColor() + p.getName() + " §7> " + message);
 
         } else {
-            e.setFormat("§f" + p.getName() + " §7> " + e.getMessage());
+            e.setFormat("§f" + p.getName() + " §7> " + message);
         }
 
     }

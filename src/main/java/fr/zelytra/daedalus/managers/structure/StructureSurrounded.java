@@ -8,8 +8,8 @@ public class StructureSurrounded {
 
     public StructureSurrounded() {
         structures.add(new Structure(StructureEnum.MINE1));
-        structures.add(new Structure(StructureEnum.MINE1));
-        structures.add(new Structure(StructureEnum.MINE1));
+        structures.add(new Structure(StructureEnum.MINE2));
+        structures.add(new Structure(StructureEnum.MINE3));
         structures.add(new Structure(StructureEnum.CIRCEE_ISLAND));
     }
 

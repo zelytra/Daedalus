@@ -1,5 +1,6 @@
 package fr.zelytra.daedalus.utils;
 
+import fr.zelytra.daedalus.Daedalus;
 import net.minecraft.server.v1_16_R3.EntityPlayer;
 import net.minecraft.server.v1_16_R3.PacketPlayOutEntityStatus;
 import org.bukkit.Material;
@@ -81,9 +82,11 @@ public abstract class Utils {
         return false;
     }
 
-    public static void setTabFX(Player player) {
-        player.setPlayerListHeader("§6「 §8<< §6Daedalus §8>>§6 」\n§r");
-        player.setPlayerListFooter("\n§8<< §7Developed by : §6Zelytra  §8>>§6\n§8<< §7Designed by : §6Spirit & Ichabodt  §8>>§6\n\n§8[Alpha-04]");
+    public static void setTabFX(int amount) {
+        for (Player player : Daedalus.getInstance().getServer().getOnlinePlayers()) {
+            player.setPlayerListHeader("§6「 §8<< §6Daedalus §8>>§6 」\n§8[ §f" + amount + "§8/§f" + Daedalus.getInstance().getServer().getMaxPlayers() + "§8 ]\n§r");
+            player.setPlayerListFooter("\n§8<< §7Developed by : §6Zelytra §8>>§6\n§8<< §7Designed by : §6Spirit & Ichabodt §8>>§6\n\n§8[Alpha-05]");
+        }
 
     }
 }

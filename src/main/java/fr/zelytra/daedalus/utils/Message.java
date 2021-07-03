@@ -22,4 +22,7 @@ public abstract class Message {
         return getPlayerPrefixe() + "§cWrong command syntax. Please refer to /" + command + " help.";
     }
 
+    public static String broadcast() {
+        return new String("§6Daedalus§8§l>>§r ");
+    }
 }

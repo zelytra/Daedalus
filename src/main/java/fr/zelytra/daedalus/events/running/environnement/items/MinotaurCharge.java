@@ -6,6 +6,7 @@ import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -64,7 +65,7 @@ public class MinotaurCharge implements Listener {
                             Collection<Entity> nearbyEntities = player.getWorld().getNearbyEntities(player.getLocation(), radius, radius, radius);
                             Collection<Entity> toStrike = new ArrayList<>();
                             for (Entity entity : nearbyEntities) {
-                                if (entity instanceof Player) {
+                                if (entity instanceof Player && ((Player) entity).getGameMode()== GameMode.SURVIVAL ) {
                                     Player target = (Player) entity;
                                     Faction targetPlayerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
                                     if (targetPlayerTeam.getType() == playerFaction.getType()) {

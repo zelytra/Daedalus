@@ -43,6 +43,14 @@ commands:
       - loc
       - coo
 
+  broadcast:
+    description: Broadcast a message to all player
+    permission: daedalus.broadcast
+    aliases:
+      - bc
+      - broadc
+      - bcast
+
   test:
     description: test command
 

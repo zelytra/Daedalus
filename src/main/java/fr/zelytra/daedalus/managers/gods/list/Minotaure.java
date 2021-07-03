@@ -37,7 +37,7 @@ public class Minotaure implements Gods {
 
     @Override
     public double teamHeart() {
-        return 24.0;
+        return 30;
     }
 
     @Override
@@ -61,8 +61,6 @@ public class Minotaure implements Gods {
 
     @Override
     public Collection<PotionEffect> teamEffects() {
-        Collection<PotionEffect> potions = new ArrayList<>();
-        potions.add(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 99999999, 0, false, false, true));
-        return potions;
+        return null;
     }
 }

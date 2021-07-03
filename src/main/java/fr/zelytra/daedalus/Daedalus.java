@@ -1,5 +1,7 @@
 package fr.zelytra.daedalus;
 
+import fr.zelytra.daedalus.commands.broadcast.Broadcast;
+import fr.zelytra.daedalus.commands.broadcast.BroadcastTab;
 import fr.zelytra.daedalus.commands.item.ItemsCommands;
 import fr.zelytra.daedalus.commands.item.ItemsTabs;
 import fr.zelytra.daedalus.commands.location.ShareLocation;
@@ -101,6 +103,10 @@ public final class Daedalus extends JavaPlugin {
         getCommand("dgive").setTabCompleter(new ItemsTabs());
 
         getCommand("hadesrevive").setExecutor(new HadesRevive());
+
+        getCommand("broadcast").setExecutor(new Broadcast());
+        getCommand("broadcast").setTabCompleter(new BroadcastTab());
+
 
     }
 

@@ -24,10 +24,6 @@ public class Revive implements CommandExecutor {
             return false;
 
         Player player = (Player) sender;
-        Faction faction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
-
-        boolean canUseCommand = faction.getGodsEnum() == GodsEnum.HADES && faction.getGod() != null && faction.getGod().getName() == player.getName();
-
 
         if (!player.isOp()) {
             player.sendMessage(Message.getPlayerPrefixe() + "§cYou don't have permission to perform this command");

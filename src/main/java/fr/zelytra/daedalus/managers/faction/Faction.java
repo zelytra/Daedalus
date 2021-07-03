@@ -95,6 +95,10 @@ public class Faction {
         return (ArrayList<Player>) playerList;
     }
 
+    public int getPlayerAmount(){
+        return factionMembers.size();
+    }
+
     public int getAliveCount() {
         int count = 0;
         for (PlayerStatus status : factionMembers.values()) {

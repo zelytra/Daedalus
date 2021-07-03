@@ -33,6 +33,7 @@ public class Ares implements Gods {
 
         ItemStack item = new ItemStack(Material.NETHERITE_CHESTPLATE);
         item.addEnchantment(Enchantment.THORNS, 3);
+        item.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
         ItemMeta meta = item.getItemMeta();
         meta.setUnbreakable(true);
         item.setItemMeta(meta);

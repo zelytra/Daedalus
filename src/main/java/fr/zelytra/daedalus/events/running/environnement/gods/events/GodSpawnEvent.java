@@ -1,19 +1,25 @@
-package fr.zelytra.daedalus.events.running.players.DeathHandler;
+package fr.zelytra.daedalus.events.running.environnement.gods.events;
 
+import fr.zelytra.daedalus.managers.faction.Faction;
+import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class DefinitiveDeathEvent extends Event implements Cancellable {
+public class GodSpawnEvent extends Event implements Cancellable {
 
     private static final HandlerList HANDLERS_LIST = new HandlerList();
     private boolean isCancelled;
-    private Player player;
+    private final GodsEnum god;
+    private final Faction faction;
+    private final Player player;
 
-    public DefinitiveDeathEvent(Player player){
-        this.player = player;
+    public GodSpawnEvent(GodsEnum god, Faction faction, Player player) {
+        this.god = god;
         this.isCancelled = false;
+        this.faction = faction;
+        this.player = player;
     }
 
     @Override
@@ -33,6 +39,14 @@ public class DefinitiveDeathEvent extends Event implements Cancellable {
 
     public static HandlerList getHandlerList() {
         return HANDLERS_LIST;
+    }
+
+    public GodsEnum getGod() {
+        return god;
+    }
+
+    public Faction getFaction() {
+        return faction;
     }
 
     public Player getPlayer() {

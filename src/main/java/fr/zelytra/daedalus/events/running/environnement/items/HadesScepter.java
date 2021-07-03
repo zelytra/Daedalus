@@ -5,6 +5,7 @@ import fr.zelytra.daedalus.managers.cooldown.Cooldown;
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.*;
@@ -34,7 +35,7 @@ public class HadesScepter implements Listener {
                     Player player = e.getPlayer();
 
                     //Cooldown check
-                    if(!Cooldown.cooldownCheck(player,CustomMaterial.HADES_SCEPTER.getName())){
+                    if (!Cooldown.cooldownCheck(player, CustomMaterial.HADES_SCEPTER.getName())) {
                         return;
                     }
                     Cooldown cd = new Cooldown(player, itemCooldown, CustomMaterial.HADES_SCEPTER.getName());
@@ -76,7 +77,7 @@ public class HadesScepter implements Listener {
 
                 for (Entity target : nearbyEntities) {
                     if (target instanceof LivingEntity) {
-                        if (target instanceof Player) {
+                        if (target instanceof Player && ((Player) target).getGameMode() == GameMode.SURVIVAL) {
                             Player targetedPlayer = (Player) target;
                             Faction targetPlayerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(targetedPlayer);
                             if (!targetPlayerTeam.getType().getName().equals(pdc.get(hadesKey, PersistentDataType.STRING))) {
