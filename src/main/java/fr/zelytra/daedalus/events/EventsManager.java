@@ -14,6 +14,7 @@ import fr.zelytra.daedalus.events.running.environnement.structure.*;
 import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.DeathListener;
 import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.DefinitiveDeathListener;
 import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.PartielDeathListener;
+import fr.zelytra.daedalus.events.running.players.InventoryLooker;
 import fr.zelytra.daedalus.events.running.players.PlayerChatRListener;
 import fr.zelytra.daedalus.events.running.players.PlayerEatGoldenApple;
 import fr.zelytra.daedalus.events.running.pvp.CoolDown;
@@ -100,6 +101,7 @@ public class EventsManager {
         pm.registerEvents(new TeamSelector(), pl);
         pm.registerEvents(new GameStarter(), pl);
         pm.registerEvents(new GameSettingsInterface(), pl);
+        pm.registerEvents(new InventoryLooker(), pl);
 
         /* Players */
         pm.registerEvents(new PlayerJoinListener(), pl);
