@@ -32,6 +32,7 @@ public enum CustomMaterial {
     DIVINE_TRACKER("§bDivine Tracker", "divine_tracker", 23, Material.COMPASS, ItemType.MISCELLANEOUS),
 
     ATHENA_MAP("§cAthena's Map", "athena_map", 24, Material.FILLED_MAP, ItemType.MISCELLANEOUS),
+    DIONYSOS_BEER("§5§lDionysos Beer", "dionysos_beer", 25, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
 
     NEXT_ARROW("§bNext", "next_arrow",42, Material.POTATO, ItemType.SPECIAL),
     PREVIOUS_ARROW("§bPrevious","previous_arrow",43, Material.BAKED_POTATO, ItemType.SPECIAL),
