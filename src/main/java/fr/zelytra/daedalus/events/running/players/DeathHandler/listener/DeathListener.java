@@ -16,7 +16,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class DeathListener implements Listener {
     private Daedalus daedalus = Daedalus.getInstance();
-    private boolean hasMinoSpawn = false;
+    public static boolean hasMinoSpawn = false;
     private boolean isMinoDead = false;
 
     @EventHandler

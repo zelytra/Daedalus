@@ -112,6 +112,7 @@ public class EventsManager {
         pm.registerEvents(new PlayerChatRListener(), pl);
         pm.registerEvents(new PlayerFoodListener(), pl);
         pm.registerEvents(new PlayerOpCommandListener(), pl);
+        pm.registerEvents(new PrivateMessageListener(), pl);
 
         /* Entities */
         pm.registerEvents(new EntityTargetListener(), pl);

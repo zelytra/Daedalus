@@ -334,7 +334,7 @@ public class MazeHandler {
 
         for (int y = (int) origin.getY(); y < origin.getY() + this.wallHeight; y++) {
 
-            if (origin.getWorld().getBlockAt(v.x, y, v.z).getType() == Material.SMOOTH_SANDSTONE) {
+            if (origin.getWorld().getBlockAt(v.x, y, v.z).getType() != Material.AIR) {
                 for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                     if (entry.getKey().contains(v.x, y, v.z))
                         return;

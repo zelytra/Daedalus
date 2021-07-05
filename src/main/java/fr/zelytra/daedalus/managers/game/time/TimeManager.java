@@ -66,13 +66,15 @@ public class TimeManager {
     }
 
     private void episodeChangeEvent() {
+        Bukkit.broadcastMessage("");
+        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + " §6Episode " + episode);
+
         switch (episode) {
 
             case 2:
 
-                Bukkit.broadcastMessage("");
+
                 Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Minotaure §6has been released in the Maze... May Divinities be with you !");
-                Bukkit.broadcastMessage("");
 
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     player.playSound(player.getLocation(), Sound.ENTITY_WITHER_AMBIENT, 1, 0.5F);
@@ -96,22 +98,18 @@ public class TimeManager {
 
 
             case 6:
-                Bukkit.broadcastMessage("");
                 Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§6The wall maze begin to fall... Advise : §cRUN.");
-                Bukkit.broadcastMessage("");
                 Daedalus.getInstance().getStructureManager().getShrinkManager().startShrinking();
 
 
                 break;
 
             case 8:
-                Bukkit.broadcastMessage("");
                 Bukkit.broadcastMessage("§eI feels like i'm walking on sunshine ");
-                Bukkit.broadcastMessage("");
                 for (Faction faction : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
-                    for (Player player: faction.getPlayerList())
-                        if(faction.isAlive(player))
-                            player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING,9999999,0,true,false,true));
+                    for (Player player : faction.getPlayerList())
+                        if (faction.isAlive(player))
+                            player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 9999999, 0, true, false, true));
 
                 }
                 break;
@@ -122,6 +120,7 @@ public class TimeManager {
 
 
         }
+        Bukkit.broadcastMessage("");
     }
 
     public int getEpisode() {

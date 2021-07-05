@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.managers.faction;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.DeathListener;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.time.TimeManager;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
@@ -36,7 +37,7 @@ public class FactionScoreBoard {
         scoreboard.getTeam("episode").setPrefix("Episode §6: §a" + timeManager.getEpisode());
         scoreboard.getTeam("timer").setPrefix("Timer §6: §a" + timeManager.getTimer());
         scoreboard.getTeam("border").setPrefix("Border §6: §a" + (Daedalus.getInstance().getStructureManager().getShrinkManager().getWorkloadThread() == null ? "§cNull" : Daedalus.getInstance().getStructureManager().getShrinkManager().getBorderRadius()));
-        scoreboard.getTeam("stateMino").setPrefix("State §6: " + (isMinotaur() ? "§aAlive" : "§cDead"));
+        scoreboard.getTeam("stateMino").setPrefix("State §6: " + (DeathListener.hasMinoSpawn ? (isMinotaur() ? "§aAlive" : "§cDead") : "§k4269"));
         scoreboard.getTeam("alive").setPrefix("Alive §6: §a" + faction.getAliveCount() + "§6/§a" + faction.getPlayerAmount());
 
         if (faction.getGodsEnum() != null)

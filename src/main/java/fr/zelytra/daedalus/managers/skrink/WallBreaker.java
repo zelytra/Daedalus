@@ -28,10 +28,8 @@ public class WallBreaker implements Workload {
         }
 
         Block block = world.getBlockAt(x, y, z);
+        block.setType(Material.AIR);
 
-        if (block.getType() == Material.SMOOTH_SANDSTONE) {
-            block.setType(Material.AIR);
-        }
     }
 
     public boolean isMarker() {
