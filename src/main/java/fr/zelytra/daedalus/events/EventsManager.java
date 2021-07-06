@@ -4,6 +4,7 @@ import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.commands.wiki.Wiki;
 import fr.zelytra.daedalus.events.running.environnement.gods.events.GodSpawnHandler;
 import fr.zelytra.daedalus.events.running.environnement.gods.listener.*;
+import fr.zelytra.daedalus.events.running.environnement.items.events.CustomItemDropHandler;
 import fr.zelytra.daedalus.events.running.environnement.items.events.CustomItemUseHandler;
 import fr.zelytra.daedalus.events.running.environnement.items.listener.*;
 import fr.zelytra.daedalus.events.running.environnement.items.listener.athenaMap.AthenaMap;
@@ -54,6 +55,7 @@ public class EventsManager {
 
         /*Custom Items*/
         pm.registerEvents(new CustomItemUseHandler(),pl);
+        pm.registerEvents(new CustomItemDropHandler(),pl);
         pm.registerEvents(new ZeusLightning(),pl);
         pm.registerEvents(new HadesScepter(),pl);
         pm.registerEvents(new AphroditeHeart(),pl);

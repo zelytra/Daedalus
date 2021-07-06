@@ -11,5 +11,6 @@ public class DionysosBeer implements Listener {
     public void onRightClick(CustomItemUseEvent e) {
 
         if (e.getMaterial() != CustomMaterial.DIONYSOS_BEER) return;
+
     }
 }
