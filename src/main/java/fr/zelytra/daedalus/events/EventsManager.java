@@ -4,8 +4,9 @@ import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.commands.wiki.Wiki;
 import fr.zelytra.daedalus.events.running.environnement.gods.events.GodSpawnHandler;
 import fr.zelytra.daedalus.events.running.environnement.gods.listener.*;
-import fr.zelytra.daedalus.events.running.environnement.items.*;
-import fr.zelytra.daedalus.events.running.environnement.items.athenaMap.AthenaMap;
+import fr.zelytra.daedalus.events.running.environnement.items.events.CustomItemUseHandler;
+import fr.zelytra.daedalus.events.running.environnement.items.listener.*;
+import fr.zelytra.daedalus.events.running.environnement.items.listener.athenaMap.AthenaMap;
 import fr.zelytra.daedalus.events.running.environnement.mobCutclean.*;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.AxeStripped;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.PlayerBreakBlockListener;
@@ -52,6 +53,7 @@ public class EventsManager {
         pm.registerEvents(new ForcedTexturePack(),pl);
 
         /*Custom Items*/
+        pm.registerEvents(new CustomItemUseHandler(),pl);
         pm.registerEvents(new ZeusLightning(),pl);
         pm.registerEvents(new HadesScepter(),pl);
         pm.registerEvents(new AphroditeHeart(),pl);

@@ -1,4 +1,4 @@
-package fr.zelytra.daedalus.events.running.environnement.items;
+package fr.zelytra.daedalus.events.running.environnement.items.listener;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.cooldown.Cooldown;

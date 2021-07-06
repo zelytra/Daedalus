@@ -1,4 +1,4 @@
-package fr.zelytra.daedalus.events.running.environnement.items.athenaMap;
+package fr.zelytra.daedalus.events.running.environnement.items.listener.athenaMap;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.maze.Maze;
