@@ -3,7 +3,7 @@
     <img src="https://github.com/zelytra/Daedalus/blob/master/img/logo.png" width="800" height="100" align="center">
 </p>
 
-![release](https://img.shields.io/badge/release-v0.4-blueviolet)
+![release](https://img.shields.io/badge/release-v0.8-blueviolet)
 ![language](https://img.shields.io/badge/langage-JAVA-orange)
 ![license](https://img.shields.io/badge/license-GPL--3.0-blue)
 # Presentation
