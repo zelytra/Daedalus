@@ -5,7 +5,7 @@ import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.UUID;
 
-public class AttributeGenerator {
+public abstract class AttributeGenerator {
 
     public static AttributeModifier attack(int value, EquipmentSlot slot) {
         return new AttributeModifier(UUID.randomUUID(), "attackDamage", value, AttributeModifier.Operation.ADD_NUMBER,slot);
