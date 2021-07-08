@@ -3,10 +3,15 @@
     <img src="https://github.com/zelytra/Daedalus/blob/master/img/logo.png" width="800" height="100" align="center">
 </p>
 
-![release](https://img.shields.io/badge/release-v0.4-blueviolet)
+![release](https://img.shields.io/badge/release-v0.8-blueviolet)
 ![language](https://img.shields.io/badge/langage-JAVA-orange)
 ![license](https://img.shields.io/badge/license-GPL--3.0-blue)
 # Presentation
+Daedalus is a project taking you back to Ancient Greece. Four human teams wander the Labyrinth of Daedalus, austere dwelling of the Minotaur and its minions. A hostile, brutal and irrevocable encounter is to expect, unless our mortal friends win the favour of the Gods of Olympus. Only one team shall emerge victorious, but which one will it be ?
+
+Dropped into the labyrinth, you shall prepare to face all kinds of enemies by collecting resources and putting together your own equipment.
+
+You shall seek, before any confrontation with the Minotaur and its team, to win a god’s favour by making an offering in one of the 10 temples present in this labyrinth.
 
 -----------------
 
