@@ -195,7 +195,7 @@ public class Wiki implements CommandExecutor, Listener {
                     interfaceBuilder.setContent(contentBuilder(0));
                     interfaceBuilder.open((Player) e.getWhoClicked());
 
-                } else if (e.getCurrentItem().getType() == Material.HEART_OF_THE_SEA) {
+                } else if (e.getCurrentItem().getType() == Material.HEART_OF_THE_SEA || e.getCurrentItem().getType() == Material.NETHER_STAR || e.getCurrentItem().getType() == Material.CHORUS_FLOWER) {
                     InterfaceBuilder interfaceBuilder = new InterfaceBuilder(36, wikiName);
                     interfaceBuilder.setContent(contentCraftBuilder(e.getCurrentItem()));
                     interfaceBuilder.open((Player) e.getWhoClicked());

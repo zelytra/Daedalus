@@ -12,4 +12,5 @@ public class PlayerFoodListener implements Listener {
         if(Daedalus.getInstance().getGameManager().isWaiting())
             e.setCancelled(true);
     }
+
 }
