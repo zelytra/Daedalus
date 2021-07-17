@@ -140,12 +140,11 @@ public class CraftManager {
         shapedRecipeBuilder.register();
 
         shapedRecipeBuilder = new ShapedRecipeBuilder(CustomMaterial.DIVINE_TRACKER);
-        shapedRecipeBuilder.setShape("a/a", "aka", "crc");
-        shapedRecipeBuilder.assigneSymbol('a',new ItemStack(Material.EMERALD,2));
-        shapedRecipeBuilder.assigneSymbol('r',new ItemStack(Material.REDSTONE,4));
-        shapedRecipeBuilder.assigneSymbol('c', Material.FLINT);
-        shapedRecipeBuilder.assigneSymbol('k', new ItemStack(Material.IRON_BLOCK,2));
-        shapedRecipeBuilder.assigneSymbol('/', Material.OBSIDIAN);
+        shapedRecipeBuilder.setShape("aga", "/k/", "aga");
+        shapedRecipeBuilder.assigneSymbol('a',Material.EMERALD);
+        shapedRecipeBuilder.assigneSymbol('g',Material.GOLD_INGOT);
+        shapedRecipeBuilder.assigneSymbol('k', Material.COMPASS);
+        shapedRecipeBuilder.assigneSymbol('/', CustomMaterial.DIVINE_FRAGMENT);
         shapedRecipeBuilder.register();
     }
 }

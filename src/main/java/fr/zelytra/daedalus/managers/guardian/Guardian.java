@@ -20,6 +20,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
 import javax.annotation.Nullable;
@@ -32,6 +33,7 @@ public class Guardian implements Listener {
 
     private final LivingEntity entity;
     private final Location spawnLoc;
+    private static BukkitTask task;
 
     private final static NamespacedKey spawnLocKey = new NamespacedKey(Daedalus.getInstance(), "spawnLoc");
 
@@ -124,8 +126,17 @@ public class Guardian implements Listener {
     public void death() {
         guardianList.remove(this);
         this.bossBar.removeAll();
-        Bukkit.getScheduler().runTaskLater(Daedalus.getInstance(), () -> new Guardian(this.spawnLoc), respawnCooldown * 20);
+        Bukkit.getScheduler().runTaskLater(Daedalus.getInstance(), () -> {
+            task = Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
+                if (this.spawnLoc.isChunkLoaded()) {
+                    new Guardian(this.spawnLoc);
+                    task.cancel();
+                }
+            }, 0, 100);
+        }, respawnCooldown * 20);
+
     }
+
 
     public void customAttack() {
 
