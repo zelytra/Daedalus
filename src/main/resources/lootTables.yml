@@ -735,21 +735,21 @@ dungeon1:
       material: enchanted_book
       enchant:
         type: damage_all
-        level: 3
+        level: 2
       amount: 1
       luck: 1
     loot38:
       material: enchanted_book
       enchant:
         type: protection_environmental
-        level: 3
+        level: 2
       amount: 1
       luck: 1
     loot39:
       material: enchanted_book
       enchant:
         type: protection_projectile
-        level: 3
+        level: 2
       amount: 1
       luck: 1
     loot40:
