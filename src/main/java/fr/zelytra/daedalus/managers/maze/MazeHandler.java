@@ -238,7 +238,7 @@ public class MazeHandler {
             int radius = grid.length / 2;
             Vector2 center = new Vector2(origin.getBlockX() + grid.length / 2, origin.getBlockZ() + grid.length / 2);
 
-            for (int r = radius; r > 84; r--) {
+            for (int r = radius; r > 42; r--) {
 
                 for (int x = -r; x <= r; x++) {
 

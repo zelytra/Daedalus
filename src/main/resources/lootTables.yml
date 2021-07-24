@@ -773,3 +773,36 @@ dungeon1:
         level: 1
       amount: 1
       luck: 0.5
+temple:
+  containers:
+    - chest
+    - barrel
+  loots:
+    loot1:
+      material: oak_planks
+      amount: 48
+      luck: 30
+    loot2:
+      material: cooked_beef
+      amount: 10
+      luck: 20
+    loot3:
+      material: arrow
+      amount: 20
+      luck: 20
+    loot4:
+      material: diamond
+      amount: 1
+      luck: 10
+    loot5:
+      material: spectral_arrow
+      amount: 10
+      luck: 10
+    loot6:
+      material: experience_bottle
+      amount: 20
+      luck: 5
+    loot7:
+      material: golden_apple
+      amount: 2
+      luck: 5

@@ -42,6 +42,17 @@ public class LootTableManager {
         this.structuresLoot.put(StructureEnum.MINE2.getName(), lootParser.getByName(StructureEnum.MINE1.getName()));
         this.structuresLoot.put(StructureEnum.MINE3.getName(), lootParser.getByName(StructureEnum.MINE1.getName()));
 
+        this.structuresLoot.put(StructureEnum.ZEUS.getName(), lootParser.getByName("temple"));
+        this.structuresLoot.put(StructureEnum.ATHENA.getName(), lootParser.getByName("temple"));
+        this.structuresLoot.put(StructureEnum.POSEIDON.getName(), lootParser.getByName("temple"));
+        this.structuresLoot.put(StructureEnum.ARES.getName(), lootParser.getByName("temple"));
+        this.structuresLoot.put(StructureEnum.APHRODITE.getName(), lootParser.getByName("temple"));
+        this.structuresLoot.put(StructureEnum.DEMETER.getName(), lootParser.getByName("temple"));
+        this.structuresLoot.put(StructureEnum.HERMES.getName(), lootParser.getByName("temple"));
+        this.structuresLoot.put(StructureEnum.HADES.getName(), lootParser.getByName("temple"));
+        this.structuresLoot.put(StructureEnum.ARTEMIS.getName(), lootParser.getByName("temple"));
+        this.structuresLoot.put(StructureEnum.DIONYSOS.getName(), lootParser.getByName("temple"));
+
         this.structuresLoot.put(StructureEnum.DUNGEON1.getName(), lootParser.getByName(StructureEnum.DUNGEON1.getName()));
         this.structuresLoot.put(StructureEnum.DUNGEON2.getName(), lootParser.getByName(StructureEnum.DUNGEON1.getName()));
         this.structuresLoot.put(StructureEnum.DUNGEON3.getName(), lootParser.getByName(StructureEnum.DUNGEON1.getName()));
