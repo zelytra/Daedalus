@@ -58,9 +58,9 @@ public class HermesHandler implements Listener {
     @EventHandler
     public void setFlyOnJump(PlayerToggleFlightEvent e) {
         Player jumper = e.getPlayer();
-        if(jumper.getLocation().getY() >= 91){
+        if (jumper.getLocation().getY() >= 91) {
             e.setCancelled(true);
-            jumper.sendMessage(Message.getPlayerPrefixe()+"§6Don't try to jump too high");
+            jumper.sendMessage(Message.getPlayerPrefixe() + "§6Don't try to jump too high");
             return;
         }
 
@@ -89,6 +89,9 @@ public class HermesHandler implements Listener {
                 if (team.getGodsEnum() != GodsEnum.HERMES) {
                     continue;
                 }
+
+                if (!team.getGod().isOnline())
+                    return;
 
                 if (team.getGod().isOnGround()) {
                     team.getGod().setAllowFlight(true);
