@@ -70,12 +70,12 @@ public class HadesScepter implements Listener {
                 ArrayList<Entity> toTarget = new ArrayList<>();
 
                 for (Entity target : nearbyEntities) {
+                    if (target instanceof WitherSkeleton) continue;
 
-                    if (target instanceof Player && ((Player) target).getGameMode() == GameMode.SURVIVAL) continue;
-
-                    if (target instanceof LivingEntity) {
-                        assert target instanceof Player;
+                    if (target instanceof Player) {
                         Player targetedPlayer = (Player) target;
+                        if (targetedPlayer.getGameMode() != GameMode.SURVIVAL) continue;
+
                         Faction targetPlayerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(targetedPlayer);
                         if (!targetPlayerTeam.getType().getName().equals(pdc.get(hadesKey, PersistentDataType.STRING))) {
                             toTargetPlayer.add(target);
