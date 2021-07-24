@@ -40,9 +40,9 @@ public class MinotaureHandler implements Listener {
                     continue;
                 }
                 for (Player player : team.getPlayerList()) {
-                    if (player == null) {
+                    if (player == null || !team.isAlive(player))
                         continue;
-                    }
+
                     List<Entity> entities = player.getNearbyEntities(50, 50, 50);
                     for (Entity e : entities) {
                         if (e instanceof Player) {
