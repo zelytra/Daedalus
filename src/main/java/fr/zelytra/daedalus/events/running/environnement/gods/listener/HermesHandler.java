@@ -5,6 +5,7 @@ import fr.zelytra.daedalus.events.running.environnement.gods.events.GodSpawnEven
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.gods.list.Hermes;
+import fr.zelytra.daedalus.utils.Message;
 import fr.zelytra.daedalus.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -19,6 +20,7 @@ import org.bukkit.util.Vector;
 import java.util.Objects;
 
 public class HermesHandler implements Listener {
+    private final int maxY = 10;
 
     @EventHandler
     public void playerInteract(GodSpawnEvent e) {
@@ -56,6 +58,11 @@ public class HermesHandler implements Listener {
     @EventHandler
     public void setFlyOnJump(PlayerToggleFlightEvent e) {
         Player jumper = e.getPlayer();
+        if(jumper.getLocation().getY() >= 91){
+            e.setCancelled(true);
+            jumper.sendMessage(Message.getPlayerPrefixe()+"§6Don't try to jump too high");
+            return;
+        }
 
         if (e.isFlying() && jumper.getGameMode() != GameMode.CREATIVE && jumper.getGameMode() != GameMode.SPECTATOR) {
             jumper.setFlying(false);

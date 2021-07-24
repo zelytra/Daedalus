@@ -23,7 +23,7 @@ public class HadesScepter implements Listener {
 
     @EventHandler
     public void onRightClick(CustomItemUseEvent e) {
-        int itemCooldown = 120;
+        int itemCooldown = 30;
         int skeletonNumber = 2;
         int spawnRadius = 3;
 
