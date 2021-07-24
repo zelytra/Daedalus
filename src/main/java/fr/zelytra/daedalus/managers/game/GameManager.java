@@ -14,6 +14,7 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -174,8 +175,13 @@ public class GameManager {
     public void stop() {
         getTimeManager().stop();
         this.state = GameStatesEnum.FINISHED;
-        //TODO Mettre tout le monde en créatif
-        //TODO FX de victoire
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.getInventory().clear();
+            player.getInventory().addItem(new ItemStack(Material.TNT));
+            player.getInventory().addItem(new ItemStack(Material.FLINT_AND_STEEL));
+            player.setGameMode(GameMode.CREATIVE);
+            player.teleport(FactionsEnum.SPECTATOR.getSpawn());
+        }
 
     }
 
