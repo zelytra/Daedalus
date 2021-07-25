@@ -10,12 +10,17 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
 public class CustomItemStack {
     private final static NamespacedKey itemKey = new NamespacedKey(Daedalus.getInstance(), "daedalus");
     private final static NamespacedKey descriptionKey = new NamespacedKey(Daedalus.getInstance(), "description");
+
+    private final static NamespacedKey dionysusValue = new NamespacedKey(Daedalus.getInstance(), "value");
+    private final static NamespacedKey dionysusMaxValue = new NamespacedKey(Daedalus.getInstance(), "maxValue");
 
     private final ItemStack item;
     private final CustomMaterial customMaterial;
@@ -98,9 +103,26 @@ public class CustomItemStack {
                 //itemData.set(descriptionKey, PersistentDataType.STRING, );
                 //meta.setLore(lore);
                 this.item.setItemMeta(meta);
+
+                if (material == CustomMaterial.DIONYSOS_MUG)
+                    dionysosMugInit();
+
                 break;
 
         }
+
+    }
+
+    private void dionysosMugInit() {
+        ItemMeta meta = this.item.getItemMeta();
+        PersistentDataContainer itemData = meta.getPersistentDataContainer();
+        itemData.set(dionysusValue, PersistentDataType.INTEGER, 1);
+        itemData.set(dionysusMaxValue, PersistentDataType.INTEGER, 1);
+
+        List<String> lore = new ArrayList<>();
+        lore.add("");
+        lore.add("§6§lSip: §a" + 1 + "§6/§a" + 1);
+
 
     }
 

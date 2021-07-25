@@ -33,7 +33,7 @@ public class Hermes implements Gods {
     @Override
     public ArrayList<ItemStack> godItems() {
         ArrayList<ItemStack> items = new ArrayList<>();
-        items.add(new CustomItemStack(CustomMaterial.HERMES_TRUC).getItem());
+        items.add(new CustomItemStack(CustomMaterial.HERMES_CADUCEUS).getItem());
         return items;
     }
 

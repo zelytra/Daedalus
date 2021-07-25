@@ -26,7 +26,7 @@ public class Dionysos implements Gods {
     @Override
     public ArrayList<ItemStack> godItems() {
         ArrayList<ItemStack> items = new ArrayList<>();
-        items.add(new CustomItemStack(CustomMaterial.DIONYSOS_CUP).getItem());
+        items.add(new CustomItemStack(CustomMaterial.DIONYSOS_MUG).getItem());
         return items;
     }
 

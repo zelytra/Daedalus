@@ -8,7 +8,10 @@ public enum CustomMaterial {
     HADES_SCEPTER("§4§lHades's Scepter", "hades_scepter", 2, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     APHRODITE_HEART("§d§lAphrodite's Heart", "aphrodite_heart", 3, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     DEMETER_SICKLE("§2§lDemeter's Sickle", "demeter_sickle", 4, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
-    DIONYSOS_CUP("§5§lDionysos's Cup", "dionysos_cup", 5, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
+
+    DIONYSOS_THYRSUS ("§5§lDionysos's Thyrsus", "dionysos_thyrsus", 5, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
+    DIONYSOS_MUG("§5§lDionysos Mug", "dionysos_mug", 25, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
+    HERMES_CADUCEUS("§7§lHermes Caduceus", "hermes_caduceus", 22, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
 
     MINOTAUR_HEAD("§5§lMinotaur's Head", "minotaur_head", 6, Material.CARVED_PUMPKIN, ItemType.ARMOR, 3, 0,EquipmentSlot.HEAD),
     DIVINE_FRAGMENT("§f§lDivine Fragment", "divine_fragment", 7, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
@@ -28,15 +31,9 @@ public enum CustomMaterial {
 
     MINOTAUR_CHARGE("§6§lMinotaur's Charge", "minotaur_charge", 20, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     MEDUSA_HEAD("§7§lMedusa Head", "medusa_head", 21, Material.CARVED_PUMPKIN, ItemType.MISCELLANEOUS),
-    HERMES_TRUC("§7§lHermesTruc", "hermes_truc", 22, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     DIVINE_TRACKER("§bDivine Tracker", "divine_tracker", 23, Material.COMPASS, ItemType.MISCELLANEOUS),
 
-    ATHENA_MAP("§cAthena's Map", "athena_map", 24, Material.FILLED_MAP, ItemType.MISCELLANEOUS),
-    DIONYSOS_BEER("§5§lDionysos Beer", "dionysos_beer", 25, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
-
-    NEXT_ARROW("§bNext", "next_arrow",42, Material.POTATO, ItemType.SPECIAL),
-    PREVIOUS_ARROW("§bPrevious","previous_arrow",43, Material.BAKED_POTATO, ItemType.SPECIAL),
-    VALIDAY("§aConfirm","validay",46, Material.SLIME_BALL, ItemType.SPECIAL);
+    ATHENA_MAP("§cAthena's Map", "athena_map", 24, Material.FILLED_MAP, ItemType.MISCELLANEOUS);
 
 
     private final String displayName;

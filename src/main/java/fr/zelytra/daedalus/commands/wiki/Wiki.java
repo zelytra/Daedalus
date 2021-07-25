@@ -157,39 +157,11 @@ public class Wiki implements CommandExecutor, Listener {
         if (e.getInventory().getHolder() instanceof CustomGUI && e.getView().getTitle().equals(wikiName)) {
             if (e.getCurrentItem() != null) {
                 if (CustomItemStack.getCustomMaterial(e.getCurrentItem()) != null) {
-                    switch (CustomItemStack.getCustomMaterial(e.getCurrentItem())) {
-                        case NEXT_ARROW:
-                            InterfaceBuilder interfaceBuilder = new InterfaceBuilder(54, wikiName);
-                            ItemStack[] content = contentBuilder(getPage(e.getInventory().getContents()) + 1);
-                            boolean isEmpty = true;
-                            for (int a = 0; a < 4; a++) {
-                                for (int id = 10; id <= 16; id++) {
-                                    if (content[(id + a * 9)].getType() != Material.AIR) {
-                                        isEmpty = false;
-                                        break;
-                                    }
-                                }
 
-                            }
-                            if (!isEmpty) {
-                                interfaceBuilder.setContent(content);
-                            } else {
-                                break;
-                            }
+                    InterfaceBuilder interfaceBuilder = new InterfaceBuilder(36, wikiName);
+                    interfaceBuilder.setContent(contentCraftBuilder(e.getCurrentItem()));
+                    interfaceBuilder.open((Player) e.getWhoClicked());
 
-                            interfaceBuilder.open((Player) e.getWhoClicked());
-                            break;
-                        case PREVIOUS_ARROW:
-                            interfaceBuilder = new InterfaceBuilder(54, wikiName);
-                            interfaceBuilder.setContent(contentBuilder(getPage(e.getInventory().getContents()) - 1));
-                            interfaceBuilder.open((Player) e.getWhoClicked());
-                            break;
-                        default:
-                            interfaceBuilder = new InterfaceBuilder(36, wikiName);
-                            interfaceBuilder.setContent(contentCraftBuilder(e.getCurrentItem()));
-                            interfaceBuilder.open((Player) e.getWhoClicked());
-                            break;
-                    }
                 } else if (e.getCurrentItem().getType() == Material.BARRIER) {
                     InterfaceBuilder interfaceBuilder = new InterfaceBuilder(54, wikiName);
                     interfaceBuilder.setContent(contentBuilder(0));

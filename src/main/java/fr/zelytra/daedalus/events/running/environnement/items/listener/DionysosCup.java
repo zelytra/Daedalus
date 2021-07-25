@@ -24,7 +24,7 @@ public class DionysosCup implements Listener {
     public void onRightClick(CustomItemUseEvent e) {
         int itemCooldown = 90;
         int effectRadius = 10;
-        if (e.getMaterial() != CustomMaterial.DIONYSOS_CUP) return;
+        if (e.getMaterial() != CustomMaterial.DIONYSOS_THYRSUS) return;
         Player player = e.getPlayer();
 
         //Item action
@@ -50,10 +50,10 @@ public class DionysosCup implements Listener {
                 return;
             }
             //Cooldown check
-            if (!Cooldown.cooldownCheck(player, CustomMaterial.DIONYSOS_CUP.getName())) {
+            if (!Cooldown.cooldownCheck(player, CustomMaterial.DIONYSOS_THYRSUS.getName())) {
                 return;
             }
-            Cooldown cd = new Cooldown(player, itemCooldown, CustomMaterial.DIONYSOS_CUP.getName());
+            Cooldown cd = new Cooldown(player, itemCooldown, CustomMaterial.DIONYSOS_THYRSUS.getName());
 
 
             for (Entity entity : targetList) {
