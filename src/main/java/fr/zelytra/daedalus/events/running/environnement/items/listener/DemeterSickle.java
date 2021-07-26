@@ -22,7 +22,7 @@ public class DemeterSickle implements Listener {
 
     @EventHandler
     public void onRightClick(CustomItemUseEvent e) {
-        int itemCooldown = 60;
+        int itemCooldown = 45;
         int effectRadius = 10;
 
         if (e.getMaterial() != CustomMaterial.DEMETER_SICKLE) return;
@@ -54,10 +54,10 @@ public class DemeterSickle implements Listener {
             if (!Cooldown.cooldownCheck(player, CustomMaterial.DEMETER_SICKLE.getName())) {
                 return;
             }
-            Cooldown cd = new Cooldown(player, itemCooldown, CustomMaterial.DEMETER_SICKLE.getName());
+            new Cooldown(player, itemCooldown, CustomMaterial.DEMETER_SICKLE.getName());
 
             for (Entity entity : targetList) {
-                ((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 200, 1));
+                ((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 200, 9));
             }
 
         } catch (Exception exception) {

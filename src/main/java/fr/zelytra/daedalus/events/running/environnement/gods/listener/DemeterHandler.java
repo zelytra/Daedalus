@@ -1,6 +1,9 @@
 package fr.zelytra.daedalus.events.running.environnement.gods.listener;
 
+import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.events.running.environnement.gods.events.GodSpawnEvent;
+import fr.zelytra.daedalus.managers.faction.Faction;
+import fr.zelytra.daedalus.managers.game.time.event.EpisodeChangeEvent;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.gods.list.Demeter;
 import fr.zelytra.daedalus.utils.Utils;
@@ -25,9 +28,13 @@ public class DemeterHandler implements Listener {
 
     }
 
-    //TODO Double les minerais obtenue
-
-    //TODO 5 lvl d'xp a chaque fin d'épisode
+    @EventHandler
+    public void episodeChange(EpisodeChangeEvent e) {
+        for (Faction faction : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList())
+            if (faction.getGodsEnum() != null && faction.getGodsEnum() == GodsEnum.DEMETER)
+                for (Player player : faction.getPlayerList())
+                    player.setLevel(player.getLevel() + 7);
+    }
 
     private void vfx(Player player) {
         Bukkit.broadcastMessage("§2§l☀ Demeter as appear in the maze ☀");

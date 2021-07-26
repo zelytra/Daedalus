@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.managers.game.time;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
+import fr.zelytra.daedalus.managers.game.time.event.EpisodeChangeEvent;
 import fr.zelytra.daedalus.managers.structure.Structure;
 import fr.zelytra.daedalus.managers.structure.StructureEnum;
 import fr.zelytra.daedalus.managers.structure.doors.Doors;
@@ -68,6 +69,9 @@ public class TimeManager {
     private void episodeChangeEvent() {
         Bukkit.broadcastMessage("");
         Bukkit.broadcastMessage(Message.getPlayerPrefixe() + " §6Episode " + episode);
+
+        EpisodeChangeEvent event = new EpisodeChangeEvent(episode);
+        Bukkit.getPluginManager().callEvent(event);
 
         switch (episode) {
 
