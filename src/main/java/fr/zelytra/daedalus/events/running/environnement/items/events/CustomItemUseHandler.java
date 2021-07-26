@@ -24,14 +24,14 @@ public class CustomItemUseHandler implements Listener {
 
                 if (e.getHand() == EquipmentSlot.OFF_HAND && CustomItemStack.hasTag(e.getPlayer().getInventory().getItemInOffHand())) {
 
-                    CustomItemUseEvent customItemUseEvent = new CustomItemUseEvent(e.getPlayer(), CustomItemStack.getCustomMaterial(e.getPlayer().getInventory().getItemInOffHand()), e.getPlayer().getInventory().getItemInOffHand());
+                    CustomItemUseEvent customItemUseEvent = new CustomItemUseEvent(e.getPlayer(), CustomItemStack.getCustomMaterial(e.getPlayer().getInventory().getItemInOffHand()), e.getPlayer().getInventory().getItemInOffHand(),e);
                     Bukkit.getPluginManager().callEvent(customItemUseEvent);
 
                     return;
 
                 } else if ((e.getHand() == EquipmentSlot.HAND && CustomItemStack.hasTag(e.getPlayer().getInventory().getItemInMainHand()))) {
 
-                    CustomItemUseEvent customItemUseEvent = new CustomItemUseEvent(e.getPlayer(), CustomItemStack.getCustomMaterial(e.getPlayer().getInventory().getItemInMainHand()), e.getPlayer().getInventory().getItemInMainHand());
+                    CustomItemUseEvent customItemUseEvent = new CustomItemUseEvent(e.getPlayer(), CustomItemStack.getCustomMaterial(e.getPlayer().getInventory().getItemInMainHand()), e.getPlayer().getInventory().getItemInMainHand(),e);
                     Bukkit.getPluginManager().callEvent(customItemUseEvent);
 
                     return;

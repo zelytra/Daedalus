@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class CustomItemUseEvent extends Event implements Cancellable {
@@ -14,12 +15,14 @@ public class CustomItemUseEvent extends Event implements Cancellable {
     private CustomMaterial material;
     private final Player player;
     private final ItemStack item;
+    private final PlayerInteractEvent event;
 
-    public CustomItemUseEvent(Player player, CustomMaterial material, ItemStack item) {
+    public CustomItemUseEvent(Player player, CustomMaterial material, ItemStack item, PlayerInteractEvent event) {
 
         this.material = material;
         this.player = player;
         this.item = item;
+        this.event = event;
 
     }
 
@@ -52,5 +55,9 @@ public class CustomItemUseEvent extends Event implements Cancellable {
 
     public ItemStack getItem() {
         return item;
+    }
+
+    public PlayerInteractEvent getEvent() {
+        return event;
     }
 }

@@ -62,6 +62,7 @@ public class EventsManager {
         pm.registerEvents(new AphroditeHeart(),pl);
         pm.registerEvents(new DemeterSickle(),pl);
         pm.registerEvents(new DionysosCup(),pl);
+        pm.registerEvents(new DionysosMug(),pl);
         pm.registerEvents(new MinotaurCharge(),pl);
         pm.registerEvents(new DivineTracker(),pl);
         pm.registerEvents(new AthenaMap(),pl);
@@ -121,6 +122,7 @@ public class EventsManager {
         pm.registerEvents(new PlayerOpCommandListener(), pl);
         pm.registerEvents(new PrivateMessageListener(), pl);
         pm.registerEvents(new PlayerHotelClick(), pl);
+        pm.registerEvents(new PlayerInteractListener(), pl);
 
         /* Entities */
         pm.registerEvents(new EntityTargetListener(), pl);

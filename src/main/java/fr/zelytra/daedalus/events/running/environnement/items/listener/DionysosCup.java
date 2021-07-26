@@ -53,7 +53,7 @@ public class DionysosCup implements Listener {
             if (!Cooldown.cooldownCheck(player, CustomMaterial.DIONYSOS_THYRSUS.getName())) {
                 return;
             }
-            Cooldown cd = new Cooldown(player, itemCooldown, CustomMaterial.DIONYSOS_THYRSUS.getName());
+            new Cooldown(player, itemCooldown, CustomMaterial.DIONYSOS_THYRSUS.getName());
 
 
             for (Entity entity : targetList) {

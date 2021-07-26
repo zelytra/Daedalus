@@ -61,6 +61,10 @@ public class CustomItemStack {
                 //itemData.set(descriptionKey, PersistentDataType.STRING, );
                 //meta.setLore(lore);
                 this.item.setItemMeta(meta);
+
+                if (material == CustomMaterial.DIONYSOS_MUG)
+                    dionysosMugInit();
+
                 break;
 
         }
@@ -122,8 +126,20 @@ public class CustomItemStack {
         List<String> lore = new ArrayList<>();
         lore.add("");
         lore.add("§6§lSip: §a" + 1 + "§6/§a" + 1);
+        lore.add("");
+        meta.setLore(lore);
+
+        this.item.setItemMeta(meta);
 
 
+    }
+
+    public static NamespacedKey getDionysusValueKey() {
+        return dionysusValue;
+    }
+
+    public static NamespacedKey getDionysusMaxValueKey() {
+        return dionysusMaxValue;
     }
 
     public ItemStack getItem() {
