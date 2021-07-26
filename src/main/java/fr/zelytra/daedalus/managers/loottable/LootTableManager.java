@@ -6,10 +6,10 @@ import fr.zelytra.daedalus.managers.structure.StructureEnum;
 import java.util.HashMap;
 
 public class LootTableManager {
-    private HashMap<String, LootTable> structuresLoot;
-    private HashMap<String, LootTable> athenaLoot;
-    private HashMap<String, LootTable> dionysosPotion;
-    private LootParser lootParser;
+    private final HashMap<String, LootTable> structuresLoot;
+    private final HashMap<String, LootTable> athenaLoot;
+    private final HashMap<String, LootTable> dionysosPotion;
+    private final LootParser lootParser;
 
     public LootTableManager() {
         structuresLoot = new HashMap<>();

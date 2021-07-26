@@ -9,7 +9,7 @@ public final class GameSettings {
     public static int CIRCEE_ISLANDS_COUNT = 5;
     public static boolean FRIENDLY_FIRE = false;
     public static boolean HARDCORE = false;
-    public static boolean ABSORPTION = true;
+    public static boolean ABSORPTION = false;
     public static boolean CUT_CLEAN = true;
     public static int APPLE_DROP = 8;
     public static DayCycleEnum DAY_CYCLE = DayCycleEnum.DEFAULT;
