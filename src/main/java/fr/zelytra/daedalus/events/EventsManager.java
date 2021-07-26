@@ -19,6 +19,7 @@ import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.PartielD
 import fr.zelytra.daedalus.events.running.players.InventoryLooker;
 import fr.zelytra.daedalus.events.running.players.PlayerChatRListener;
 import fr.zelytra.daedalus.events.running.players.PlayerEatGoldenApple;
+import fr.zelytra.daedalus.events.running.players.PlayerHotelClick;
 import fr.zelytra.daedalus.events.running.pvp.CoolDown;
 import fr.zelytra.daedalus.events.running.pvp.DamagerHandler;
 import fr.zelytra.daedalus.events.running.pvp.PlayerRegen;
@@ -119,6 +120,7 @@ public class EventsManager {
         pm.registerEvents(new PlayerFoodListener(), pl);
         pm.registerEvents(new PlayerOpCommandListener(), pl);
         pm.registerEvents(new PrivateMessageListener(), pl);
+        pm.registerEvents(new PlayerHotelClick(), pl);
 
         /* Entities */
         pm.registerEvents(new EntityTargetListener(), pl);

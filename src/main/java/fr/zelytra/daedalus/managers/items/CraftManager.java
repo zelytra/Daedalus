@@ -98,7 +98,7 @@ public class CraftManager {
         shapedRecipeBuilder = new ShapedRecipeBuilder(CustomMaterial.HERMES_TOTEM);
         shapedRecipeBuilder.setShape("aza", "/b/", "c/c");
         shapedRecipeBuilder.assigneSymbol('a',Material.FEATHER);
-        shapedRecipeBuilder.assigneSymbol('a',Material.GOLDEN_BOOTS);
+        shapedRecipeBuilder.assigneSymbol('z',Material.GOLDEN_BOOTS);
         shapedRecipeBuilder.assigneSymbol('c', Material.EMERALD_BLOCK);
         shapedRecipeBuilder.assigneSymbol('b', CustomMaterial.DIVINE_HEART);
         shapedRecipeBuilder.assigneSymbol('/', CustomMaterial.DIVINE_FRAGMENT);
@@ -108,7 +108,7 @@ public class CraftManager {
         shapedRecipeBuilder.setShape("a/a", "/b/", "cde");
         shapedRecipeBuilder.assigneSymbol('a',Material.NETHER_STAR);
         shapedRecipeBuilder.assigneSymbol('e',Material.CROSSBOW);
-        shapedRecipeBuilder.assigneSymbol('e',Material.ARROW);
+        shapedRecipeBuilder.assigneSymbol('d',Material.ARROW);
         shapedRecipeBuilder.assigneSymbol('c', Material.BOW);
         shapedRecipeBuilder.assigneSymbol('b', CustomMaterial.DIVINE_HEART);
         shapedRecipeBuilder.assigneSymbol('/', CustomMaterial.DIVINE_FRAGMENT);
