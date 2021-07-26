@@ -58,6 +58,8 @@ public class DionysosCup implements Listener {
 
             for (Entity entity : targetList) {
                 ((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 300, 0));
+                ((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 140, 0));
+                ((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 300, 1));
             }
 
         } catch (Exception exception) {
