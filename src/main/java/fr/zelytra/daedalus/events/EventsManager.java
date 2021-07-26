@@ -66,6 +66,7 @@ public class EventsManager {
         pm.registerEvents(new MinotaurCharge(),pl);
         pm.registerEvents(new DivineTracker(),pl);
         pm.registerEvents(new AthenaMap(),pl);
+        pm.registerEvents(new HermesCaduceus(),pl);
         //pm.registerEvents(new MedusaHead(),pl);
 
         /*Gods Summoning*/
