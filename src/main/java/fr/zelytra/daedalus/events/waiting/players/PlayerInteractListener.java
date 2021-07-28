@@ -12,5 +12,6 @@ public class PlayerInteractListener implements Listener {
 
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK && Daedalus.getInstance().getGameManager().isWaiting())
             e.setCancelled(true);
+
     }
 }

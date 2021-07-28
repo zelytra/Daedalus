@@ -2,6 +2,7 @@ package fr.zelytra.daedalus;
 
 import fr.zelytra.daedalus.commands.broadcast.Broadcast;
 import fr.zelytra.daedalus.commands.broadcast.BroadcastTab;
+import fr.zelytra.daedalus.commands.checkpoint.Checkpoint;
 import fr.zelytra.daedalus.commands.item.ItemsCommands;
 import fr.zelytra.daedalus.commands.item.ItemsTabs;
 import fr.zelytra.daedalus.commands.location.ShareLocation;
@@ -92,6 +93,7 @@ public final class Daedalus extends JavaPlugin {
         getCommand("wiki").setExecutor(new Wiki());
         getCommand("coordinate").setExecutor(new ShareLocation());
         getCommand("test").setExecutor(new test());
+        getCommand("checkpoint").setExecutor(new Checkpoint());
 
         getCommand("revive").setExecutor(new Revive());
         getCommand("revive").setTabCompleter(new ReviveTabs());

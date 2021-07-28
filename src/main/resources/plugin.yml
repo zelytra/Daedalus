@@ -57,3 +57,8 @@ commands:
   hadesrevive:
     description: Hades revive power
 
+  checkpoint:
+    aliases:
+      - cp
+    description: Teleport you to the latest checkpoint reached
+

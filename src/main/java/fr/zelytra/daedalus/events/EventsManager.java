@@ -26,6 +26,7 @@ import fr.zelytra.daedalus.events.running.pvp.PlayerRegen;
 import fr.zelytra.daedalus.events.waiting.entities.EntityDamageListener;
 import fr.zelytra.daedalus.events.waiting.entities.EntityTargetListener;
 import fr.zelytra.daedalus.events.waiting.environment.BlockPlaceListener;
+import fr.zelytra.daedalus.events.waiting.environment.JumpCheckPoint;
 import fr.zelytra.daedalus.events.waiting.gui.GameSettingsInterface;
 import fr.zelytra.daedalus.events.waiting.gui.TeamSelector;
 import fr.zelytra.daedalus.events.waiting.item.GameStarter;
@@ -86,6 +87,7 @@ public class EventsManager {
 
         /* Environment */
         pm.registerEvents(new BlockPlaceListener(), pl);
+        pm.registerEvents(new JumpCheckPoint(), pl);
         pm.registerEvents(new TreeGrowthListener(), pl);
         pm.registerEvents(new MilkDrink(), pl);
         pm.registerEvents(new PortalListener(), pl);

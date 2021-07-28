@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlot;
 
 public enum CustomMaterial {
-    ZEUS_LIGHTNING(GameSettings.LANG.textOf("godItem.ZEUS_LIGHTNIN"), "zeus_lightning", 1, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
+    ZEUS_LIGHTNING(GameSettings.LANG.textOf("godItem.ZEUS_LIGHTNING"), "zeus_lightning", 1, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     HADES_SCEPTER(GameSettings.LANG.textOf("godItem.HADES_SCEPTER"), "hades_scepter", 2, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     APHRODITE_HEART(GameSettings.LANG.textOf("godItem.APHRODITE_HEART"), "aphrodite_heart", 3, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     DEMETER_SICKLE(GameSettings.LANG.textOf("godItem.DEMETER_SICKLE"), "demeter_sickle", 4, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),

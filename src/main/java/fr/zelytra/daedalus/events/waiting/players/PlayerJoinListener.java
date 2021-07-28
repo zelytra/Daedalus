@@ -33,7 +33,7 @@ public class PlayerJoinListener implements Listener {
         Bukkit.broadcastMessage("§8[§a+§8] §f" + p.getName());
         Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(p);
 
-        for (CustomMaterial material : CustomMaterial.values()){
+        for (CustomMaterial material : CustomMaterial.values()) {
             NamespacedKey itemKey = new NamespacedKey(Daedalus.getInstance(), material.getName());
             p.discoverRecipe(itemKey);
         }
@@ -46,8 +46,8 @@ public class PlayerJoinListener implements Listener {
                 p.setMaxHealth(20);
                 p.setLevel(0);
                 p.getInventory().clear();
-                p.teleport(new Location(Bukkit.getWorld(Daedalus.WORLD_NAME), 669, 162, 675));
-                for(PotionEffect potionEffectType : p.getActivePotionEffects())
+                p.teleport(new Location(Bukkit.getWorld(Daedalus.WORLD_NAME), 634.5, 160.5, 572.5, -90, 0));
+                for (PotionEffect potionEffectType : p.getActivePotionEffects())
                     p.removePotionEffect(potionEffectType.getType());
 
                 if (playerFaction == null)

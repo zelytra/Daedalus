@@ -64,7 +64,7 @@ public class HermesHandler implements Listener {
 
         if (jumper.getLocation().getY() >= 93) {
             e.setCancelled(true);
-            jumper.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.jumpToHigh"));
+            jumper.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.jumpTooHigh"));
             return;
         }
 
