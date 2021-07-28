@@ -1,5 +1,6 @@
 package fr.zelytra.daedalus.commands.broadcast;
 
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.utils.Message;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -19,7 +20,7 @@ public class Broadcast implements CommandExecutor {
             return false;
 
         if (!sender.isOp()) {
-            sender.sendMessage(Message.getPlayerPrefixe() + "§cYou don't have permission to perform this command");
+            sender.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.permissionDenied"));
             return false;
         }
 

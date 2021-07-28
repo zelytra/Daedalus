@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.commands.item;
 
 import fr.zelytra.daedalus.commands.commandsHandler.HelpCommands;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import fr.zelytra.daedalus.utils.Message;
@@ -22,8 +23,8 @@ public class ItemsCommands implements CommandExecutor {
         }
         Player player = (Player) sender;
 
-        if (!player.isOp()){
-            player.sendMessage(Message.getPlayerPrefixe()+"§cYou don't have permission to perform this command");
+        if (!player.isOp()) {
+            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.permissionDenied"));
             return false;
         }
 
@@ -34,14 +35,14 @@ public class ItemsCommands implements CommandExecutor {
             help.printPlayer(player);
             return true;
 
-        }else if (args.length == 1) {
+        } else if (args.length == 1) {
             if (CustomMaterial.getByName(args[0]) != null) {
                 player.getInventory().addItem(new CustomItemStack(CustomMaterial.getByName(args[0]), 1).getItem());
-                player.sendMessage(Message.getPlayerPrefixe() + "§aGave 1 §6§l" + args[0] + "§r§a to " + player.getName());
+                player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.giveItemPrefix") + 1 + " §6§l" + args[0] + GameSettings.LANG.textOf("command.giveItemSuffix") + player.getName());
                 playItemSound(player);
                 return true;
             } else {
-                player.sendMessage(Message.getPlayerPrefixe() + "§cThis item doesn't exist.");
+                player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.itemExist"));
                 return false;
             }
 
@@ -49,16 +50,16 @@ public class ItemsCommands implements CommandExecutor {
             if (CustomMaterial.getByName(args[0]) != null) {
                 CustomItemStack cItem = new CustomItemStack(CustomMaterial.getByName(args[0]), Integer.parseInt(args[1]));
                 player.getInventory().addItem(cItem.getItem());
-                player.sendMessage(Message.getPlayerPrefixe() + "§aGave " + Integer.parseInt(args[1]) + " §6§l" + args[0] + "§r§a to " + player.getName());
+                player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.giveItemPrefix") + Integer.parseInt(args[1]) + " §6§l" + args[0] + GameSettings.LANG.textOf("command.giveItemSuffix") + player.getName());
                 playItemSound(player);
                 return true;
             } else {
-                player.sendMessage(Message.getPlayerPrefixe() + "§cThis item doesn't exist.");
+                player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.itemExist"));
                 return false;
             }
         } else if (args.length == 3 && Utils.isNumeric(args[1])) {
             if (Bukkit.getPlayer(args[2]) == null) {
-                player.sendMessage(Message.getPlayerPrefixe() + "§cThis player doesn't exist.");
+                player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.playerOffline"));
                 return false;
             }
             Player target = Bukkit.getPlayer(args[2]);
@@ -66,10 +67,10 @@ public class ItemsCommands implements CommandExecutor {
                 CustomItemStack cItem = new CustomItemStack(CustomMaterial.getByName(args[0]), Integer.parseInt(args[1]));
                 target.getInventory().addItem(cItem.getItem());
                 playItemSound(target);
-                player.sendMessage(Message.getPlayerPrefixe() + "§aGave " + Integer.parseInt(args[1]) + " §6§l" + args[0] + "§r§a to " + target.getName());
+                player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.giveItemPrefix") + Integer.parseInt(args[1]) + " §6§l" + args[0] + GameSettings.LANG.textOf("command.giveItemSuffix") + target.getName());
                 return true;
             } else {
-                player.sendMessage(Message.getPlayerPrefixe() + "§cThis item doesn't exist.");
+                player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.itemExist"));
                 return false;
             }
         } else {
@@ -78,7 +79,7 @@ public class ItemsCommands implements CommandExecutor {
         }
     }
 
-    private void playItemSound(Player player){
-        player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP,1,1);
+    private void playItemSound(Player player) {
+        player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1, 1);
     }
 }

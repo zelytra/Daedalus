@@ -2,6 +2,7 @@ package fr.zelytra.daedalus.managers.skrink;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.faction.FactionsEnum;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -50,12 +51,12 @@ public class ShrinkManager {
                     continue;
 
                 if (isInWarningArea(player.getLocation())) {
-                    logPlayer(player, "§eYou're in §lWARNING§r§e area go back to the maze !");
+                    logPlayer(player, GameSettings.LANG.textOf("border.warning"));
                     particleFX(player);
                     continue;
                 }
                 if (isInDangerArea(player.getLocation())) {
-                    player.sendTitle("§c§lDANGER", "§cGET OUT YOU IDIOT !!!", 3, 10, 3);
+                    player.sendTitle(GameSettings.LANG.textOf("border.dangerTitle"),GameSettings.LANG.textOf("border.dangerSubTitle") , 3, 10, 3);
                     player.playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_DEATH, 1, 1);
 
                     Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {

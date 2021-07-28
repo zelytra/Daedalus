@@ -1,5 +1,7 @@
 package fr.zelytra.daedalus.managers.game.settings;
 
+import fr.zelytra.daedalus.managers.languages.Lang;
+
 public final class GameSettings {
 
     public static int GOD_LIMIT = 10;
@@ -12,11 +14,12 @@ public final class GameSettings {
     public static boolean ABSORPTION = false;
     public static boolean CUT_CLEAN = true;
     public static int APPLE_DROP = 8;
+    public static Lang LANG = Lang.EN;
     public static DayCycleEnum DAY_CYCLE = DayCycleEnum.DEFAULT;
     public static int TIME_PER_EPISODE = 1200;//seconds
 
     public static void reset() {
-
+        LANG = Lang.EN;
         GOD_LIMIT = 10;
         HESPERIDES_GARDEN_COUNT = 1;
         MINES_COUNT = 15;

@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.events.running.environnement.gods.listener;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.events.running.environnement.gods.events.GodSpawnEvent;
 import fr.zelytra.daedalus.managers.faction.Faction;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.gods.list.Poseidon;
 import fr.zelytra.daedalus.utils.Utils;
@@ -55,7 +56,7 @@ public class PoseidonHandler implements Listener {
     }
 
     private void vfx(Player player) {
-        Bukkit.broadcastMessage("§9§l⚓ Posseidon as appear in the maze ⚓");
+        Bukkit.broadcastMessage(GameSettings.LANG.textOf("godSpawn.posseidon"));
         Utils.runTotemDisplay(player);
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.playSound(p.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_MIRROR, 10, 0.1f);

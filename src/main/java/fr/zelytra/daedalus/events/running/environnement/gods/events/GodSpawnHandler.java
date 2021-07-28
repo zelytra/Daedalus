@@ -2,6 +2,7 @@ package fr.zelytra.daedalus.events.running.environnement.gods.events;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.faction.Faction;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
@@ -62,7 +63,7 @@ public class GodSpawnHandler implements Listener {
                 }
 
                 if (playerFaction.getGod() != null) {
-                    player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon more than one god.");
+                    player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.cannotSummonMore"));
                     return;
                 }
 
@@ -74,7 +75,7 @@ public class GodSpawnHandler implements Listener {
                 return;
 
             }
-            player.sendMessage(Message.getPlayerPrefixe() + "§cYou cannot summon this god here.");
+            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.cannotSummonHere"));
             return;
         }
     }

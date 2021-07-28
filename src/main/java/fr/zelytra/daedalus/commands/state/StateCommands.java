@@ -2,6 +2,7 @@ package fr.zelytra.daedalus.commands.state;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.game.GameStatesEnum;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -18,7 +19,7 @@ public class StateCommands implements CommandExecutor {
         if (sender instanceof Player && sender.isOp()) {
 
             if (!sender.isOp()){
-                sender.sendMessage(Message.getPlayerPrefixe()+"§cYou don't have permission to perform this command");
+                sender.sendMessage(Message.getPlayerPrefixe()+ GameSettings.LANG.textOf("command.permissionDenied"));
                 return false;
             }
 

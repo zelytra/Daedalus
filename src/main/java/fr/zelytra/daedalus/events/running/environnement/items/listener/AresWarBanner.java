@@ -4,6 +4,7 @@ import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.events.running.environnement.items.events.CustomItemUseEvent;
 import fr.zelytra.daedalus.managers.cooldown.Cooldown;
 import fr.zelytra.daedalus.managers.faction.Faction;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import fr.zelytra.daedalus.utils.Message;
@@ -34,13 +35,13 @@ public class AresWarBanner implements Listener {
                         player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 140, 0));
                         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 300, 0));
                         player.playSound(player.getLocation(), Sound.ENTITY_EVOKER_PREPARE_ATTACK, 2, 1);
-                        player.sendMessage(Message.getPlayerPrefixe() + "§6You feel a litle bit stronger");
+                        player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("item.aresBannerPlayer"));
                     }
 
                 }
             }
             e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_EVOKER_PREPARE_ATTACK, 2, 1);
-            e.getPlayer().sendMessage(Message.getPlayerPrefixe() + "§6You use your war banner");
+            e.getPlayer().sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("item.aresBannerGod"));
             new Cooldown(e.getPlayer(), itemCooldown, CustomMaterial.ARES_WAR_BANNER.getName());
 
         } catch (Exception exception) {

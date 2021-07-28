@@ -75,23 +75,23 @@ public class GameManager {
 
         if (isStarted()) {
             for (Player player : Bukkit.getOnlinePlayers())
-                player.sendMessage(Message.getPlayerPrefixe() + "§8You can cancel the start by opening the game settings");
+                player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("maze.cancelGeneration"));
             return;
         }
 
         Bukkit.broadcastMessage("");
-        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§aThe game is about to start");
+        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("maze.gameAboutToStart"));
         Bukkit.broadcastMessage("");
         for (Player player : Bukkit.getOnlinePlayers())
             if (player.isOp())
-                player.sendMessage(Message.getPlayerPrefixe() + "§8You can cancel the start by opening the game settings");
+                player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("maze.cancelGeneration"));
 
         AtomicInteger countdown = new AtomicInteger(10);
         started = true;
         preStartRunnable = Bukkit.getScheduler().scheduleSyncRepeatingTask(Daedalus.getInstance(), () -> {
 
             if (!started) {
-                logPlayers("§cStart canceled");
+                logPlayers(GameSettings.LANG.textOf("maze.startCancel"));
                 Bukkit.getScheduler().cancelTask(preStartRunnable);
                 return;
             }
@@ -115,7 +115,7 @@ public class GameManager {
                 Bukkit.getScheduler().cancelTask(preStartRunnable);
                 start();
             }
-            logPlayers("§a§lGame starting in [§2" + countdown.get() + "s§a]");
+            logPlayers(GameSettings.LANG.textOf("command.gameStartingIn") + countdown.get() + "s§a]");
             countdown.getAndDecrement();
 
         }, 0L, 20L);
@@ -133,7 +133,7 @@ public class GameManager {
         }
         Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
             //Maze generation
-            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§6Starting generation...");
+            Bukkit.broadcastMessage(Message.getPlayerPrefixe() +GameSettings.LANG.textOf("maze.startGeneration"));
             Location origin = new Location(Bukkit.getWorld(Daedalus.WORLD_NAME), 0, 0, 0);
             origin.setY(Bukkit.getWorld(Daedalus.WORLD_NAME).getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()) + 1);
             MazeHandler maze = new MazeHandler(origin, 300, true, Daedalus.getInstance().getStructureManager().getGeneratedList());
@@ -159,7 +159,7 @@ public class GameManager {
                 //GameManager start
                 getTimeManager().start();
                 started = false;
-                Bukkit.broadcastMessage("§cGame start GLHF !");
+                Bukkit.broadcastMessage(GameSettings.LANG.textOf("event.gameStart"));
                 setState(GameStatesEnum.RUNNING);
             });
         });

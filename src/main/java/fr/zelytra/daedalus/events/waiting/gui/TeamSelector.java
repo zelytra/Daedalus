@@ -6,6 +6,7 @@ import fr.zelytra.daedalus.builders.guiBuilder.InterfaceBuilder;
 import fr.zelytra.daedalus.builders.guiBuilder.VisualItemStack;
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.faction.FactionsEnum;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,7 +23,7 @@ import java.util.List;
 
 public class TeamSelector implements Listener, Interface {
     List<Material> banners = new ArrayList<>();
-    private String interfaceName = "§6Choose a team";
+    private String interfaceName = GameSettings.LANG.textOf("menu.teamChooser");
 
     {
         banners.add(Material.BLUE_BANNER);

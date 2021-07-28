@@ -78,7 +78,7 @@ public class TimeManager {
             case 2:
 
 
-                Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Minotaure §6has been released in the Maze... May Divinities be with you !");
+                Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.minoRelease"));
 
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     player.playSound(player.getLocation(), Sound.ENTITY_WITHER_AMBIENT, 1, 0.5F);
@@ -102,14 +102,14 @@ public class TimeManager {
 
 
             case 6:
-                Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§6The wall maze begin to fall... Advise : §cRUN.");
+                Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.mazeFalling"));
                 Daedalus.getInstance().getStructureManager().getShrinkManager().startShrinking();
 
 
                 break;
 
             case 8:
-                Bukkit.broadcastMessage("§eI feels like i'm walking on sunshine ");
+                Bukkit.broadcastMessage(GameSettings.LANG.textOf("event.playerShine"));
                 for (Faction faction : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
                     for (Player player : faction.getPlayerList())
                         if (faction.isAlive(player))

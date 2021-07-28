@@ -1,5 +1,6 @@
 package fr.zelytra.daedalus.managers.gods;
 
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.gods.list.*;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 
@@ -11,17 +12,17 @@ import java.util.function.Supplier;
 
 public enum GodsEnum {
 
-    ZEUS("Zeus", false, () -> new Zeus(), CustomMaterial.ZEUS_TOTEM),
-    POSEIDON("Poseidon", false, () -> new Poseidon(), CustomMaterial.POSEIDON_TOTEM),
-    HADES("Hades", false, () -> new Hades(), CustomMaterial.HADES_TOTEM),
-    ARES("Ares", false, () -> new Ares(), CustomMaterial.ARES_TOTEM),
-    APHRODITE("Aphrodite", false, () -> new Aphrodite(), CustomMaterial.APHRODITE_TOTEM),
-    DEMETER("Demeter", false, () -> new Demeter(), CustomMaterial.DEMETER_TOTEM),
-    HERMES("Hermes", false, () -> new Hermes(), CustomMaterial.HERMES_TOTEM),
-    ARTEMIS("Artemis", false, () -> new Artemis(), CustomMaterial.ARTEMIS_TOTEM),
-    ATHENA("Athena", false, () -> new Athena(), CustomMaterial.ATHENA_TOTEM),
-    DIONYSUS("Dionysus", false, () -> new Dionysos(), CustomMaterial.DIONYSOS_TOTEM),
-    MINOTAURE("Minotaur", false, () -> new Minotaure(), CustomMaterial.MINOTAUR_TOTEM);
+    ZEUS(GameSettings.LANG.textOf("godName.zeus"), false, () -> new Zeus(), CustomMaterial.ZEUS_TOTEM),
+    POSEIDON(GameSettings.LANG.textOf("godName.posseidon"), false, () -> new Poseidon(), CustomMaterial.POSEIDON_TOTEM),
+    HADES(GameSettings.LANG.textOf("godName.hades"), false, () -> new Hades(), CustomMaterial.HADES_TOTEM),
+    ARES(GameSettings.LANG.textOf("godName.ares"), false, () -> new Ares(), CustomMaterial.ARES_TOTEM),
+    APHRODITE(GameSettings.LANG.textOf("godName.aphrodite"), false, () -> new Aphrodite(), CustomMaterial.APHRODITE_TOTEM),
+    DEMETER(GameSettings.LANG.textOf("godName.demeter"), false, () -> new Demeter(), CustomMaterial.DEMETER_TOTEM),
+    HERMES(GameSettings.LANG.textOf("godName.hermes"), false, () -> new Hermes(), CustomMaterial.HERMES_TOTEM),
+    ARTEMIS(GameSettings.LANG.textOf("godName.artemis"), false, () -> new Artemis(), CustomMaterial.ARTEMIS_TOTEM),
+    ATHENA(GameSettings.LANG.textOf("godName.athena"), false, () -> new Athena(), CustomMaterial.ATHENA_TOTEM),
+    DIONYSUS(GameSettings.LANG.textOf("godName.dionysus"), false, () -> new Dionysos(), CustomMaterial.DIONYSOS_TOTEM),
+    MINOTAURE(GameSettings.LANG.textOf("godName.minotaur"), false, () -> new Minotaure(), CustomMaterial.MINOTAUR_TOTEM);
 
     private final String name;
     private boolean selected;

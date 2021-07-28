@@ -4,6 +4,7 @@ import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.events.running.environnement.items.events.CustomItemUseEvent;
 import fr.zelytra.daedalus.managers.cooldown.Cooldown;
 import fr.zelytra.daedalus.managers.faction.Faction;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
@@ -46,7 +47,7 @@ public class HermesCaduceus implements Listener {
                 }
             }
             if (toStrike.isEmpty()) {
-                e.getPlayer().sendMessage(Message.getPlayerPrefixe() + "§6There's no entity to curse around you");
+                e.getPlayer().sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.noPlayerToCurse"));
                 return;
             }
             //Cooldown check
@@ -71,7 +72,7 @@ public class HermesCaduceus implements Listener {
                         ((Player) entity).getInventory().setItem(x, hotBar.get(x));
 
                     ((Player) entity).playSound(entity.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1, 1);
-                    entity.sendMessage(Message.getPlayerPrefixe() + "§6What a mess ?!");
+                    entity.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.demeterActive"));
 
                 }
             }

@@ -40,7 +40,7 @@ public class GameSettingsInterface implements Listener, Interface {
 
                 if (Daedalus.getInstance().getGameManager().isStarted()) {
                     Daedalus.getInstance().getGameManager().setStarted(false);
-                    Bukkit.broadcastMessage(Message.getPlayerPrefixe()+"§cCancel game start");
+                    Bukkit.broadcastMessage(Message.getPlayerPrefixe()+GameSettings.LANG.textOf("maze.startCancel"));
                     return;
                 }
 

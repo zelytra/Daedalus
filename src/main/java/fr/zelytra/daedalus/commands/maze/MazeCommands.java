@@ -2,6 +2,7 @@ package fr.zelytra.daedalus.commands.maze;
 
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.maze.MazeHandler;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
@@ -23,12 +24,12 @@ public class MazeCommands implements CommandExecutor {
         Player player = (Player) sender;
 
         if (!player.isOp()){
-            player.sendMessage(Message.getPlayerPrefixe()+"§cYou don't have permission to perform this command");
+            player.sendMessage(Message.getPlayerPrefixe()+ GameSettings.LANG.textOf("command.permissionDenied"));
             return false;
         }
 
         if (args.length == 2 && args[0].equalsIgnoreCase("generateGrid")) {
-            player.sendMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
+            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("maze.startGeneration"));
             Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
                 Location origin = player.getLocation().getBlock().getLocation().clone();
                 origin.setY(player.getWorld().getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()));
@@ -38,7 +39,7 @@ public class MazeCommands implements CommandExecutor {
 
             return true;
         } else if (args.length == 2 && args[0].equalsIgnoreCase("generateMaze")) {
-            player.sendMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
+            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("maze.startGeneration"));
             Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
                 Location origin = player.getLocation().getBlock().getLocation().clone();
                 origin.setY(player.getWorld().getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()));
@@ -48,7 +49,7 @@ public class MazeCommands implements CommandExecutor {
 
             return true;
         } else if (args.length == 2 && args[0].equalsIgnoreCase("demoGenerateScaleMaze")) {
-            player.sendMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
+            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("maze.startGeneration"));
             Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
                 Location origin = player.getLocation().getBlock().getLocation().clone();
                 origin.setY(player.getWorld().getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()));
@@ -58,7 +59,7 @@ public class MazeCommands implements CommandExecutor {
 
             return true;
         } else if (args.length == 1 && args[0].equalsIgnoreCase("generateScaleMaze")) {
-            player.sendMessage(Message.getPlayerPrefixe() + "§cStarting generation...");
+            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("maze.startGeneration"));
             Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
                 //Location origin = player.getLocation().getBlock().getLocation().clone();
                 //origin.setY(player.getWorld().getHighestBlockYAt((int) origin.getX(), (int) origin.getZ()) + 1);

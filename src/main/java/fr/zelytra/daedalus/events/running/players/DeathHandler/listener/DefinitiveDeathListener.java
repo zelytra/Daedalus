@@ -4,6 +4,7 @@ import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.events.running.players.DeathHandler.events.DefinitiveDeathEvent;
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.faction.PlayerStatus;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import org.bukkit.Bukkit;
@@ -62,12 +63,13 @@ public class DefinitiveDeathListener implements Listener {
         switch (e.getCause()) {
             case ENTITY_ATTACK:
                 if (((EntityDamageByEntityEvent) e).getDamager() instanceof Player)
-                    Bukkit.broadcastMessage(faction.getType().getPrefix() + Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getType().getPrefix() + ((EntityDamageByEntityEvent) e).getDamager().getName() + " §8sent " + e.getEntity().getName() + " §8o their own §ldemise");
+                    Bukkit.broadcastMessage(faction.getType().getPrefix() + Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getType().getPrefix() + ((EntityDamageByEntityEvent) e).getDamager().getName() + GameSettings.LANG.textOf("death.definitiveByPlayerPrefix") + e.getEntity().getName() + GameSettings.LANG.textOf("death.definitiveByPlayerPrefix=\" §8sent \"\n" +
+                            "death.definitiveByPlayerSuffix"));
                 else
-                    Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + " §8met their own §ldemise");
+                    Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.definitive"));
                 break;
             default:
-                Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + " §8met their own §ldemise");
+                Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.definitive"));
                 break;
         }
     }

@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.managers.channel;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.faction.FactionsEnum;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -99,17 +100,17 @@ public class MessageManager {
 
             case GLOBAL: {
 
-                return ChatColor.of("#808080") + "[Global] " + senderTeam.getType().getPrefix() + sender.getName() + "§7 > §f" + message.substring(1);
+                return ChatColor.of("#808080") + GameSettings.LANG.textOf("chat.global") + senderTeam.getType().getPrefix() + sender.getName() + "§7 > §f" + message.substring(1);
             }
             case TEAM: {
 
-                return ChatColor.of("#808080") + "[Team] " + senderTeam.getType().getPrefix() + sender.getName() + "§7 > §f" + message;
+                return ChatColor.of("#808080") +  GameSettings.LANG.textOf("chat.team") + senderTeam.getType().getPrefix() + sender.getName() + "§7 > §f" + message;
             }
             case SPECTATOR: {
                 if (!senderTeam.isAlive(sender))
-                    return ChatColor.of("#808080") + "[Spec] " + senderTeam.getType().getPrefix() + senderTeam.getType().getPrefix() + sender.getName() + "§7 > §f" + message;
+                    return ChatColor.of("#808080") +  GameSettings.LANG.textOf("chat.spec") + senderTeam.getType().getPrefix() + senderTeam.getType().getPrefix() + sender.getName() + "§7 > §f" + message;
                 else
-                    return ChatColor.of("#808080") + "[Spec] " + senderTeam.getType().getPrefix() + "§7" + sender.getName() + "§7 > §f" + message;
+                    return ChatColor.of("#808080") +  GameSettings.LANG.textOf("chat.spec") + senderTeam.getType().getPrefix() + "§7" + sender.getName() + "§7 > §f" + message;
             }
         }
         return "";

@@ -6,6 +6,7 @@ import fr.zelytra.daedalus.events.running.players.DeathHandler.events.Definitive
 import fr.zelytra.daedalus.events.running.players.DeathHandler.events.PartielDeathEvent;
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.faction.FactionsEnum;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -73,7 +74,7 @@ public class DeathListener implements Listener {
 
     private void minotaursDeathFX() {
         Bukkit.broadcastMessage("");
-        Bukkit.broadcastMessage("§6The Minotaur has been killed. Now death is the only option");
+        Bukkit.broadcastMessage(GameSettings.LANG.textOf("death.minotaur"));
         Bukkit.broadcastMessage("");
     }
 
@@ -107,7 +108,7 @@ public class DeathListener implements Listener {
 
     private void winFX(Faction team) {
         for (Player p : Bukkit.getOnlinePlayers()) {
-            p.sendTitle(team.getType().getChatColor() + team.getType().getName() + "§6§l win !", "oskour", 5, 100, 5);
+            p.sendTitle(team.getType().getChatColor() + team.getType().getName() + GameSettings.LANG.textOf("event.victoryTitle"), GameSettings.LANG.textOf("event.victorySubTitle"), 5, 100, 5);
         }
 
 

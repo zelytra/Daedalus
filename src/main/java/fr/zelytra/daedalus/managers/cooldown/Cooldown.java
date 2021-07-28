@@ -1,5 +1,6 @@
 package fr.zelytra.daedalus.managers.cooldown;
 
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.entity.Player;
 
@@ -77,7 +78,7 @@ public class Cooldown {
             if (entry.getKey().getTag().equalsIgnoreCase(tag) && entry.getValue().getUniqueId() == player.getUniqueId()) {
                 toRemove = entry.getKey();
                 if (!toRemove.isFinished()) {
-                    player.sendMessage(Message.getPlayerPrefixe() + "§6You need to wait " + toRemove.toString());
+                    player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("item.coolDown") + toRemove);
                     return false;
                 }
 

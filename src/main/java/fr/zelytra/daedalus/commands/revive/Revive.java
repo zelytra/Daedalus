@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.commands.revive;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.faction.PlayerStatus;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
@@ -26,7 +27,7 @@ public class Revive implements CommandExecutor {
         Player player = (Player) sender;
 
         if (!player.isOp()) {
-            player.sendMessage(Message.getPlayerPrefixe() + "§cYou don't have permission to perform this command");
+            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.permissionDenied"));
             return false;
         }
 
@@ -45,13 +46,13 @@ public class Revive implements CommandExecutor {
     private void reviveToSpawn(Player executor, Player target) {
 
         if (target == null) {
-            executor.sendMessage(Message.getPlayerPrefixe() + "§cThis player is not online");
+            executor.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.playerOffline"));
             return;
         }
 
         Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
         if (playerFaction.isAlive(target)) {
-            executor.sendMessage(Message.getPlayerPrefixe() + "§cThis player is still alive");
+            executor.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.playerStillAlive"));
             return;
         } else {
             playerFaction.setPlayerStatus(target, PlayerStatus.ALIVE);
@@ -65,7 +66,7 @@ public class Revive implements CommandExecutor {
                 p.playSound(p.getLocation(), Sound.ENTITY_WITCH_HURT, 2, 0.1f);
             }
 
-            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + playerFaction.getType().getChatColor() + target.getName() + "§6 has been revived");
+            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + playerFaction.getType().getChatColor() + target.getName() + GameSettings.LANG.textOf("command.revive"));
         }
     }
 

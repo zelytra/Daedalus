@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.events.running.environnement.items.listener;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.events.running.environnement.items.events.CustomItemUseEvent;
 import fr.zelytra.daedalus.managers.faction.Faction;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import fr.zelytra.daedalus.managers.structure.Structure;
@@ -37,7 +38,7 @@ public class DivineTracker implements Listener {
         LinkedHashMap<BoundingBox, Structure> temples = new LinkedHashMap<>();
 
         if (Daedalus.getInstance().getStructureManager().getStructuresPosition() == null || Daedalus.getInstance().getStructureManager().getStructuresPosition().isEmpty()) {
-            BaseComponent txt = new TextComponent("§cNo structure around you");
+            BaseComponent txt = new TextComponent(GameSettings.LANG.textOf("event.divineTrackerNoStruct"));
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, txt);
             return;
         }
@@ -130,7 +131,7 @@ public class DivineTracker implements Listener {
 
         player.setCompassTarget(new Location(player.getWorld(), box.getCenterX(), box.getMaxY(), box.getCenterZ()));
 
-        BaseComponent txt = new TextComponent("§1" + distance + "§r§8 block away from §1§l" + structure.getGod().getName() + " temple");
+        BaseComponent txt = new TextComponent("§1" + distance + GameSettings.LANG.textOf("event.divineTrackerTrack") + structure.getGod().getName() + " temple");
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, txt);
     }
 
@@ -141,7 +142,7 @@ public class DivineTracker implements Listener {
 
         player.setCompassTarget(target.getLocation());
 
-        BaseComponent txt = new TextComponent("§1" + distance + "§r§8 block away from §1§l" + god.getName());
+        BaseComponent txt = new TextComponent("§1" + distance + GameSettings.LANG.textOf("event.divineTrackerTrack") + god.getName());
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, txt);
     }
 

@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.events.running.players.DeathHandler.listener;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.events.running.players.DeathHandler.events.PartielDeathEvent;
 import fr.zelytra.daedalus.managers.faction.Faction;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import org.bukkit.Bukkit;
@@ -57,13 +58,13 @@ public class PartielDeathListener implements Listener {
                     Bukkit.broadcastMessage(faction.getType().getPrefix() +
                             Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getType().getPrefix() +
                             ((EntityDamageByEntityEvent) e).getDamager().getName() +
-                            " §8sent " + e.getEntity().getName()
-                            + " §8from whence they came");
+                            GameSettings.LANG.textOf("death.defaultByPlayerPrefix") + e.getEntity().getName()
+                            + GameSettings.LANG.textOf("death.defaultByPlayerSuffix"));
                 else
-                    Bukkit.broadcastMessage("§8The Labyrinth sent " + faction.getType().getPrefix() + e.getEntity().getName() + " §8from whence they came");
+                    Bukkit.broadcastMessage(GameSettings.LANG.textOf("death.defaultPrefix") + faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.defaultSuffixe"));
                 break;
             default:
-                Bukkit.broadcastMessage("§8The Labyrinth sent " + faction.getType().getPrefix() + e.getEntity().getName() + " §8from whence they came");
+                Bukkit.broadcastMessage(GameSettings.LANG.textOf("death.defaultPrefix") + faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.defaultSuffixe"));
                 break;
         }
     }

@@ -1,5 +1,6 @@
 package fr.zelytra.daedalus.managers.channel;
 
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -18,13 +19,13 @@ public class PrivateMessage {
         final String[] arg = commandLine.split(" ");
 
         if (arg.length < 2) {
-            sender.sendMessage(Message.getPlayerPrefixe() + "§cNot enough arguments");
+            sender.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.noArguments"));
             return;
         }
         final String targetName = arg[1];
 
         if (Bukkit.getPlayer(targetName) == null) {
-            sender.sendMessage(Message.getPlayerPrefixe() + "§cThis player is not online.");
+            sender.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.playerOffline"));
             return;
         }
         Player receiver = Bukkit.getPlayer(targetName);
@@ -39,7 +40,7 @@ public class PrivateMessage {
         }
         assert receiver != null;
 
-        receiver.sendMessage("§o§6» from " + sender.getName() + "§f > §o" + message);
-        sender.sendMessage("§o§6» to " + receiver.getName() + "§f > §o" + message);
+        receiver.sendMessage(GameSettings.LANG.textOf("command.messageFrom") + sender.getName() + "§f > §o" + message);
+        sender.sendMessage(GameSettings.LANG.textOf("command.messageTo") + receiver.getName() + "§f > §o" + message);
     }
 }

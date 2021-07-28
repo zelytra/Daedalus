@@ -2,6 +2,7 @@ package fr.zelytra.daedalus.managers.maze;
 
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.structure.Structure;
 import fr.zelytra.daedalus.managers.structure.StructureType;
 import fr.zelytra.daedalus.utils.Message;
@@ -59,7 +60,7 @@ public class Maze {
     private void generateGrid() {
         // Fill outline with wall
         // Wall = 1| void = 0
-        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Generating grid...");
+        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("maze.generateGrid"));
 
         int[] line = new int[this.size];
         //Generate line and wall matrix;
@@ -93,7 +94,7 @@ public class Maze {
         }
         //Generating structure area
 
-        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Locking structures area... ");
+        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("maze.lockingStructure"));
         for (Structure area : land) {
 
             int width = (area.getRegion().getWidth() + 1) / (this.scale + 1) + ((area.getRegion().getWidth() + 1) / (this.scale + 1)) - 1;
@@ -151,7 +152,7 @@ public class Maze {
             }
         }
         long timer = System.currentTimeMillis();
-        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§8Generating maze...");
+        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("maze.generateMatrix"));
         while (idx > 0) {
 
             int pos = (int) (Math.random() * (idx));
@@ -232,13 +233,13 @@ public class Maze {
             }
         }
 
-        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§6Maze matrix generated in §8[§f" + (System.currentTimeMillis() - time) + "ms§8]");
+        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("maze.matrixTime") + (System.currentTimeMillis() - time) + "ms§8]");
     }
 
     //Thanks Nicolas61x
     private int[][] generateScaleMaze(int scale) {
         int X = 0;
-        Bukkit.broadcastMessage(Message.getPlayerPrefixe()+"§8Scaling maze...");
+        Bukkit.broadcastMessage(Message.getPlayerPrefixe()+GameSettings.LANG.textOf("maze.scaling"));
         for (int i = 0; i < this.size; i++) {
             if (i % 2 == 0) {
                 X++;
@@ -341,7 +342,7 @@ public class Maze {
             }
             security++;
             if (security >= 10000) {
-                Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§c Random placement has time out. §l[SKIPPING]");
+                Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("maze.placementTimeOut"));
                 return null;
             }
         }

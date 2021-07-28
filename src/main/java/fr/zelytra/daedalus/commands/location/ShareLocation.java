@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.commands.location;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.channel.ChannelEnum;
 import fr.zelytra.daedalus.managers.channel.MessageManager;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.structure.Structure;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Location;
@@ -23,7 +24,7 @@ public class ShareLocation implements CommandExecutor {
             return false;
         }
         if(!Daedalus.getInstance().getGameManager().isRunning()){
-            sender.sendMessage(Message.getPlayerPrefixe()+"§cThere is no maze yet generated");
+            sender.sendMessage(Message.getPlayerPrefixe()+ GameSettings.LANG.textOf("command.noMaze"));
             return false;
         }
         Player player = (Player) sender;

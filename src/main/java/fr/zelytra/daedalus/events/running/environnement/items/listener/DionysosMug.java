@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.events.running.environnement.items.listener;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.events.running.environnement.items.events.CustomItemUseEvent;
 import fr.zelytra.daedalus.managers.cooldown.Cooldown;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
@@ -44,7 +45,7 @@ public class DionysosMug implements Listener {
                 return;
 
 
-            e.getPlayer().sendMessage(Message.getPlayerPrefixe() + "§6*hick*... Cheers !");
+            e.getPlayer().sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.dionysusRefill"));
             updateItem(e, maxValue, maxValue);
 
             for (Player p : Bukkit.getOnlinePlayers()) {
@@ -66,7 +67,7 @@ public class DionysosMug implements Listener {
             }
 
         } else {
-            e.getPlayer().sendMessage(Message.getPlayerPrefixe() + "§6Huuu... It's empty *hick*");
+            e.getPlayer().sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.dionysusEmpty"));
             return;
         }
 
@@ -112,7 +113,7 @@ public class DionysosMug implements Listener {
 
             List<String> lore = new ArrayList<>();
             lore.add("");
-            lore.add("§6§lSip: §a" + value + "§6/§a" + (maxValue > 10 ? 10 : maxValue));
+            lore.add(GameSettings.LANG.textOf("item.dionysusSlip") + value + "§6/§a" + (maxValue > 10 ? 10 : maxValue));
             lore.add("");
             meta.setLore(lore);
 
@@ -154,7 +155,7 @@ public class DionysosMug implements Listener {
 
         List<String> lore = new ArrayList<>();
         lore.add("");
-        lore.add("§6§lSip: §a" + value + "§6/§a" + maxValue);
+        lore.add(GameSettings.LANG.textOf("item.dionysusSlip") + value + "§6/§a" + maxValue);
         lore.add("");
         meta.setLore(lore);
 

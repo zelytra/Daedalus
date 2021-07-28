@@ -4,6 +4,7 @@ import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.events.running.environnement.items.events.CustomItemUseEvent;
 import fr.zelytra.daedalus.managers.cooldown.Cooldown;
 import fr.zelytra.daedalus.managers.faction.Faction;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.GameMode;
@@ -49,7 +50,7 @@ public class AphroditeHeart implements Listener {
             }
 
             if (targetList.isEmpty()) {
-                player.sendMessage(Message.getPlayerPrefixe() + "§6There's no player to cursed around you");
+                player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.noPlayerToCurse"));
                 return;
             }
             //Cooldown check

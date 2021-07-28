@@ -2,6 +2,7 @@ package fr.zelytra.daedalus.managers.faction;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.builders.guiBuilder.VisualItemStack;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
@@ -130,7 +131,7 @@ public class Faction {
 
     private void joinTeamFX(Player player, FactionsEnum factionsEnum) {
         player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
-        player.sendMessage(Message.getPlayerPrefixe() + "§8You joined " + factionsEnum.getPrefix() + factionsEnum.getName() + " §8team");
+        player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("team.joinPrefix") + factionsEnum.getPrefix() + factionsEnum.getName() + GameSettings.LANG.textOf("team.joinSuffix"));
         if (Daedalus.getInstance().getGameManager().isWaiting()) {
             if (player.isOp())
                 player.getInventory().setItem(8, new VisualItemStack(factionsEnum.getBanner(), "§7Team selection", false).getItem());

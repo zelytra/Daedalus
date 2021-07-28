@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.events.running.environnement.mobCutclean;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -14,7 +15,7 @@ public class MilkDrink implements Listener {
         if (Daedalus.getInstance().getGameManager().isRunning()) {
             if (e.getItem().getType() == Material.MILK_BUCKET) {
                 e.setCancelled(true);
-                e.getPlayer().sendMessage(Message.getPlayerPrefixe() + "§cYou cannot drink milk.");
+                e.getPlayer().sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.drinkMilk"));
             }
         }
     }

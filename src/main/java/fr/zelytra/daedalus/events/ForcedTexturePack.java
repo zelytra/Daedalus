@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.events;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.utils.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -25,16 +26,16 @@ public class ForcedTexturePack implements Listener {
         System.out.println(e.getStatus());
         switch (e.getStatus()) {
             case ACCEPTED:
-                e.getPlayer().sendMessage(Message.getPlayerPrefixe() + "§6Loading texture pack...");
+                e.getPlayer().sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("player.loadTexturePack"));
                 break;
             case DECLINED:
-                e.getPlayer().kickPlayer("§cYou need to accept the texture pack before playing");
+                e.getPlayer().kickPlayer(GameSettings.LANG.textOf("player.declinedTexturePack"));
                 break;
             case FAILED_DOWNLOAD:
-                e.getPlayer().sendMessage(Message.getPlayerPrefixe() + "§6Failed to download trying again...");
+                e.getPlayer().sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("player.failedTexturePack"));
                 break;
             case SUCCESSFULLY_LOADED:
-                e.getPlayer().sendMessage(Message.getPlayerPrefixe() + "§aTexture pack loaded !");
+                e.getPlayer().sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("player.successTexturePack"));
                 break;
         }
     }

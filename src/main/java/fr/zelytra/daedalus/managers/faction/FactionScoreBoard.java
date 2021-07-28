@@ -34,16 +34,16 @@ public class FactionScoreBoard {
         }
 
 
-        scoreboard.getTeam("episode").setPrefix("Episode §6: §a" + timeManager.getEpisode());
-        scoreboard.getTeam("timer").setPrefix("Timer §6: §a" + timeManager.getTimer());
-        scoreboard.getTeam("border").setPrefix("Border §6: §a" + (Daedalus.getInstance().getStructureManager().getShrinkManager().getWorkloadThread() == null ? "§cNull" : Daedalus.getInstance().getStructureManager().getShrinkManager().getBorderRadius()));
-        scoreboard.getTeam("stateMino").setPrefix("State §6: " + (DeathListener.hasMinoSpawn ? (isMinotaur() ? "§aAlive" : "§cDead") : "§k4269"));
-        scoreboard.getTeam("alive").setPrefix("Alive §6: §a" + faction.getAliveCount() + "§6/§a" + faction.getPlayerAmount());
+        scoreboard.getTeam("episode").setPrefix(GameSettings.LANG.textOf("scoreboard.episode") + timeManager.getEpisode());
+        scoreboard.getTeam("timer").setPrefix(GameSettings.LANG.textOf("scoreboard.timer") + timeManager.getTimer());
+        scoreboard.getTeam("border").setPrefix(GameSettings.LANG.textOf("scoreboard.border") + (Daedalus.getInstance().getStructureManager().getShrinkManager().getWorkloadThread() == null ? "§cNull" : Daedalus.getInstance().getStructureManager().getShrinkManager().getBorderRadius()));
+        scoreboard.getTeam("stateMino").setPrefix(GameSettings.LANG.textOf("scoreboard.stateMino")+ (DeathListener.hasMinoSpawn ? (isMinotaur() ? GameSettings.LANG.textOf("scoreboard.stateMinoAlive") : GameSettings.LANG.textOf("scoreboard.stateMinoDead")) : "§6§k4269"));
+        scoreboard.getTeam("alive").setPrefix(GameSettings.LANG.textOf("scoreboard.alive") + faction.getAliveCount() + "§6/§a" + faction.getPlayerAmount());
 
         if (faction.getGodsEnum() != null)
             scoreboard.getTeam("divinity").setPrefix("§6• §b" + faction.getGodsEnum().getName());
         else
-            scoreboard.getTeam("divinity").setPrefix("§6• §cNone");
+            scoreboard.getTeam("divinity").setPrefix(GameSettings.LANG.textOf("scoreboard.noDivinity"));
 
     }
 
@@ -54,26 +54,26 @@ public class FactionScoreBoard {
 
         addLine("", "a", 13);
 
-        addLine("Episode §6: §a1", "episode", 12);
-        addLine("Timer §6: §a00:00", "timer", 11);
+        addLine("", "episode", 12);
+        addLine("", "timer", 11);
 
         addLine("", "b", 10);
 
-        addLine("Alive §6: §a1§6/§a10", "alive", 9);
+        addLine("", "alive", 9);
 
         addLine("", "c", 8);
 
-        addLine("Team Divinity", "text", 7);
-        addLine("§6• §cNone", "divinity", 6);
+        addLine(GameSettings.LANG.textOf("scoreboard.teamDivinity"), "text", 7);
+        addLine("", "divinity", 6);
 
         addLine("", "d", 5);
 
         addLine("§6• §lMINOTAUR§6 •", "textMino", 4);
-        addLine("State §6: §aAlive", "stateMino", 3);
+        addLine("", "stateMino", 3);
 
         addLine("", "e", 2);
 
-        addLine("Border §6: §a600", "border", 1);
+        addLine("", "border", 1);
 
 
     }
