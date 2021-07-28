@@ -2,6 +2,8 @@ package fr.zelytra.daedalus.managers.gods.list;
 
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.Gods;
+import fr.zelytra.daedalus.managers.items.CustomItemStack;
+import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -30,6 +32,7 @@ public class Ares implements Gods {
     @Override
     public ArrayList<ItemStack> godItems() {
         ArrayList<ItemStack> items = new ArrayList<>();
+        items.add(new CustomItemStack(CustomMaterial.ARES_WAR_BANNER).getItem());
 
         ItemStack item = new ItemStack(Material.NETHERITE_CHESTPLATE);
         item.addEnchantment(Enchantment.THORNS, 3);
@@ -44,7 +47,14 @@ public class Ares implements Gods {
 
     @Override
     public ArrayList<ItemStack> teamItems() {
-        return null;
+        ArrayList<ItemStack> items = new ArrayList<>();
+
+        ItemStack item = new ItemStack(Material.DIAMOND_CHESTPLATE);
+        item.addEnchantment(Enchantment.DURABILITY, 2);
+        item.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+        items.add(item);
+
+        return items;
     }
 
     @Override

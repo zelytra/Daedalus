@@ -12,6 +12,7 @@ public enum CustomMaterial {
     DIONYSOS_THYRSUS ("§5§lDionysos's Thyrsus", "dionysos_thyrsus", 5, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     DIONYSOS_MUG("§5§lDionysos Mug", "dionysos_mug", 25, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     HERMES_CADUCEUS("§7§lHermes Caduceus", "hermes_caduceus", 22, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
+    ARES_WAR_BANNER("§c§lWar Banner", "ares_war_banner", 26, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
 
     MINOTAUR_HEAD("§5§lMinotaur's Head", "minotaur_head", 6, Material.CARVED_PUMPKIN, ItemType.ARMOR, 3, 0,EquipmentSlot.HEAD),
     DIVINE_FRAGMENT("§f§lDivine Fragment", "divine_fragment", 7, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
