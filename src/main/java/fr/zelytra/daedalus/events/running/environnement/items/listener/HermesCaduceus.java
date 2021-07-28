@@ -72,7 +72,7 @@ public class HermesCaduceus implements Listener {
                         ((Player) entity).getInventory().setItem(x, hotBar.get(x));
 
                     ((Player) entity).playSound(entity.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1, 1);
-                    entity.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.demeterActive"));
+                    entity.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.hermesActive"));
 
                 }
             }

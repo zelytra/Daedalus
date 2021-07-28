@@ -37,8 +37,8 @@ public class FactionScoreBoard {
         scoreboard.getTeam("episode").setPrefix(GameSettings.LANG.textOf("scoreboard.episode") + timeManager.getEpisode());
         scoreboard.getTeam("timer").setPrefix(GameSettings.LANG.textOf("scoreboard.timer") + timeManager.getTimer());
         scoreboard.getTeam("border").setPrefix(GameSettings.LANG.textOf("scoreboard.border") + (Daedalus.getInstance().getStructureManager().getShrinkManager().getWorkloadThread() == null ? "§cNull" : Daedalus.getInstance().getStructureManager().getShrinkManager().getBorderRadius()));
-        scoreboard.getTeam("stateMino").setPrefix(GameSettings.LANG.textOf("scoreboard.stateMino")+ (DeathListener.hasMinoSpawn ? (isMinotaur() ? GameSettings.LANG.textOf("scoreboard.stateMinoAlive") : GameSettings.LANG.textOf("scoreboard.stateMinoDead")) : "§6§k4269"));
-        scoreboard.getTeam("alive").setPrefix(GameSettings.LANG.textOf("scoreboard.alive") + faction.getAliveCount() + "§6/§a" + faction.getPlayerAmount());
+        scoreboard.getTeam("stateMino").setPrefix(GameSettings.LANG.textOf("scoreboard.stateMino") + (DeathListener.hasMinoSpawn ? (isMinotaur() ? GameSettings.LANG.textOf("scoreboard.stateMinoAlive") : GameSettings.LANG.textOf("scoreboard.stateMinoDead")) : "§6§k4269"));
+        scoreboard.getTeam("alive").setPrefix(GameSettings.LANG.textOf("scoreboard.alive") + getAlivePlayer() + "§6/§a" + getTotalPlayer());
 
         if (faction.getGodsEnum() != null)
             scoreboard.getTeam("divinity").setPrefix("§6• §b" + faction.getGodsEnum().getName());
@@ -146,6 +146,23 @@ public class FactionScoreBoard {
                 return true;
         }
         return false;
+    }
+
+    private int getTotalPlayer() {
+        int count = 0;
+        for (Faction faction : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList())
+            count += faction.getPlayerList().size();
+
+        return count;
+
+    }
+
+    private int getAlivePlayer() {
+        int count = 0;
+        for (Faction faction : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList())
+            count += faction.getAliveCount();
+
+        return count;
     }
 
 
