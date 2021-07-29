@@ -16,7 +16,6 @@ import fr.zelytra.daedalus.commands.state.StateCommands;
 import fr.zelytra.daedalus.commands.state.StateTabs;
 import fr.zelytra.daedalus.commands.test;
 import fr.zelytra.daedalus.commands.wiki.Wiki;
-import fr.zelytra.daedalus.events.EventsManager;
 import fr.zelytra.daedalus.managers.game.GameManager;
 import fr.zelytra.daedalus.managers.items.CraftManager;
 import fr.zelytra.daedalus.managers.setup.StartupManager;
@@ -51,11 +50,11 @@ public final class Daedalus extends JavaPlugin {
     public void onEnable() {
         /* Init world */
         Bukkit.createWorld(new WorldCreator("daedalus"));
-        checkFAWE();
+        //checkFAWE();
         /* Init registers */
-        EventsManager.registerEvents(this);
+        //EventsManager.registerEvents(this);
         regCommands();
-        setupServer();
+        //setupServer();
 
         /* Init managers */
         gameManager = new GameManager();
