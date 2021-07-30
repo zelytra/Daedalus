@@ -58,13 +58,12 @@ public class PartielDeathListener implements Listener {
                     Bukkit.broadcastMessage(faction.getType().getPrefix() +
                             Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getType().getPrefix() +
                             ((EntityDamageByEntityEvent) e).getDamager().getName() +
-                            GameSettings.LANG.textOf("death.defaultByPlayerPrefix") + e.getEntity().getName()
-                            + GameSettings.LANG.textOf("death.defaultByPlayerSuffix"));
+                            GameSettings.LANG.textOf("death.defaultByPlayer") + e.getEntity().getName());
                 else
-                    Bukkit.broadcastMessage(GameSettings.LANG.textOf("death.defaultPrefix") + faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.defaultSuffixe"));
+                    Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.default"));
                 break;
             default:
-                Bukkit.broadcastMessage(GameSettings.LANG.textOf("death.defaultPrefix") + faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.defaultSuffixe"));
+                Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.default"));
                 break;
         }
     }

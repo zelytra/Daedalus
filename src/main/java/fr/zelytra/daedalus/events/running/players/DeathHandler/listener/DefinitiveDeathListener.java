@@ -63,8 +63,7 @@ public class DefinitiveDeathListener implements Listener {
         switch (e.getCause()) {
             case ENTITY_ATTACK:
                 if (((EntityDamageByEntityEvent) e).getDamager() instanceof Player)
-                    Bukkit.broadcastMessage(faction.getType().getPrefix() + Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getType().getPrefix() + ((EntityDamageByEntityEvent) e).getDamager().getName() + GameSettings.LANG.textOf("death.definitiveByPlayerPrefix") + e.getEntity().getName() + GameSettings.LANG.textOf("death.definitiveByPlayerPrefix=\" §8sent \"\n" +
-                            "death.definitiveByPlayerSuffix"));
+                    Bukkit.broadcastMessage(Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getType().getPrefix() + ((EntityDamageByEntityEvent) e).getDamager().getName() + GameSettings.LANG.textOf("death.definitiveByPlayer") + faction.getType().getPrefix() + e.getEntity().getName());
                 else
                     Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.definitive"));
                 break;

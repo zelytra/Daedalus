@@ -68,7 +68,7 @@ public class TimeManager {
 
     private void episodeChangeEvent() {
         Bukkit.broadcastMessage("");
-        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + " §6Episode " + episode);
+        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.episode") + episode);
 
         EpisodeChangeEvent event = new EpisodeChangeEvent(episode);
         Bukkit.getPluginManager().callEvent(event);
