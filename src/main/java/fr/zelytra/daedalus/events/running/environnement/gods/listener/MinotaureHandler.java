@@ -7,6 +7,9 @@ import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.gods.list.Minotaure;
 import fr.zelytra.daedalus.utils.Utils;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
@@ -74,7 +77,8 @@ public class MinotaureHandler implements Listener {
     }
 
     private void growlHandler(Player player) {
-        player.sendMessage(GameSettings.LANG.textOf("event.minoSmell"));
+        BaseComponent txt = new TextComponent(GameSettings.LANG.textOf("event.minoSmell"));
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, txt);
         player.playSound(player.getLocation(), Sound.ENTITY_WOLF_GROWL, 10, 0.8f);
         growlList.add(player);
     }
