@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 public class PartielDeathEvent extends Event implements Cancellable {
@@ -15,7 +16,7 @@ public class PartielDeathEvent extends Event implements Cancellable {
     private Player player;
     private EntityDamageEvent event;
 
-    public PartielDeathEvent(Player player, EntityDamageEvent e){
+    public PartielDeathEvent(Player player, EntityDamageEvent e) {
         this.player = player;
         this.isCancelled = false;
         this.event = e;
@@ -44,11 +45,18 @@ public class PartielDeathEvent extends Event implements Cancellable {
         return player;
     }
 
-    public Faction getFaction(){
+    public Faction getFaction() {
         return Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(this.player);
     }
 
     public EntityDamageEvent getEvent() {
         return event;
+    }
+
+    public Player getKiller() {
+        if (event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK)
+            if (((EntityDamageByEntityEvent) event).getDamager() instanceof Player)
+                return (Player) ((EntityDamageByEntityEvent) event).getDamager();
+        return null;
     }
 }

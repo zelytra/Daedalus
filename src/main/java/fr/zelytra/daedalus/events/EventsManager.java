@@ -72,7 +72,7 @@ public class EventsManager {
         pm.registerEvents(new AresWarBanner(),pl);
         //pm.registerEvents(new MedusaHead(),pl);
 
-        /*Gods Summoning*/
+        /*Gods Handlers*/
         pm.registerEvents(new GodSpawnHandler(),pl);
         pm.registerEvents(new ZeusHandler(),pl);
         pm.registerEvents(new PoseidonHandler(),pl);

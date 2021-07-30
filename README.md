@@ -45,7 +45,8 @@ At the first boot, the plugin will download the map of the mini-game (you cannot
 [Daedalus]>> Downloading map please wait...  
 [Daedalus]>> Extracting files please wait...
 ``` 
-At this point, the map is setup and ready to be played ! 
+At this point,the server will make some modifications and will need a restart. 
+After this restart the map is setup and ready to be played ! 
 
 ### Reset
 To reset the map, you only need to reboot the server :
@@ -61,6 +62,7 @@ It will reset the map (the plugin is smart, it will not download the map again, 
 # Credits
 * **Spirit__10** : Project Founder & Builder
 * **Ichabodt** : Artistic Director & Builder
+* **Minucia** : Graphic designer
 * [**Zelytra**](https://github.com/zelytra) : Developer
 -----------------
 # Thanks

@@ -24,9 +24,13 @@ import fr.zelytra.daedalus.managers.structure.StructureManager;
 import net.minecraft.server.v1_16_R3.DedicatedServer;
 import net.minecraft.server.v1_16_R3.DedicatedServerProperties;
 import org.bukkit.*;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.craftbukkit.v1_16_R3.CraftServer;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 
 public final class Daedalus extends JavaPlugin {
@@ -56,6 +60,7 @@ public final class Daedalus extends JavaPlugin {
         EventsManager.registerEvents(this);
         regCommands();
         setupServer();
+        editFAWE();
 
         /* Init managers */
         gameManager = new GameManager();
@@ -67,6 +72,30 @@ public final class Daedalus extends JavaPlugin {
         getServer().getConsoleSender().sendMessage("§a/____/ /_/ |_| /___/ /____/ /_/ |_| /____/  \\____/ /___/  §r");
         getServer().getConsoleSender().sendMessage("                                                          ");
         getServer().getConsoleSender().sendMessage("§e[DAEDALUS] §6STATUS §7>> §2loaded");
+    }
+
+    private void editFAWE() {
+        File configLegacy = new File(Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit").getDataFolder().getPath() + File.separator + "config-legacy.yml");
+        FileConfiguration yml = YamlConfiguration.loadConfiguration(configLegacy);
+        if (!yml.getString(("navigation-wand.item")).equals("minecraft:lead")){
+            yml.set("navigation-wand.item", "minecraft:lead");
+            try {
+                yml.save(configLegacy);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Bukkit.getConsoleSender().sendMessage("§c----------------------------------");
+            Bukkit.getConsoleSender().sendMessage("§e           ! WARNING !            ");
+            Bukkit.getConsoleSender().sendMessage("§e      Server shutdown to apply    ");
+            Bukkit.getConsoleSender().sendMessage("§e           modifications          ");
+            Bukkit.getConsoleSender().sendMessage("                                    ");
+            Bukkit.getConsoleSender().sendMessage("§c    ! PLEASE RESTART SERVER !     ");
+            Bukkit.getConsoleSender().sendMessage("§c----------------------------------");
+            Bukkit.shutdown();
+        }
+
+
+
     }
 
     @Override

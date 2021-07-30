@@ -4,6 +4,8 @@ import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.Gods;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
@@ -34,7 +36,13 @@ public class Aphrodite implements Gods {
 
     @Override
     public ArrayList<ItemStack> teamItems() {
-        return null;
+
+        ArrayList<ItemStack> items = new ArrayList<>();
+        ItemStack item = new ItemStack(Material.DIAMOND_LEGGINGS);
+        item.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+        item.addEnchantment(Enchantment.DURABILITY, 2);
+        items.add(item);
+        return items;
     }
 
     @Override

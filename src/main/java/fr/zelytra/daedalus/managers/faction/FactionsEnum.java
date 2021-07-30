@@ -15,7 +15,7 @@ public enum FactionsEnum {
     BLUE("Blue", "Cblue", ChatColor.BLUE, "§9", "§r", new Location(Bukkit.getWorld(Daedalus.WORLD_NAME), -485, 89, 483),Material.BLUE_BANNER),
     YELLOW("Yellow", "Byellow", ChatColor.YELLOW, "§e", "§r", new Location(Bukkit.getWorld(Daedalus.WORLD_NAME), 475, 89, 483),Material.YELLOW_BANNER),
 
-    SPECTATOR("Spectator", "Fspectator", ChatColor.WHITE, "§f", "§r", new Location(Bukkit.getWorld(Daedalus.WORLD_NAME), 0, 81, 0),Material.WHITE_BANNER);
+    SPECTATOR("Spectator", "Fspectator", ChatColor.WHITE, "§f", "§r", new Location(Bukkit.getWorld(Daedalus.WORLD_NAME), 0, 120, 0),Material.WHITE_BANNER);
 
     private String name;
     private String tag;

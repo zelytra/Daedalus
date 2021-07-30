@@ -148,7 +148,7 @@ public class GameManager {
                     Faction playerFaction = factionManager.getFactionOf(p);
                     if (playerFaction.getType() == FactionsEnum.SPECTATOR) {
                         p.setGameMode(GameMode.SPECTATOR);
-                        p.teleport(new Location(p.getWorld(), 0, 125, 0));
+                        p.teleport(FactionsEnum.SPECTATOR.getSpawn());
                     } else {
                         p.setGameMode(GameMode.SURVIVAL);
                         p.teleport(playerFaction.getType().getSpawn());
