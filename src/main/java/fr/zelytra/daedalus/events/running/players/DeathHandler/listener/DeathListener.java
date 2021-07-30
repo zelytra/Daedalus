@@ -41,10 +41,12 @@ public class DeathListener implements Listener {
             }
 
             boolean isMemberOfMino = daedalus.getGameManager().getFactionManager().getFactionOf(player).getGodsEnum() == GodsEnum.MINOTAURE;//Quand on est un mino
-
+            System.out.println(hasMinoSpawn + " " + !isMinoDead + " " + daedalus.getGameManager().getFactionManager().getFactionOf(FactionsEnum.MINOTAUR).getGod() != null);
             if (hasMinoSpawn && !isMinoDead && daedalus.getGameManager().getFactionManager().getFactionOf(FactionsEnum.MINOTAUR).getGod() != null) {
-                isMinoDead = player.getUniqueId() == daedalus.getGameManager().getFactionManager().getFactionOf(FactionsEnum.MINOTAUR).getGod().getUniqueId();
-                minotaursDeathFX();
+                if (player.getUniqueId() == daedalus.getGameManager().getFactionManager().getFactionOf(FactionsEnum.MINOTAUR).getGod().getUniqueId()) {
+                    isMinoDead = true;
+                    minotaursDeathFX();
+                }
             }
 
             if ((hasMinoSpawn && isMinoDead) || killByAMino || shrinkHasReachSpawn || isMemberOfMino) {
