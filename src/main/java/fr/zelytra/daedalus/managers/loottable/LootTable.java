@@ -5,10 +5,10 @@ import org.bukkit.Material;
 import java.util.ArrayList;
 
 public class LootTable {
-    private ArrayList<LootsEnum> lootsEnum;
-    private ArrayList<Loot> loots;
-    private ArrayList<Material> containerWhiteList;
-    private String name;
+    private final ArrayList<LootsEnum> lootsEnum;
+    private final ArrayList<Loot> loots;
+    private final ArrayList<Material> containerWhiteList;
+    private final String name;
 
     public LootTable(String name) {
         this.name = name;

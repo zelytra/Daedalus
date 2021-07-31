@@ -23,7 +23,6 @@ import java.util.List;
 
 public class TeamSelector implements Listener, Interface {
     List<Material> banners = new ArrayList<>();
-    private String interfaceName = GameSettings.LANG.textOf("menu.teamChooser");
 
     {
         banners.add(Material.BLUE_BANNER);
@@ -40,7 +39,7 @@ public class TeamSelector implements Listener, Interface {
         if (Daedalus.getInstance().getGameManager().isWaiting() && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)) {
 
             if (e.getItem() != null && banners.contains(e.getItem().getType())) {
-                InterfaceBuilder interfaceBuilder = new InterfaceBuilder(InventoryType.DROPPER, interfaceName);
+                InterfaceBuilder interfaceBuilder = new InterfaceBuilder(InventoryType.DROPPER, GameSettings.LANG.textOf("menu.teamChooser"));
                 interfaceBuilder.setContent(contentBuilder());
                 interfaceBuilder.open(e.getPlayer());
             }
@@ -72,7 +71,7 @@ public class TeamSelector implements Listener, Interface {
 
     @EventHandler
     public void onInterfaceInteract(InventoryClickEvent e) {
-        if (e.getView().getTitle().equals(interfaceName)) {
+        if (e.getView().getTitle().equals(GameSettings.LANG.textOf("menu.teamChooser"))) {
             e.setCancelled(true);
             if (e.getCurrentItem() != null) {
                 for (FactionsEnum factionsEnum : FactionsEnum.values()) {

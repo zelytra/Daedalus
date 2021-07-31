@@ -39,7 +39,7 @@ public class FactionScoreBoard {
         scoreboard.getTeam("border").setPrefix(GameSettings.LANG.textOf("scoreboard.border") + (Daedalus.getInstance().getStructureManager().getShrinkManager().getWorkloadThread() == null ? "§cNull" : Daedalus.getInstance().getStructureManager().getShrinkManager().getBorderRadius()));
         scoreboard.getTeam("stateMino").setPrefix(GameSettings.LANG.textOf("scoreboard.stateMino") + (DeathListener.hasMinoSpawn ? (isMinotaur() ? GameSettings.LANG.textOf("scoreboard.stateMinoAlive") : GameSettings.LANG.textOf("scoreboard.stateMinoDead")) : "§6§k4269"));
         scoreboard.getTeam("alive").setPrefix(GameSettings.LANG.textOf("scoreboard.alive") + getAlivePlayer() + "§6/§a" + getTotalPlayer());
-
+        scoreboard.getTeam("text").setPrefix(GameSettings.LANG.textOf("scoreboard.teamDivinity"));
         if (faction.getGodsEnum() != null)
             scoreboard.getTeam("divinity").setPrefix("§6• §b" + faction.getGodsEnum().getName());
         else
@@ -63,7 +63,7 @@ public class FactionScoreBoard {
 
         addLine("", "c", 8);
 
-        addLine(GameSettings.LANG.textOf("scoreboard.teamDivinity"), "text", 7);
+        addLine("", "text", 7);
         addLine("", "divinity", 6);
 
         addLine("", "d", 5);
