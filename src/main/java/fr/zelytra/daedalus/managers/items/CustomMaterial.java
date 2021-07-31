@@ -15,6 +15,7 @@ public enum CustomMaterial {
     HERMES_CADUCEUS("godItem.HERMES_CADUCEUS", "hermes_caduceus", 22, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     ARES_WAR_BANNER("godItem.ARES_WAR_BANNER", "ares_war_banner", 26, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     ARTEMIS_HORN("godItem.ARTEMIS_HORN", "artemis_horn", 27, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
+    POSEIDON_COCHE("godItem.POSEIDON_COCHE", "poseidon_coche", 28, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
 
     MINOTAUR_HEAD("godItem.MINOTAUR_HEAD", "minotaur_head", 6, Material.CARVED_PUMPKIN, ItemType.ARMOR, 3, 0,EquipmentSlot.HEAD),
     DIVINE_FRAGMENT("godItem.DIVINE_FRAGMENT", "divine_fragment", 7, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
