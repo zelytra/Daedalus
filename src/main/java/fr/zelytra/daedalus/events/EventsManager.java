@@ -13,13 +13,10 @@ import fr.zelytra.daedalus.events.running.environnement.respawnable.AxeStripped;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.PlayerBreakBlockListener;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.TreeGrowthListener;
 import fr.zelytra.daedalus.events.running.environnement.structure.*;
+import fr.zelytra.daedalus.events.running.players.*;
 import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.DeathListener;
 import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.DefinitiveDeathListener;
 import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.PartielDeathListener;
-import fr.zelytra.daedalus.events.running.players.InventoryLooker;
-import fr.zelytra.daedalus.events.running.players.PlayerChatRListener;
-import fr.zelytra.daedalus.events.running.players.PlayerEatGoldenApple;
-import fr.zelytra.daedalus.events.running.players.PlayerHotelClick;
 import fr.zelytra.daedalus.events.running.pvp.CoolDown;
 import fr.zelytra.daedalus.events.running.pvp.DamagerHandler;
 import fr.zelytra.daedalus.events.running.pvp.EnchantRemover;
@@ -129,6 +126,7 @@ public class EventsManager {
         pm.registerEvents(new PrivateMessageListener(), pl);
         pm.registerEvents(new PlayerHotelClick(), pl);
         pm.registerEvents(new PlayerInteractListener(), pl);
+        pm.registerEvents(new LifeSharing(), pl);
 
         /* Entities */
         pm.registerEvents(new EntityTargetListener(), pl);

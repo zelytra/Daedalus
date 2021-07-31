@@ -22,7 +22,7 @@ import java.util.Map;
 public class TimeManager {
     private int time = 0;
     private String timer = "00:00";
-    private int episode = 1;
+    public static int episode = 1;
     private int runnable;
     private boolean pause = false;
 
@@ -93,13 +93,9 @@ public class TimeManager {
 
                 break;
 
-            case 3:
-
-                System.out.println("Malédictions");
-
-
+            case 4:
+                Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.lifeSharing"));
                 break;
-
 
             case 6:
                 Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.mazeFalling"));
