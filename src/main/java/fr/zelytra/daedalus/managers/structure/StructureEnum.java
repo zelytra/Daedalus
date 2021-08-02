@@ -15,6 +15,7 @@ public enum StructureEnum {
     - -4 : Dungeon
     - -5 : Circee island
     - -6 : Hesperides garden
+    - -7 : Library garden
 
      */
     ZEUS("zeusTemple", -2, StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.ZEUS),
@@ -40,6 +41,7 @@ public enum StructureEnum {
 
     HESPERIDES_GARDEN("hesperidesGarden", -6, StructureType.HESPERIDES_GARDEN, true, new BlockVector(0, -3, 0)),
     CIRCEE_ISLAND("circeeIsland", -5, StructureType.CIRCE_ISLAND, true, new BlockVector(0, -3, 0)),
+    DAEDALUS_LIBRARY("daedalusLibrary", -7, StructureType.LIBRARY, false, new BlockVector(0, -3, 0)),
 
     DUNGEON1("dungeon1", -4, StructureType.DUNGEON, true, new BlockVector(0, -80, 0)),
     DUNGEON2("dungeon2", -4, StructureType.DUNGEON, true, new BlockVector(0, -80, 0)),

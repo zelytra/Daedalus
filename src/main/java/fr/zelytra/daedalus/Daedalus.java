@@ -120,7 +120,7 @@ public final class Daedalus extends JavaPlugin {
 
         getCommand("structure").setExecutor(new StructureCommands());
         getCommand("wiki").setExecutor(new Wiki());
-        getCommand("coordinate").setExecutor(new ShareLocation());
+        getCommand("coordinates").setExecutor(new ShareLocation());
         getCommand("test").setExecutor(new test());
         getCommand("checkpoint").setExecutor(new Checkpoint());
 

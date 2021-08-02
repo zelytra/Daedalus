@@ -43,10 +43,13 @@ public class PoseidonHandler implements Listener {
                     if (player == null)
                         continue;
 
+                    if (team.getGod() != null && player.getName() != team.getGod().getName())
+                        continue;
+
                     if (player.getLocation().getBlock().getType() == Material.WATER) {
                         if (player.getPotionEffect(PotionEffectType.REGENERATION) != null)
                             continue;
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 50, 0, false, true, true));
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 50, 1, false, true, true));
                     }
                 }
             }

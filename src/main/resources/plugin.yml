@@ -36,7 +36,7 @@ commands:
   wiki:
     description: Show item wiki
 
-  coordinate:
+  coordinates:
     description: Share your location to your mates
     aliases:
       - co

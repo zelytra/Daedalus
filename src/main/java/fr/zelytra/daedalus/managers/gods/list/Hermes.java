@@ -54,7 +54,6 @@ public class Hermes implements Gods {
     public Collection<PotionEffect> teamEffects() {
         Collection<PotionEffect> potions = new ArrayList<>();
         potions.add(new PotionEffect(PotionEffectType.SPEED, 99999999, 0, false, false, true));
-        potions.add(new PotionEffect(PotionEffectType.SATURATION, 99999999, 9, false, false, true));
         return potions;
     }
 }

@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.managers.items;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -125,7 +126,7 @@ public class CustomItemStack {
 
         List<String> lore = new ArrayList<>();
         lore.add("");
-        lore.add("§6§lSip: §a" + 1 + "§6/§a" + 1);
+        lore.add(GameSettings.LANG.textOf("item.dionysusSlip") + 1 + "§6/§a" + 1);
         lore.add("");
         meta.setLore(lore);
 

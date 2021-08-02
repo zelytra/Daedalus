@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MobSpawn implements Listener {
-    private List<EntityType> whitelist = new ArrayList<>();
+    private final List<EntityType> whitelist = new ArrayList<>();
 
     {
         whitelist.add(EntityType.DROPPED_ITEM);
@@ -53,6 +53,7 @@ public class MobSpawn implements Listener {
             e.setCancelled(true);
             return;
         }
+
         try {
             Vector2 matrixCoordinate = new Vector2((int) (e.getLocation().getX() - maze.getOrigin().getX() + 1), (int) (e.getLocation().getZ() - maze.getOrigin().getZ() + 1));
             switch (maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z]) {
@@ -63,6 +64,7 @@ public class MobSpawn implements Listener {
                 case -4:
                 case -5:
                 case -6:
+                case -7:
                     if (e.getSpawnReason() == CreatureSpawnEvent.SpawnReason.CUSTOM || e.getSpawnReason() == CreatureSpawnEvent.SpawnReason.SPAWNER) {
                         break;
                     }

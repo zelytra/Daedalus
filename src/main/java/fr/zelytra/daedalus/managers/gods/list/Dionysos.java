@@ -27,12 +27,15 @@ public class Dionysos implements Gods {
     public ArrayList<ItemStack> godItems() {
         ArrayList<ItemStack> items = new ArrayList<>();
         items.add(new CustomItemStack(CustomMaterial.DIONYSOS_MUG).getItem());
+        items.add(new CustomItemStack(CustomMaterial.DIONYSOS_THYRSUS).getItem());
         return items;
     }
 
     @Override
     public ArrayList<ItemStack> teamItems() {
-        return null;
+        ArrayList<ItemStack> items = new ArrayList<>();
+        items.add(new CustomItemStack(CustomMaterial.DIONYSOS_MUG).getItem());
+        return items;
     }
 
     @Override

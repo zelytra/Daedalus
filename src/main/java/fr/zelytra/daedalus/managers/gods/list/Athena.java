@@ -40,6 +40,7 @@ public class Athena implements Gods {
         item.setItemMeta(meta);
         items.add(item);
         items.add(new CustomItemStack(CustomMaterial.ATHENA_MAP).getItem());
+        items.add(new ItemStack(Material.NETHERITE_INGOT));
         return items;
     }
 

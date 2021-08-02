@@ -17,14 +17,14 @@ import org.bukkit.event.Listener;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class ZeusLightning implements Listener {
+public class PoseidonCoche implements Listener {
 
     @EventHandler
     public void onRightClick(CustomItemUseEvent e) {
-        int itemCooldown = 10;
-        int radius = 8;
+        int itemCooldown = 30;
+        int radius = 5;
 
-        if (e.getMaterial() != CustomMaterial.ZEUS_LIGHTNING) return;
+        if (e.getMaterial() != CustomMaterial.POSEIDON_COCHE) return;
 
         Player player = e.getPlayer();
 
@@ -51,15 +51,15 @@ public class ZeusLightning implements Listener {
                 return;
             }
             //Cooldown check
-            if (!Cooldown.cooldownCheck(player, CustomMaterial.ZEUS_LIGHTNING.getName())) {
+            if (!Cooldown.cooldownCheck(player, CustomMaterial.POSEIDON_COCHE.getName())) {
                 return;
             }
-            new Cooldown(player, itemCooldown, CustomMaterial.ZEUS_LIGHTNING.getName());
+            Cooldown cd = new Cooldown(player, itemCooldown, CustomMaterial.POSEIDON_COCHE.getName());
 
             for (Entity entity : toStrike) {
                 if (entity instanceof LivingEntity) {
                     player.getWorld().strikeLightningEffect(entity.getLocation());
-                    ((LivingEntity) entity).damage(5.0);
+                    ((LivingEntity) entity).damage(4.0);
                     entity.setFireTicks(160);
                 }
             }

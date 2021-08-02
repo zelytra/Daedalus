@@ -77,8 +77,6 @@ public class StructureManager {
         this.mine.add(new Structure(StructureEnum.MINE2));
         this.mine.add(new Structure(StructureEnum.MINE3));
 
-        /*Dungeon init*/
-        this.dungeons.add(new Structure(StructureEnum.DUNGEON1));
     }
 
     private void randomGenerationList() {
@@ -103,6 +101,11 @@ public class StructureManager {
         /*Dungeons draw*/
         for (int x = 0; x < GameSettings.DUNGEONS_COUNT; x++) {
             generatedList.add(this.dungeons.get(ThreadLocalRandom.current().nextInt(0, this.dungeons.size())));
+        }
+
+        /*Library draw*/
+        for (int x = 0; x < GameSettings.LIBRARY; x++) {
+            generatedList.add(new Structure(StructureEnum.DAEDALUS_LIBRARY));
         }
 
         /*Circee draw*/

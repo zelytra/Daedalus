@@ -7,5 +7,6 @@ public enum StructureType {
     DUNGEON,
     CIRCE_ISLAND,
     HESPERIDES_GARDEN,
+    LIBRARY,
     TEMPLE;
 }
