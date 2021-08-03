@@ -17,6 +17,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class HadesScepter implements Listener {
     private static final NamespacedKey hadesKey = new NamespacedKey(Daedalus.getInstance(), "hades");
@@ -32,10 +33,19 @@ public class HadesScepter implements Listener {
         Player player = e.getPlayer();
 
         //Cooldown check
-        if (!Cooldown.cooldownCheck(player, CustomMaterial.HADES_SCEPTER.getName())) {
-            return;
-        }
+        if (!Cooldown.cooldownCheck(player, CustomMaterial.HADES_SCEPTER.getName())) return;
+
         new Cooldown(player, itemCooldown, CustomMaterial.HADES_SCEPTER.getName());
+
+        List<Entity> skeleton = e.getPlayer().getNearbyEntities(15, 15, 15);
+        int count = 0;
+        for (Entity entity : skeleton) {
+            if (entity instanceof WitherSkeleton)
+                count++;
+
+            if (entity instanceof WitherSkeleton && count > 2)
+                entity.remove();
+        }
 
         try {
             Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);

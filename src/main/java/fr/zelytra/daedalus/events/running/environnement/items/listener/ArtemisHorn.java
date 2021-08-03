@@ -20,6 +20,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class ArtemisHorn implements Listener {
     private static final NamespacedKey artemisKey = new NamespacedKey(Daedalus.getInstance(), "artemis");
@@ -39,6 +40,13 @@ public class ArtemisHorn implements Listener {
             return;
         }
         new Cooldown(player, itemCooldown, CustomMaterial.ARTEMIS_HORN.getName());
+
+        List<Entity> wolfs = e.getPlayer().getNearbyEntities(30, 30, 30);
+
+        for (Entity entity : wolfs)
+            if (entity instanceof Wolf)
+                entity.remove();
+
 
         try {
             Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
