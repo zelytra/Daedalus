@@ -68,6 +68,7 @@ public class EventsManager {
         pm.registerEvents(new HermesCaduceus(),pl);
         pm.registerEvents(new AresWarBanner(),pl);
         pm.registerEvents(new ArtemisHorn(),pl);
+        pm.registerEvents(new PoseidonCoche(),pl);
         //pm.registerEvents(new MedusaHead(),pl);
 
         /*Gods Handlers*/

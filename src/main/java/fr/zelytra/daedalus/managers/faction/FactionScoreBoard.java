@@ -151,7 +151,9 @@ public class FactionScoreBoard {
     private int getTotalPlayer() {
         int count = 0;
         for (Faction faction : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList())
-            count += faction.getPlayerList().size();
+            if(faction.getType()==FactionsEnum.SPECTATOR)
+                continue;
+            count += faction.getPlayerAmount();
 
         return count;
 

@@ -45,6 +45,7 @@ public class BreakBlockListener implements Listener {
             case -4:
             case -5:
             case -6:
+            case -7:
                 if (BlockEnum.containType(e.getBlock().getType())) {
                     break;
                 }
