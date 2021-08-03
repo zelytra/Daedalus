@@ -2,6 +2,8 @@ package fr.zelytra.daedalus.managers.gods.list;
 
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.Gods;
+import fr.zelytra.daedalus.managers.items.CustomItemStack;
+import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -48,6 +50,7 @@ public class Poseidon implements Gods {
         meta = item.getItemMeta();
         meta.setUnbreakable(true);
         item.setItemMeta(meta);
+        items.add(new CustomItemStack(CustomMaterial.POSEIDON_CONCHE).getItem());
         return items;
     }
 

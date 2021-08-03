@@ -22,16 +22,16 @@ public class PoseidonCoche implements Listener {
     public void onRightClick(CustomItemUseEvent e) {
         int itemCooldown = 30;
 
-        if (e.getMaterial() != CustomMaterial.POSEIDON_COCHE) return;
+        if (e.getMaterial() != CustomMaterial.POSEIDON_CONCHE) return;
 
         Player player = e.getPlayer();
 
         //Item action
         try {
             //Cooldown check
-            if (!Cooldown.cooldownCheck(player, CustomMaterial.POSEIDON_COCHE.getName())) return;
+            if (!Cooldown.cooldownCheck(player, CustomMaterial.POSEIDON_CONCHE.getName())) return;
 
-            new Cooldown(player, itemCooldown, CustomMaterial.POSEIDON_COCHE.getName());
+            new Cooldown(player, itemCooldown, CustomMaterial.POSEIDON_CONCHE.getName());
 
             Location center = e.getPlayer().getLocation().clone();
 

@@ -31,6 +31,10 @@ public class Aphrodite implements Gods {
     public ArrayList<ItemStack> godItems() {
         ArrayList<ItemStack> items = new ArrayList<>();
         items.add(new CustomItemStack(CustomMaterial.APHRODITE_HEART).getItem());
+        ItemStack item = new ItemStack(Material.DIAMOND_LEGGINGS);
+        item.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+        item.addEnchantment(Enchantment.DURABILITY, 2);
+        items.add(item);
         return items;
     }
 
