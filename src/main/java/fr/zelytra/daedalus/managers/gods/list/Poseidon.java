@@ -50,7 +50,7 @@ public class Poseidon implements Gods {
         meta = item.getItemMeta();
         meta.setUnbreakable(true);
         item.setItemMeta(meta);
-        items.add(new CustomItemStack(CustomMaterial.POSEIDON_CONCHE).getItem());
+        items.add(new CustomItemStack(CustomMaterial.POSEIDON_CONCH).getItem());
         return items;
     }
 
