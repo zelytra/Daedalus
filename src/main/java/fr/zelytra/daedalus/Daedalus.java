@@ -40,7 +40,6 @@ public final class Daedalus extends JavaPlugin {
     private StructureManager structureManager;
     private CraftManager craftManager;
     public static String WORLD_NAME = "daedalus";
-
     public static Daedalus getInstance() {
         return instance;
     }
@@ -56,6 +55,7 @@ public final class Daedalus extends JavaPlugin {
         /* Init world */
         Bukkit.createWorld(new WorldCreator("daedalus"));
         checkFAWE();
+
         /* Init registers */
         EventsManager.registerEvents(this);
         regCommands();
@@ -77,7 +77,7 @@ public final class Daedalus extends JavaPlugin {
     private void editFAWE() {
         File configLegacy = new File(Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit").getDataFolder().getPath() + File.separator + "config-legacy.yml");
         FileConfiguration yml = YamlConfiguration.loadConfiguration(configLegacy);
-        if (!yml.getString(("navigation-wand.item")).equals("minecraft:lead")){
+        if (!yml.getString(("navigation-wand.item")).equals("minecraft:lead")) {
             yml.set("navigation-wand.item", "minecraft:lead");
             try {
                 yml.save(configLegacy);
@@ -93,7 +93,6 @@ public final class Daedalus extends JavaPlugin {
             Bukkit.getConsoleSender().sendMessage("§c----------------------------------");
             Bukkit.shutdown();
         }
-
 
 
     }

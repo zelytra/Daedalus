@@ -13,10 +13,10 @@ import fr.zelytra.daedalus.events.running.environnement.respawnable.AxeStripped;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.PlayerBreakBlockListener;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.TreeGrowthListener;
 import fr.zelytra.daedalus.events.running.environnement.structure.*;
-import fr.zelytra.daedalus.events.running.players.*;
 import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.DeathListener;
 import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.DefinitiveDeathListener;
 import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.PartielDeathListener;
+import fr.zelytra.daedalus.events.running.players.*;
 import fr.zelytra.daedalus.events.running.pvp.CoolDown;
 import fr.zelytra.daedalus.events.running.pvp.DamagerHandler;
 import fr.zelytra.daedalus.events.running.pvp.EnchantRemover;
@@ -40,50 +40,54 @@ public class EventsManager {
         PluginManager pm = Bukkit.getPluginManager();
 
         /* Maze */
-        pm.registerEvents(new BreakBlockListener(),pl);
-        pm.registerEvents(new PlaceBlockListener(),pl);
-        pm.registerEvents(new InteractListener(),pl);
+        pm.registerEvents(new BreakBlockListener(), pl);
+        pm.registerEvents(new PlaceBlockListener(), pl);
+        pm.registerEvents(new InteractListener(), pl);
 
         /* Guardian */
-        pm.registerEvents(new GuardianListener(),pl);
+        pm.registerEvents(new GuardianListener(), pl);
         new GuardianBossBar();
         new StructureListener();
 
 
+        pm.registerEvents(new ErrorListener(), pl);
+        pm.registerEvents(new ErrorGenerator(), pl);
+
+
         /* Texture Pack */
-        pm.registerEvents(new ForcedTexturePack(),pl);
+        pm.registerEvents(new ForcedTexturePack(), pl);
 
         /*Custom Items*/
-        pm.registerEvents(new CustomItemUseHandler(),pl);
-        pm.registerEvents(new CustomItemDropHandler(),pl);
-        pm.registerEvents(new ZeusLightning(),pl);
-        pm.registerEvents(new HadesScepter(),pl);
-        pm.registerEvents(new AphroditeHeart(),pl);
-        pm.registerEvents(new DemeterSickle(),pl);
-        pm.registerEvents(new DionysosCup(),pl);
-        pm.registerEvents(new DionysosMug(),pl);
-        pm.registerEvents(new MinotaurCharge(),pl);
-        pm.registerEvents(new DivineTracker(),pl);
-        pm.registerEvents(new AthenaMap(),pl);
-        pm.registerEvents(new HermesCaduceus(),pl);
-        pm.registerEvents(new AresWarBanner(),pl);
-        pm.registerEvents(new ArtemisHorn(),pl);
-        pm.registerEvents(new PoseidonCoche(),pl);
+        pm.registerEvents(new CustomItemUseHandler(), pl);
+        pm.registerEvents(new CustomItemDropHandler(), pl);
+        pm.registerEvents(new ZeusLightning(), pl);
+        pm.registerEvents(new HadesScepter(), pl);
+        pm.registerEvents(new AphroditeHeart(), pl);
+        pm.registerEvents(new DemeterSickle(), pl);
+        pm.registerEvents(new DionysosCup(), pl);
+        pm.registerEvents(new DionysosMug(), pl);
+        pm.registerEvents(new MinotaurCharge(), pl);
+        pm.registerEvents(new DivineTracker(), pl);
+        pm.registerEvents(new AthenaMap(), pl);
+        pm.registerEvents(new HermesCaduceus(), pl);
+        pm.registerEvents(new AresWarBanner(), pl);
+        pm.registerEvents(new ArtemisHorn(), pl);
+        pm.registerEvents(new PoseidonCoche(), pl);
         //pm.registerEvents(new MedusaHead(),pl);
 
         /*Gods Handlers*/
-        pm.registerEvents(new GodSpawnHandler(),pl);
-        pm.registerEvents(new ZeusHandler(),pl);
-        pm.registerEvents(new PoseidonHandler(),pl);
-        pm.registerEvents(new HadesHandler(),pl);
-        pm.registerEvents(new AresHandler(),pl);
-        pm.registerEvents(new AphroditeHandler(),pl);
-        pm.registerEvents(new HermesHandler(),pl);
-        pm.registerEvents(new ArtemisHandler(),pl);
-        pm.registerEvents(new AthenaHandler(),pl);
-        pm.registerEvents(new DionysosHandler(),pl);
-        pm.registerEvents(new DemeterHandler(),pl);
-        pm.registerEvents(new MinotaureHandler(),pl);
+        pm.registerEvents(new GodSpawnHandler(), pl);
+        pm.registerEvents(new ZeusHandler(), pl);
+        pm.registerEvents(new PoseidonHandler(), pl);
+        pm.registerEvents(new HadesHandler(), pl);
+        pm.registerEvents(new AresHandler(), pl);
+        pm.registerEvents(new AphroditeHandler(), pl);
+        pm.registerEvents(new HermesHandler(), pl);
+        pm.registerEvents(new ArtemisHandler(), pl);
+        pm.registerEvents(new AthenaHandler(), pl);
+        pm.registerEvents(new DionysosHandler(), pl);
+        pm.registerEvents(new DemeterHandler(), pl);
+        pm.registerEvents(new MinotaureHandler(), pl);
 
         /* Environment */
         pm.registerEvents(new BlockPlaceListener(), pl);
@@ -135,9 +139,9 @@ public class EventsManager {
         pm.registerEvents(new EntityDamageListener(), pl);
 
         /* PVP */
-        pm.registerEvents(new CoolDown(),pl);
-        pm.registerEvents(new PlayerRegen(),pl);
-        pm.registerEvents(new DamagerHandler(),pl);
+        pm.registerEvents(new CoolDown(), pl);
+        pm.registerEvents(new PlayerRegen(), pl);
+        pm.registerEvents(new DamagerHandler(), pl);
 
     }
 }
