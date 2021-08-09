@@ -51,7 +51,6 @@ public class EventsManager {
 
 
         pm.registerEvents(new ErrorListener(), pl);
-        pm.registerEvents(new ErrorGenerator(), pl);
 
 
         /* Texture Pack */
