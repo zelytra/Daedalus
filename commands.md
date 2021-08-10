@@ -1,6 +1,0 @@
-# Commands
-
-## Maze
-
-## Debug
-
