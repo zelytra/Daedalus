@@ -79,7 +79,7 @@ public class MinotaureHandler implements Listener {
     private void growlHandler(Player player) {
         BaseComponent txt = new TextComponent(GameSettings.LANG.textOf("event.minoSmell"));
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, txt);
-        player.playSound(player.getLocation(), Sound.ENTITY_WOLF_GROWL, 10, 0.8f);
+        player.playSound(player.getLocation(), Sound.ENTITY_ZOGLIN_ANGRY, 2, 0.6f);
         growlList.add(player);
     }
 

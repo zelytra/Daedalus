@@ -10,12 +10,14 @@ public enum CustomMaterial {
     APHRODITE_HEART("godItem.APHRODITE_HEART", "aphrodite_heart", 3, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     DEMETER_SICKLE("godItem.DEMETER_SICKLE", "demeter_sickle", 4, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
 
+    PARTICLE("godItem.ZEUS_LIGHTNING", "particle", 1, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
+
     DIONYSOS_THYRSUS ("godItem.DIONYSOS_THYRSUS", "dionysos_thyrsus", 5, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     DIONYSOS_MUG("godItem.DIONYSOS_MUG", "dionysos_mug", 25, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     HERMES_CADUCEUS("godItem.HERMES_CADUCEUS", "hermes_caduceus", 22, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     ARES_WAR_BANNER("godItem.ARES_WAR_BANNER", "ares_war_banner", 26, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     ARTEMIS_HORN("godItem.ARTEMIS_HORN", "artemis_horn", 27, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
-    POSEIDON_CONCH("godItem.POSEIDON_CONCH", "POSEIDON_CONCH", 28, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
+    POSEIDON_CONCH("godItem.POSEIDON_CONCH", "poseidon_conche", 28, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
 
     MINOTAUR_HEAD("godItem.MINOTAUR_HEAD", "minotaur_head", 6, Material.CARVED_PUMPKIN, ItemType.ARMOR, 3, 0,EquipmentSlot.HEAD),
     DIVINE_FRAGMENT("godItem.DIVINE_FRAGMENT", "divine_fragment", 7, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),

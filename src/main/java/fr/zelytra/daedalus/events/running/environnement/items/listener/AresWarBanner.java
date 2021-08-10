@@ -8,6 +8,7 @@ import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import fr.zelytra.daedalus.utils.Message;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -36,6 +37,10 @@ public class AresWarBanner implements Listener {
                         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 300, 0));
                         player.playSound(player.getLocation(), Sound.ENTITY_EVOKER_PREPARE_ATTACK, 2, 1);
                         player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("item.aresBannerPlayer"));
+
+                        Location location = player.getLocation();
+                        location.setY(location.getY()+1.8);
+                        location.getWorld().spawnParticle(org.bukkit.Particle.VILLAGER_ANGRY, location, 15,0.5,0.1,0.5);
                     }
 
                 }

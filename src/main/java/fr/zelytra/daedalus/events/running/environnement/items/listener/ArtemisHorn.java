@@ -5,11 +5,13 @@ import fr.zelytra.daedalus.events.running.environnement.items.events.CustomItemU
 import fr.zelytra.daedalus.managers.cooldown.Cooldown;
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
+import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTargetEvent;
@@ -21,6 +23,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 public class ArtemisHorn implements Listener {
     private static final NamespacedKey artemisKey = new NamespacedKey(Daedalus.getInstance(), "artemis");
@@ -29,7 +32,7 @@ public class ArtemisHorn implements Listener {
     public void onRightClick(CustomItemUseEvent e) {
         int itemCooldown = 30;
         int wolfNumber = 5;
-        int spawnRadius = 3;
+        int spawnRadius = 2;
 
         if (e.getMaterial() != CustomMaterial.ARTEMIS_HORN) return;
 
@@ -54,9 +57,9 @@ public class ArtemisHorn implements Listener {
             for (int x = 1; x <= wolfNumber; x++) {
                 Location spawnLoc = player.getLocation();
                 spawnLoc.setY(spawnLoc.getY() + 1);
-                spawnLoc.setX((int) (Math.random() * (spawnLoc.getX() + spawnRadius - spawnLoc.getX() - spawnRadius)) + (spawnLoc.getX() - spawnRadius));
-                spawnLoc.setZ((int) (Math.random() * (spawnLoc.getZ() + spawnRadius - spawnLoc.getZ() - spawnRadius)) + (spawnLoc.getZ() - spawnRadius));
-                Entity entity = player.getWorld().spawnEntity(player.getLocation(), EntityType.WOLF);
+                spawnLoc.setX(new Random().nextInt((int) ((spawnLoc.getX() + 2) - (spawnLoc.getX() - 2))) + (spawnLoc.getX() - 2));
+                spawnLoc.setZ(new Random().nextInt((int) ((spawnLoc.getZ() + 2) - (spawnLoc.getZ() - 2))) + (spawnLoc.getZ() - 2));
+                Entity entity = player.getWorld().spawnEntity(spawnLoc, EntityType.WOLF);
                 Wolf wolf = (Wolf) entity;
                 wolf.setAngry(true);
                 wolf.setOwner(playerFaction.getGod());
@@ -65,7 +68,14 @@ public class ArtemisHorn implements Listener {
                 PersistentDataContainer pdc = entity.getPersistentDataContainer();
                 pdc.set(artemisKey, PersistentDataType.STRING, playerFaction.getType().getName());
 
+                Location location = wolf.getLocation();
+                location.getWorld().spawnParticle(Particle.TOTEM, location, 300, 0.1, 0.1, 0.1);
+
             }
+
+            for (Player p : Bukkit.getOnlinePlayers())
+                p.playSound(e.getPlayer().getLocation(), Sound.EVENT_RAID_HORN, 1000, 1);
+
         } catch (Exception exception) {
             System.out.println("ERROR team not found");
         }

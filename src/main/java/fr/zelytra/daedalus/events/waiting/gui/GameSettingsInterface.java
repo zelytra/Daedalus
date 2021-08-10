@@ -10,10 +10,7 @@ import fr.zelytra.daedalus.managers.game.settings.DayCycleEnum;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.languages.Lang;
 import fr.zelytra.daedalus.utils.Message;
-import org.bukkit.Bukkit;
-import org.bukkit.GameRule;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -41,7 +38,7 @@ public class GameSettingsInterface implements Listener, Interface {
 
                 if (Daedalus.getInstance().getGameManager().isStarted()) {
                     Daedalus.getInstance().getGameManager().setStarted(false);
-                    Bukkit.broadcastMessage(Message.getPlayerPrefixe()+GameSettings.LANG.textOf("maze.startCancel"));
+                    Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("maze.startCancel"));
                     return;
                 }
 
@@ -74,10 +71,10 @@ public class GameSettingsInterface implements Listener, Interface {
         content[32] = new VisualItemStack(Material.TOTEM_OF_UNDYING, "§6HardCore", false, "", "§8[" + (GameSettings.HARDCORE ? "§aTRUE" : "§cFALSE") + "§8]").getItem();
 
         content[34] = new VisualItemStack(Material.PLAYER_HEAD, "§6Language", false, ""
-                , (GameSettings.LANG == Lang.EN ? "§a" : "§c")+"English"
-                , (GameSettings.LANG == Lang.FR ? "§a" : "§c")+"Français"
-                , (GameSettings.LANG == Lang.ES ? "§a" : "§c")+"Español"
-                , (GameSettings.LANG == Lang.DE ? "§a" : "§c")+"Deutsch"
+                , (GameSettings.LANG == Lang.EN ? "§a" : "§c") + "English"
+                , (GameSettings.LANG == Lang.FR ? "§a" : "§c") + "Français"
+                , (GameSettings.LANG == Lang.ES ? "§a" : "§c") + "Español"
+                , (GameSettings.LANG == Lang.DE ? "§a" : "§c") + "Deutsch"
         ).getItem();
 
         for (int x = 45; x < 54; x++)
@@ -153,6 +150,7 @@ public class GameSettingsInterface implements Listener, Interface {
                 InterfaceBuilder interfaceBuilder = new InterfaceBuilder(54, interfaceName);
                 interfaceBuilder.setContent(contentBuilder());
                 interfaceBuilder.open((Player) e.getWhoClicked());
+                ((Player) e.getWhoClicked()).playSound(e.getWhoClicked().getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
             }
         }
     }

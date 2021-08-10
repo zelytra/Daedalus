@@ -7,6 +7,8 @@ import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -50,6 +52,20 @@ public class MinotaurCharge implements Listener {
         radianYaw *= Math.PI / 180.0;
         Vector dir = new Vector(-Math.sin(radianYaw) * chargeCoef, yCoef, Math.cos(radianYaw) * chargeCoef);
         player.setVelocity(dir);
+
+
+        Location location = player.getLocation();
+        Location loc2 = e.getPlayer().getLocation().clone();
+        loc2.setY(loc2.getY() - 0.5);
+        location.setY(location.getY()+0.5);
+        location.getWorld().spawnParticle(org.bukkit.Particle.BLOCK_DUST, location, 250, loc2.getBlock().getBlockData());
+
+        for (Player p :Bukkit.getOnlinePlayers()){
+            p.playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_DAMAGE,1,0.5f);
+            p.playSound(player.getLocation(), Sound.BLOCK_SHROOMLIGHT_BREAK,2,0.5f);
+        }
+
+
         this.timeOut = System.currentTimeMillis();
         this.taskID = Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
             if (Math.abs(e.getPlayer().getVelocity().getX()) <= thresholdVelocity || Math.abs(e.getPlayer().getVelocity().getZ()) <= thresholdVelocity) {
@@ -59,6 +75,7 @@ public class MinotaurCharge implements Listener {
                 Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
                 Collection<Entity> nearbyEntities = player.getWorld().getNearbyEntities(player.getLocation(), radius, radius, radius);
                 Collection<Entity> toStrike = new ArrayList<>();
+
                 for (Entity entity : nearbyEntities) {
                     if (entity instanceof Player && ((Player) entity).getGameMode() == GameMode.SURVIVAL) {
                         Player target = (Player) entity;
@@ -66,8 +83,6 @@ public class MinotaurCharge implements Listener {
                         if (targetPlayerTeam.getType() == playerFaction.getType()) {
                             continue;
                         }
-                        toStrike.add(entity);
-                    } else if (entity instanceof LivingEntity) {
                         toStrike.add(entity);
                     }
                 }
