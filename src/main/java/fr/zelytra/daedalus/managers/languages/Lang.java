@@ -7,7 +7,8 @@ public enum Lang {
     EN("en.conf"),
     FR("fr.conf"),
     ES("es.conf"),
-    DE("de.conf");
+    DE("de.conf"),
+    IT("it.conf");
 
     private final String fileName;
     private final HashMap<String, String> text;

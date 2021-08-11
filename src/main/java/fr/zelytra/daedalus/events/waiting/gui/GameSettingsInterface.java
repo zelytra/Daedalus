@@ -75,6 +75,7 @@ public class GameSettingsInterface implements Listener, Interface {
                 , (GameSettings.LANG == Lang.FR ? "§a" : "§c") + "Français"
                 , (GameSettings.LANG == Lang.ES ? "§a" : "§c") + "Español"
                 , (GameSettings.LANG == Lang.DE ? "§a" : "§c") + "Deutsch"
+                , (GameSettings.LANG == Lang.IT ? "§a" : "§c") + "Italia"
         ).getItem();
 
         for (int x = 45; x < 54; x++)
@@ -144,7 +145,7 @@ public class GameSettingsInterface implements Listener, Interface {
                         update(e.getWhoClicked().getWorld());
                         break;
                     case PLAYER_HEAD:
-                        GameSettings.LANG = Lang.values()[(dayCount++ >= 3 ? dayCount = 0 : dayCount)];
+                        GameSettings.LANG = Lang.values()[(dayCount++ >= Lang.values().length - 1 ? dayCount = 0 : dayCount)];
                         break;
                 }
                 InterfaceBuilder interfaceBuilder = new InterfaceBuilder(54, interfaceName);
