@@ -46,7 +46,7 @@ public class PlayerJoinListener implements Listener {
                 p.setMaxHealth(20);
                 p.setLevel(0);
                 p.getInventory().clear();
-                p.teleport(new Location(Bukkit.getWorld(Daedalus.WORLD_NAME), 634.5, 160.5, 572.5, -90, 0));
+                p.teleport(new Location(Bukkit.getWorld(Daedalus.WORLD_NAME), 667.5, 168.5, 623.5, -90, 0));
                 for (PotionEffect potionEffectType : p.getActivePotionEffects())
                     p.removePotionEffect(potionEffectType.getType());
 
