@@ -1,16 +1,9 @@
 # Deadalus
 
-## Daedalus
-
-Daedalus est un projet qui vous ramènera en Grèce Antique. Quatre équipes humaines errent dans le labyrinthe de Dédale, la demeure austère du Minotaure et ses fidèles. La rencontre sera hostile, brutale et sans appel, à moins que nos amis mortels ne s'attirent les faveurs des dieux de l'Olympe. Une seule équipe pourra sortir vainqueur, mais qui ?
-
 ![](https://github.com/zelytra/Daedalus/blob/master/img/logo.png)
-
-Lâchés dans le labyrinthe, vous devrez vous préparer à affronter toutes sortes d’ennemis en récupérant des ressources et composer votre propre équipement.
 
 ![release](https://img.shields.io/badge/release-v0.8-blueviolet) ![language](https://img.shields.io/badge/langage-JAVA-orange) ![license](https://img.shields.io/badge/license-GPL--3.0-blue)
 
-Vous chercherez, avant tout affrontement avec le Minotaure et son équipe, à vous attirer les faveurs d’un dieu en réalisant une offrande dans l’un des 10 temples présents dans ce dédale.
 
 ## Presentation
 
