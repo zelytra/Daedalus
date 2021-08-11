@@ -1,46 +1,14 @@
 # Deadalus
 
-## Daedalus
-
-Daedalus est un projet qui vous ramènera en Grèce Antique. Quatre équipes humaines errent dans le labyrinthe de Dédale, la demeure austère du Minotaure et ses fidèles. La rencontre sera hostile, brutale et sans appel, à moins que nos amis mortels ne s'attirent les faveurs des dieux de l'Olympe. Une seule équipe pourra sortir vainqueur, mais qui ?
-
 ![](https://github.com/zelytra/Daedalus/blob/master/img/logo.png)
-
-Lâchés dans le labyrinthe, vous devrez vous préparer à affronter toutes sortes d’ennemis en récupérant des ressources et composer votre propre équipement.
 
 ![release](https://img.shields.io/badge/release-v0.8-blueviolet) ![language](https://img.shields.io/badge/langage-JAVA-orange) ![license](https://img.shields.io/badge/license-GPL--3.0-blue)
 
-Vous chercherez, avant tout affrontement avec le Minotaure et son équipe, à vous attirer les faveurs d’un dieu en réalisant une offrande dans l’un des 10 temples présents dans ce dédale.
 
 ## Presentation
 
-## Sommaire
-
 Daedalus is a project taking you back to Ancient Greece. Four human teams wander the Labyrinth of Daedalus, austere dwelling of the Minotaur and its minions. A hostile, brutal and irrevocable encounter is to expect, unless our mortal friends win the favour of the Gods of Olympus. Only one team shall emerge victorious, but which one will it be ?
 
-### Règles
-
-Dropped into the labyrinth, you shall prepare to face all kinds of enemies by collecting resources and putting together your own equipment.
-
-* [Règles \[French\]](https://github.com/zelytra/Daedalus/wiki/Règles-%5BFrench%5D)
-* [Rules \[English\]](https://github.com/zelytra/Daedalus/wiki/Rules-%5BEnglish%5D)
-
-  **Gameplay**
-
-* [Structures](https://github.com/zelytra/Daedalus/wiki/Structures)
-* [Dieux](https://github.com/zelytra/Daedalus/wiki/Gods)
-* [Craft](https://github.com/zelytra/Daedalus/wiki/Craft)
-* [Malédictions](https://github.com/zelytra/Daedalus/wiki/Curse)
-* [Custom Items Blocks](https://github.com/zelytra/Daedalus/wiki/Custom-Items-Blocks)
-* [Loot tables](https://github.com/zelytra/Daedalus/wiki/Loot-tables)
-
-  **Technique**
-
-* [Commandes](https://github.com/zelytra/Daedalus/wiki/Commands)
-* [Génération du labyrinthe](https://github.com/zelytra/Daedalus/wiki/Maze-generation)
-* [Configuration](https://github.com/zelytra/Daedalus/wiki/Configuration)
-
-You shall seek, before any confrontation with the Minotaur and its team, to win a god’s favour by making an offering in one of the 10 temples present in this labyrinth.
 
 ## Setup
 
@@ -88,8 +56,8 @@ It will reset the map \(the plugin is smart, it will not download the map again,
 
 ## Documentation
 
-* [**Règles \(français\)**](https://github.com/zelytra/Daedalus/wiki/Rules-%5BFrench%5D) 
-* [**Rules \(english\)**](https://github.com/zelytra/Daedalus/wiki/Rules-%5BFrench%5D) 
+* [**WIKI**](http://wiki.mc-daedalus.com) 
+* [**WEB Site**](https://mc-daedalus.com) 
 
 ## Credits
 
