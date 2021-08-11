@@ -539,43 +539,43 @@ dungeon1:
   loots:
     loot1:
       material: oak_planks
-      amount: 4
-      luck: 5
+      amount: 16
+      luck: 6
     loot2:
       material: cooked_beef
-      amount: 3
+      amount: 4
       luck: 5
     loot3:
-      material: cooked_chicken
-      amount: 1
-      luck: 5
-    loot4:
-      material: cooked_porkchop
-      amount: 2
-      luck: 5
-    loot5:
       material: stick
-      amount: 2
-      luck: 5
-    loot6:
+      amount: 4
+      luck: 4
+    loot4:
       material: arrow
-      amount: 5
-      luck: 5
-    loot7:
-      material: golden_apple
+      amount: 10
+      luck: 4
+    loot5:
+      material: bow
       amount: 1
-      luck: 5
+      luck: 4
+    loot6:
+      material: crossbow
+      amount: 1
+      luck: 4
+    loot7:
+      material: gunpowder
+      amount: 16
+      luck: 3
     loot8:
       material: experience_bottle
-      amount: 5
-      luck: 4
+      amount: 10
+      luck: 3
     loot9:
-      material: experience_bottle
-      amount: 20
+      material: paper
+      amount: 32
       luck: 3
     loot10:
       material: spectral_arrow
-      amount: 5
+      amount: 10
       luck: 3
     loot11:
       material: shield
@@ -603,10 +603,6 @@ dungeon1:
       amount: 1
       luck: 3
     loot15:
-      material: diamond_sword
-      amount: 1
-      luck: 3
-    loot16:
       material: potion
       amount: 1
       luck: 3
@@ -614,40 +610,44 @@ dungeon1:
         type : Heal
         duration : 1
         amplifier : 0
-    loot17:
+    loot16:
       material: book
-      amount: 2
-      luck: 2
-    loot18:
-      material: bow
-      amount: 1
-      luck: 2
-    loot19:
-      material: enchanted_book
-      enchant:
-        type: arrow_damage
-        level: 1
-      amount: 1
-      luck: 2
-    loot20:
+      amount: 3
+      luck: 3
+    loot17:
       material: enchanted_book
       enchant:
         type: durability
         level: 1
       amount: 1
-      luck: 2
-    loot21:
+      luck: 3
+    loot18:
       material: enchanted_book
       enchant:
         type: knockback
         level: 1
       amount: 1
-      luck: 2
-    loot22:
+      luck: 3
+    loot19:
       material: enchanted_book
       enchant:
         type: multishot
         level: 1
+      amount: 1
+      luck: 3
+    loot20:
+      material: diamond_sword
+      amount: 1
+      luck: 3
+    loot21:
+      material: golden_apple
+      amount: 2
+      luck: 3
+    loot22:
+      material: enchanted_book
+      enchant:
+        type: arrow_damage
+        level: 2
       amount: 1
       luck: 2
     loot23:
@@ -695,12 +695,12 @@ dungeon1:
         amplifier : 0
     loot29:
       material: diamond
-      amount: 2
-      luck: 1.5
+      amount: 3
+      luck: 2
     loot30:
-      material: crossbow
-      amount: 1
-      luck: 1
+      material: experience_bottle
+      amount: 40
+      luck: 2
     loot31:
       material: diamond_helmet
       amount: 1
@@ -712,7 +712,7 @@ dungeon1:
     loot33:
       material: diamond_leggings
       amount: 1
-      luck: 0.7
+      luck: 1
     loot34:
       material: diamond_boots
       amount: 1
@@ -734,24 +734,24 @@ dungeon1:
     loot37:
       material: enchanted_book
       enchant:
-        type: damage_all
-        level: 2
+        type: protection_projectile
+        level: 3
       amount: 1
       luck: 1
     loot38:
       material: enchanted_book
       enchant:
-        type: protection_environmental
-        level: 2
+        type: arrow_damage
+        level: 3
       amount: 1
-      luck: 1
+      luck: 0.5
     loot39:
       material: enchanted_book
       enchant:
-        type: protection_projectile
-        level: 2
+        type: damage_all
+        level: 3
       amount: 1
-      luck: 1
+      luck: 0.5
     loot40:
       material: enchanted_book
       enchant:
@@ -772,6 +772,10 @@ dungeon1:
         type: arrow_infinite
         level: 1
       amount: 1
+      luck: 0.5
+    loot43:
+      material: netherite_scrap
+      amount: 2
       luck: 0.5
 temple:
   containers:
@@ -806,3 +810,101 @@ temple:
       material: golden_apple
       amount: 2
       luck: 5
+daedalusLibrary:
+  containers:
+    - chest
+    - barrel
+  loots:
+    loot1:
+      material: oak_planks
+      amount: 48
+      luck: 30
+    loot2:
+      material: experience_bottle
+      amount: 20
+      luck: 20
+    loot3:
+      material: cooked_beef
+      amount: 10
+      luck: 15
+    loot4:
+      material: experience_bottle
+      amount: 40
+      luck: 10
+    loot5:
+      material: enchanted_book
+      enchant:
+        type: durability
+        level: 1
+      amount: 1
+      luck: 5
+    loot6:
+      material: enchanted_book
+      enchant:
+        type: knockback
+        level: 1
+      amount: 1
+      luck: 3
+    loot7:
+      material: enchanted_book
+      enchant:
+        type: mending
+        level: 1
+      amount: 1
+      luck: 3
+    loot8:
+      material: enchanted_book
+      enchant:
+        type: arrow_knockback
+        level: 1
+      amount: 1
+      luck: 3
+    loot9 :
+      material: enchanted_book
+      enchant:
+        type: knockback
+        level: 2
+      amount: 1
+      luck: 2
+    loot10 :
+      material: enchanted_book
+      enchant:
+        type: arrow_knockback
+        level: 2
+      amount: 1
+      luck: 2
+    loot11 :
+      material: enchanted_book
+      enchant:
+        type: damage_all
+        level: 3
+      amount: 1
+      luck: 2
+    loot12 :
+      material: enchanted_book
+      enchant:
+        type: protection_environmental
+        level: 2
+      amount: 1
+      luck: 2
+    loot13 :
+      material: enchanted_book
+      enchant:
+        type: arrow_infinite
+        level: 1
+      amount: 1
+      luck: 1
+    loot14 :
+      material: enchanted_book
+      enchant:
+        type: arrow_fire
+        level: 1
+      amount: 1
+      luck: 1
+    loot15 :
+      material: enchanted_book
+      enchant:
+        type: fire_aspect
+        level: 1
+      amount: 1
+      luck: 1

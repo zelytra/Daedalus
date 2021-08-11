@@ -32,7 +32,6 @@ public class ArtemisHorn implements Listener {
     public void onRightClick(CustomItemUseEvent e) {
         int itemCooldown = 30;
         int wolfNumber = 5;
-        int spawnRadius = 2;
 
         if (e.getMaterial() != CustomMaterial.ARTEMIS_HORN) return;
 

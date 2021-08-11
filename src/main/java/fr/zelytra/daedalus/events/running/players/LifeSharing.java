@@ -13,6 +13,7 @@ import java.util.List;
 
 public class LifeSharing implements Listener {
     private static List<String> callBack = new ArrayList<>();
+    private final int episode = 4;
 
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent e) {
@@ -25,7 +26,7 @@ public class LifeSharing implements Listener {
         }
         Faction faction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
 
-        if (TimeManager.episode >= 4 && faction.getGod() == null && faction.getGodsEnum() == null) {
+        if (TimeManager.episode >= episode && faction.getGod() == null && faction.getGodsEnum() == null) {
             for (Player p : faction.getPlayerList())
                 if (p.getName() != player.getName()) {
                     callBack.add(p.getName());

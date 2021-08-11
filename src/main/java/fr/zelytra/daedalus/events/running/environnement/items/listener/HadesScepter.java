@@ -8,7 +8,11 @@ import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.*;
+import org.bukkit.Particle;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.WitherSkeleton;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTargetEvent;
@@ -18,6 +22,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 public class HadesScepter implements Listener {
     private static final NamespacedKey hadesKey = new NamespacedKey(Daedalus.getInstance(), "hades");
@@ -26,7 +31,6 @@ public class HadesScepter implements Listener {
     public void onRightClick(CustomItemUseEvent e) {
         int itemCooldown = 30;
         int skeletonNumber = 2;
-        int spawnRadius = 3;
 
         if (e.getMaterial() != CustomMaterial.HADES_SCEPTER) return;
 
@@ -53,11 +57,13 @@ public class HadesScepter implements Listener {
             for (int x = 1; x <= skeletonNumber; x++) {
                 Location spawnLoc = player.getLocation();
                 spawnLoc.setY(spawnLoc.getY() + 1);
-                spawnLoc.setX((int) (Math.random() * (spawnLoc.getX() + spawnRadius - spawnLoc.getX() - spawnRadius)) + (spawnLoc.getX() - spawnRadius));
-                spawnLoc.setZ((int) (Math.random() * (spawnLoc.getZ() + spawnRadius - spawnLoc.getZ() - spawnRadius)) + (spawnLoc.getZ() - spawnRadius));
-                Entity entity = player.getWorld().spawnEntity(player.getLocation(), EntityType.WITHER_SKELETON);
+                spawnLoc.setX(new Random().nextInt((int) ((spawnLoc.getX() + 2) - (spawnLoc.getX() - 2))) + (spawnLoc.getX() - 2));
+                spawnLoc.setZ(new Random().nextInt((int) ((spawnLoc.getZ() + 2) - (spawnLoc.getZ() - 2))) + (spawnLoc.getZ() - 2));
+                Entity entity = player.getWorld().spawnEntity(spawnLoc, EntityType.WITHER_SKELETON);
                 PersistentDataContainer pdc = entity.getPersistentDataContainer();
                 pdc.set(hadesKey, PersistentDataType.STRING, playerFaction.getType().getName());
+                entity.getWorld().spawnParticle(Particle.SOUL, entity.getLocation(), 300, 0.1, 0.1, 0.1, 0.1);
+
 
             }
         } catch (Exception exception) {
@@ -93,8 +99,6 @@ public class HadesScepter implements Listener {
                     } else {
                         toTarget.add(target);
                     }
-
-
                 }
 
                 if (toTargetPlayer.isEmpty()) {
