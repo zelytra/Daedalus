@@ -37,6 +37,13 @@ public class MinotaurCharge implements Listener {
             return;
         }
         new Cooldown(player, itemCooldown, CustomMaterial.MINOTAUR_CHARGE.getName());
+
+        Location location = player.getLocation();
+        Location loc2 = e.getPlayer().getLocation().clone();
+        loc2.setY(loc2.getY() - 0.5);
+        location.setY(location.getY()+0.5);
+        location.getWorld().spawnParticle(org.bukkit.Particle.BLOCK_DUST, location, 250, loc2.getBlock().getBlockData());
+
         //Item action
         final int chargeCoef = 4;
         final double yCoef = 0.3;
@@ -52,13 +59,6 @@ public class MinotaurCharge implements Listener {
         radianYaw *= Math.PI / 180.0;
         Vector dir = new Vector(-Math.sin(radianYaw) * chargeCoef, yCoef, Math.cos(radianYaw) * chargeCoef);
         player.setVelocity(dir);
-
-
-        Location location = player.getLocation();
-        Location loc2 = e.getPlayer().getLocation().clone();
-        loc2.setY(loc2.getY() - 0.5);
-        location.setY(location.getY()+0.5);
-        location.getWorld().spawnParticle(org.bukkit.Particle.BLOCK_DUST, location, 250, loc2.getBlock().getBlockData());
 
         for (Player p :Bukkit.getOnlinePlayers()){
             p.playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_DAMAGE,1,0.5f);
