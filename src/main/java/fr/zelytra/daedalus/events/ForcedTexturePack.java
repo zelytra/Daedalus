@@ -23,7 +23,6 @@ public class ForcedTexturePack implements Listener {
 
     @EventHandler
     public void resourcePackStatus(PlayerResourcePackStatusEvent e) {
-        System.out.println(e.getStatus());
         switch (e.getStatus()) {
             case ACCEPTED:
                 e.getPlayer().sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("player.loadTexturePack"));

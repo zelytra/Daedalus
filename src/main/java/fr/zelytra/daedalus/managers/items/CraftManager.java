@@ -24,6 +24,7 @@ public class CraftManager {
         recipes.addAll(Bukkit.getRecipesFor(new ItemStack(Material.TNT_MINECART)));
         recipes.addAll(Bukkit.getRecipesFor(new ItemStack(Material.STONE)));
         recipes.addAll(Bukkit.getRecipesFor(new ItemStack(Material.MAP)));
+        recipes.addAll(Bukkit.getRecipesFor(new ItemStack(Material.BEACON)));
         recipes.addAll(Bukkit.getRecipesFor(new ItemStack(Material.NETHER_STAR)));
         recipes.addAll(Bukkit.getRecipesFor(new ItemStack(Material.CHORUS_FLOWER)));
         recipes.stream().filter(r -> r instanceof Keyed).map(r -> ((Keyed) r).getKey()).forEach(Bukkit::removeRecipe);

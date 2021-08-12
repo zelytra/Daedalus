@@ -24,7 +24,6 @@ public class EnchantRemover implements Listener {
     @EventHandler
     public void onEnchant(EnchantItemEvent e) {
         for (Map.Entry<Enchantment, Integer> entry : e.getEnchantsToAdd().entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue());
 
             if (blackList.containsKey(entry.getKey()) && blackList.get(entry.getKey()) == entry.getValue()) {
                 e.setCancelled(true);

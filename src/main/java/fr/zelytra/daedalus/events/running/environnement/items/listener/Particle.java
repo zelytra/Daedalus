@@ -25,7 +25,6 @@ public class Particle implements Listener {
 
         spawnLoc.setX(new Random().nextInt((int) ((spawnLoc.getX() + 2) - (spawnLoc.getX() - 2))) + (spawnLoc.getX() - 2));
         spawnLoc.setZ(new Random().nextInt((int) ((spawnLoc.getZ() + 2) - (spawnLoc.getZ() - 2))) + (spawnLoc.getZ() - 2));
-        System.out.println(spawnLoc);
         location.getWorld().spawnParticle(org.bukkit.Particle.VILLAGER_ANGRY, spawnLoc, 15);
 
     }

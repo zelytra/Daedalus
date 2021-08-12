@@ -41,8 +41,6 @@ public class ZeusLightning implements Listener {
                     if (targetPlayerTeam.getType() == playerFaction.getType()) {
                         continue;
                     }
-                }
-                if (entity instanceof LivingEntity) {
                     toStrike.add(entity);
                 }
             }
