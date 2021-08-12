@@ -44,7 +44,7 @@ public class PoseidonCoche implements Listener {
             Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
                 for (int size = 2; size <= 10; size++) {
                     double rand = Math.random() * 10;
-                    for (double angle = rand; angle <= rand + 30; angle++) {
+                    for (double angle = rand; angle <= rand + 15; angle++) {
                         Location ballLoc = new Location(center.getWorld(), center.getX(), center.getY(), center.getZ());
                         ballLoc.setX(center.getX() + Math.cos(angle) * size);
                         ballLoc.setZ(center.getZ() + Math.sin(angle) * size);

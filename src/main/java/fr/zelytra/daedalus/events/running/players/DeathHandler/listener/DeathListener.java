@@ -102,8 +102,6 @@ public class DeathListener implements Listener {
             if (teamAliveCount == 1) {
                 daedalus.getGameManager().stop();
                 winFX(winner);
-            } else {
-                return;
             }
         }
     }
