@@ -17,10 +17,7 @@ import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.DeathLis
 import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.DefinitiveDeathListener;
 import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.PartielDeathListener;
 import fr.zelytra.daedalus.events.running.players.*;
-import fr.zelytra.daedalus.events.running.pvp.CoolDown;
-import fr.zelytra.daedalus.events.running.pvp.DamagerHandler;
-import fr.zelytra.daedalus.events.running.pvp.EnchantRemover;
-import fr.zelytra.daedalus.events.running.pvp.PlayerRegen;
+import fr.zelytra.daedalus.events.running.pvp.*;
 import fr.zelytra.daedalus.events.waiting.entities.EntityDamageListener;
 import fr.zelytra.daedalus.events.waiting.entities.EntityTargetListener;
 import fr.zelytra.daedalus.events.waiting.environment.BlockPlaceListener;
@@ -104,6 +101,7 @@ public class EventsManager {
         pm.registerEvents(new BucketListener(), pl);
         pm.registerEvents(new PistonListener(), pl);
         pm.registerEvents(new EnchantRemover(), pl);
+        pm.registerEvents(new EntityResurect(), pl);
 
         /* Death */
         pm.registerEvents(new DeathListener(), pl);
