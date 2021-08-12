@@ -59,7 +59,7 @@ public class Faction {
 
     @Nullable
     public Player getGod() {
-        if (god != null)
+        if (this.god != null)
             return Bukkit.getPlayer(god);
         return null;
     }
@@ -126,7 +126,7 @@ public class Faction {
     }
 
     public void removeGod() {
-        god = null;
+        this.god = null;
     }
 
     private void joinTeamFX(Player player, FactionsEnum factionsEnum) {

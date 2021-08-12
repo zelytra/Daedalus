@@ -40,10 +40,10 @@ public class PoseidonHandler implements Listener {
                     continue;
                 }
                 for (Player player : team.getPlayerList()) {
-                    if (player == null)
+                    if (player == null || team.getGod() == null)
                         continue;
 
-                    if (team.getGod() != null && player.getName() != team.getGod().getName())
+                    if (player.getName() != team.getGod().getName())
                         continue;
 
                     if (player.getLocation().getBlock().getType() == Material.WATER) {
