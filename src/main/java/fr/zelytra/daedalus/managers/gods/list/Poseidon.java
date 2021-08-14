@@ -9,6 +9,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 
 import java.util.ArrayList;
@@ -39,6 +41,10 @@ public class Poseidon implements Gods {
         item.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
         ItemMeta meta = item.getItemMeta();
         meta.setUnbreakable(true);
+
+        PersistentDataContainer itemData = meta.getPersistentDataContainer();
+        itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
+
         item.setItemMeta(meta);
         items.add(item);
 
@@ -46,10 +52,14 @@ public class Poseidon implements Gods {
         item.addEnchantment(Enchantment.LOYALTY, 3);
         item.addEnchantment(Enchantment.IMPALING, 3);
         item.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 3);
-        items.add(item);
+
         meta = item.getItemMeta();
+        itemData = meta.getPersistentDataContainer();
+        itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
         meta.setUnbreakable(true);
         item.setItemMeta(meta);
+        items.add(item);
+
         items.add(new CustomItemStack(CustomMaterial.POSEIDON_CONCH).getItem());
         return items;
     }
@@ -61,10 +71,18 @@ public class Poseidon implements Gods {
         ItemStack item = new ItemStack(Material.DIAMOND_BOOTS);
         item.addEnchantment(Enchantment.DEPTH_STRIDER, 2);
         item.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+        ItemMeta meta = item.getItemMeta();
+        PersistentDataContainer itemData = meta.getPersistentDataContainer();
+        itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
+        item.setItemMeta(meta);
         items.add(item);
 
         item = new ItemStack(Material.TRIDENT);
         item.addEnchantment(Enchantment.LOYALTY, 3);
+        meta = item.getItemMeta();
+        itemData = meta.getPersistentDataContainer();
+        itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
+        item.setItemMeta(meta);
         items.add(item);
         return items;
     }

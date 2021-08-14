@@ -8,6 +8,8 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -34,6 +36,10 @@ public class Demeter implements Gods {
         ItemStack hoe = new ItemStack(Material.NETHERITE_HOE);
         ItemMeta meta = hoe.getItemMeta();
         meta.addEnchant(Enchantment.KNOCKBACK,7,true);
+
+        PersistentDataContainer itemData = meta.getPersistentDataContainer();
+        itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
+
         hoe.setItemMeta(meta);
         items.add(hoe);
         return items;
@@ -46,6 +52,10 @@ public class Demeter implements Gods {
         ItemStack hoe = new ItemStack(Material.NETHERITE_HOE);
         ItemMeta meta = hoe.getItemMeta();
         meta.addEnchant(Enchantment.KNOCKBACK,3,true);
+
+        PersistentDataContainer itemData = meta.getPersistentDataContainer();
+        itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
+
         hoe.setItemMeta(meta);
         items.add(hoe);
         return items;

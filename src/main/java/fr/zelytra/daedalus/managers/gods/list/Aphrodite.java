@@ -7,6 +7,9 @@ import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 
 import java.util.ArrayList;
@@ -45,6 +48,12 @@ public class Aphrodite implements Gods {
         ItemStack item = new ItemStack(Material.DIAMOND_LEGGINGS);
         item.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
         item.addEnchantment(Enchantment.DURABILITY, 2);
+
+        ItemMeta meta = item.getItemMeta();
+        PersistentDataContainer itemData = meta.getPersistentDataContainer();
+        itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
+        item.setItemMeta(meta);
+
         items.add(item);
         return items;
     }

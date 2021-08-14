@@ -31,12 +31,15 @@ public class PartielDeathListener implements Listener {
     public void onPartielDeath(PartielDeathEvent e) {
 
         Player player = e.getPlayer();
+        List<ItemStack> activeItems = new ArrayList<>();
 
         for (int x = 0; x < player.getInventory().getContents().length; x++) {
             ItemStack item = player.getInventory().getContents()[x];
             if ((!CustomItemStack.hasTag(item) || whitelist.contains(CustomItemStack.getCustomMaterial(item))) && item != null) {
                 player.getWorld().dropItem(player.getLocation(), item);
                 player.getInventory().getContents()[x].setType(Material.AIR);
+            } else if (CustomItemStack.hasTag(item)) {
+                activeItems.add(item);
             }
         }
 
@@ -46,6 +49,11 @@ public class PartielDeathListener implements Listener {
         respawnFX(e.getEvent());
         Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
         player.teleport(playerFaction.getType().getSpawn());
+
+        if (activeItems != null)
+            for (ItemStack item : activeItems)
+                player.getInventory().addItem(item);
+
     }
 
     private void respawnFX(EntityDamageEvent e) {

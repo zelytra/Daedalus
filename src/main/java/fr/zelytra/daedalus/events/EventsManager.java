@@ -132,6 +132,7 @@ public class EventsManager {
         pm.registerEvents(new PlayerHotelClick(), pl);
         pm.registerEvents(new PlayerInteractListener(), pl);
         pm.registerEvents(new LifeSharing(), pl);
+        pm.registerEvents(new PlayerDropListener(), pl);
 
         /* Entities */
         pm.registerEvents(new EntityTargetListener(), pl);

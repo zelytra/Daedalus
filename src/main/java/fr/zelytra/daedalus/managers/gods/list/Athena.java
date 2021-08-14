@@ -8,6 +8,8 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 
 import java.util.ArrayList;
@@ -32,11 +34,19 @@ public class Athena implements Gods {
 
         ItemStack item = new ItemStack(Material.NETHERITE_SWORD);
         item.addEnchantment(Enchantment.DAMAGE_ALL, 4);
+        ItemMeta meta = item.getItemMeta();
+        PersistentDataContainer itemData = meta.getPersistentDataContainer();
+        itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
+        item.setItemMeta(meta);
         items.add(item);
 
         item = new ItemStack(Material.SHIELD);
-        ItemMeta meta = item.getItemMeta();
+        meta = item.getItemMeta();
         meta.setUnbreakable(true);
+        item.setItemMeta(meta);
+
+        itemData = meta.getPersistentDataContainer();
+        itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
         item.setItemMeta(meta);
         items.add(item);
         items.add(new CustomItemStack(CustomMaterial.ATHENA_MAP).getItem());

@@ -9,6 +9,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -35,6 +37,10 @@ public class Artemis implements Gods {
         item.addEnchantment(Enchantment.ARROW_DAMAGE, 4);
         ItemMeta meta = item.getItemMeta();
         meta.setUnbreakable(true);
+
+         PersistentDataContainer itemData = meta.getPersistentDataContainer();
+        itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
+
         item.setItemMeta(meta);
         items.add(item);
         items.add(new CustomItemStack(CustomMaterial.ARTEMIS_HORN).getItem());
