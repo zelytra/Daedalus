@@ -37,7 +37,7 @@ public class Minotaure implements Gods {
 
     @Override
     public double teamHeart() {
-        return 25;
+        return 24;
     }
 
     @Override

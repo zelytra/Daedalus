@@ -1,6 +1,5 @@
 package fr.zelytra.daedalus.commands;
 
-import fr.zelytra.daedalus.Daedalus;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,8 +13,7 @@ public class test implements CommandExecutor {
         if(!(sender instanceof Player)){
             return false;
         }
-        Daedalus.getInstance().getStructureManager().getShrinkManager().startShrinking();
-        sender.sendMessage("nice try");
+
         return true;
     }
 }
