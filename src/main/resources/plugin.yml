@@ -57,6 +57,9 @@ commands:
   hadesrevive:
     description: Hades revive power
 
+  pause:
+    description: Pause the game
+
   checkpoint:
     aliases:
       - cp

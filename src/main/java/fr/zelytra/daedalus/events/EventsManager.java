@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.events;
 
 import fr.zelytra.daedalus.Daedalus;
+import fr.zelytra.daedalus.commands.pause.PauseListener;
 import fr.zelytra.daedalus.commands.wiki.Wiki;
 import fr.zelytra.daedalus.events.running.environnement.gods.events.GodSpawnHandler;
 import fr.zelytra.daedalus.events.running.environnement.gods.listener.*;
@@ -102,6 +103,7 @@ public class EventsManager {
         pm.registerEvents(new PistonListener(), pl);
         pm.registerEvents(new EnchantRemover(), pl);
         pm.registerEvents(new EntityResurect(), pl);
+        pm.registerEvents(new PauseListener(), pl);
 
         /* Death */
         pm.registerEvents(new DeathListener(), pl);

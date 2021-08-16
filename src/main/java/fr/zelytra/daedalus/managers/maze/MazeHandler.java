@@ -289,8 +289,13 @@ public class MazeHandler {
                 }
 
             }
-
-            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("maze.generationData") + ((System.currentTimeMillis() - generatingTime) / 1000) % 60 + "s§8]");
+            int remainingSec = (int) ((System.currentTimeMillis() - generatingTime) / 1000);
+            int timeInSec = (remainingSec % 60);
+            int timeInMin = (remainingSec % 3600) / 60;
+            if (timeInMin <= 0)
+                Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("maze.generationData") + timeInSec + "s§8]");
+            else
+                Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("maze.generationData") + timeInMin + "m" + timeInSec + "s§8]");
         });
     }
 

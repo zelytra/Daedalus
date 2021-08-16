@@ -108,7 +108,7 @@ public class DeathListener implements Listener {
 
     private void winFX(Faction team) {
         for (Player p : Bukkit.getOnlinePlayers()) {
-            p.sendTitle(team.getType().getChatColor() + team.getType().getName() + GameSettings.LANG.textOf("event.victoryTitle"), GameSettings.LANG.textOf("event.victorySubTitle"), 5, 100, 5);
+            p.sendTitle("§l" + team.getType().getChatColor() + team.getType().getName() + GameSettings.LANG.textOf("event.victoryTitle"), GameSettings.LANG.textOf("event.victorySubTitle"), 5, 100, 5);
         }
 
 
