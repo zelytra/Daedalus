@@ -28,7 +28,6 @@ public class PlayerChatRListener implements Listener {
                     MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.GLOBAL, t);
                     message.playerSendMessage();
 
-
                 } else {
 
                     MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.TEAM, t);
@@ -44,8 +43,26 @@ public class PlayerChatRListener implements Listener {
             } else {
 
                 Faction spec = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(FactionsEnum.SPECTATOR);
-                MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.SPECTATOR, spec);
-                message.playerSendMessage();
+                if (!p.isOp()) {
+
+                    MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.SPECTATOR, spec);
+                    message.playerSendMessage();
+
+                }else {
+
+                    if (e.getMessage().startsWith("!")) {
+
+                        MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.GLOBAL, t);
+                        message.playerSendMessage();
+
+                    } else {
+
+                        MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.SPECTATOR, t);
+                        message.playerSendMessage();
+
+
+                    }
+                }
 
             }
 

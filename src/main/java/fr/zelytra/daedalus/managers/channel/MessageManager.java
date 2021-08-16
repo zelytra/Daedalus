@@ -71,9 +71,13 @@ public class MessageManager {
                 Bukkit.getConsoleSender().sendMessage(getFormattedMessage());
                 break;
             case TEAM:
-                for (Player player : senderTeam.getPlayerList()) {
+                for (Player player : senderTeam.getPlayerList())
                     Objects.requireNonNull(player).sendMessage(getFormattedMessage());
-                }
+
+                for (Player player : Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(FactionsEnum.SPECTATOR).getPlayerList())
+                    if (player.isOp())
+                        Objects.requireNonNull(player).sendMessage(getFormattedMessage());
+
                 Bukkit.getConsoleSender().sendMessage(getFormattedMessage());
                 break;
 
@@ -104,13 +108,13 @@ public class MessageManager {
             }
             case TEAM: {
 
-                return ChatColor.of("#808080") +  GameSettings.LANG.textOf("chat.team") + senderTeam.getType().getPrefix() + sender.getName() + "§7 > §f" + message;
+                return ChatColor.of("#808080") + GameSettings.LANG.textOf("chat.team") + senderTeam.getType().getPrefix() + sender.getName() + "§7 > §f" + message;
             }
             case SPECTATOR: {
                 if (!senderTeam.isAlive(sender))
-                    return ChatColor.of("#808080") +  GameSettings.LANG.textOf("chat.spec") + senderTeam.getType().getPrefix() + senderTeam.getType().getPrefix() + sender.getName() + "§7 > §f" + message;
+                    return ChatColor.of("#808080") + GameSettings.LANG.textOf("chat.spec") + senderTeam.getType().getPrefix() + senderTeam.getType().getPrefix() + sender.getName() + "§7 > §f" + message;
                 else
-                    return ChatColor.of("#808080") +  GameSettings.LANG.textOf("chat.spec") + senderTeam.getType().getPrefix() + "§7" + sender.getName() + "§7 > §f" + message;
+                    return ChatColor.of("#808080") + GameSettings.LANG.textOf("chat.spec") + senderTeam.getType().getPrefix() + "§7" + sender.getName() + "§7 > §f" + message;
             }
         }
         return "";
