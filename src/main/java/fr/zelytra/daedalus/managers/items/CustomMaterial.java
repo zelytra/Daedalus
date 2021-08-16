@@ -12,8 +12,8 @@ public enum CustomMaterial {
 
     PARTICLE("godItem.ZEUS_LIGHTNING", "particle", 1, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
 
-    DIONYSOS_THYRSUS ("godItem.DIONYSOS_THYRSUS", "dionysos_thyrsus", 5, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
-    DIONYSOS_MUG("godItem.DIONYSOS_MUG", "dionysos_mug", 25, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
+    DIONYSUS_THYRSUS ("godItem.DIONYSUS_THYRSUS", "dionysus_thyrsus", 5, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
+    DIONYSUS_CUP("godItem.DIONYSUS_CUP", "dionysus_cup", 25, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     HERMES_CADUCEUS("godItem.HERMES_CADUCEUS", "hermes_caduceus", 22, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     ARES_WAR_BANNER("godItem.ARES_WAR_BANNER", "ares_war_banner", 26, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     ARTEMIS_HORN("godItem.ARTEMIS_HORN", "artemis_horn", 27, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
@@ -32,7 +32,7 @@ public enum CustomMaterial {
     HERMES_TOTEM("godItem.HERMES_TOTEM", "hermes_totem", 15, Material.TOTEM_OF_UNDYING, ItemType.MISCELLANEOUS),
     ARTEMIS_TOTEM("godItem.ARTEMIS_TOTEM", "artemis_totem", 16, Material.TOTEM_OF_UNDYING, ItemType.MISCELLANEOUS),
     ATHENA_TOTEM("godItem.ATHENA_TOTEM", "athenas_totem", 17, Material.TOTEM_OF_UNDYING, ItemType.MISCELLANEOUS),
-    DIONYSOS_TOTEM("godItem.DIONYSOS_TOTEM", "dionysos_totem", 18, Material.TOTEM_OF_UNDYING, ItemType.MISCELLANEOUS),
+    DIONYSUS_TOTEM("godItem.DIONYSUS_TOTEM", "dionysus_totem", 18, Material.TOTEM_OF_UNDYING, ItemType.MISCELLANEOUS),
     MINOTAUR_TOTEM("godItem.MINOTAUR_TOTEM", "minotaur_totem", 19, Material.TOTEM_OF_UNDYING, ItemType.MISCELLANEOUS),
 
     MINOTAUR_CHARGE("godItem.MINOTAUR_CHARGE", "minotaur_charge", 20, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),

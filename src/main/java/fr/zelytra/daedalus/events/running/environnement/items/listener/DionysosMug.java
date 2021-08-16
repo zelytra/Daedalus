@@ -34,14 +34,14 @@ public class DionysosMug implements Listener {
     @EventHandler
     public void onRightClick(CustomItemUseEvent e) {
 
-        if (e.getMaterial() != CustomMaterial.DIONYSOS_MUG) return;
+        if (e.getMaterial() != CustomMaterial.DIONYSUS_CUP) return;
         ItemMeta meta = e.getItem().getItemMeta();
         int maxValue = meta.getPersistentDataContainer().get(CustomItemStack.getDionysusMaxValueKey(), PersistentDataType.INTEGER);
         int value = meta.getPersistentDataContainer().get(CustomItemStack.getDionysusValueKey(), PersistentDataType.INTEGER);
 
         if (e.getEvent().getAction() == Action.RIGHT_CLICK_BLOCK && e.getEvent().getClickedBlock().getRelative(e.getEvent().getBlockFace()).getType() == Material.WATER) {
 
-            if (!Cooldown.cooldownCheck(e.getPlayer(), CustomMaterial.DIONYSOS_MUG.getName()))
+            if (!Cooldown.cooldownCheck(e.getPlayer(), CustomMaterial.DIONYSUS_CUP.getName()))
                 return;
 
 
@@ -52,7 +52,7 @@ public class DionysosMug implements Listener {
                 p.playSound(e.getPlayer().getLocation(), Sound.ITEM_BOTTLE_FILL_DRAGONBREATH, 2, 1);
             }
 
-            new Cooldown(e.getPlayer(), itemCooldown, CustomMaterial.DIONYSOS_MUG.getName());
+            new Cooldown(e.getPlayer(), itemCooldown, CustomMaterial.DIONYSUS_CUP.getName());
             return;
         }
 
@@ -86,7 +86,7 @@ public class DionysosMug implements Listener {
             if (item == null)
                 continue;
 
-            if (CustomItemStack.getCustomMaterial(item) != null && CustomItemStack.getCustomMaterial(item) == CustomMaterial.DIONYSOS_MUG) {
+            if (CustomItemStack.getCustomMaterial(item) != null && CustomItemStack.getCustomMaterial(item) == CustomMaterial.DIONYSUS_CUP) {
                 asMug = true;
                 result = item.clone();
                 continue;

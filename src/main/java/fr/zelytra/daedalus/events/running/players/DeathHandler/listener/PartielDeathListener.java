@@ -27,6 +27,16 @@ public class PartielDeathListener implements Listener {
         whitelist.add(CustomMaterial.DIVINE_TRACKER);
     }
 
+    private final List<Material> armorBlackList = new ArrayList<>();
+
+    {
+        armorBlackList.add(Material.NETHERITE_CHESTPLATE);
+        armorBlackList.add(Material.NETHERITE_HELMET);
+        armorBlackList.add(Material.NETHERITE_LEGGINGS);
+        armorBlackList.add(Material.NETHERITE_BOOTS);
+        armorBlackList.add(Material.NETHERITE_SWORD);
+    }
+
     @EventHandler
     public void onPartielDeath(PartielDeathEvent e) {
 
@@ -34,13 +44,22 @@ public class PartielDeathListener implements Listener {
         List<ItemStack> activeItems = new ArrayList<>();
 
         for (int x = 0; x < player.getInventory().getContents().length; x++) {
+
             ItemStack item = player.getInventory().getContents()[x];
-            if ((!CustomItemStack.hasTag(item) || whitelist.contains(CustomItemStack.getCustomMaterial(item))) && item != null) {
+
+            if (item != null && armorBlackList.contains(item.getType())) {
+
+                player.getInventory().getContents()[x].setType(Material.AIR);
+                player.getWorld().dropItem(player.getLocation(), new ItemStack(Material.NETHERITE_SCRAP, 1));
+
+            } else if ((!CustomItemStack.hasTag(item) || whitelist.contains(CustomItemStack.getCustomMaterial(item))) && item != null) {
+
                 player.getWorld().dropItem(player.getLocation(), item);
                 player.getInventory().getContents()[x].setType(Material.AIR);
-            } else if (CustomItemStack.hasTag(item)) {
+
+            } else if (CustomItemStack.hasTag(item))
                 activeItems.add(item);
-            }
+
         }
 
         player.setSaturation(20.0f);

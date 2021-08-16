@@ -9,6 +9,7 @@ import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,15 +30,33 @@ public class DefinitiveDeathListener implements Listener {
         whitelist.add(CustomMaterial.DIVINE_TRACKER);
     }
 
+    private final List<Material> armorBlackList = new ArrayList<>();
+
+    {
+        armorBlackList.add(Material.NETHERITE_CHESTPLATE);
+        armorBlackList.add(Material.NETHERITE_HELMET);
+        armorBlackList.add(Material.NETHERITE_LEGGINGS);
+        armorBlackList.add(Material.NETHERITE_BOOTS);
+        armorBlackList.add(Material.NETHERITE_SWORD);
+    }
+
+
     @EventHandler
     public void onDefinitiveDeath(DefinitiveDeathEvent e) {
         Player player = e.getPlayer();
 
         player.setGameMode(GameMode.SPECTATOR);
-        for (ItemStack content : player.getInventory().getContents()) {
-            if ((!CustomItemStack.hasTag(content) || whitelist.contains(CustomItemStack.getCustomMaterial(content))) && content != null) {
-                player.getWorld().dropItem(player.getLocation(), content);
-            }
+        for (int x = 0; x < player.getInventory().getContents().length; x++) {
+            ItemStack item = player.getInventory().getContents()[x];
+
+            if (item != null && armorBlackList.contains(item.getType())) {
+
+                player.getInventory().getContents()[x].setType(Material.AIR);
+                player.getWorld().dropItem(player.getLocation(), new ItemStack(Material.NETHERITE_SCRAP, 1));
+
+            } else if ((!CustomItemStack.hasTag(item) || whitelist.contains(CustomItemStack.getCustomMaterial(item))) && item != null)
+                player.getWorld().dropItem(player.getLocation(), item);
+
         }
 
         player.getInventory().clear();

@@ -63,7 +63,7 @@ public class CustomItemStack {
                 //meta.setLore(lore);
                 this.item.setItemMeta(meta);
 
-                if (material == CustomMaterial.DIONYSOS_MUG)
+                if (material == CustomMaterial.DIONYSUS_CUP)
                     dionysosMugInit();
 
                 break;
@@ -109,7 +109,7 @@ public class CustomItemStack {
                 //meta.setLore(lore);
                 this.item.setItemMeta(meta);
 
-                if (material == CustomMaterial.DIONYSOS_MUG)
+                if (material == CustomMaterial.DIONYSUS_CUP)
                     dionysosMugInit();
 
                 break;

@@ -25,7 +25,7 @@ public class CustomItemDropHandler implements Listener {
         whitelist.add(CustomMaterial.ARTEMIS_TOTEM);
         whitelist.add(CustomMaterial.ATHENA_TOTEM);
         whitelist.add(CustomMaterial.DEMETER_TOTEM);
-        whitelist.add(CustomMaterial.DIONYSOS_TOTEM);
+        whitelist.add(CustomMaterial.DIONYSUS_TOTEM);
         whitelist.add(CustomMaterial.HADES_TOTEM);
         whitelist.add(CustomMaterial.HERMES_TOTEM);
         whitelist.add(CustomMaterial.MINOTAUR_TOTEM);

@@ -21,7 +21,7 @@ public enum GodsEnum {
     HERMES(GameSettings.LANG.textOf("godName.hermes"), false, () -> new Hermes(), CustomMaterial.HERMES_TOTEM),
     ARTEMIS(GameSettings.LANG.textOf("godName.artemis"), false, () -> new Artemis(), CustomMaterial.ARTEMIS_TOTEM),
     ATHENA(GameSettings.LANG.textOf("godName.athena"), false, () -> new Athena(), CustomMaterial.ATHENA_TOTEM),
-    DIONYSUS(GameSettings.LANG.textOf("godName.dionysus"), false, () -> new Dionysos(), CustomMaterial.DIONYSOS_TOTEM),
+    DIONYSUS(GameSettings.LANG.textOf("godName.dionysus"), false, () -> new Dionysos(), CustomMaterial.DIONYSUS_TOTEM),
     MINOTAURE(GameSettings.LANG.textOf("godName.minotaur"), false, () -> new Minotaure(), CustomMaterial.MINOTAUR_TOTEM);
 
     private final String name;

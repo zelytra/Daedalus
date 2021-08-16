@@ -125,7 +125,7 @@ public class CraftManager {
         shapedRecipeBuilder.assigneSymbol('/', CustomMaterial.DIVINE_FRAGMENT);
         shapedRecipeBuilder.register();
 
-        shapedRecipeBuilder = new ShapedRecipeBuilder(CustomMaterial.DIONYSOS_TOTEM);
+        shapedRecipeBuilder = new ShapedRecipeBuilder(CustomMaterial.DIONYSUS_TOTEM);
         shapedRecipeBuilder.setShape("a/a", "/b/", "c/c");
         shapedRecipeBuilder.assigneSymbol('a',Material.SWEET_BERRIES);
         shapedRecipeBuilder.assigneSymbol('c', Material.CHORUS_FLOWER);
