@@ -83,9 +83,9 @@ public class PartielDeathListener implements Listener {
             case ENTITY_ATTACK:
                 if (((EntityDamageByEntityEvent) e).getDamager() instanceof Player)
                     Bukkit.broadcastMessage(faction.getType().getPrefix() +
-                            Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getType().getPrefix() +
-                            ((EntityDamageByEntityEvent) e).getDamager().getName() +
-                            GameSettings.LANG.textOf("death.defaultByPlayer") + e.getEntity().getName());
+                            e.getEntity().getName() +
+                            GameSettings.LANG.textOf("death.defaultByPlayer") + Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getType().getPrefix() +
+                            ((EntityDamageByEntityEvent) e).getDamager().getName());
                 else
                     Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.default"));
                 break;
