@@ -18,6 +18,10 @@ public class EnchantRemover implements Listener {
 
     {
         blackList.put(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+        blackList.put(Enchantment.LOOT_BONUS_BLOCKS, 3);
+        blackList.put(Enchantment.LOOT_BONUS_BLOCKS, 2);
+        blackList.put(Enchantment.LOOT_BONUS_BLOCKS, 1);
+        blackList.put(Enchantment.FIRE_ASPECT, 2);
         blackList.put(Enchantment.THORNS, 3);
     }
 

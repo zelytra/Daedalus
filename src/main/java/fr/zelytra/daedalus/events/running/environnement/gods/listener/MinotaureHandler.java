@@ -11,6 +11,7 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -49,7 +50,7 @@ public class MinotaureHandler implements Listener {
 
                     List<Entity> entities = player.getNearbyEntities(50, 50, 50);
                     for (Entity e : entities) {
-                        if (e instanceof Player) {
+                        if (e instanceof Player && ((Player) e).getGameMode() == GameMode.SURVIVAL) {
                             Player target = ((Player) e).getPlayer();
                             Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
                             if (growlList.contains(player)) {
