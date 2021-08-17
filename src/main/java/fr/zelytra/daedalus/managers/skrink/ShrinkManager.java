@@ -47,7 +47,7 @@ public class ShrinkManager {
     private void startBorderListener() {
         task = Bukkit.getScheduler().runTaskTimerAsynchronously(Daedalus.getInstance(), () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                if (Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player).getType() == FactionsEnum.SPECTATOR || player.getGameMode() == GameMode.SPECTATOR)
+                if (Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player).getType() == FactionsEnum.SPECTATOR || player.getGameMode() != GameMode.SURVIVAL)
                     continue;
 
                 if (isInWarningArea(player.getLocation())) {

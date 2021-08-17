@@ -11,7 +11,7 @@ public class PrivateMessageListener implements Listener {
     @EventHandler
     public void onPrivateMessage(PlayerCommandPreprocessEvent e) {
 
-        if (e.getMessage().contains("/me") || e.getMessage().contains("/tell") || e.getMessage().contains("/w")) {
+        if (e.getMessage().contains("/me") || e.getMessage().contains("/tell") || e.getMessage().contains("/whisper")) {
             e.getPlayer().sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.permissionDenied"));
             e.setCancelled(true);
         }

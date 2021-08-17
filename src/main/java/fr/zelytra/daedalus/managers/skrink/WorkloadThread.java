@@ -29,7 +29,7 @@ public class WorkloadThread implements Runnable {
         task = Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
             long stopTime = System.currentTimeMillis() + MAX_MS_PER_TICK;
             int count = 0;
-            while (!workloadDeque.isEmpty() && System.currentTimeMillis() <= stopTime && count <= 100) {
+            while (!workloadDeque.isEmpty() && System.currentTimeMillis() <= stopTime && count <= 150) {
 
                 WallBreaker wallBreaker = (WallBreaker) workloadDeque.poll();
                 wallBreaker.compute();
