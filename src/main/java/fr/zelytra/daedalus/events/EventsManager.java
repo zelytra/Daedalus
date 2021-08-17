@@ -72,7 +72,6 @@ public class EventsManager {
         pm.registerEvents(new PoseidonCoche(), pl);
 
         pm.registerEvents(new Particle(), pl);
-        //pm.registerEvents(new MedusaHead(),pl);
 
         /*Gods Handlers*/
         pm.registerEvents(new GodSpawnHandler(), pl);

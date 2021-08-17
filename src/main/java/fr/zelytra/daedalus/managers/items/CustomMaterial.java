@@ -36,7 +36,6 @@ public enum CustomMaterial {
     MINOTAUR_TOTEM("godItem.MINOTAUR_TOTEM", "minotaur_totem", 19, Material.TOTEM_OF_UNDYING, ItemType.MISCELLANEOUS),
 
     MINOTAUR_CHARGE("godItem.MINOTAUR_CHARGE", "minotaur_charge", 20, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
-    MEDUSA_HEAD("godItem.MEDUSA_HEAD", "medusa_head", 21, Material.CARVED_PUMPKIN, ItemType.MISCELLANEOUS),
     DIVINE_TRACKER("godItem.DIVINE_TRACKER", "divine_tracker", 23, Material.COMPASS, ItemType.MISCELLANEOUS),
 
     ATHENA_MAP("godItem.ATHENA_MAP", "athena_map", 24, Material.FILLED_MAP, ItemType.MISCELLANEOUS);
