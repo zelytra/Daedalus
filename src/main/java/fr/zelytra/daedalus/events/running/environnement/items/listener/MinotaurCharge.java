@@ -41,7 +41,7 @@ public class MinotaurCharge implements Listener {
         Location location = player.getLocation();
         Location loc2 = e.getPlayer().getLocation().clone();
         loc2.setY(loc2.getY() - 0.5);
-        location.setY(location.getY()+0.5);
+        location.setY(location.getY() + 0.5);
         location.getWorld().spawnParticle(org.bukkit.Particle.BLOCK_DUST, location, 250, loc2.getBlock().getBlockData());
 
         //Item action
@@ -60,9 +60,9 @@ public class MinotaurCharge implements Listener {
         Vector dir = new Vector(-Math.sin(radianYaw) * chargeCoef, yCoef, Math.cos(radianYaw) * chargeCoef);
         player.setVelocity(dir);
 
-        for (Player p :Bukkit.getOnlinePlayers()){
-            p.playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_DAMAGE,1,0.5f);
-            p.playSound(player.getLocation(), Sound.BLOCK_SHROOMLIGHT_BREAK,2,0.5f);
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            p.playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_DAMAGE, 1, 0.5f);
+            p.playSound(player.getLocation(), Sound.BLOCK_SHROOMLIGHT_BREAK, 2, 0.5f);
         }
 
 
@@ -78,11 +78,15 @@ public class MinotaurCharge implements Listener {
 
                 for (Entity entity : nearbyEntities) {
                     if (entity instanceof Player && ((Player) entity).getGameMode() == GameMode.SURVIVAL) {
+
                         Player target = (Player) entity;
                         Faction targetPlayerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
-                        if (targetPlayerTeam.getType() == playerFaction.getType()) {
+
+                        if (targetPlayerTeam.getType() == playerFaction.getType())
                             continue;
-                        }
+
+                        toStrike.add(entity);
+                    }else if (!(entity instanceof Player)){
                         toStrike.add(entity);
                     }
                 }
@@ -91,6 +95,7 @@ public class MinotaurCharge implements Listener {
                     Vector delta = new Vector(entity.getLocation().getX() - player.getLocation().getX(), 0, entity.getLocation().getZ() - player.getLocation().getZ());
                     double norme = Math.sqrt(Math.pow(delta.getX(), 2) + Math.pow(delta.getY(), 2) + Math.pow(delta.getZ(), 2));
                     int coef = 2;
+
                     Vector direction = new Vector((delta.getX() / norme) * coef, (delta.getY() / norme) + 1.5, (delta.getZ() / norme) * coef);
                     entity.setVelocity(direction);
                     ((LivingEntity) entity).damage(4.0);
