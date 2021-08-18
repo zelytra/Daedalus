@@ -9,6 +9,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -55,6 +56,7 @@ public class HadesScepter implements Listener {
             Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
             //Item action
             for (int x = 1; x <= skeletonNumber; x++) {
+
                 Location spawnLoc = player.getLocation();
                 spawnLoc.setY(spawnLoc.getY() + 1);
                 spawnLoc.setX(new Random().nextInt((int) ((spawnLoc.getX() + 2) - (spawnLoc.getX() - 2))) + (spawnLoc.getX() - 2));
@@ -63,6 +65,8 @@ public class HadesScepter implements Listener {
                 PersistentDataContainer pdc = entity.getPersistentDataContainer();
                 pdc.set(hadesKey, PersistentDataType.STRING, playerFaction.getType().getName());
                 entity.getWorld().spawnParticle(Particle.SOUL, entity.getLocation(), 300, 0.1, 0.1, 0.1, 0.1);
+                ((WitherSkeleton) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(50);
+                ((WitherSkeleton) entity).setHealth(((WitherSkeleton) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
 
 
             }
@@ -90,26 +94,42 @@ public class HadesScepter implements Listener {
 
                     if (target instanceof Player) {
                         Player targetedPlayer = (Player) target;
+
                         if (targetedPlayer.getGameMode() != GameMode.SURVIVAL) continue;
 
                         Faction targetPlayerTeam = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(targetedPlayer);
-                        if (!targetPlayerTeam.getType().getName().equals(pdc.get(hadesKey, PersistentDataType.STRING))) {
-                            toTargetPlayer.add(target);
+
+                        if (targetPlayerTeam.getType().getName().equals(pdc.get(hadesKey, PersistentDataType.STRING))) {
+                            System.out.println("isHadesPlayer");
+                            continue;
                         }
-                    } else {
+                        toTargetPlayer.add(target);
+
+                    } else if (!(target instanceof Player))
                         toTarget.add(target);
-                    }
+
                 }
 
-                if (toTargetPlayer.isEmpty()) {
-                    if (toTarget.isEmpty()) {
-                        e.setCancelled(true);
-                        return;
-                    }
-                    e.setTarget(toTarget.get((int) (Math.random() * toTarget.size())));
-                } else {
+                if (!toTargetPlayer.isEmpty()) {
                     e.setTarget(toTargetPlayer.get((int) (Math.random() * toTargetPlayer.size())));
+
+                } else if (!toTarget.isEmpty()) {
+                    e.setTarget(toTarget.get((int) (Math.random() * toTarget.size())));
+
+                } else {
+                    e.setTarget(null);
+                    e.setCancelled(true);
                 }
+                for (Entity entity1 : toTarget)
+                    System.out.println(entity1);
+
+                for (Entity entity1 : toTargetPlayer)
+                    System.out.println(entity1);
+
+                System.out.println("Target:"+ e.getTarget());
+                System.out.println("");
+                System.out.println("");
+
             }
         }
     }
