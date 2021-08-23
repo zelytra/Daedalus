@@ -78,8 +78,17 @@ public final class Daedalus extends JavaPlugin {
     private void editFAWE() {
         File configLegacy = new File(Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit").getDataFolder().getPath() + File.separator + "config-legacy.yml");
         FileConfiguration yml = YamlConfiguration.loadConfiguration(configLegacy);
+        boolean modifications = false;
         if (!yml.getString(("navigation-wand.item")).equals("minecraft:lead")) {
             yml.set("navigation-wand.item", "minecraft:lead");
+            modifications = true;
+
+        }else if(!yml.getString(("wand-item")).equals("minecraft:soul_torch")){
+            yml.set("wand-item", "minecraft:soul_torch");
+            modifications = true;
+        }
+
+        if (modifications){
             try {
                 yml.save(configLegacy);
             } catch (IOException e) {

@@ -27,13 +27,35 @@ public class AxeStripped implements Listener {
             switch (e.getHand()) {
                 case HAND:
                     if (e.getPlayer().getInventory().getItemInMainHand() != null && blackList.contains(e.getPlayer().getInventory().getItemInMainHand().getType())) {
-                        e.setCancelled(true);
+                        if (isWood(e.getClickedBlock().getType()))
+                            e.setCancelled(true);
+
                     }
                 case OFF_HAND:
                     if (e.getPlayer().getInventory().getItemInOffHand() != null && blackList.contains(e.getPlayer().getInventory().getItemInOffHand().getType())) {
-                        e.setCancelled(true);
+                        if (isWood(e.getClickedBlock().getType()))
+                            e.setCancelled(true);
                     }
             }
         }
+    }
+
+    private boolean isWood(Material material) {
+        ArrayList<Material> wood = new ArrayList<>();
+        wood.add(Material.ACACIA_WOOD);
+        wood.add(Material.BIRCH_WOOD);
+        wood.add(Material.DARK_OAK_WOOD);
+        wood.add(Material.JUNGLE_WOOD);
+        wood.add(Material.OAK_WOOD);
+        wood.add(Material.SPRUCE_WOOD);
+
+        wood.add(Material.ACACIA_LOG);
+        wood.add(Material.BIRCH_LOG);
+        wood.add(Material.DARK_OAK_LOG);
+        wood.add(Material.JUNGLE_LOG);
+        wood.add(Material.OAK_LOG);
+        wood.add(Material.SPRUCE_LOG);
+
+        return wood.contains(material);
     }
 }
