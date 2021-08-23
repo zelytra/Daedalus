@@ -20,7 +20,7 @@ public class LifeSharing implements Listener {
         if (!(e.getEntity() instanceof Player)) return;
         Player player = (Player) e.getEntity();
 
-        if(callBack.contains(player.getName())){
+        if (callBack.contains(player.getName())) {
             callBack.remove(player.getName());
             return;
         }
@@ -29,8 +29,12 @@ public class LifeSharing implements Listener {
         if (TimeManager.episode >= episode && faction.getGod() == null && faction.getGodsEnum() == null) {
             for (Player p : faction.getPlayerList())
                 if (p.getName() != player.getName()) {
+
+                    if (p.getHealth() <= 2.0)
+                        continue;
+
                     callBack.add(p.getName());
-                    p.damage(e.getDamage() / 2.0);
+                    p.damage(e.getFinalDamage() / 2.0);
                 }
         }
     }
