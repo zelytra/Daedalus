@@ -148,9 +148,18 @@ public class DivineTracker implements Listener {
 
     private Player isSummon(Structure structure) {
         for (Faction team : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
+
             if (team.getGodsEnum() != null && team.getGodsEnum() == structure.getGod()) {
-                return team.getGod();
+
+                if (team.getGod() != null)
+                    return team.getGod();
+
+                else
+                    for (Player p : team.getPlayerList())
+                        if (team.isAlive(p))
+                            return p;
             }
+
         }
         return null;
     }
