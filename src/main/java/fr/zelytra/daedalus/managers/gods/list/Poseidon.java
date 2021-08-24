@@ -69,7 +69,7 @@ public class Poseidon implements Gods {
         ArrayList<ItemStack> items = new ArrayList<>();
 
         ItemStack item = new ItemStack(Material.DIAMOND_BOOTS);
-        item.addEnchantment(Enchantment.DEPTH_STRIDER, 2);
+        item.addEnchantment(Enchantment.DEPTH_STRIDER, 1);
         item.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer itemData = meta.getPersistentDataContainer();
