@@ -17,7 +17,7 @@ public class ForcedTexturePack implements Listener {
 
         Bukkit.getScheduler().runTaskLater(Daedalus.getInstance(), () -> {
             e.getPlayer().setResourcePack(url);
-        }, 20);
+        }, 15);
 
     }
 

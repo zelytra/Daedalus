@@ -3,6 +3,8 @@ package fr.zelytra.daedalus;
 import fr.zelytra.daedalus.commands.broadcast.Broadcast;
 import fr.zelytra.daedalus.commands.broadcast.BroadcastTab;
 import fr.zelytra.daedalus.commands.checkpoint.Checkpoint;
+import fr.zelytra.daedalus.commands.godSummon.GodSummon;
+import fr.zelytra.daedalus.commands.godSummon.GodSummonTab;
 import fr.zelytra.daedalus.commands.item.ItemsCommands;
 import fr.zelytra.daedalus.commands.item.ItemsTabs;
 import fr.zelytra.daedalus.commands.location.ShareLocation;
@@ -145,6 +147,9 @@ public final class Daedalus extends JavaPlugin {
         getCommand("hadesrevive").setExecutor(new HadesRevive());
 
         getCommand("pause").setExecutor(new PauseCommand());
+
+        getCommand("godsummon").setExecutor(new GodSummon());
+        getCommand("godsummon").setTabCompleter(new GodSummonTab());
 
         getCommand("broadcast").setExecutor(new Broadcast());
         getCommand("broadcast").setTabCompleter(new BroadcastTab());

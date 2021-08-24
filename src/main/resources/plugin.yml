@@ -60,6 +60,9 @@ commands:
   pause:
     description: Pause the game
 
+  godsummon:
+    description: Force summon a god to a team
+
   checkpoint:
     aliases:
       - cp

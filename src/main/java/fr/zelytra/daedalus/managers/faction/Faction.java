@@ -37,7 +37,8 @@ public class Faction {
                 otherFaction.remove(player);
             } else {
                 this.remove(player);
-                Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(FactionsEnum.SPECTATOR).add(player);
+                if (Daedalus.getInstance().getGameManager().isWaiting())
+                    Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(FactionsEnum.SPECTATOR).add(player);
                 return;
             }
 
@@ -96,7 +97,7 @@ public class Faction {
         return (ArrayList<Player>) playerList;
     }
 
-    public int getPlayerAmount(){
+    public int getPlayerAmount() {
         return factionMembers.size();
     }
 

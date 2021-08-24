@@ -2,7 +2,6 @@ package fr.zelytra.daedalus.commands.revive;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.faction.Faction;
-import fr.zelytra.daedalus.managers.faction.PlayerStatus;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.utils.Message;
@@ -66,7 +65,14 @@ public class HadesRevive implements CommandExecutor {
             executor.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.playerStillAlive"));
             return false;
         } else {
-            playerFaction.setPlayerStatus(target, PlayerStatus.ALIVE);
+
+            for(Faction faction : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()){
+                if(faction.getGodsEnum()!=null && faction.getGodsEnum()==GodsEnum.HADES){
+                    faction.add(target);
+                    playerFaction = faction;
+                }
+            }
+
             target.setGameMode(GameMode.SURVIVAL);
 
             target.teleport(executor.getLocation());
@@ -76,13 +82,7 @@ public class HadesRevive implements CommandExecutor {
                 p.playSound(p.getLocation(), Sound.ENTITY_WITCH_HURT, 2, 0.1f);
             }
 
-            for (Player p : Bukkit.getOnlinePlayers()) {
-                Faction faction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(p);
-                if (faction.getGodsEnum() == GodsEnum.HADES && faction.getGod() != null) {
-                    faction.add(target);
-                    playerFaction = faction;
-                }
-            }
+
 
             Bukkit.broadcastMessage(Message.getPlayerPrefixe() + playerFaction.getType().getChatColor() + target.getName() + GameSettings.LANG.textOf("command.hadesRevive"));
         }
