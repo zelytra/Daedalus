@@ -61,8 +61,8 @@ public class EventsManager {
         pm.registerEvents(new HadesScepter(), pl);
         pm.registerEvents(new AphroditeHeart(), pl);
         pm.registerEvents(new DemeterSickle(), pl);
+        pm.registerEvents(new DionysosThyrsus(), pl);
         pm.registerEvents(new DionysosCup(), pl);
-        pm.registerEvents(new DionysosMug(), pl);
         pm.registerEvents(new MinotaurCharge(), pl);
         pm.registerEvents(new DivineTracker(), pl);
         pm.registerEvents(new AthenaMap(), pl);
@@ -71,7 +71,6 @@ public class EventsManager {
         pm.registerEvents(new ArtemisHorn(), pl);
         pm.registerEvents(new PoseidonCoche(), pl);
 
-        pm.registerEvents(new Particle(), pl);
 
         /*Gods Handlers*/
         pm.registerEvents(new GodSpawnHandler(), pl);

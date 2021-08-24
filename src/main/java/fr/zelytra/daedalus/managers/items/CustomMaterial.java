@@ -10,8 +10,6 @@ public enum CustomMaterial {
     APHRODITE_HEART("godItem.APHRODITE_HEART", "aphrodite_heart", 3, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     DEMETER_SICKLE("godItem.DEMETER_SICKLE", "demeter_sickle", 4, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
 
-    PARTICLE("godItem.ZEUS_LIGHTNING", "particle", 1, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
-
     DIONYSUS_THYRSUS ("godItem.DIONYSUS_THYRSUS", "dionysus_thyrsus", 5, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     DIONYSUS_CUP("godItem.DIONYSUS_CUP", "dionysus_cup", 25, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     HERMES_CADUCEUS("godItem.HERMES_CADUCEUS", "hermes_caduceus", 22, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
@@ -38,7 +36,7 @@ public enum CustomMaterial {
     MINOTAUR_CHARGE("godItem.MINOTAUR_CHARGE", "minotaur_charge", 20, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     DIVINE_TRACKER("godItem.DIVINE_TRACKER", "divine_tracker", 23, Material.COMPASS, ItemType.MISCELLANEOUS),
 
-    ATHENA_MAP("godItem.ATHENA_MAP", "athena_map", 24, Material.FILLED_MAP, ItemType.MISCELLANEOUS);
+    ATHENA_MAP("godItem.ATHENA_MAP", "athena_map", 21, Material.FILLED_MAP, ItemType.MISCELLANEOUS);
 
 
     private final String displayName;
