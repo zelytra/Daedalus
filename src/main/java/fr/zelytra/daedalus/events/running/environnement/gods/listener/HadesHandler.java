@@ -39,7 +39,7 @@ public class HadesHandler implements Listener {
     }
 
     @EventHandler
-    public void playerInteract(PlayerDeathEvent e) {
+    public void playerDeathEvent(PlayerDeathEvent e) {
         if (Daedalus.getInstance().getGameManager().isRunning()) {
             if (e.getEntity().getKiller() != null) {
                 try {
