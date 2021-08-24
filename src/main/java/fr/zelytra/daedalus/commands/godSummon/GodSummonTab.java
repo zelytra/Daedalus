@@ -29,7 +29,7 @@ public class GodSummonTab implements TabCompleter {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 commandsList.add(p.getName());
             }
-            commandsList = Utils.dynamicTab(commandsList, args[0]);
+            commandsList = Utils.dynamicTab(commandsList, args[1]);
         }
         return commandsList;
     }
