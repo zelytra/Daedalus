@@ -10,10 +10,12 @@ import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.projectiles.ProjectileSource;
 
 public class DeathListener implements Listener {
     private Daedalus daedalus = Daedalus.getInstance();
@@ -35,8 +37,28 @@ public class DeathListener implements Listener {
             boolean shrinkHasReachSpawn = daedalus.getStructureManager().getShrinkManager().getBorderRadius() <= 495;
             boolean killByAMino = false;
 
-            if (e instanceof EntityDamageByEntityEvent && ((EntityDamageByEntityEvent) e).getDamager() instanceof Player) {
-                Player killer = (Player) ((EntityDamageByEntityEvent) e).getDamager();
+            if (e instanceof EntityDamageByEntityEvent) {
+                EntityDamageByEntityEvent damageByEntityEvent = (EntityDamageByEntityEvent) e;
+                ProjectileSource projectileSource = null;
+
+                if (damageByEntityEvent.getDamager() instanceof Projectile)
+                    projectileSource = ((Projectile) damageByEntityEvent.getDamager()).getShooter();
+
+                if (damageByEntityEvent.getDamager() instanceof Player) { //Kill by a player
+
+                    Player killer = (Player) damageByEntityEvent.getDamager();
+                    killByAMino = daedalus.getGameManager().getFactionManager().getFactionOf(killer).getGodsEnum() == GodsEnum.MINOTAURE; //Tuer par un mino
+
+                } else if (projectileSource != null && projectileSource instanceof Player) {// Kill by projectil
+
+                    Player killer = (Player) projectileSource;
+                    killByAMino = daedalus.getGameManager().getFactionManager().getFactionOf(killer).getGodsEnum() == GodsEnum.MINOTAURE; //Tuer par un mino
+
+                }
+
+            }
+            if (e.getCause() == EntityDamageEvent.DamageCause.FALL) { //Kill by falling
+                Player killer = (Player) ((EntityDamageByEntityEvent) e.getEntity().getLastDamageCause()).getDamager();
                 killByAMino = daedalus.getGameManager().getFactionManager().getFactionOf(killer).getGodsEnum() == GodsEnum.MINOTAURE; //Tuer par un mino
             }
 
@@ -53,7 +75,7 @@ public class DeathListener implements Listener {
 
                 DefinitiveDeathEvent event = new DefinitiveDeathEvent(player, e);
                 Bukkit.getPluginManager().callEvent(event);
-                //winListener();
+                winListener();
 
             } else {
 

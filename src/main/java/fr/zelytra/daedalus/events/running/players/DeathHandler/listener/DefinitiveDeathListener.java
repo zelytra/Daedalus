@@ -11,12 +11,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.projectiles.ProjectileSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,17 +82,55 @@ public class DefinitiveDeathListener implements Listener {
         player.getWorld().strikeLightningEffect(player.getLocation());
         Faction faction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
 
-        switch (e.getCause()) {
-            case ENTITY_ATTACK:
-                if (((EntityDamageByEntityEvent) e).getDamager() instanceof Player)
-                    Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.definitiveByPlayer") + Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf((Player) ((EntityDamageByEntityEvent) e).getDamager()).getType().getPrefix() + ((EntityDamageByEntityEvent) e).getDamager().getName());
-                else
-                    Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.definitive"));
-                break;
-            default:
-                Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.definitive"));
-                break;
+        EntityDamageByEntityEvent damageEvent = null;
+
+        if (e instanceof EntityDamageByEntityEvent)
+            damageEvent = (EntityDamageByEntityEvent) e;
+
+
+        if (damageEvent != null) {
+            switch (e.getCause()) {
+                case ENTITY_ATTACK:
+                    if (damageEvent.getDamager() instanceof Player)
+                        Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() +
+                                GameSettings.LANG.textOf("death.definitiveByPlayer") +
+                                Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf((Player) damageEvent.getDamager()).getType().getPrefix() +
+                                damageEvent.getDamager().getName());
+                    else
+                        Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.definitive"));
+                    break;
+
+                case PROJECTILE:
+                    ProjectileSource projectileSource = ((Projectile) damageEvent.getDamager()).getShooter();
+
+                    if (projectileSource instanceof Player) {
+
+                        Player p = (Player) projectileSource;
+
+                        Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() +
+                                GameSettings.LANG.textOf("death.definitiveByPlayer") +
+                                Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(p).getType().getPrefix() +
+                                p.getName());
+
+                    }
+                    break;
+
+
+            }
+            return;
+
+        } else if (e.getCause() == EntityDamageEvent.DamageCause.FALL) {
+            damageEvent = (EntityDamageByEntityEvent) e.getEntity().getLastDamageCause();
+
+            Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() +
+                    GameSettings.LANG.textOf("death.definitiveByPlayer") +
+                    Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf((Player) damageEvent.getDamager()).getType().getPrefix() +
+                    damageEvent.getDamager().getName());
+
+            return;
         }
+        Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.definitive"));
+
     }
 
 
