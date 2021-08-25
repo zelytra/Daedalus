@@ -16,6 +16,7 @@ import fr.zelytra.daedalus.events.running.environnement.respawnable.TreeGrowthLi
 import fr.zelytra.daedalus.events.running.environnement.structure.*;
 import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.DeathListener;
 import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.DefinitiveDeathListener;
+import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.KitRespawn;
 import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.PartielDeathListener;
 import fr.zelytra.daedalus.events.running.players.*;
 import fr.zelytra.daedalus.events.running.pvp.*;
@@ -107,6 +108,7 @@ public class EventsManager {
         pm.registerEvents(new DeathListener(), pl);
         pm.registerEvents(new DefinitiveDeathListener(), pl);
         pm.registerEvents(new PartielDeathListener(), pl);
+        pm.registerEvents(new KitRespawn(), pl);
 
 
         /* Interface */
