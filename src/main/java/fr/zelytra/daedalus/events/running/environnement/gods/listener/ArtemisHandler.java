@@ -11,8 +11,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
 public class ArtemisHandler implements Listener {
@@ -66,6 +68,18 @@ public class ArtemisHandler implements Listener {
         Utils.runTotemDisplay(player);
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.playSound(p.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_MIRROR, 10, 0.1f);
+        }
+    }
+
+    @EventHandler
+    public void onWolfAttack(EntityDamageByEntityEvent e) {
+        if (Daedalus.getInstance().getGameManager().isRunning() && e.getDamager() instanceof Wolf && e.getEntity() instanceof Player) {
+
+            Player player = (Player) e.getEntity();
+            Faction faction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+
+            if (faction.getGodsEnum() != null && faction.getGodsEnum() == GodsEnum.ARTEMIS)
+                e.setCancelled(true);
         }
     }
 
