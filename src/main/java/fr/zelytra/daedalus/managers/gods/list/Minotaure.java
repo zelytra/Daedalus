@@ -4,11 +4,8 @@ import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.Gods;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -24,11 +21,6 @@ public class Minotaure implements Gods {
         playerList.remove(god.getUniqueId());
 
         ItemStack item = new CustomItemStack(CustomMaterial.MINOTAUR_HEAD).getItem();
-        ItemMeta meta = item.getItemMeta();
-        meta.addEnchant(Enchantment.BINDING_CURSE,1,false);
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        item.setItemMeta(meta);
-
         faction.getGod().getInventory().setHelmet(item);
 
     }

@@ -120,6 +120,11 @@ public class PartielDeathListener implements Listener {
             return;
 
         } else if (e.getCause() == EntityDamageEvent.DamageCause.FALL) {
+            if (e.getEntity().getLastDamageCause() == null) {
+                Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.default"));
+                return;
+            }
+
             damageEvent = (EntityDamageByEntityEvent) e.getEntity().getLastDamageCause();
 
             Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() +
