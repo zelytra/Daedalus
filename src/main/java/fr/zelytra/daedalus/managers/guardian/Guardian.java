@@ -255,6 +255,10 @@ public class Guardian implements Listener {
         if (isPlayer) {
 
             for (Entity e : nearbyEntities) {
+
+                if (e instanceof Player && ((Player) e).getGameMode() != GameMode.SURVIVAL)
+                    continue;
+
                 Vector delta = new Vector(e.getLocation().getX() - entity.getLocation().getX(), 0, e.getLocation().getZ() - entity.getLocation().getZ());
                 double norme = Math.sqrt(Math.pow(delta.getX() + 0.01, 2) + Math.pow(delta.getY() + 0.01, 2) + Math.pow(delta.getZ() + 0.01, 2));
                 final int coef = 2;
