@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.builders.customCraft;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
+import fr.zelytra.daedalus.managers.languages.Lang;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -66,29 +67,31 @@ public class ShapedRecipeBuilder {
         CraftPattern[] craftPatterns = new CraftPattern(this.shapedRecipe.getShape()).getAllPossibilities();
         int count = 0;
         for (CraftPattern pattern : craftPatterns) {
-            NamespacedKey key;
-            ShapedRecipe recipe;
-            if (material != null) {
-                key = new NamespacedKey(Daedalus.getInstance(), material.getName() + count);
-                recipe = new ShapedRecipe(key, new CustomItemStack(material, this.amount).getItem());
-            }else {
-                key = new NamespacedKey(Daedalus.getInstance(), vanillaMaterial.name() + count);
-                recipe = new ShapedRecipe(key, new ItemStack(vanillaMaterial, this.amount));
-            }
-            recipe.shape(pattern.getShapeArray());
+            for (Lang lang : Lang.values()) {
+                NamespacedKey key;
+                ShapedRecipe recipe;
+                if (material != null) {
+                    key = new NamespacedKey(Daedalus.getInstance(), material.getName() + count);
+                    recipe = new ShapedRecipe(key, new CustomItemStack(material, lang).getItem());
+                } else {
+                    key = new NamespacedKey(Daedalus.getInstance(), vanillaMaterial.name() + count);
+                    recipe = new ShapedRecipe(key, new ItemStack(vanillaMaterial, this.amount));
+                }
+                recipe.shape(pattern.getShapeArray());
 
-            for (Map.Entry<Character, ItemStack> map : this.shapedRecipe.getIngredientMap().entrySet()) {
-                if (map.getValue() != null) {
-                    if (CustomItemStack.hasTag(map.getValue())) {
-                        RecipeChoice.ExactChoice item = new RecipeChoice.ExactChoice(new CustomItemStack(CustomItemStack.getCustomMaterial(map.getValue()), amount).getItem());
-                        recipe.setIngredient(map.getKey(), item);
-                    } else {
-                        recipe.setIngredient(map.getKey(), map.getValue().getType());
+                for (Map.Entry<Character, ItemStack> map : this.shapedRecipe.getIngredientMap().entrySet()) {
+                    if (map.getValue() != null) {
+                        if (CustomItemStack.hasTag(map.getValue())) {
+                            RecipeChoice.ExactChoice item = new RecipeChoice.ExactChoice(new CustomItemStack(CustomItemStack.getCustomMaterial(map.getValue()), lang).getItem());
+                            recipe.setIngredient(map.getKey(), item);
+                        } else {
+                            recipe.setIngredient(map.getKey(), map.getValue().getType());
+                        }
                     }
                 }
+                Daedalus.getInstance().getServer().addRecipe(recipe);
+                count++;
             }
-            Daedalus.getInstance().getServer().addRecipe(recipe);
-            count++;
         }
     }
 }

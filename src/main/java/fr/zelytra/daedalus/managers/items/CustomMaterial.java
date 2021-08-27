@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.managers.items;
 
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
+import fr.zelytra.daedalus.managers.languages.Lang;
 import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlot;
 
@@ -87,6 +88,10 @@ public enum CustomMaterial {
 
     public String getDisplayName() {
         return GameSettings.LANG.textOf(displayName);
+    }
+
+    public String getDisplayName(Lang lang) {
+        return lang.textOf(displayName);
     }
 
     public String getName() {

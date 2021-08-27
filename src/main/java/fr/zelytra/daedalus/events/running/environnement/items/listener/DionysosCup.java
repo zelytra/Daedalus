@@ -118,6 +118,10 @@ public class DionysosCup implements Listener {
             meta.setLore(lore);
 
             result.setItemMeta(meta);
+
+            if (result == null)
+                return;
+
             e.getInventory().setResult(result);
         }
 

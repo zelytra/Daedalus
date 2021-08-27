@@ -2,6 +2,7 @@ package fr.zelytra.daedalus.managers.items;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
+import fr.zelytra.daedalus.managers.languages.Lang;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -103,6 +104,48 @@ public class CustomItemStack {
                 assert meta != null;
                 meta.setCustomModelData(this.customMaterial.getCustomModelData());
                 meta.setDisplayName(this.customMaterial.getDisplayName());
+                itemData = meta.getPersistentDataContainer();
+                itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
+                //itemData.set(descriptionKey, PersistentDataType.STRING, );
+                //meta.setLore(lore);
+                this.item.setItemMeta(meta);
+
+                if (material == CustomMaterial.DIONYSUS_CUP)
+                    dionysosMugInit();
+
+                break;
+
+        }
+
+    }
+
+    public CustomItemStack(CustomMaterial material, Lang lang) {
+
+        this.customMaterial = material;
+        switch (material.getItemType()) {
+            case ARMOR:
+                this.item = new ItemStack(this.customMaterial.getVanillaMaterial());
+                ItemMeta meta = this.item.getItemMeta();
+                assert meta != null;
+                meta.setCustomModelData(this.customMaterial.getCustomModelData());
+                meta.setDisplayName(this.customMaterial.getDisplayName(lang));
+
+                meta.addAttributeModifier(Attribute.GENERIC_ARMOR, AttributeGenerator.armor(material.getArmor(), material.getSlot()));
+                meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH, AttributeGenerator.extraHeart(material.getExtraHeart(), material.getSlot()));
+
+                PersistentDataContainer itemData = meta.getPersistentDataContainer();
+                itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
+                //itemData.set(descriptionKey, PersistentDataType.STRING, );
+                //meta.setLore(lore);
+                this.item.setItemMeta(meta);
+                break;
+
+            default:
+                this.item = new ItemStack(this.customMaterial.getVanillaMaterial());
+                meta = this.item.getItemMeta();
+                assert meta != null;
+                meta.setCustomModelData(this.customMaterial.getCustomModelData());
+                meta.setDisplayName(this.customMaterial.getDisplayName(lang));
                 itemData = meta.getPersistentDataContainer();
                 itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
                 //itemData.set(descriptionKey, PersistentDataType.STRING, );

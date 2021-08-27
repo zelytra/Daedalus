@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.events.running.environnement.respawnable;
 
 import fr.zelytra.daedalus.managers.game.settings.BlockCooldownEnum;
+import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import org.bukkit.Material;
@@ -65,7 +66,10 @@ public enum BlockEnum {
     }
 
     public ItemStack getItemStack() {
-        return itemStack;
+        if (CustomItemStack.hasTag(itemStack))
+            return new CustomItemStack(CustomItemStack.getCustomMaterial(itemStack), GameSettings.LANG).getItem();
+        else
+            return itemStack;
     }
 
     public boolean hasItemStack() {
