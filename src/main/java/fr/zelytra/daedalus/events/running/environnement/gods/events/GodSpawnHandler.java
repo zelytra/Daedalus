@@ -71,7 +71,7 @@ public class GodSpawnHandler implements Listener {
                 Bukkit.getPluginManager().callEvent(event);
 
                 removeHeldItem(e, god.getTotem());
-                e.getClickedBlock().setType(Material.CHISELED_STONE_BRICKS);
+                e.getClickedBlock().setType(Material.ANDESITE);
                 return;
 
             }
