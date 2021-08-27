@@ -1,12 +1,12 @@
 package fr.zelytra.daedalus.events.running.environnement.structure;
 
 import fr.zelytra.daedalus.Daedalus;
-import fr.zelytra.daedalus.events.running.environnement.respawnable.BlockEnum;
 import fr.zelytra.daedalus.managers.maze.Maze;
 import fr.zelytra.daedalus.managers.maze.Vector2;
 import fr.zelytra.daedalus.managers.structure.Structure;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.util.BoundingBox;
@@ -22,7 +22,7 @@ public class BreakBlockListener implements Listener {
         blacklist.add(Material.BROWN_MUSHROOM_BLOCK);
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.LOW)
     public void onBreak(BlockBreakEvent e) {
         if (!Daedalus.getInstance().getGameManager().isRunning()) {
             return;
@@ -46,9 +46,6 @@ public class BreakBlockListener implements Listener {
             case -5:
             case -6:
             case -7:
-                if (BlockEnum.containType(e.getBlock().getType())) {
-                    break;
-                }
                 //Loop structures
                 for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
                     if (entry.getKey().contains(e.getBlock().getX(), e.getBlock().getY(), e.getBlock().getZ())) {

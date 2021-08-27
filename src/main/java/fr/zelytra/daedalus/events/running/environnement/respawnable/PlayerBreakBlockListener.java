@@ -9,6 +9,7 @@ import org.bukkit.block.BlockState;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
@@ -22,8 +23,10 @@ import java.util.concurrent.ThreadLocalRandom;
 public class PlayerBreakBlockListener implements Listener {
     private static HashMap<Location, BukkitTask> taskIDs = new HashMap<>();
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.HIGH)
     public void onBreak(BlockBreakEvent e) {
+        if(e.isCancelled())
+            return;
 
         try {
             BlockEnum block = BlockEnum.valueOf(e.getBlock().getType().toString());
