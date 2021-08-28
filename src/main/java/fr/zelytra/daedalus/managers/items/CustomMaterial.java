@@ -11,14 +11,14 @@ public enum CustomMaterial {
     APHRODITE_HEART("godItem.APHRODITE_HEART", "aphrodite_heart", 3, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     DEMETER_SICKLE("godItem.DEMETER_SICKLE", "demeter_sickle", 4, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
 
-    DIONYSUS_THYRSUS ("godItem.DIONYSUS_THYRSUS", "dionysus_thyrsus", 5, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
+    DIONYSUS_THYRSUS("godItem.DIONYSUS_THYRSUS", "dionysus_thyrsus", 5, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     DIONYSUS_CUP("godItem.DIONYSUS_CUP", "dionysus_cup", 25, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     HERMES_CADUCEUS("godItem.HERMES_CADUCEUS", "hermes_caduceus", 22, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     ARES_WAR_BANNER("godItem.ARES_WAR_BANNER", "ares_war_banner", 26, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     ARTEMIS_HORN("godItem.ARTEMIS_HORN", "artemis_horn", 27, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     POSEIDON_CONCH("godItem.POSEIDON_CONCH", "poseidon_conche", 28, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
 
-    MINOTAUR_HEAD("godItem.MINOTAUR_HEAD", "minotaur_head", 6, Material.CARVED_PUMPKIN, ItemType.ARMOR, 3, 0,EquipmentSlot.HEAD),
+    MINOTAUR_HEAD("godItem.MINOTAUR_HEAD", "minotaur_head", 6, Material.CARVED_PUMPKIN, ItemType.ARMOR, 3, 0, EquipmentSlot.HEAD),
     DIVINE_FRAGMENT("godItem.DIVINE_FRAGMENT", "divine_fragment", 7, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     DIVINE_HEART("godItem.DIVINE_HEART", "divine_heart", 8, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
 
@@ -37,7 +37,8 @@ public enum CustomMaterial {
     MINOTAUR_CHARGE("godItem.MINOTAUR_CHARGE", "minotaur_charge", 20, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS),
     DIVINE_TRACKER("godItem.DIVINE_TRACKER", "divine_tracker", 23, Material.COMPASS, ItemType.MISCELLANEOUS),
 
-    ATHENA_MAP("godItem.ATHENA_MAP", "athena_map", 21, Material.FILLED_MAP, ItemType.MISCELLANEOUS);
+    ATHENA_MAP("godItem.ATHENA_MAP", "athena_map", 21, Material.FILLED_MAP, ItemType.MISCELLANEOUS),
+    WALL_BREAKER("godItem.WALL_BREAKER", "wall_breaker", 29, Material.PHANTOM_MEMBRANE, ItemType.MISCELLANEOUS);
 
 
     private final String displayName;
@@ -67,7 +68,7 @@ public enum CustomMaterial {
         this.itemType = itemType;
     }
 
-    CustomMaterial(String displayName, String name, int CMD, Material material, ItemType itemType, int armor, int extraHeart,EquipmentSlot slot) {
+    CustomMaterial(String displayName, String name, int CMD, Material material, ItemType itemType, int armor, int extraHeart, EquipmentSlot slot) {
         this.displayName = displayName;
         this.name = name;
         this.customModelData = CMD;

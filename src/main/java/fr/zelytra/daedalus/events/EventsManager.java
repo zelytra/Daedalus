@@ -9,6 +9,7 @@ import fr.zelytra.daedalus.events.running.environnement.items.events.CustomItemD
 import fr.zelytra.daedalus.events.running.environnement.items.events.CustomItemUseHandler;
 import fr.zelytra.daedalus.events.running.environnement.items.listener.*;
 import fr.zelytra.daedalus.events.running.environnement.items.listener.athenaMap.AthenaMap;
+import fr.zelytra.daedalus.events.running.environnement.items.listener.wallbreaker.WallBreaker;
 import fr.zelytra.daedalus.events.running.environnement.mobCutclean.*;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.AxeStripped;
 import fr.zelytra.daedalus.events.running.environnement.respawnable.PlayerBreakBlockListener;
@@ -72,6 +73,7 @@ public class EventsManager {
         pm.registerEvents(new ArtemisHorn(), pl);
         pm.registerEvents(new PoseidonCoche(), pl);
         pm.registerEvents(new MinotaurHead(), pl);
+        pm.registerEvents(new WallBreaker(), pl);
 
 
         /*Gods Handlers*/

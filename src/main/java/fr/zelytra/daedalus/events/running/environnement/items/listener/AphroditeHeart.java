@@ -54,9 +54,8 @@ public class AphroditeHeart implements Listener {
                 return;
             }
             //Cooldown check
-            if (!Cooldown.cooldownCheck(player, CustomMaterial.APHRODITE_HEART.getName())) {
-                return;
-            }
+            if (!Cooldown.cooldownCheck(player, CustomMaterial.APHRODITE_HEART.getName())) return;
+
             new Cooldown(player, itemCooldown, CustomMaterial.APHRODITE_HEART.getName());
 
 
