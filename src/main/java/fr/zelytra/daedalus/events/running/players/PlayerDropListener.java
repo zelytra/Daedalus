@@ -17,6 +17,7 @@ public class PlayerDropListener implements Listener {
         whitelist.add(CustomMaterial.DIVINE_FRAGMENT);
         whitelist.add(CustomMaterial.DIVINE_HEART);
         whitelist.add(CustomMaterial.DIVINE_TRACKER);
+        whitelist.add(CustomMaterial.WALL_BREAKER);
 
         whitelist.add(CustomMaterial.APHRODITE_TOTEM);
         whitelist.add(CustomMaterial.ARES_TOTEM);

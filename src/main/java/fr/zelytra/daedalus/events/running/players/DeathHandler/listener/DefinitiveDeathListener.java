@@ -30,6 +30,7 @@ public class DefinitiveDeathListener implements Listener {
         whitelist.add(CustomMaterial.DIVINE_FRAGMENT);
         whitelist.add(CustomMaterial.DIVINE_HEART);
         whitelist.add(CustomMaterial.DIVINE_TRACKER);
+        whitelist.add(CustomMaterial.WALL_BREAKER);
     }
 
     private final List<Material> armorBlackList = new ArrayList<>();
