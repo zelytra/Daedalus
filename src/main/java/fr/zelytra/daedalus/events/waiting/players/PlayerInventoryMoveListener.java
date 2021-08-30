@@ -12,24 +12,27 @@ public class PlayerInventoryMoveListener implements Listener {
 
     @EventHandler
     public void onMoveItem(InventoryClickEvent e) {
-        if (Daedalus.getInstance().getGameManager().isWaiting()) {
-            if (e.getClickedInventory() != null && e.getClickedInventory().getType() == InventoryType.PLAYER) {
+
+        if (Daedalus.getInstance().getGameManager().isWaiting())
+            if (e.getClickedInventory() != null && e.getClickedInventory().getType() == InventoryType.PLAYER)
                 e.setCancelled(true);
-            }
-        }
+
+
     }
 
     @EventHandler
-    public void onItemDrop (PlayerDropItemEvent e ){
-        if(Daedalus.getInstance().getGameManager().isWaiting()){
+    public void onItemDrop(PlayerDropItemEvent e) {
+
+        if (Daedalus.getInstance().getGameManager().isWaiting())
             e.setCancelled(true);
-        }
+
     }
 
     @EventHandler
-    public void onItemDrop (PlayerSwapHandItemsEvent e ){
-        if(Daedalus.getInstance().getGameManager().isWaiting()){
+    public void onSwapItem(PlayerSwapHandItemsEvent e) {
+
+        if (Daedalus.getInstance().getGameManager().isWaiting())
             e.setCancelled(true);
-        }
+
     }
 }

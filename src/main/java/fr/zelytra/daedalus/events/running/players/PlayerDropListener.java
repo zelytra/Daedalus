@@ -1,9 +1,13 @@
 package fr.zelytra.daedalus.events.running.players;
 
+import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
+import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
 import java.util.ArrayList;
@@ -35,7 +39,27 @@ public class PlayerDropListener implements Listener {
     @EventHandler
     public void onItemDrop(PlayerDropItemEvent e) {
 
+        if (!Daedalus.getInstance().getGameManager().isRunning()) return;
+
+        if (e.getPlayer().getGameMode() != GameMode.SURVIVAL) return;
+
         if (CustomItemStack.hasTag(e.getItemDrop().getItemStack()) && !whitelist.contains(CustomItemStack.getCustomMaterial(e.getItemDrop().getItemStack())))
+            e.setCancelled(true);
+
+    }
+
+    @EventHandler
+    public void onItemMove(InventoryClickEvent e) {
+
+        if (!Daedalus.getInstance().getGameManager().isRunning()) return;
+
+        if (e.getWhoClicked().getGameMode() != GameMode.SURVIVAL) return;
+
+        if (e.getWhoClicked().getOpenInventory().getType() == InventoryType.CRAFTING) return;
+
+        if (e.getCurrentItem() == null) return;
+
+        if (CustomItemStack.hasTag(e.getCurrentItem()) && !whitelist.contains(CustomItemStack.getCustomMaterial(e.getCurrentItem())))
             e.setCancelled(true);
 
     }
