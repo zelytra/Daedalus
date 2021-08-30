@@ -113,7 +113,8 @@ public class PartielDeathListener implements Listener {
                                 Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(p).getType().getPrefix() +
                                 p.getName());
 
-                    }
+                    } else
+                        Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.default"));
                     break;
 
 
