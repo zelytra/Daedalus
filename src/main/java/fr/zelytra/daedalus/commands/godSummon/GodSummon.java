@@ -58,10 +58,15 @@ public class GodSummon implements CommandExecutor {
             return false;
         }
 
-        GodsEnum god = GodsEnum.valueOf(args[0].toUpperCase());
+        GodsEnum god = null;
+
+        try {
+            god = GodsEnum.valueOf(args[0].toUpperCase());
+        } catch (Exception ignored) {
+            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.noGodFound"));
+        }
 
         if (god == null) {
-            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.noGodFound"));
             return false;
         }
 

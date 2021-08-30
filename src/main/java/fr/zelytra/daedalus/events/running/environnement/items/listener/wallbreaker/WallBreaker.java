@@ -41,7 +41,7 @@ public class WallBreaker implements Listener {
         Vector2 matrixCoordinate = new Vector2((int) (block.getX() - maze.getOrigin().getX() + 1), (int) (block.getZ() - maze.getOrigin().getZ() + 1));
 
         if (maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z] != 1) {
-            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.WallBreakerNotAWall"));
+            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.wallBreakerNotAWall"));
             return;
         }
 
