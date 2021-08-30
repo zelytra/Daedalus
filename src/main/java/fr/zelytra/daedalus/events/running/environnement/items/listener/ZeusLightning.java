@@ -42,7 +42,8 @@ public class ZeusLightning implements Listener {
                         continue;
                     }
                     toStrike.add(entity);
-                }
+                } else if (entity instanceof LivingEntity && !(entity instanceof Player))
+                    toStrike.add(entity);
             }
             if (toStrike.isEmpty()) {
                 player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.noPlayerToStrike"));
