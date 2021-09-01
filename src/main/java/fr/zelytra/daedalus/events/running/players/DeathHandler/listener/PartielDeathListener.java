@@ -136,6 +136,7 @@ public class PartielDeathListener implements Listener {
 
             return;
         }
+
         Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.default"));
 
     }

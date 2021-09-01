@@ -19,7 +19,7 @@ First, you need to setup a [**paper**](https://papermc.io/downloads) server in *
 
 After settings up the server, download the latest [**release**](https://github.com/zelytra/Daedalus/releases) of the plugin and put it inside _plugins_ folder of your server.
 
-**IMPORTANT** : you also need to install [**FAWE**](https://ci.athion.net/job/FastAsyncWorldEdit-1.16/) \(FastAsyncWorldEdit\). The plugin maze generation depend on it to generate the Labyrinth. \(The bukkit version\)
+**IMPORTANT** : you also need to install [**FAWE**](https://ci.athion.net/job/FastAsyncWorldEdit-1.17/) \(FastAsyncWorldEdit\). The plugin maze generation depend on it to generate the Labyrinth. \(The bukkit version\)
 
 **NB** : If you try to setup the server on your local machine, please check if you correctly have Java _JDK 16_ install on it unless you will not be able to launch the server.
 
@@ -27,12 +27,19 @@ After settings up the server, download the latest [**release**](https://github.c
 
 ### On Start
 
-Before starting the server, I advise you to change these two lines inside _paper.yml_ file \(to avoid warning spam in console while maze generation\) :
+Before starting the server, I invite you to change these two lines inside _paper.yml_ file \(to avoid warning spam in console while maze generation\) :
 
 ```text
 watchdog:  
   early-warning-every: -1
   early-warning-delay: -1
+```
+
+**IMPORTANT** : If you have small configuration (old processor or VPS) you will need to change this setting inside spigot.yml. If you don't change this variable the server will shutdown after exactly 60s of generation (WatchDog of spigot). So if you labyrinth generation is longer than 60s change this settings.
+
+```text
+settings:  
+  timeout-time: -1
 ```
 
 At the first boot, the plugin will download the map of the mini-game \(you cannot use custom map\).
