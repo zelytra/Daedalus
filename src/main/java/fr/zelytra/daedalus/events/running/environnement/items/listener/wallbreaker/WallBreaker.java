@@ -26,6 +26,7 @@ public class WallBreaker implements Listener {
 
     @EventHandler
     public void onCustomItemUse(CustomItemUseEvent e) {
+
         if (e.getMaterial() != CustomMaterial.WALL_BREAKER) return;
 
         if (!Daedalus.getInstance().getGameManager().isRunning()) return;

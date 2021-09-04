@@ -6,6 +6,7 @@ import fr.zelytra.daedalus.builders.guiBuilder.InterfaceBuilder;
 import fr.zelytra.daedalus.builders.guiBuilder.VisualItemStack;
 import fr.zelytra.daedalus.builders.guiBuilder.VisualType;
 import fr.zelytra.daedalus.managers.faction.Faction;
+import fr.zelytra.daedalus.managers.faction.FactionRandomizer;
 import fr.zelytra.daedalus.managers.game.settings.DayCycleEnum;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.languages.Lang;
@@ -22,6 +23,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scoreboard.Team;
+
+import java.util.List;
 
 public class GameSettingsInterface implements Listener, Interface {
     private String interfaceName = "§6Game settings";
@@ -66,17 +69,20 @@ public class GameSettingsInterface implements Listener, Interface {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         content[15].setItemMeta(meta);
 
-        content[28] = new VisualItemStack(Material.GOLDEN_APPLE, "§6Golden apple saturation", false, "", "§8[" + (GameSettings.ABSORPTION ? "§aTRUE" : "§cFALSE") + "§8]").getItem();
-        content[30] = new VisualItemStack((GameSettings.CUT_CLEAN ? Material.IRON_INGOT : Material.IRON_ORE), "§6CutClean", false, "", "§8[" + (GameSettings.CUT_CLEAN ? "§aTRUE" : "§cFALSE") + "§8]").getItem();
-        content[32] = new VisualItemStack(Material.TOTEM_OF_UNDYING, "§6HardCore", false, "", "§8[" + (GameSettings.HARDCORE ? "§aTRUE" : "§cFALSE") + "§8]").getItem();
+        content[27] = new VisualItemStack(Material.GOLDEN_APPLE, "§6Golden apple saturation", false, "", "§8[" + (GameSettings.ABSORPTION ? "§aTRUE" : "§cFALSE") + "§8]").getItem();
+        content[29] = new VisualItemStack((GameSettings.CUT_CLEAN ? Material.IRON_INGOT : Material.IRON_ORE), "§6CutClean", false, "", "§8[" + (GameSettings.CUT_CLEAN ? "§aTRUE" : "§cFALSE") + "§8]").getItem();
+        content[31] = new VisualItemStack(Material.DROPPER, "§6Randomizer", false, "", "§6Click to randomize").getItem();
+        content[33] = new VisualItemStack(Material.TOTEM_OF_UNDYING, "§6HardCore", false, "", "§8[" + (GameSettings.HARDCORE ? "§aTRUE" : "§cFALSE") + "§8]").getItem();
 
-        content[34] = new VisualItemStack(Material.PLAYER_HEAD, "§6Language", false, ""
+        content[35] = new VisualItemStack(Material.PLAYER_HEAD, "§6Language", false, ""
                 , (GameSettings.LANG == Lang.EN ? "§a" : "§c") + "English"
                 , (GameSettings.LANG == Lang.FR ? "§a" : "§c") + "Français"
                 , (GameSettings.LANG == Lang.ES ? "§a" : "§c") + "Español"
                 , (GameSettings.LANG == Lang.DE ? "§a" : "§c") + "Deutsch"
                 , (GameSettings.LANG == Lang.IT ? "§a" : "§c") + "Italia"
         ).getItem();
+        
+
 
         for (int x = 45; x < 54; x++)
             content[x] = VisualType.BLANK_GREEN_GLASSE.getItem();
@@ -138,6 +144,10 @@ public class GameSettingsInterface implements Listener, Interface {
                     case TOTEM_OF_UNDYING:
                         GameSettings.HARDCORE = (!GameSettings.HARDCORE);
                         e.getWhoClicked().getWorld().setGameRule(GameRule.NATURAL_REGENERATION, GameSettings.HARDCORE);
+                        break;
+
+                    case DROPPER:
+                        new FactionRandomizer((List<Player>) Bukkit.getOnlinePlayers()).rand();
                         break;
 
                     case BARRIER:
