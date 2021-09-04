@@ -1,5 +1,7 @@
 package fr.zelytra.daedalus.events.waiting.gui;
 
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.builders.guiBuilder.Interface;
 import fr.zelytra.daedalus.builders.guiBuilder.InterfaceBuilder;
@@ -22,9 +24,13 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scoreboard.Team;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
+import java.util.UUID;
 
 public class GameSettingsInterface implements Listener, Interface {
     private String interfaceName = "§6Game settings";
@@ -81,7 +87,7 @@ public class GameSettingsInterface implements Listener, Interface {
                 , (GameSettings.LANG == Lang.DE ? "§a" : "§c") + "Deutsch"
                 , (GameSettings.LANG == Lang.IT ? "§a" : "§c") + "Italia"
         ).getItem();
-        
+        setHeadTexture(content[35],GameSettings.LANG.getTexture());
 
 
         for (int x = 45; x < 54; x++)
@@ -90,6 +96,23 @@ public class GameSettingsInterface implements Listener, Interface {
         content[49] = new VisualItemStack(Material.BARRIER, "§cReset settings", false).getItem();
 
         return content;
+    }
+
+    private void setHeadTexture(ItemStack head, String url) {
+        SkullMeta skullMeta = (SkullMeta) head.getItemMeta();
+        GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+
+        profile.getProperties().put("textures", new Property("textures", url));
+
+        try {
+            Method mtd = skullMeta.getClass().getDeclaredMethod("setProfile", GameProfile.class);
+            mtd.setAccessible(true);
+            mtd.invoke(skullMeta, profile);
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+            ex.printStackTrace();
+        }
+
+        head.setItemMeta(skullMeta);
     }
 
     @EventHandler
