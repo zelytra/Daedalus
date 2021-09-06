@@ -94,7 +94,7 @@ public class HermesHandler implements Listener {
                     continue;
                 }
 
-                if (!team.getGod().isOnline())
+                if (team.getGod() == null)
                     return;
 
                 if (team.getGod().isOnGround()) {

@@ -12,7 +12,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class StartupManager {
-    private final String mapURL = "https://raw.githubusercontent.com/zelytra/Daedalus/master/resources/DaedalusMap_1.5.zip";
+    private final String mapURL = "https://raw.githubusercontent.com/zelytra/Daedalus/master/resources/DaedalusMap_1.6.zip";
     private final File folder;
     private final File zip;
 
