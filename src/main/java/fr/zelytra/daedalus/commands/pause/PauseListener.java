@@ -16,7 +16,8 @@ public class PauseListener implements Listener {
             if (e.getPlayer().getGameMode() == GameMode.SPECTATOR)
                 return;
 
-            e.getPlayer().sendTitle("", GameSettings.LANG.textOf("command.pauseWarn"), 5, 20, 5);
+            if (!PauseCommand.isResuming)
+                e.getPlayer().sendTitle("", GameSettings.LANG.textOf("command.pauseWarn"), 0, 20, 5);
             e.setCancelled(true);
         }
     }
