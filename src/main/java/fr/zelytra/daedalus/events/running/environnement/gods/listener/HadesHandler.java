@@ -19,9 +19,6 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 public class HadesHandler implements Listener {
 
@@ -35,36 +32,12 @@ public class HadesHandler implements Listener {
             vfx(e.getPlayer());
 
         }
-
-    }
-
-    @EventHandler
-    public void playerDeathEvent(PlayerDeathEvent e) {
-        if (Daedalus.getInstance().getGameManager().isRunning()) {
-            if (e.getEntity().getKiller() != null) {
-                try {
-                    Player killer = e.getEntity().getKiller();
-                    Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(killer);
-                    if (playerFaction.getGod() == null) {
-                        return;
-                    }
-                    if (playerFaction.getGodsEnum() == GodsEnum.HADES) {
-                        killer.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 1, false, false, true));
-                    }
-                } catch (Exception exception) {
-                    System.out.println("ERROR team not found");
-                }
-
-
-            }
-        }
     }
 
     @EventHandler
     public void onDefinitiveDeathEvent(DefinitiveDeathEvent e) {
         if (Daedalus.getInstance().getGameManager().isRunning()) {
-            for (Player p : Bukkit.getOnlinePlayers()) {
-                Faction faction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(p);
+            for (Faction faction : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
                 if (faction.getGodsEnum() == GodsEnum.HADES && faction.getGod() != null && !HadesRevive.hadesHasRevive) {
                     TextComponent processMessage = Component.text()
                             .content(Message.getPlayerPrefixe())

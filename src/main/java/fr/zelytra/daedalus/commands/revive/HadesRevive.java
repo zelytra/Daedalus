@@ -66,8 +66,9 @@ public class HadesRevive implements CommandExecutor {
             return false;
         } else {
 
-            for(Faction faction : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()){
-                if(faction.getGodsEnum()!=null && faction.getGodsEnum()==GodsEnum.HADES){
+            for (Faction faction : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
+                if (playerFaction.getGodsEnum() == GodsEnum.HADES) break;
+                if (faction.getGodsEnum() != null && faction.getGodsEnum() == GodsEnum.HADES) {
                     faction.add(target);
                     playerFaction = faction;
                 }
@@ -77,11 +78,11 @@ public class HadesRevive implements CommandExecutor {
 
             target.teleport(executor.getLocation());
             applyTeamEffect(target);
+            target.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(10.0);
 
             for (Player p : Bukkit.getOnlinePlayers()) {
                 p.playSound(p.getLocation(), Sound.ENTITY_WITCH_HURT, 2, 0.1f);
             }
-
 
 
             Bukkit.broadcastMessage(Message.getPlayerPrefixe() + playerFaction.getType().getChatColor() + target.getName() + GameSettings.LANG.textOf("command.hadesRevive"));
@@ -98,22 +99,22 @@ public class HadesRevive implements CommandExecutor {
             player.addPotionEffects(GodsEnum.HADES.getGod().teamEffects());
         }
 
-        player.getInventory().setHelmet(Utils.EnchantedItemStack(Material.DIAMOND_HELMET, Enchantment.PROTECTION_ENVIRONMENTAL,2));
-        player.getInventory().setChestplate(Utils.EnchantedItemStack(Material.DIAMOND_CHESTPLATE, Enchantment.PROTECTION_ENVIRONMENTAL,2));
-        player.getInventory().setLeggings(Utils.EnchantedItemStack(Material.IRON_LEGGINGS, Enchantment.PROTECTION_ENVIRONMENTAL,2));
-        player.getInventory().setBoots(Utils.EnchantedItemStack(Material.IRON_BOOTS, Enchantment.PROTECTION_ENVIRONMENTAL,2));
+        player.getInventory().setHelmet(Utils.EnchantedItemStack(Material.DIAMOND_HELMET, Enchantment.PROTECTION_ENVIRONMENTAL, 2));
+        player.getInventory().setChestplate(Utils.EnchantedItemStack(Material.DIAMOND_CHESTPLATE, Enchantment.PROTECTION_ENVIRONMENTAL, 2));
+        player.getInventory().setLeggings(Utils.EnchantedItemStack(Material.IRON_LEGGINGS, Enchantment.PROTECTION_ENVIRONMENTAL, 2));
+        player.getInventory().setBoots(Utils.EnchantedItemStack(Material.IRON_BOOTS, Enchantment.PROTECTION_ENVIRONMENTAL, 2));
 
-        player.getInventory().setItemInMainHand(Utils.EnchantedItemStack(Material.DIAMOND_SWORD, Enchantment.DAMAGE_ALL,2));
+        player.getInventory().setItemInMainHand(Utils.EnchantedItemStack(Material.DIAMOND_SWORD, Enchantment.DAMAGE_ALL, 2));
         player.getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
 
 
-        player.getInventory().addItem(Utils.EnchantedItemStack(Material.IRON_PICKAXE, Enchantment.DIG_SPEED,2));
-        player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF,20));
+        player.getInventory().addItem(Utils.EnchantedItemStack(Material.IRON_PICKAXE, Enchantment.DIG_SPEED, 2));
+        player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 20));
         player.getInventory().addItem(new ItemStack(Material.BOW));
-        player.getInventory().addItem(new ItemStack(Material.ARROW,16));
+        player.getInventory().addItem(new ItemStack(Material.ARROW, 16));
 
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE,100,9,true,true,true));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS,100,9,true,true,true));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 9, true, true, true));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 9, true, true, true));
 
     }
 }

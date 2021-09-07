@@ -26,7 +26,7 @@ public class MinotaurCharge implements Listener {
 
     @EventHandler
     public void onRightClick(CustomItemUseEvent e) {
-        final int itemCooldown = 30;
+        final int itemCooldown = 45;
         final int radius = 2;
 
         if (e.getMaterial() != CustomMaterial.MINOTAUR_CHARGE) return;

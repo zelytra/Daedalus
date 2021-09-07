@@ -19,8 +19,8 @@ import org.bukkit.projectiles.ProjectileSource;
 
 public class DeathListener implements Listener {
     private Daedalus daedalus = Daedalus.getInstance();
-    public static boolean hasMinoSpawn = false;
-    private boolean isMinoDead = false;
+    public static boolean hasMinoSpawn = true;
+    private boolean isMinoDead = true;
 
     @EventHandler
     public void onCustomDeath(EntityDamageEvent e) {
@@ -75,7 +75,7 @@ public class DeathListener implements Listener {
 
                 DefinitiveDeathEvent event = new DefinitiveDeathEvent(player, e);
                 Bukkit.getPluginManager().callEvent(event);
-                winListener();
+                //winListener();
 
             } else {
 

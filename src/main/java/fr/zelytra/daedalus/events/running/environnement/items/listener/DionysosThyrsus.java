@@ -23,7 +23,7 @@ public class DionysosThyrsus implements Listener {
 
     @EventHandler
     public void onRightClick(CustomItemUseEvent e) {
-        int itemCooldown = 90;
+        int itemCooldown = 30;
         int effectRadius = 10;
         if (e.getMaterial() != CustomMaterial.DIONYSUS_THYRSUS) return;
         Player player = e.getPlayer();
