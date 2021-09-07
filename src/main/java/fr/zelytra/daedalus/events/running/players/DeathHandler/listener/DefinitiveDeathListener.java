@@ -99,7 +99,7 @@ public class DefinitiveDeathListener implements Listener {
                                 damageEvent.getDamager().getName());
                     else
                         Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.definitive"));
-                    break;
+                    return;
 
                 case PROJECTILE:
                     ProjectileSource projectileSource = ((Projectile) damageEvent.getDamager()).getShooter();
@@ -115,10 +115,11 @@ public class DefinitiveDeathListener implements Listener {
 
                     } else
                         Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.default"));
-                    break;
+                    return;
 
 
             }
+            Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.default"));
             return;
 
         } else if (e.getCause() == EntityDamageEvent.DamageCause.FALL) {

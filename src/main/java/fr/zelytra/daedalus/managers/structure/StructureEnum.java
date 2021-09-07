@@ -43,9 +43,9 @@ public enum StructureEnum {
     CIRCEE_ISLAND("circeeIsland", -5, StructureType.CIRCE_ISLAND, true, new BlockVector(0, -3, 0)),
     DAEDALUS_LIBRARY("daedalusLibrary", -7, StructureType.LIBRARY, false, new BlockVector(0, -3, 0)),
 
-    DUNGEON1("dungeon1", -4, StructureType.DUNGEON, true, new BlockVector(0, -80, 0)),
-    DUNGEON2("dungeon2", -4, StructureType.DUNGEON, true, new BlockVector(0, -80, 0)),
-    DUNGEON3("dungeon3", -4, StructureType.DUNGEON, true, new BlockVector(0, -80, 0));
+    DUNGEON1("dungeon1", -4, StructureType.DUNGEON, true, new BlockVector(0, -41, 0)),
+    DUNGEON2("dungeon2", -4, StructureType.DUNGEON, true, new BlockVector(0, -41, 0)),
+    DUNGEON3("dungeon3", -4, StructureType.DUNGEON, true, new BlockVector(0, -41, 0));
 
 
     private final String name;

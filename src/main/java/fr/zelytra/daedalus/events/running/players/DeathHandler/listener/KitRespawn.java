@@ -21,7 +21,7 @@ public class KitRespawn implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPartielDeath(PartielDeathEvent e) {
 
-        if (Daedalus.getInstance().getGameManager().getTimeManager().getEpisode() == episode)
+        if (Daedalus.getInstance().getGameManager().getTimeManager().getEpisode() >= episode)
             if (!playerNames.contains(e.getPlayer().getName())) {
                 giveKit(e.getPlayer());
                 playerNames.add(e.getPlayer().getName());
