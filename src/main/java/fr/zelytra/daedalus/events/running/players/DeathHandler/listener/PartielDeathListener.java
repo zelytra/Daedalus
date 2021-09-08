@@ -8,6 +8,7 @@ import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -66,6 +67,10 @@ public class PartielDeathListener implements Listener {
         }
 
         player.setSaturation(20.0f);
+
+        player.getWorld().spawn(player.getLocation(), ExperienceOrb.class).setExperience(player.getTotalExperience());
+        player.setLevel(0);
+
         player.getInventory().clear();
 
         respawnFX(e.getEvent());
