@@ -31,7 +31,7 @@ public class StateCommands implements CommandExecutor {
                     sender.sendMessage(Message.getPlayerPrefixe() + "§cWrong state.");
                 }
 
-                Bukkit.broadcastMessage("§dGame state changed into -> " + args[0]);
+                Bukkit.broadcastMessage(Message.getPlayerPrefixe()+"§6Game state changed into -> §l" + args[0]);
                 return true;
             }
 

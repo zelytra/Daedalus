@@ -4,6 +4,7 @@ import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.events.running.players.DeathHandler.events.PartielDeathEvent;
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
+import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import org.bukkit.Bukkit;
@@ -78,8 +79,18 @@ public class PartielDeathListener implements Listener {
         player.teleport(playerFaction.getType().getSpawn());
 
         if (activeItems != null)
-            for (ItemStack item : activeItems)
+            for (ItemStack item : activeItems) {
+
+                if (e.getFaction().getGodsEnum() == GodsEnum.MINOTAURE && e.getFaction().getGod() != null) {
+                    if (e.getFaction().getGod().getName().equalsIgnoreCase(e.getPlayer().getName())) {
+                        if (CustomItemStack.hasTag(item) && CustomItemStack.getCustomMaterial(item) == CustomMaterial.MINOTAUR_HEAD) {
+                            e.getPlayer().getInventory().setHelmet(new CustomItemStack(CustomMaterial.MINOTAUR_HEAD).getItem());
+                            continue;
+                        }
+                    }
+                }
                 player.getInventory().addItem(item);
+            }
 
     }
 

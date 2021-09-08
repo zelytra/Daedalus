@@ -131,6 +131,7 @@ public class Guardian implements Listener {
                 if (this.spawnLoc.isChunkLoaded()) {
                     new Guardian(this.spawnLoc);
                     task.cancel();
+                    return;
                 }
             }, 0, 100);
         }, respawnCooldown * 20);
