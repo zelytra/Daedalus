@@ -19,8 +19,8 @@ import org.bukkit.projectiles.ProjectileSource;
 
 public class DeathListener implements Listener {
     private Daedalus daedalus = Daedalus.getInstance();
-    public static boolean hasMinoSpawn = true;
-    private boolean isMinoDead = true;
+    public static boolean hasMinoSpawn = false;
+    private boolean isMinoDead = false;
 
     @EventHandler
     public void onCustomDeath(EntityDamageEvent e) {
@@ -64,6 +64,16 @@ public class DeathListener implements Listener {
 
             boolean isMemberOfMino = daedalus.getGameManager().getFactionManager().getFactionOf(player).getGodsEnum() == GodsEnum.MINOTAURE;//Quand on est un mino
 
+
+            //Mino PVE partiel death
+            if (isMemberOfMino && isPVEDeath(e)) {
+
+                PartielDeathEvent event = new PartielDeathEvent(player, e);
+                Bukkit.getPluginManager().callEvent(event);
+                return;
+
+            }
+
             if (hasMinoSpawn && !isMinoDead && daedalus.getGameManager().getFactionManager().getFactionOf(FactionsEnum.MINOTAUR).getGod() != null) {
                 if (player.getUniqueId() == daedalus.getGameManager().getFactionManager().getFactionOf(FactionsEnum.MINOTAUR).getGod().getUniqueId()) {
                     isMinoDead = true;
@@ -75,7 +85,7 @@ public class DeathListener implements Listener {
 
                 DefinitiveDeathEvent event = new DefinitiveDeathEvent(player, e);
                 Bukkit.getPluginManager().callEvent(event);
-                //winListener();
+                winListener();
 
             } else {
 
@@ -87,6 +97,32 @@ public class DeathListener implements Listener {
 
         }
 
+
+    }
+
+    private boolean isPVEDeath(EntityDamageEvent e) {
+
+
+        ProjectileSource projectileSource = null;
+
+        if (e instanceof EntityDamageByEntityEvent) {
+            EntityDamageByEntityEvent damageByEntityEvent = (EntityDamageByEntityEvent) e;
+            if (damageByEntityEvent.getDamager() instanceof Projectile)
+                projectileSource = ((Projectile) damageByEntityEvent.getDamager()).getShooter();
+
+            if (projectileSource != null && projectileSource instanceof Player)//Shoot by a mob
+                return false;
+
+            if(damageByEntityEvent.getDamager() instanceof Player)
+                return false;
+
+            if (e.getCause() == EntityDamageEvent.DamageCause.FALL
+                    && e.getEntity().getLastDamageCause() != null
+                    && ((EntityDamageByEntityEvent) e.getEntity().getLastDamageCause().getEntity()).getDamager() instanceof Player) //Kill by falling
+                return false;
+        }
+
+        return true;
 
     }
 
