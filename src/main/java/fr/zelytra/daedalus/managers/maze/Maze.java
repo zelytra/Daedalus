@@ -178,16 +178,17 @@ public class Maze {
                 continue;
             }
             if (cell1 != cell2) {
-                this.maze[x][z] = cell1;
+                this.maze[x][z] = (cell1 < cell2 ? cell1 : cell2);
 
                 for (int i = 1; i < this.size - 1; i += 2) {
                     for (int j = 1; j < this.size - 1; j += 2) {
-                        if (this.maze[i][j] == cell2) {
-                            this.maze[i][j] = cell1;
+                        if (this.maze[i][j] == (cell1 > cell2 ? cell1 : cell2)) {
+                            this.maze[i][j] = (cell1 < cell2 ? cell1 : cell2);
                         }
                     }
                 }
             }
+
             int progress = 0;
             for (int i = 1; i < this.size - 1; i += 2) {
                 for (int j = 1; j < this.size - 1; j += 2) {
@@ -239,7 +240,7 @@ public class Maze {
     //Thanks Nicolas61x
     private int[][] generateScaleMaze(int scale) {
         int X = 0;
-        Bukkit.broadcastMessage(Message.getPlayerPrefixe()+GameSettings.LANG.textOf("maze.scaling"));
+        Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("maze.scaling"));
         for (int i = 0; i < this.size; i++) {
             if (i % 2 == 0) {
                 X++;
