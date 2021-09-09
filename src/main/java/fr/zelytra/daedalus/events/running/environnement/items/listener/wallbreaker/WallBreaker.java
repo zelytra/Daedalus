@@ -40,17 +40,19 @@ public class WallBreaker implements Listener {
         Player player = e.getPlayer();
         Block block = player.getTargetBlock(10);
         Vector2 matrixCoordinate = new Vector2((int) (block.getX() - maze.getOrigin().getX() + 1), (int) (block.getZ() - maze.getOrigin().getZ() + 1));
-        System.out.println(maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z]);
+
         if (maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z] != 1) {
             player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.wallBreakerNotAWall"));
             return;
         }
 
-        for (int x = -1; x <= 1; x++) {
-            for (int z = -1; z <= 1; z++) {
+        for (int x = -1; x <= 1; x++)
+            for (int z = -1; z <= 1; z++)
+                if (maze.getMaze()[matrixCoordinate.x + x][matrixCoordinate.z + z] < 0) {
+                    player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.wallBreakerNotAWall"));
+                    return;
+                }
 
-            }
-        }
 
         //Cooldown check
         if (!Cooldown.cooldownCheck(e.getPlayer(), CustomMaterial.WALL_BREAKER.getName())) return;

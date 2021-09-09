@@ -15,7 +15,7 @@ public enum StructureEnum {
     - -4 : Dungeon
     - -5 : Circee island
     - -6 : Hesperides garden
-    - -7 : Library garden
+    - -7 : Library
 
      */
     ZEUS("zeusTemple", -2, StructureType.TEMPLE, false, new BlockVector(0, -3, 0), GodsEnum.ZEUS),
