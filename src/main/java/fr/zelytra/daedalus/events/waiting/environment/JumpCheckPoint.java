@@ -26,6 +26,7 @@ public class JumpCheckPoint implements Listener {
             return;
 
         if (e.getAction() == Action.PHYSICAL) {
+            e.setCancelled(true);
             Location cp = e.getPlayer().getLocation().getBlock().getLocation();
             cp.setX(cp.getX() + 0.5);
             cp.setZ(cp.getZ() + 0.5);
@@ -57,6 +58,7 @@ public class JumpCheckPoint implements Listener {
                 saucisse(e.getPlayer());
 
         }
+
     }
 
     private void checkPointEvent(PlayerInteractEvent e, Location loc) {

@@ -5,10 +5,8 @@ import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
@@ -46,25 +44,6 @@ public class GuardianListener implements Listener {
         e.getDrops().removeAll(e.getDrops());
         e.getDrops().add(new CustomItemStack(CustomMaterial.DIVINE_HEART, 1).getItem());
         e.getDrops().add(new ItemStack(Material.GOLDEN_APPLE,(ThreadLocalRandom.current().nextInt(1, 7))));
-    }
-
-    @EventHandler
-    public void onGuardianAttackEvent(EntityDamageByEntityEvent e) {
-
-
-        if (e.getDamager().getType() != EntityType.VINDICATOR) {
-            return;
-        }
-        if (!Guardian.isGuardian((LivingEntity) e.getDamager())) {
-            return;
-        }
-        if (!(e.getEntity() instanceof Player)) {
-            return;
-        }
-        Guardian guardian = Guardian.getGuardianFromList((LivingEntity) e.getDamager());
-
-
-
     }
 
 }
