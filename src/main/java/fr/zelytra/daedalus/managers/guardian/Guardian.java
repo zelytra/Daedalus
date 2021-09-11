@@ -33,13 +33,13 @@ public class Guardian implements Listener {
 
     private final LivingEntity entity;
     private final Location spawnLoc;
-    private static BukkitTask task;
+    private BukkitTask task;
 
     private final static NamespacedKey spawnLocKey = new NamespacedKey(Daedalus.getInstance(), "spawnLoc");
 
     private final int health = 100;
     private final BossBar bossBar;
-    private final int respawnCooldown = 600; //in seconds
+    private final int respawnCooldown = 15;//600; //in seconds
 
     public Guardian(Location location) {
         this.spawnLoc = location;
@@ -126,7 +126,9 @@ public class Guardian implements Listener {
     public void death() {
         guardianList.remove(this);
         this.bossBar.removeAll();
+
         Bukkit.getScheduler().runTaskLater(Daedalus.getInstance(), () -> {
+
             task = Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
                 if (this.spawnLoc.isChunkLoaded()) {
                     new Guardian(this.spawnLoc);
