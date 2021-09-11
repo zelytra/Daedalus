@@ -39,7 +39,7 @@ public class Guardian implements Listener {
 
     private final int health = 100;
     private final BossBar bossBar;
-    private final int respawnCooldown = 15;//600; //in seconds
+    private final int respawnCooldown = 600; //in seconds
 
     public Guardian(Location location) {
         this.spawnLoc = location;
@@ -128,7 +128,6 @@ public class Guardian implements Listener {
         this.bossBar.removeAll();
 
         Bukkit.getScheduler().runTaskLater(Daedalus.getInstance(), () -> {
-
             task = Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
                 if (this.spawnLoc.isChunkLoaded()) {
                     new Guardian(this.spawnLoc);

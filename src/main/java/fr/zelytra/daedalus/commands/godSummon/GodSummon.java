@@ -46,7 +46,7 @@ public class GodSummon implements CommandExecutor {
 
         Faction playerFaction;
         try {
-            playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+            playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
         } catch (Exception exception) {
             exception.printStackTrace();
             System.out.println("ERROR team not found");

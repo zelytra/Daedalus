@@ -69,7 +69,7 @@ public class PartielDeathListener implements Listener {
 
         player.setSaturation(20.0f);
 
-        player.getWorld().spawn(player.getLocation(), ExperienceOrb.class).setExperience(player.getTotalExperience());
+        player.getWorld().spawn(player.getLocation(), ExperienceOrb.class).setExperience((int) (player.getExp()/4.0));
         player.setLevel(0);
 
         player.getInventory().clear();
@@ -139,7 +139,7 @@ public class PartielDeathListener implements Listener {
             return;
 
         } else if (e.getCause() == EntityDamageEvent.DamageCause.FALL) {
-            if (e.getEntity().getLastDamageCause() == null) {
+            if (!((e.getEntity().getLastDamageCause()) instanceof EntityDamageByEntityEvent)) {
                 Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.default"));
                 return;
             }

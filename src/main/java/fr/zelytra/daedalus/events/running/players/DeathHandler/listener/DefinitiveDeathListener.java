@@ -10,6 +10,7 @@ import fr.zelytra.daedalus.managers.items.CustomMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -67,6 +68,9 @@ public class DefinitiveDeathListener implements Listener {
         for (PotionEffect effect : player.getActivePotionEffects())
             player.removePotionEffect(effect.getType());
 
+        player.getWorld().spawn(player.getLocation(), ExperienceOrb.class).setExperience((int) (player.getExp()));
+        player.setLevel(0);
+
         player.setMaxHealth(20.0);
         deathFX(e.getEvent());
 
@@ -123,7 +127,7 @@ public class DefinitiveDeathListener implements Listener {
             return;
 
         } else if (e.getCause() == EntityDamageEvent.DamageCause.FALL) {
-            if (e.getEntity().getLastDamageCause() == null) {
+            if (!((e.getEntity().getLastDamageCause()) instanceof EntityDamageByEntityEvent)) {
                 Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.definitive"));
                 return;
             }

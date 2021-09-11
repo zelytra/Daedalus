@@ -57,9 +57,11 @@ public class DeathListener implements Listener {
                 }
 
             }
-            if (e.getCause() == EntityDamageEvent.DamageCause.FALL && e.getEntity().getLastDamageCause() != null) { //Kill by falling
-                Player killer = (Player) ((EntityDamageByEntityEvent) e.getEntity().getLastDamageCause()).getDamager();
-                killByAMino = daedalus.getGameManager().getFactionManager().getFactionOf(killer).getGodsEnum() == GodsEnum.MINOTAURE; //Tuer par un mino
+            if (e.getCause() == EntityDamageEvent.DamageCause.FALL) { //Kill by falling
+                if ((e.getEntity().getLastDamageCause()) instanceof EntityDamageByEntityEvent) {
+                    Player killer = (Player) ((EntityDamageByEntityEvent) e.getEntity().getLastDamageCause()).getDamager();
+                    killByAMino = daedalus.getGameManager().getFactionManager().getFactionOf(killer).getGodsEnum() == GodsEnum.MINOTAURE; //Tuer par un mino
+                }
             }
 
             boolean isMemberOfMino = daedalus.getGameManager().getFactionManager().getFactionOf(player).getGodsEnum() == GodsEnum.MINOTAURE;//Quand on est un mino
@@ -113,7 +115,7 @@ public class DeathListener implements Listener {
             if (projectileSource != null && projectileSource instanceof Player)//Shoot by a mob
                 return false;
 
-            if(damageByEntityEvent.getDamager() instanceof Player)
+            if (damageByEntityEvent.getDamager() instanceof Player)
                 return false;
 
             if (e.getCause() == EntityDamageEvent.DamageCause.FALL
