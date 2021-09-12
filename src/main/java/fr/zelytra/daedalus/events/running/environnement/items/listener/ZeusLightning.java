@@ -21,8 +21,8 @@ public class ZeusLightning implements Listener {
 
     @EventHandler
     public void onRightClick(CustomItemUseEvent e) {
-        int itemCooldown = 10;
-        int radius = 8;
+        int itemCooldown = 15;
+        int radius = 10;
 
         if (e.getMaterial() != CustomMaterial.ZEUS_LIGHTNING) return;
 
@@ -59,7 +59,6 @@ public class ZeusLightning implements Listener {
                 if (entity instanceof LivingEntity) {
                     player.getWorld().strikeLightningEffect(entity.getLocation());
                     ((LivingEntity) entity).damage(5.0);
-                    entity.setFireTicks(160);
                 }
             }
 

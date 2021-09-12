@@ -8,7 +8,7 @@ public final class GameSettings {
     public static int HESPERIDES_GARDEN_COUNT = 1;
     public static int MINES_COUNT = 15;
     public static int DUNGEONS_COUNT = 10;
-    public static int LIBRARY = 10;
+    public static int LIBRARY = 5;
     public static int CIRCEE_ISLANDS_COUNT = 5;
     public static boolean FRIENDLY_FIRE = false;
     public static boolean HARDCORE = false;

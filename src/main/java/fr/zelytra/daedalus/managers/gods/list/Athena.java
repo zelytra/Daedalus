@@ -56,7 +56,7 @@ public class Athena implements Gods {
     @Override
     public ArrayList<ItemStack> teamItems() {
         ArrayList<ItemStack> items = new ArrayList<>();
-        items.add(new ItemStack(Material.NETHERITE_INGOT));
+        items.add(new ItemStack(Material.NETHERITE_SCRAP,3));
         return items;
     }
 

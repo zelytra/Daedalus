@@ -60,7 +60,7 @@ public class AphroditeHeart implements Listener {
 
 
             for (Entity entity : targetList) {
-                ((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 200, 4));
+                ((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 200, 0));
                 ((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 200, 0));
                 ((Player) entity).damage(2.0);
             }

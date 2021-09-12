@@ -113,7 +113,6 @@ public enum LootsEnum {
 
 
     private ItemStack item;
-    private double luck;
     private PotionEffect potionEffect;
 
 
@@ -134,7 +133,4 @@ public enum LootsEnum {
         return potionEffect;
     }
 
-    public double getLuck() {
-        return luck;
-    }
 }

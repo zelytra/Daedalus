@@ -59,7 +59,7 @@ public class HadesScepter implements Listener {
         try {
 
             for (Entity entity : targetList) {
-                ((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 200, 1));
+                ((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 100, 1));
                 entity.getWorld().spawnParticle(Particle.SOUL, entity.getLocation(), 300, 0.1, 0.1, 0.1, 0.1);
             }
 
