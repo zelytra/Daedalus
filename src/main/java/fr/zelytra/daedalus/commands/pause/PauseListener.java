@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -32,6 +33,13 @@ public class PauseListener implements Listener {
         if (Daedalus.getInstance().getGameManager().getTimeManager().isPause())
             e.setCancelled(true);
     }
+
+    @EventHandler
+    public void onTarget(EntityTargetEvent e) {
+        if (Daedalus.getInstance().getGameManager().getTimeManager().isPause())
+            e.setCancelled(true);
+    }
+
     @EventHandler
     public void placeBlock(BlockPlaceEvent e) {
         if (Daedalus.getInstance().getGameManager().getTimeManager().isPause())
