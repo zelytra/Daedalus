@@ -58,7 +58,11 @@ public class ZeusLightning implements Listener {
             for (Entity entity : toStrike) {
                 if (entity instanceof LivingEntity) {
                     player.getWorld().strikeLightningEffect(entity.getLocation());
-                    ((LivingEntity) entity).damage(5.0);
+
+                    if (player.getHealth() <= 5.0)
+                        player.setHealth(2.0);
+                    else
+                        ((LivingEntity) entity).damage(5.0);
                 }
             }
 
