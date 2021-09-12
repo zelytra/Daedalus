@@ -32,6 +32,12 @@ public class MinotaurCharge implements Listener {
         if (e.getMaterial() != CustomMaterial.MINOTAUR_CHARGE) return;
 
         Player player = e.getPlayer();
+
+        if (player.getLocation().getY() >= 93) {
+            return;
+        }
+
+
         //Cooldown check
         if (!Cooldown.cooldownCheck(player, CustomMaterial.MINOTAUR_CHARGE.getName())) {
             return;
