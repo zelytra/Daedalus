@@ -58,7 +58,7 @@ public class DeathListener implements Listener {
 
             }
             if (e.getCause() == EntityDamageEvent.DamageCause.FALL) { //Kill by falling
-                if ((e.getEntity().getLastDamageCause()) instanceof EntityDamageByEntityEvent) {
+                if ((e.getEntity().getLastDamageCause()) instanceof EntityDamageByEntityEvent && ((EntityDamageByEntityEvent) e.getEntity().getLastDamageCause()).getDamager() instanceof Player) {
                     Player killer = (Player) ((EntityDamageByEntityEvent) e.getEntity().getLastDamageCause()).getDamager();
                     killByAMino = daedalus.getGameManager().getFactionManager().getFactionOf(killer).getGodsEnum() == GodsEnum.MINOTAURE; //Tuer par un mino
                 }

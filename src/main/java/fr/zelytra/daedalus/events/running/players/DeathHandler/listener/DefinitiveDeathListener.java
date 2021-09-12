@@ -127,7 +127,7 @@ public class DefinitiveDeathListener implements Listener {
             return;
 
         } else if (e.getCause() == EntityDamageEvent.DamageCause.FALL) {
-            if (!((e.getEntity().getLastDamageCause()) instanceof EntityDamageByEntityEvent)) {
+            if (!((e.getEntity().getLastDamageCause()) instanceof EntityDamageByEntityEvent)&& ((EntityDamageByEntityEvent) e.getEntity().getLastDamageCause()).getDamager() instanceof Player) {
                 Bukkit.broadcastMessage(faction.getType().getPrefix() + e.getEntity().getName() + GameSettings.LANG.textOf("death.definitive"));
                 return;
             }

@@ -55,7 +55,7 @@ public class PlayerDropListener implements Listener {
 
         if (e.getWhoClicked().getGameMode() != GameMode.SURVIVAL) return;
 
-        if (e.getWhoClicked().getOpenInventory().getType() == InventoryType.CRAFTING) return;
+        if (e.getWhoClicked().getOpenInventory().getType() == InventoryType.CRAFTING || e.getWhoClicked().getOpenInventory().getType() == InventoryType.ANVIL) return;
 
         if (e.getCurrentItem() == null) return;
 
