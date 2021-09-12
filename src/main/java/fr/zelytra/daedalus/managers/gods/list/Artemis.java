@@ -34,7 +34,7 @@ public class Artemis implements Gods {
     public ArrayList<ItemStack> godItems() {
         ArrayList<ItemStack> items = new ArrayList<>();
         ItemStack item = new ItemStack(Material.BOW);
-        item.addEnchantment(Enchantment.ARROW_DAMAGE, 4);
+        item.addEnchantment(Enchantment.ARROW_DAMAGE, 5);
         ItemMeta meta = item.getItemMeta();
         meta.setUnbreakable(true);
 
@@ -53,8 +53,8 @@ public class Artemis implements Gods {
 
         ItemStack item = new ItemStack(Material.ENCHANTED_BOOK);
         EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
-        meta.addStoredEnchant(Enchantment.ARROW_DAMAGE, 2, false);
-        meta.addStoredEnchant(Enchantment.ARROW_KNOCKBACK, 1, false);
+        meta.addStoredEnchant(Enchantment.ARROW_DAMAGE, 3, false);
+        meta.addStoredEnchant(Enchantment.ARROW_KNOCKBACK, 2, false);
         item.setItemMeta(meta);
         items.add(item);
         items.add(new ItemStack(Material.SPECTRAL_ARROW,64));
@@ -65,6 +65,7 @@ public class Artemis implements Gods {
     public Collection<PotionEffect> godEffects() {
         Collection<PotionEffect> potions = new ArrayList<>();
         potions.add(new PotionEffect(PotionEffectType.SPEED,99999999,0,false,false,true));
+        potions.add(new PotionEffect(PotionEffectType.NIGHT_VISION,99999999,0,false,false,true));
         return potions;
     }
 
@@ -72,6 +73,7 @@ public class Artemis implements Gods {
     public Collection<PotionEffect> teamEffects() {
         Collection<PotionEffect> potions = new ArrayList<>();
         potions.add(new PotionEffect(PotionEffectType.SPEED,99999999,0,false,false,true));
+        potions.add(new PotionEffect(PotionEffectType.NIGHT_VISION,99999999,0,false,false,true));
         return potions;
     }
 }
