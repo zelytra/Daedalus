@@ -58,7 +58,7 @@ public class GodSummon implements CommandExecutor {
             return false;
         }
 
-        GodsEnum god = null;
+        GodsEnum god;
 
         try {
             god = GodsEnum.valueOf(args[0].toUpperCase());
@@ -67,7 +67,7 @@ public class GodSummon implements CommandExecutor {
             return false;
         }
 
-        GodSpawnEvent event = new GodSpawnEvent(god, playerFaction, player);
+        GodSpawnEvent event = new GodSpawnEvent(god, playerFaction, target);
         Bukkit.getPluginManager().callEvent(event);
 
         return true;

@@ -32,7 +32,7 @@ public class AphroditeHandler implements Listener {
     }
 
     @EventHandler
-    public void playerDeath(PartielDeathEvent e) {
+    public void playerPartielDeath(PartielDeathEvent e) {
         aphroditeKill(e.getKiller());
     }
 
@@ -45,28 +45,23 @@ public class AphroditeHandler implements Listener {
         if (killer == null) return;
 
         if (Daedalus.getInstance().getGameManager().isRunning()) {
-            if (killer != null) {
-                try {
-                    Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(killer);
-                    if (playerFaction.getGod() == null)
-                        return;
 
-                    if (playerFaction.getGodsEnum() == GodsEnum.APHRODITE) {
-                        if (playerFaction.getGod() != null && playerFaction.getGod().getName() == killer.getName()) {
-                            if (playerFaction.getGod().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() + 2 <= 25)
-                                playerFaction.getGod().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(playerFaction.getGod().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() + 2);
-                        } else
-                            killer.setHealth(killer.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
-                    }
-                } catch (Exception exception) {
-                    System.out.println("ERROR team not found");
+            try {
+                Faction killerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(killer);
+                if (killerFaction.getGod() == null) return;
+
+                if (killerFaction.getGodsEnum() == GodsEnum.APHRODITE) {
+                    if (killerFaction.getGod().getName().equalsIgnoreCase(killer.getName())) {
+                        if (killerFaction.getGod().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() + 2 <= 50)
+                            killerFaction.getGod().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(killerFaction.getGod().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() + 2);
+                    } else
+                        killer.setHealth(killer.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
                 }
-
-
+            } catch (Exception exception) {
+                System.out.println("ERROR team not found");
             }
         }
     }
-
 
 
     private void vfx(Player player) {

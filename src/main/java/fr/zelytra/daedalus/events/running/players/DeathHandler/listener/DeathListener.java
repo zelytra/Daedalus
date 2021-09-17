@@ -87,7 +87,7 @@ public class DeathListener implements Listener {
 
                 DefinitiveDeathEvent event = new DefinitiveDeathEvent(player, e);
                 Bukkit.getPluginManager().callEvent(event);
-                winListener();
+                //winListener();
 
             } else {
 
