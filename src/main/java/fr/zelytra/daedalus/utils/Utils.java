@@ -85,7 +85,7 @@ public abstract class Utils {
     public static void setTabFX(int amount) {
         for (Player player : Daedalus.getInstance().getServer().getOnlinePlayers()) {
             player.setPlayerListHeader("§6「 §8<< §6Daedalus §8>>§6 」\n§8[ §f" + amount + "§8/§f" + Daedalus.getInstance().getServer().getMaxPlayers() + "§8 ]\n§r");
-            player.setPlayerListFooter("\n§8<< §7Developed by : §6Zelytra §8>>§6\n§8<< §7Designed by : §6Spirit | Ichabodt | Minucia §8>>§6\n\n§8[BETA-06]");
+            player.setPlayerListFooter("\n§8<< §7Developed by : §6Zelytra §8>>§6\n§8<< §7Designed by : §6Spirit | Ichabodt | Minucia §8>>§6\n\n§8[V1.0]");
         }
 
     }
