@@ -38,7 +38,7 @@ public class WallBreaker implements Listener {
         if (maze == null) return;
 
         Player player = e.getPlayer();
-        Block block = player.getTargetBlock(10);
+        Block block = player.getTargetBlockExact(10);
         Vector2 matrixCoordinate = new Vector2((int) (block.getX() - maze.getOrigin().getX() + 1), (int) (block.getZ() - maze.getOrigin().getZ() + 1));
 
         if (maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z] != 1) {

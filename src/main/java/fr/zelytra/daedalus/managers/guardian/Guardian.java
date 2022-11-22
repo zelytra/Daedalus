@@ -1,16 +1,16 @@
 package fr.zelytra.daedalus.managers.guardian;
 
+import com.sk89q.worldedit.world.entity.EntityTypes;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.utils.Utils;
-import net.minecraft.server.v1_16_R3.EntitySkeleton;
-import net.minecraft.server.v1_16_R3.EntitySpider;
-import net.minecraft.server.v1_16_R3.EntityTypes;
+import net.minecraft.world.entity.monster.EntitySpider;
 import org.bukkit.*;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
-import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_19_R1.CraftWorld;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.Listener;
@@ -129,7 +129,7 @@ public class Guardian implements Listener {
 
         Bukkit.getScheduler().runTaskLater(Daedalus.getInstance(), () -> {
             task = Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
-                if (this.spawnLoc.isChunkLoaded()) {
+                if (this.spawnLoc.isWorldLoaded()) {
                     new Guardian(this.spawnLoc);
                     task.cancel();
                     return;
@@ -196,13 +196,19 @@ public class Guardian implements Listener {
         }
         if (isPlayer) {
             for (int x = 1; x <= 4; x++) {
-                EntitySpider spider = new EntitySpider(EntityTypes.SPIDER, ((CraftWorld) Bukkit.getWorlds().get(0)).getHandle());
-                spider.setPosition(entity.getLocation().getBlockX(), entity.getLocation().getBlockY(), entity.getLocation().getBlockZ());
-                LivingEntity e = (LivingEntity) spider.getBukkitEntity();
-                e.setMaxHealth(28);
-                e.setHealth(28);
-                e.setCustomName("Guardian");
-                ((CraftWorld) Bukkit.getWorlds().get(0)).getHandle().addEntity(spider, CreatureSpawnEvent.SpawnReason.CUSTOM);
+                Spider spider = (Spider) entity.getWorld().spawnEntity(entity.getLocation(),EntityType.SPIDER);
+                spider.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(28);
+                spider.setHealth(28);
+                spider.setCustomName("Guardian");
+                /** OLD NMS
+                 EntitySpider spider = new EntitySpider(EntityTypes.SPIDER, ((CraftWorld) Bukkit.getWorlds().get(0)).getHandle());
+                 spider.setPosition(entity.getLocation().getBlockX(), entity.getLocation().getBlockY(), entity.getLocation().getBlockZ());
+                 LivingEntity e = (LivingEntity) spider.getBukkitEntity();
+                 e.setMaxHealth(28);
+                 e.setHealth(28);
+                 e.setCustomName("Guardian");
+                 ((CraftWorld) Bukkit.getWorlds().get(0)).getHandle().addEntity(spider, CreatureSpawnEvent.SpawnReason.CUSTOM);
+                 **/
 
             }
         }
@@ -219,17 +225,28 @@ public class Guardian implements Listener {
         }
         if (isPlayer) {
             for (int x = 1; x <= 4; x++) {
-                EntitySkeleton skeleton = new EntitySkeleton(EntityTypes.SKELETON, ((CraftWorld) Bukkit.getWorlds().get(0)).getHandle());
-                skeleton.setPosition(entity.getLocation().getBlockX(), entity.getLocation().getBlockY(), entity.getLocation().getBlockZ());
-                LivingEntity e = (LivingEntity) skeleton.getBukkitEntity();
-                ItemStack bow = Utils.EnchantedItemStack(Material.BOW, Enchantment.ARROW_KNOCKBACK, 2);
-                bow.addEnchantment(Enchantment.ARROW_DAMAGE, 3);
-                e.getEquipment().setItemInMainHand(bow);
-                e.getEquipment().setHelmetDropChance(0);
-                e.getEquipment().setItemInMainHandDropChance(0);
-                e.getEquipment().setHelmet(Utils.EnchantedItemStack(Material.NETHERITE_HELMET, Enchantment.PROTECTION_ENVIRONMENTAL, 4));
-                e.setCustomName("Guardian");
-                ((CraftWorld) Bukkit.getWorlds().get(0)).getHandle().addEntity(skeleton, CreatureSpawnEvent.SpawnReason.CUSTOM);
+                Skeleton skeleton = (Skeleton) entity.getWorld().spawnEntity(entity.getLocation(),EntityType.SKELETON);
+                ItemStack bow = Utils.EnchantedItemStack(Material.BOW,Enchantment.ARROW_KNOCKBACK,2);
+                bow.addEnchantment(Enchantment.ARROW_DAMAGE,3);
+                skeleton.getEquipment().setItemInMainHand(bow);
+                skeleton.getEquipment().setHelmetDropChance(0);
+                skeleton.getEquipment().setItemInMainHandDropChance(0);
+                skeleton.getEquipment().setHelmet(Utils.EnchantedItemStack(Material.NETHERITE_HELMET, Enchantment.PROTECTION_ENVIRONMENTAL, 4));
+                skeleton.setCustomName("Guardian");
+
+                /** OLD NMS
+                 EntitySkeleton skeleton = new EntitySkeleton(EntityTypes.SKELETON, ((CraftWorld) Bukkit.getWorlds().get(0)).getHandle());
+                 skeleton.setPosition(entity.getLocation().getBlockX(), entity.getLocation().getBlockY(), entity.getLocation().getBlockZ());
+                 LivingEntity e = (LivingEntity) skeleton.getBukkitEntity();
+                 ItemStack bow = Utils.EnchantedItemStack(Material.BOW, Enchantment.ARROW_KNOCKBACK, 2);
+                 bow.addEnchantment(Enchantment.ARROW_DAMAGE, 3);
+                 e.getEquipment().setItemInMainHand(bow);
+                 e.getEquipment().setHelmetDropChance(0);
+                 e.getEquipment().setItemInMainHandDropChance(0);
+                 e.getEquipment().setHelmet(Utils.EnchantedItemStack(Material.NETHERITE_HELMET, Enchantment.PROTECTION_ENVIRONMENTAL, 4));
+                 e.setCustomName("Guardian");
+                 ((CraftWorld) Bukkit.getWorlds().get(0)).getHandle().addEntity(skeleton, CreatureSpawnEvent.SpawnReason.CUSTOM);
+                 **/
             }
         }
     }

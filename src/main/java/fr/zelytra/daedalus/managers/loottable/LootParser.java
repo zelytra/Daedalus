@@ -81,7 +81,7 @@ public class LootParser {
                         potionMeta.addCustomEffect(new PotionEffect(potionEffectType, duration, amplifier), true);
                         item.setItemMeta(potionMeta);
                         ItemMeta meta = item.getItemMeta();
-                        meta.displayName(Component.text().content("Potion of " + potionEffectType.getName().toLowerCase()).build());
+                        meta.setDisplayName("Potion of " + potionEffectType.getName().toLowerCase());
                         item.setItemMeta(meta);
 
                     } else {

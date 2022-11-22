@@ -1,10 +1,10 @@
 package fr.zelytra.daedalus.utils;
 
 import fr.zelytra.daedalus.Daedalus;
-import net.minecraft.server.v1_16_R3.EntityPlayer;
-import net.minecraft.server.v1_16_R3.PacketPlayOutEntityStatus;
+import net.minecraft.network.protocol.game.PacketPlayOutEntityStatus;
+import net.minecraft.server.level.EntityPlayer;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -72,7 +72,8 @@ public abstract class Utils {
     public static void runTotemDisplay(Player player) {
         EntityPlayer ep = ((CraftPlayer) player).getHandle();
         PacketPlayOutEntityStatus status = new PacketPlayOutEntityStatus(ep, (byte) 35);
-        ep.playerConnection.sendPacket(status);
+        ep.b.a(status);
+        //TODO : does this even work, who knows
     }
 
     public static boolean isFullInv(Player player) {

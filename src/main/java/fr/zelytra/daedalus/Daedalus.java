@@ -24,12 +24,12 @@ import fr.zelytra.daedalus.managers.game.GameManager;
 import fr.zelytra.daedalus.managers.items.CraftManager;
 import fr.zelytra.daedalus.managers.setup.StartupManager;
 import fr.zelytra.daedalus.managers.structure.StructureManager;
-import net.minecraft.server.v1_16_R3.DedicatedServer;
-import net.minecraft.server.v1_16_R3.DedicatedServerProperties;
+import net.minecraft.server.dedicated.DedicatedServer;
+import net.minecraft.server.dedicated.DedicatedServerProperties;
 import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.v1_16_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_19_R1.CraftServer;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -78,7 +78,7 @@ public final class Daedalus extends JavaPlugin {
     }
 
     private void editFAWE() {
-        File configLegacy = new File(Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit").getDataFolder().getPath() + File.separator + "config-legacy.yml");
+        File configLegacy = new File(Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit").getDataFolder().getPath() + File.separator + "worldedit-config.yml");
         FileConfiguration yml = YamlConfiguration.loadConfiguration(configLegacy);
         boolean modifications = false;
         if (!yml.getString(("navigation-wand.item")).equals("minecraft:lead")) {
@@ -180,7 +180,7 @@ public final class Daedalus extends JavaPlugin {
 
         try {
             DedicatedServer server = ((CraftServer) Bukkit.getServer()).getServer();
-            DedicatedServerProperties properties = server.getDedicatedServerProperties();
+            DedicatedServerProperties properties = server.a();
 
             Field spawnProtectionField = properties.getClass().getField("spawnProtection");
             spawnProtectionField.setAccessible(true);
