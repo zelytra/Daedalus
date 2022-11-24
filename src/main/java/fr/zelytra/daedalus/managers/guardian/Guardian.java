@@ -129,7 +129,7 @@ public class Guardian implements Listener {
 
         Bukkit.getScheduler().runTaskLater(Daedalus.getInstance(), () -> {
             task = Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
-                if (this.spawnLoc.isWorldLoaded()) {
+                if (this.spawnLoc.isChunkLoaded()) {
                     new Guardian(this.spawnLoc);
                     task.cancel();
                     return;
