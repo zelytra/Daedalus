@@ -2,11 +2,13 @@ package fr.zelytra.daedalus.managers.faction;
 
 import fr.zelytra.daedalus.Daedalus;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
+@Getter
 @AllArgsConstructor
 public enum FactionsEnum {
     RED("Red", "Ared", ChatColor.RED, "§c", "§r", new Location(Bukkit.getWorld(Daedalus.WORLD_NAME), -485, 89, -477), Material.RED_BANNER),
@@ -17,41 +19,14 @@ public enum FactionsEnum {
 
     SPECTATOR("Spectator", "Fspectator", ChatColor.WHITE, "§f", "§r", new Location(Bukkit.getWorld(Daedalus.WORLD_NAME), 0, 120, 0),Material.WHITE_BANNER);
 
-    private String name;
-    private String tag;
-    private ChatColor chatColor;
+    private final String name;
+    private final String tag;
+    private final ChatColor chatColor;
 
-    private String prefix;
-    private String suffix;
+    private final String prefix;
+    private final String suffix;
 
-    private Location spawn;
-    private Material banner;
+    private final Location spawn;
+    private final Material banner;
 
-    public String getName() {
-        return name;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public ChatColor getChatColor() {
-        return chatColor;
-    }
-
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public String getSuffix() {
-        return suffix;
-    }
-
-    public Location getSpawn() {
-        return spawn;
-    }
-
-    public Material getBanner() {
-        return banner;
-    }
 }

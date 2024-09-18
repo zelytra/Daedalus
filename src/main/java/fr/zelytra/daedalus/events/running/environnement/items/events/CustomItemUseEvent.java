@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.events.running.environnement.items.events;
 
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -12,9 +13,13 @@ public class CustomItemUseEvent extends Event implements Cancellable {
 
     private static final HandlerList HANDLERS_LIST = new HandlerList();
     private boolean isCancelled;
+    @Getter
     private CustomMaterial material;
+    @Getter
     private final Player player;
+    @Getter
     private final ItemStack item;
+    @Getter
     private final PlayerInteractEvent event;
 
     public CustomItemUseEvent(Player player, CustomMaterial material, ItemStack item, PlayerInteractEvent event) {
@@ -45,19 +50,4 @@ public class CustomItemUseEvent extends Event implements Cancellable {
         return HANDLERS_LIST;
     }
 
-    public CustomMaterial getMaterial() {
-        return material;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public ItemStack getItem() {
-        return item;
-    }
-
-    public PlayerInteractEvent getEvent() {
-        return event;
-    }
 }

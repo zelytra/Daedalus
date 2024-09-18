@@ -29,7 +29,7 @@ public class DamagerHandler implements Listener {
                 case ENTITY_ATTACK:
                     if (e.getDamager() instanceof Player) {
                         Player player = (Player) e.getDamager();
-                        if (player.getInventory().getItemInMainHand() != null && axes.contains(player.getInventory().getItemInMainHand().getType())) {
+                        if (axes.contains(player.getInventory().getItemInMainHand().getType())) {
                             e.setDamage(e.getDamage() * 0.5);
                         }
                     }

@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class GuardianBossBar {
-    private final int time = 3; //in seconds
+    private final int TIME = 3; //in seconds
     private int taskID;
     private boolean running = false;
 
@@ -48,7 +48,7 @@ public class GuardianBossBar {
 
                 }
             }
-        }, 0, time * 20);
+        }, 0, TIME * 20);
     }
 
     public void stop() {

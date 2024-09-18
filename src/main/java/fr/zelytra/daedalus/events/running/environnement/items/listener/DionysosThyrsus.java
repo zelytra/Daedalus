@@ -58,8 +58,8 @@ public class DionysosThyrsus implements Listener {
 
 
             for (Entity entity : targetList) {
-                ((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 300, 0));
-                ((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 140, 0));
+                ((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 300, 0));
+                ((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 140, 0));
                 ((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 300, 1));
             }
 

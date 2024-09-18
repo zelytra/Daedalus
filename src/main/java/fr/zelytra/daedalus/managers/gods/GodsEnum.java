@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.managers.gods;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.gods.list.*;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
+import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,21 +13,23 @@ import java.util.function.Supplier;
 
 public enum GodsEnum {
 
-    ZEUS("godName.zeus", false, () -> new Zeus(), CustomMaterial.ZEUS_TOTEM),
-    POSEIDON("godName.poseidon", false, () -> new Poseidon(), CustomMaterial.POSEIDON_TOTEM),
-    HADES("godName.hades", false, () -> new Hades(), CustomMaterial.HADES_TOTEM),
-    ARES("godName.ares", false, () -> new Ares(), CustomMaterial.ARES_TOTEM),
-    APHRODITE("godName.aphrodite", false, () -> new Aphrodite(), CustomMaterial.APHRODITE_TOTEM),
-    DEMETER("godName.demeter", false, () -> new Demeter(), CustomMaterial.DEMETER_TOTEM),
-    HERMES("godName.hermes", false, () -> new Hermes(), CustomMaterial.HERMES_TOTEM),
-    ARTEMIS("godName.artemis", false, () -> new Artemis(), CustomMaterial.ARTEMIS_TOTEM),
-    ATHENA("godName.athena", false, () -> new Athena(), CustomMaterial.ATHENA_TOTEM),
-    DIONYSUS("godName.dionysus", false, () -> new Dionysos(), CustomMaterial.DIONYSUS_TOTEM),
-    MINOTAURE("godName.minotaur", false, () -> new Minotaure(), CustomMaterial.MINOTAUR_TOTEM);
+    ZEUS("godName.zeus", false, Zeus::new, CustomMaterial.ZEUS_TOTEM),
+    POSEIDON("godName.poseidon", false, Poseidon::new, CustomMaterial.POSEIDON_TOTEM),
+    HADES("godName.hades", false, Hades::new, CustomMaterial.HADES_TOTEM),
+    ARES("godName.ares", false, Ares::new, CustomMaterial.ARES_TOTEM),
+    APHRODITE("godName.aphrodite", false, Aphrodite::new, CustomMaterial.APHRODITE_TOTEM),
+    DEMETER("godName.demeter", false, Demeter::new, CustomMaterial.DEMETER_TOTEM),
+    HERMES("godName.hermes", false, Hermes::new, CustomMaterial.HERMES_TOTEM),
+    ARTEMIS("godName.artemis", false, Artemis::new, CustomMaterial.ARTEMIS_TOTEM),
+    ATHENA("godName.athena", false, Athena::new, CustomMaterial.ATHENA_TOTEM),
+    DIONYSUS("godName.dionysus", false, Dionysos::new, CustomMaterial.DIONYSUS_TOTEM),
+    MINOTAURE("godName.minotaur", false, Minotaure::new, CustomMaterial.MINOTAUR_TOTEM);
 
     private final String name;
+    @Getter
     private boolean selected;
     private final Supplier<Gods> factory;
+    @Getter
     private final CustomMaterial totem;
 
 
@@ -39,14 +42,6 @@ public enum GodsEnum {
 
     public String getName() {
         return GameSettings.LANG.textOf(name);
-    }
-
-    public CustomMaterial getTotem() {
-        return totem;
-    }
-
-    public boolean isSelected() {
-        return selected;
     }
 
     public void setSelected(boolean selected) {

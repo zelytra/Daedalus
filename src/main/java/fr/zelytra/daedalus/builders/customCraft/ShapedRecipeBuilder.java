@@ -79,13 +79,13 @@ public class ShapedRecipeBuilder {
                 }
                 recipe.shape(pattern.getShapeArray());
 
-                for (Map.Entry<Character, ItemStack> map : this.shapedRecipe.getIngredientMap().entrySet()) {
+                for (Map.Entry<Character, RecipeChoice> map : this.shapedRecipe.getChoiceMap().entrySet()) {
                     if (map.getValue() != null) {
-                        if (CustomItemStack.hasTag(map.getValue())) {
-                            RecipeChoice.ExactChoice item = new RecipeChoice.ExactChoice(new CustomItemStack(CustomItemStack.getCustomMaterial(map.getValue()), lang).getItem());
+                        if (CustomItemStack.hasTag(map.getValue().getItemStack())) {
+                            RecipeChoice.ExactChoice item = new RecipeChoice.ExactChoice(new CustomItemStack(CustomItemStack.getCustomMaterial(map.getValue().getItemStack()), lang).getItem());
                             recipe.setIngredient(map.getKey(), item);
                         } else {
-                            recipe.setIngredient(map.getKey(), map.getValue().getType());
+                            recipe.setIngredient(map.getKey(), map.getValue().getItemStack().getType());
                         }
                     }
                 }

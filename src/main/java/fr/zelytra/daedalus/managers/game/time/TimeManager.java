@@ -9,6 +9,8 @@ import fr.zelytra.daedalus.managers.structure.StructureEnum;
 import fr.zelytra.daedalus.managers.structure.doors.Doors;
 import fr.zelytra.daedalus.managers.structure.doors.DoorsDirection;
 import fr.zelytra.daedalus.utils.Message;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -21,9 +23,12 @@ import java.util.Map;
 
 public class TimeManager {
     private int time = 0;
+    @Getter
     private String timer = "00:00";
     public static int episode = 1;
     private int runnable;
+    @Getter
+    @Setter
     private boolean pause = false;
 
     public TimeManager() {
@@ -50,14 +55,6 @@ public class TimeManager {
 
     public void stop() {
         Bukkit.getScheduler().cancelTask(runnable);
-    }
-
-    public void setPause(boolean pause) {
-        this.pause = pause;
-    }
-
-    public boolean isPause() {
-        return pause;
     }
 
     private void next() {
@@ -129,10 +126,6 @@ public class TimeManager {
 
     private void updateTimer() {
         timer = (new SimpleDateFormat("mm:ss")).format(time * 1000);
-    }
-
-    public String getTimer() {
-        return timer;
     }
 }
  

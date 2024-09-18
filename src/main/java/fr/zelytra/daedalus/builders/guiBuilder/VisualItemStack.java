@@ -19,7 +19,7 @@ public class VisualItemStack {
         meta.setDisplayName(name);
         meta.setLore(Arrays.asList(subMessage));
         if (isEnchanted) {
-            item.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
+            item.addEnchantment(Enchantment.POWER, 1);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
         item.setItemMeta(meta);
@@ -31,7 +31,7 @@ public class VisualItemStack {
         meta.setDisplayName(name);
         meta.setLore(Arrays.asList(subMessage));
         if (isEnchanted) {
-            item.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
+            item.addEnchantment(Enchantment.POWER, 1);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
         item.setItemMeta(meta);
@@ -42,7 +42,7 @@ public class VisualItemStack {
         ItemMeta meta = this.item.getItemMeta();
         meta.setDisplayName(name);
         if (isEnchanted) {
-            item.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
+            item.addEnchantment(Enchantment.POWER, 1);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
         item.setItemMeta(meta);
@@ -53,7 +53,7 @@ public class VisualItemStack {
         ItemMeta meta = this.item.getItemMeta();
         meta.setDisplayName(name);
         if (isEnchanted) {
-            item.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
+            item.addEnchantment(Enchantment.POWER, 1);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
         item.setItemMeta(meta);

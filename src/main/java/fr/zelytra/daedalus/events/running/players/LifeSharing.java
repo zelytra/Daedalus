@@ -28,7 +28,7 @@ public class LifeSharing implements Listener {
 
         if (TimeManager.episode >= episode && faction.getGod() == null && faction.getGodsEnum() == null) {
             for (Player p : faction.getPlayerList())
-                if (p.getName() != player.getName()) {
+                if (!p.getName().equals(player.getName())) {
 
                     if (p.getHealth() <= 2.0)
                         continue;

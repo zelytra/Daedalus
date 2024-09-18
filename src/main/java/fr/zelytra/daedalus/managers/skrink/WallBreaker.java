@@ -1,5 +1,6 @@
 package fr.zelytra.daedalus.managers.skrink;
 
+import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -11,6 +12,7 @@ public class WallBreaker implements Workload {
     private final int x;
     private final int y;
     private final int z;
+    @Getter
     private boolean marker = false;
 
     public WallBreaker(World world, int x, int y, int z) {
@@ -32,7 +34,4 @@ public class WallBreaker implements Workload {
 
     }
 
-    public boolean isMarker() {
-        return marker;
-    }
 }

@@ -2,18 +2,22 @@ package fr.zelytra.daedalus.events.running.players.DeathHandler.events;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.faction.Faction;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.jetbrains.annotations.NotNull;
 
 public class PartielDeathEvent extends Event implements Cancellable {
 
     private static final HandlerList HANDLERS_LIST = new HandlerList();
     private boolean isCancelled;
+    @Getter
     private Player player;
+    @Getter
     private EntityDamageEvent event;
 
     public PartielDeathEvent(Player player, EntityDamageEvent e) {
@@ -33,7 +37,7 @@ public class PartielDeathEvent extends Event implements Cancellable {
     }
 
     @Override
-    public HandlerList getHandlers() {
+    public @NotNull HandlerList getHandlers() {
         return HANDLERS_LIST;
     }
 
@@ -41,16 +45,8 @@ public class PartielDeathEvent extends Event implements Cancellable {
         return HANDLERS_LIST;
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
     public Faction getFaction() {
         return Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(this.player);
-    }
-
-    public EntityDamageEvent getEvent() {
-        return event;
     }
 
     public Player getKiller() {

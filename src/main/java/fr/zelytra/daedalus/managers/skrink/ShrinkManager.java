@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.managers.skrink;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.faction.FactionsEnum;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
+import lombok.Getter;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -13,9 +14,10 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitTask;
 
 public class ShrinkManager {
-    private static Daedalus daedalus = Daedalus.getInstance();
-    private WorkloadThread workloadThread;
-    private int offsetArea = 10;
+    private static final Daedalus daedalus = Daedalus.getInstance();
+    @Getter
+    private final WorkloadThread workloadThread;
+    private final int offsetArea = 10;
     private BukkitTask task;
 
     public ShrinkManager() {
@@ -32,9 +34,7 @@ public class ShrinkManager {
             return;
         }
 
-        Bukkit.getScheduler().runTask(daedalus, () -> {
-            workloadThread.run();
-        });
+        Bukkit.getScheduler().runTask(daedalus, workloadThread::run);
 
         startBorderListener();
 
@@ -82,7 +82,7 @@ public class ShrinkManager {
 
                 if (isInDangerArea(new Location(player.getWorld(), x, loc.getY(), z))) {
                     for (int count = 0; count < 3; count++)
-                        loc.getWorld().spawnParticle(Particle.SPELL_MOB, new Location(loc.getWorld(), x + 0.5, loc.getY(), z + 0.5), 0, 0, 0, 0, 1);
+                        loc.getWorld().spawnParticle(Particle.LAVA, new Location(loc.getWorld(), x + 0.5, loc.getY(), z + 0.5), 0, 0, 0, 0, 1);
                 }
 
             }
@@ -97,10 +97,6 @@ public class ShrinkManager {
     private void stopBorderTask() {
         if (task != null && !task.isCancelled())
             task.cancel();
-    }
-
-    public WorkloadThread getWorkloadThread() {
-        return workloadThread;
     }
 
     private boolean isInWarningArea(Location location) {

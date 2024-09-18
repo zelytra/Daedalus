@@ -2,6 +2,7 @@ package fr.zelytra.daedalus.managers.skrink;
 
 import com.google.common.collect.Queues;
 import fr.zelytra.daedalus.Daedalus;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -9,6 +10,7 @@ import java.util.ArrayDeque;
 
 public class WorkloadThread implements Runnable {
     private static final int MAX_MS_PER_TICK = 35;
+    @Getter
     private int radius = 595;
 
     private final ArrayDeque<Workload> workloadDeque;
@@ -49,7 +51,4 @@ public class WorkloadThread implements Runnable {
         Bukkit.getScheduler().cancelTask(this.task.getTaskId());
     }
 
-    public int getRadius() {
-        return radius;
-    }
 }

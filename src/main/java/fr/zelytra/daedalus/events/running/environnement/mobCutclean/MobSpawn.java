@@ -15,14 +15,14 @@ public class MobSpawn implements Listener {
     private final List<EntityType> whitelist = new ArrayList<>();
 
     {
-        whitelist.add(EntityType.DROPPED_ITEM);
+        whitelist.add(EntityType.ITEM);
         whitelist.add(EntityType.ARROW);
         whitelist.add(EntityType.SPECTRAL_ARROW);
-        whitelist.add(EntityType.SPLASH_POTION);
+        whitelist.add(EntityType.POTION);
         whitelist.add(EntityType.ITEM_FRAME);
         whitelist.add(EntityType.EXPERIENCE_ORB);
         whitelist.add(EntityType.FALLING_BLOCK);
-        whitelist.add(EntityType.FIREWORK);
+        whitelist.add(EntityType.FIREWORK_ROCKET);
         whitelist.add(EntityType.TRIDENT);
 
         whitelist.add(EntityType.VINDICATOR);

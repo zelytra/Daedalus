@@ -83,7 +83,7 @@ public class JumpCheckPoint implements Listener {
                         player.getLocation().getY() + randomy,
                         player.getLocation().getZ() + randomz);
 
-                Firework fw = (Firework) player.getWorld().spawnEntity(Location1, EntityType.FIREWORK);
+                Firework fw = (Firework) player.getWorld().spawnEntity(Location1, EntityType.FIREWORK_ROCKET);
                 FireworkMeta fwm = fw.getFireworkMeta();
 
                 fwm.setPower(20);

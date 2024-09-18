@@ -5,6 +5,7 @@ import fr.zelytra.daedalus.builders.guiBuilder.VisualItemStack;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
 import fr.zelytra.daedalus.utils.Message;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -16,9 +17,11 @@ import java.util.List;
 
 public class Faction {
 
-    private HashMap<String, PlayerStatus> factionMembers;
-    private FactionsEnum factionsEnum;
+    private final HashMap<String, PlayerStatus> factionMembers;
+    private final FactionsEnum factionsEnum;
+    @Getter
     private FactionScoreBoard factionScoreBoard;
+    @Getter
     private GodsEnum godsEnum;
     private String god;
 
@@ -65,14 +68,6 @@ public class Faction {
         return null;
     }
 
-    public FactionScoreBoard getFactionScoreBoard() {
-        return factionScoreBoard;
-    }
-
-    public GodsEnum getGodsEnum() {
-        return godsEnum;
-    }
-
     public boolean has(Player player) {
         return factionMembers.containsKey(player.getName());
     }
@@ -89,12 +84,12 @@ public class Faction {
     }
 
     public ArrayList<Player> getPlayerList() {
-        List<Player> playerList = new ArrayList<>();
+        ArrayList<Player> playerList = new ArrayList<>();
         for (String name : factionMembers.keySet()) {
             if (Bukkit.getPlayer(name) != null)
                 playerList.add(Bukkit.getPlayer(name));
         }
-        return (ArrayList<Player>) playerList;
+        return playerList;
     }
 
     public int getPlayerAmount() {

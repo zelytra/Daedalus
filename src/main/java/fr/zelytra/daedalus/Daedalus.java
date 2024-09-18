@@ -24,28 +24,27 @@ import fr.zelytra.daedalus.managers.game.GameManager;
 import fr.zelytra.daedalus.managers.items.CraftManager;
 import fr.zelytra.daedalus.managers.setup.StartupManager;
 import fr.zelytra.daedalus.managers.structure.StructureManager;
-import net.minecraft.server.v1_16_R3.DedicatedServer;
-import net.minecraft.server.v1_16_R3.DedicatedServerProperties;
+import lombok.Getter;
 import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.v1_16_R3.CraftServer;
+import org.bukkit.entity.SpawnCategory;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 
 public final class Daedalus extends JavaPlugin {
 
+    @Getter
     public static Daedalus instance;
+
+    @Getter
     private GameManager gameManager;
+
+    @Getter
     private StructureManager structureManager;
-    private CraftManager craftManager;
     public static String WORLD_NAME = "daedalus";
-    public static Daedalus getInstance() {
-        return instance;
-    }
 
     @Override
     public void onLoad() {
@@ -63,12 +62,12 @@ public final class Daedalus extends JavaPlugin {
         EventsManager.registerEvents(this);
         regCommands();
         setupServer();
-        editFAWE();
+        //editFAWE();
 
         /* Init managers */
         gameManager = new GameManager();
         structureManager = new StructureManager();
-        craftManager = new CraftManager();
+        new CraftManager();
         getServer().getConsoleSender().sendMessage("§a   ___    ___     ____  ___    ___     __     __  __  ____§r");
         getServer().getConsoleSender().sendMessage("§a  / _ \\  / _ |   / __/ / _ \\  / _ |   / /    / / / / / __/§r");
         getServer().getConsoleSender().sendMessage("§a / // / / __ |  / _/  / // / / __ |  / /__  / /_/ / _\\ \\  §r");
@@ -85,12 +84,12 @@ public final class Daedalus extends JavaPlugin {
             yml.set("navigation-wand.item", "minecraft:lead");
             modifications = true;
 
-        }else if(!yml.getString(("wand-item")).equals("minecraft:soul_torch")){
+        } else if (!yml.getString(("wand-item")).equals("minecraft:soul_torch")) {
             yml.set("wand-item", "minecraft:soul_torch");
             modifications = true;
         }
 
-        if (modifications){
+        if (modifications) {
             try {
                 yml.save(configLegacy);
             } catch (IOException e) {
@@ -115,14 +114,6 @@ public final class Daedalus extends JavaPlugin {
         Bukkit.unloadWorld(WORLD_NAME, false);
     }
 
-
-    public GameManager getGameManager() {
-        return gameManager;
-    }
-
-    public StructureManager getStructureManager() {
-        return structureManager;
-    }
 
     private void regCommands() {
 
@@ -158,41 +149,36 @@ public final class Daedalus extends JavaPlugin {
     }
 
     private void setupServer() {
+        World world = Bukkit.getWorld(Daedalus.WORLD_NAME);
+        assert world != null;
 
-        Bukkit.getWorld(Daedalus.WORLD_NAME).setTime(23250);
-        Bukkit.getWorld(Daedalus.WORLD_NAME).setDifficulty(Difficulty.NORMAL);
-        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
-        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
-        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DISABLE_RAIDS, true);
-        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_FIRE_TICK, false);
-        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_ENTITY_DROPS, false);
-        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_INSOMNIA, false);
-        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_PATROL_SPAWNING, false);
-        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_WEATHER_CYCLE, false);
-        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_TRADER_SPAWNING, false);
-        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.MOB_GRIEFING, false);
-        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.MAX_ENTITY_CRAMMING, 50);
+        world.setTime(23250);
+        world.setDifficulty(Difficulty.NORMAL);
+        world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+        world.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
+        world.setGameRule(GameRule.DISABLE_RAIDS, true);
+        world.setGameRule(GameRule.DO_FIRE_TICK, false);
+        world.setGameRule(GameRule.DO_ENTITY_DROPS, false);
+        world.setGameRule(GameRule.DO_INSOMNIA, false);
+        world.setGameRule(GameRule.DO_PATROL_SPAWNING, false);
+        world.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
+        world.setGameRule(GameRule.DO_TRADER_SPAWNING, false);
+        world.setGameRule(GameRule.MOB_GRIEFING, false);
+        world.setGameRule(GameRule.MAX_ENTITY_CRAMMING, 50);
 
-        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_TILE_DROPS, true);
-        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_ENTITY_DROPS, true);
-        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.DO_MOB_LOOT, true);
-        Bukkit.getWorld(Daedalus.WORLD_NAME).setGameRule(GameRule.KEEP_INVENTORY, false);
+        world.setGameRule(GameRule.DO_TILE_DROPS, true);
+        world.setGameRule(GameRule.DO_ENTITY_DROPS, true);
+        world.setGameRule(GameRule.DO_MOB_LOOT, true);
+        world.setGameRule(GameRule.KEEP_INVENTORY, false);
 
-        try {
-            DedicatedServer server = ((CraftServer) Bukkit.getServer()).getServer();
-            DedicatedServerProperties properties = server.getDedicatedServerProperties();
+        world.setGameRule(GameRule.SPAWN_RADIUS, 0);
+        world.setGameRule(GameRule.SPAWN_CHUNK_RADIUS, 0);
 
-            Field spawnProtectionField = properties.getClass().getField("spawnProtection");
-            spawnProtectionField.setAccessible(true);
-            spawnProtectionField.set(properties, 0);
-        } catch (NoSuchFieldException | IllegalAccessException ignored) {
-        }
-
-        for (World world : Bukkit.getWorlds()) {
-            world.setMonsterSpawnLimit(60);
-            world.setAnimalSpawnLimit(10);
-            world.setAmbientSpawnLimit(15);
-            world.setWaterAnimalSpawnLimit(5);
+        for (World w : Bukkit.getWorlds()) {
+            w.setSpawnLimit(SpawnCategory.MONSTER, 60);
+            w.setSpawnLimit(SpawnCategory.ANIMAL, 10);
+            w.setSpawnLimit(SpawnCategory.AMBIENT, 15);
+            w.setSpawnLimit(SpawnCategory.WATER_ANIMAL, 5);
         }
 
     }

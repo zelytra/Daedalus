@@ -17,11 +17,10 @@ import org.jetbrains.annotations.NotNull;
 public class MazeCommands implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String msg, String[] args) {
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             System.out.println(Message.getConsolePrefixe() + "You cannot execute this command.");
             return false;
         }
-        Player player = (Player) sender;
 
         if (!player.isOp()){
             player.sendMessage(Message.getPlayerPrefixe()+ GameSettings.LANG.textOf("command.permissionDenied"));

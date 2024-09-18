@@ -15,6 +15,7 @@ import com.sk89q.worldedit.session.ClipboardHolder;
 import com.sk89q.worldedit.world.World;
 import com.sk89q.worldedit.world.block.BlockType;
 import fr.zelytra.daedalus.Daedalus;
+import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -23,10 +24,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class WorldEditHandler {
+    @Getter
     private String structureName;
     private Player player;
     private Location location;
     private Clipboard clipboard;
+    @Getter
     private EditSession editSession;
 
     public WorldEditHandler(String structureName, Player player) {
@@ -39,9 +42,15 @@ public class WorldEditHandler {
         this.clipboard = clipboard;
     }
 
-    public WorldEditHandler(org.bukkit.World w) {
-        World world = BukkitAdapter.adapt(w);
-        this.editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(world, -1);
+    public WorldEditHandler(org.bukkit.World bukkitWorld) {
+        World world = BukkitAdapter.adapt(bukkitWorld);
+
+        // Create an edit session using the EditSessionBuilder
+        this.editSession = WorldEdit.getInstance()
+                .newEditSessionBuilder()
+                .world(world)
+                .maxBlocks(-1) // -1 for unlimited block changes
+                .build();
     }
 
     public boolean saveStructure() {
@@ -119,14 +128,6 @@ public class WorldEditHandler {
         }
 
 
-    }
-
-    public EditSession getEditSession(){
-        return this.editSession;
-    }
-
-    public String getStructureName() {
-        return this.structureName;
     }
 
     public Region getSelection() {

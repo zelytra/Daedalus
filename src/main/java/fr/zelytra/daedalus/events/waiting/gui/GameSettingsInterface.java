@@ -98,20 +98,26 @@ public class GameSettingsInterface implements Listener, Interface {
         return content;
     }
 
-    private void setHeadTexture(ItemStack head, String url) {
+    public static void setHeadTexture(ItemStack head, String url) {
+        if (head == null || url == null || url.isEmpty()) return;
+
+        // Create a new GameProfile with a random UUID (you can use any UUID)
         SkullMeta skullMeta = (SkullMeta) head.getItemMeta();
         GameProfile profile = new GameProfile(UUID.randomUUID(), null);
 
+        // Add the texture property to the profile
         profile.getProperties().put("textures", new Property("textures", url));
 
         try {
-            Method mtd = skullMeta.getClass().getDeclaredMethod("setProfile", GameProfile.class);
-            mtd.setAccessible(true);
-            mtd.invoke(skullMeta, profile);
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
-            ex.printStackTrace();
+            // Use reflection to set the GameProfile on the SkullMeta
+            Method setProfileMethod = skullMeta.getClass().getDeclaredMethod("setProfile", GameProfile.class);
+            setProfileMethod.setAccessible(true);
+            setProfileMethod.invoke(skullMeta, profile);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
         }
 
+        // Apply the modified SkullMeta back to the ItemStack
         head.setItemMeta(skullMeta);
     }
 

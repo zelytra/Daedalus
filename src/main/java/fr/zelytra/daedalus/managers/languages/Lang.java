@@ -1,5 +1,7 @@
 package fr.zelytra.daedalus.managers.languages;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 
 public enum Lang {
@@ -10,7 +12,9 @@ public enum Lang {
     DE("de.conf", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ=="),
     IT("it.conf", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODVjZTg5MjIzZmE0MmZlMDZhZDY1ZDhkNDRjYTQxMmFlODk5YzgzMTMwOWQ2ODkyNGRmZTBkMTQyZmRiZWVhNCJ9fX0=");
 
+    @Getter
     private final String fileName;
+    @Getter
     private final String texture;
     private final HashMap<String, String> text;
 
@@ -20,18 +24,7 @@ public enum Lang {
         this.text = new LangFile(this).getText();
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public String getTexture() {
-        return texture;
-    }
-
     public String textOf(String tag) {
-        if (text.containsKey(tag)) {
-            return text.get(tag);
-        } else
-            return "§c404 text not found";
+        return text.getOrDefault(tag, "§c404 text not found");
     }
 }

@@ -2,17 +2,22 @@ package fr.zelytra.daedalus.events.running.environnement.gods.events;
 
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.jetbrains.annotations.NotNull;
 
 public class GodSpawnEvent extends Event implements Cancellable {
 
     private static final HandlerList HANDLERS_LIST = new HandlerList();
     private boolean isCancelled;
+    @Getter
     private final GodsEnum god;
+    @Getter
     private final Faction faction;
+    @Getter
     private final Player player;
 
     public GodSpawnEvent(GodsEnum god, Faction faction, Player player) {
@@ -33,7 +38,7 @@ public class GodSpawnEvent extends Event implements Cancellable {
     }
 
     @Override
-    public HandlerList getHandlers() {
+    public @NotNull HandlerList getHandlers() {
         return HANDLERS_LIST;
     }
 
@@ -41,15 +46,4 @@ public class GodSpawnEvent extends Event implements Cancellable {
         return HANDLERS_LIST;
     }
 
-    public GodsEnum getGod() {
-        return god;
-    }
-
-    public Faction getFaction() {
-        return faction;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
 }

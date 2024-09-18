@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class FactionRandomizer {
 
-    private ArrayList<Player> players;
+    private final ArrayList<Player> players;
     private final FactionManager factionManager;
 
     public FactionRandomizer(List<Player> players) {
@@ -42,11 +42,11 @@ public class FactionRandomizer {
                 for (Player player : players)
                     Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(FactionsEnum.SPECTATOR).add(player);
 
-                while (players.size() > 0)
+                while (!players.isEmpty())
                     for (Faction faction : factionManager.getFactionList()) {
 
                         if (faction.getType() == FactionsEnum.SPECTATOR) continue;
-                        if (players.size() == 0) break;
+                        if (players.isEmpty()) break;
 
                         Player drawPlayer = players.get(new Random().nextInt(players.size()));
                         faction.add(drawPlayer);

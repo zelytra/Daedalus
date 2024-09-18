@@ -2,6 +2,7 @@ package fr.zelytra.daedalus.managers.items;
 
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.languages.Lang;
+import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlot;
 
@@ -42,14 +43,20 @@ public enum CustomMaterial {
 
 
     private final String displayName;
+    @Getter
     private final String name;
+    @Getter
     private final int customModelData;
+    @Getter
     private final Material vanillaMaterial;
+    @Getter
     private final ItemType itemType;
 
+    @Getter
     private EquipmentSlot slot;
+    @Getter
     private int armor;
-    private int damage;
+    @Getter
     private int extraHeart;
 
     CustomMaterial(String displayName, String name, int CMD, Material material, ItemType itemType) {
@@ -79,44 +86,12 @@ public enum CustomMaterial {
         this.slot = slot;
     }
 
-    public int getCustomModelData() {
-        return customModelData;
-    }
-
-    public Material getVanillaMaterial() {
-        return vanillaMaterial;
-    }
-
     public String getDisplayName() {
         return GameSettings.LANG.textOf(displayName);
     }
 
     public String getDisplayName(Lang lang) {
         return lang.textOf(displayName);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getDamage() {
-        return damage;
-    }
-
-    public int getArmor() {
-        return armor;
-    }
-
-    public int getExtraHeart() {
-        return extraHeart;
-    }
-
-    public EquipmentSlot getSlot() {
-        return slot;
-    }
-
-    public ItemType getItemType() {
-        return itemType;
     }
 
 

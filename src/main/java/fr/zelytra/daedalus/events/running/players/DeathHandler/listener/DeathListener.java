@@ -18,17 +18,16 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
 public class DeathListener implements Listener {
-    private Daedalus daedalus = Daedalus.getInstance();
+    private final Daedalus daedalus = Daedalus.getInstance();
     public static boolean hasMinoSpawn = false;
     private boolean isMinoDead = false;
 
     @EventHandler
     public void onCustomDeath(EntityDamageEvent e) {
 
-        if (!(e.getEntity() instanceof Player))
+        if (!(e.getEntity() instanceof Player player))
             return;
 
-        Player player = (Player) e.getEntity();
         boolean isDead = player.getHealth() - e.getFinalDamage() <= 0;
 
         if (daedalus.getGameManager().isRunning() && isDead) {

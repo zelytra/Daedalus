@@ -33,7 +33,7 @@ public class Athena implements Gods {
         ArrayList<ItemStack> items = new ArrayList<>();
 
         ItemStack item = new ItemStack(Material.NETHERITE_SWORD);
-        item.addEnchantment(Enchantment.DAMAGE_ALL, 4);
+        item.addEnchantment(Enchantment.SHARPNESS, 4);
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer itemData = meta.getPersistentDataContainer();
         itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");

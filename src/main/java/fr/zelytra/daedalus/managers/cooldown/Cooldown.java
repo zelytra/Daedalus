@@ -2,6 +2,7 @@ package fr.zelytra.daedalus.managers.cooldown;
 
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.utils.Message;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -10,9 +11,11 @@ import java.util.Map;
 public class Cooldown {
     private static HashMap<Cooldown, Player> cooldownsList = new HashMap<>();
 
+    @Getter
     private final Player player;
-    private long checkTime;
+    private final long checkTime;
 
+    @Getter
     private String tag;
 
     public Cooldown(Player p, long timeSeconds, String tag) {
@@ -20,14 +23,6 @@ public class Cooldown {
         this.checkTime = System.currentTimeMillis() + timeSeconds * 1000;
         this.tag = tag;
         cooldownsList.put(this, p);
-    }
-
-    public Player getPlayer() {
-        return this.player;
-    }
-
-    public String getTag() {
-        return tag;
     }
 
     public boolean isFinished() {

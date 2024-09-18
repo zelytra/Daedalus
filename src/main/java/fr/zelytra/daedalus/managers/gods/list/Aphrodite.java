@@ -35,8 +35,8 @@ public class Aphrodite implements Gods {
         ArrayList<ItemStack> items = new ArrayList<>();
         items.add(new CustomItemStack(CustomMaterial.APHRODITE_HEART).getItem());
         ItemStack item = new ItemStack(Material.DIAMOND_LEGGINGS);
-        item.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
-        item.addEnchantment(Enchantment.DURABILITY, 2);
+        item.addEnchantment(Enchantment.PROTECTION, 2);
+        item.addEnchantment(Enchantment.UNBREAKING, 2);
         items.add(item);
         return items;
     }
@@ -46,8 +46,8 @@ public class Aphrodite implements Gods {
 
         ArrayList<ItemStack> items = new ArrayList<>();
         ItemStack item = new ItemStack(Material.DIAMOND_LEGGINGS);
-        item.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
-        item.addEnchantment(Enchantment.DURABILITY, 2);
+        item.addEnchantment(Enchantment.PROTECTION, 2);
+        item.addEnchantment(Enchantment.UNBREAKING, 2);
 
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer itemData = meta.getPersistentDataContainer();

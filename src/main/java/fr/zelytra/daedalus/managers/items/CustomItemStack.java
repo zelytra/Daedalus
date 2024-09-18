@@ -3,6 +3,7 @@ package fr.zelytra.daedalus.managers.items;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.languages.Lang;
+import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -18,12 +19,14 @@ import java.util.Objects;
 
 
 public class CustomItemStack {
+    @Getter
     private final static NamespacedKey itemKey = new NamespacedKey(Daedalus.getInstance(), "daedalus");
     private final static NamespacedKey descriptionKey = new NamespacedKey(Daedalus.getInstance(), "description");
 
     private final static NamespacedKey dionysusValue = new NamespacedKey(Daedalus.getInstance(), "value");
     private final static NamespacedKey dionysusMaxValue = new NamespacedKey(Daedalus.getInstance(), "maxValue");
 
+    @Getter
     private final ItemStack item;
     private final CustomMaterial customMaterial;
 
@@ -34,41 +37,37 @@ public class CustomItemStack {
     public CustomItemStack(CustomMaterial material, int amount) {
 
         this.customMaterial = material;
-        switch (material.getItemType()) {
-            case ARMOR:
-                this.item = new ItemStack(this.customMaterial.getVanillaMaterial(), amount);
-                ItemMeta meta = this.item.getItemMeta();
-                assert meta != null;
-                meta.setCustomModelData(this.customMaterial.getCustomModelData());
-                meta.setDisplayName(this.customMaterial.getDisplayName());
+        if (Objects.requireNonNull(material.getItemType()) == ItemType.ARMOR) {
+            this.item = new ItemStack(this.customMaterial.getVanillaMaterial(), amount);
+            ItemMeta meta = this.item.getItemMeta();
+            assert meta != null;
+            meta.setCustomModelData(this.customMaterial.getCustomModelData());
+            meta.setDisplayName(this.customMaterial.getDisplayName());
 
-                meta.addAttributeModifier(Attribute.GENERIC_ARMOR, AttributeGenerator.armor(material.getArmor(), material.getSlot()));
-                meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH, AttributeGenerator.extraHeart(material.getExtraHeart(), material.getSlot()));
+            meta.addAttributeModifier(Attribute.GENERIC_ARMOR, AttributeGenerator.armor(material.getArmor(), material.getSlot().getGroup()));
+            meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH, AttributeGenerator.extraHeart(material.getExtraHeart(), material.getSlot().getGroup()));
 
-                PersistentDataContainer itemData = meta.getPersistentDataContainer();
-                itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
-                //itemData.set(descriptionKey, PersistentDataType.STRING, );
-                //meta.setLore(lore);
-                this.item.setItemMeta(meta);
-                break;
+            PersistentDataContainer itemData = meta.getPersistentDataContainer();
+            itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
+            //itemData.set(descriptionKey, PersistentDataType.STRING, );
+            //meta.setLore(lore);
+            this.item.setItemMeta(meta);
+        } else {
+            ItemMeta meta;
+            PersistentDataContainer itemData;
+            this.item = new ItemStack(this.customMaterial.getVanillaMaterial(), amount);
+            meta = this.item.getItemMeta();
+            assert meta != null;
+            meta.setCustomModelData(this.customMaterial.getCustomModelData());
+            meta.setDisplayName(this.customMaterial.getDisplayName());
+            itemData = meta.getPersistentDataContainer();
+            itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
+            //itemData.set(descriptionKey, PersistentDataType.STRING, );
+            //meta.setLore(lore);
+            this.item.setItemMeta(meta);
 
-            default:
-                this.item = new ItemStack(this.customMaterial.getVanillaMaterial(), amount);
-                meta = this.item.getItemMeta();
-                assert meta != null;
-                meta.setCustomModelData(this.customMaterial.getCustomModelData());
-                meta.setDisplayName(this.customMaterial.getDisplayName());
-                itemData = meta.getPersistentDataContainer();
-                itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
-                //itemData.set(descriptionKey, PersistentDataType.STRING, );
-                //meta.setLore(lore);
-                this.item.setItemMeta(meta);
-
-                if (material == CustomMaterial.DIONYSUS_CUP)
-                    dionysosMugInit();
-
-                break;
-
+            if (material == CustomMaterial.DIONYSUS_CUP)
+                dionysosMugInit();
         }
 
     }
@@ -88,8 +87,8 @@ public class CustomItemStack {
                 meta.setCustomModelData(this.customMaterial.getCustomModelData());
                 meta.setDisplayName(this.customMaterial.getDisplayName());
 
-                meta.addAttributeModifier(Attribute.GENERIC_ARMOR, AttributeGenerator.armor(material.getArmor(), material.getSlot()));
-                meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH, AttributeGenerator.extraHeart(material.getExtraHeart(), material.getSlot()));
+                meta.addAttributeModifier(Attribute.GENERIC_ARMOR, AttributeGenerator.armor(material.getArmor(), material.getSlot().getGroup()));
+                meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH, AttributeGenerator.extraHeart(material.getExtraHeart(), material.getSlot().getGroup()));
 
                 PersistentDataContainer itemData = meta.getPersistentDataContainer();
                 itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
@@ -130,8 +129,8 @@ public class CustomItemStack {
                 meta.setCustomModelData(this.customMaterial.getCustomModelData());
                 meta.setDisplayName(this.customMaterial.getDisplayName(lang));
 
-                meta.addAttributeModifier(Attribute.GENERIC_ARMOR, AttributeGenerator.armor(material.getArmor(), material.getSlot()));
-                meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH, AttributeGenerator.extraHeart(material.getExtraHeart(), material.getSlot()));
+                meta.addAttributeModifier(Attribute.GENERIC_ARMOR, AttributeGenerator.armor(material.getArmor(), material.getSlot().getGroup()));
+                meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH, AttributeGenerator.extraHeart(material.getExtraHeart(), material.getSlot().getGroup()));
 
                 PersistentDataContainer itemData = meta.getPersistentDataContainer();
                 itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
@@ -184,10 +183,6 @@ public class CustomItemStack {
 
     public static NamespacedKey getDionysusMaxValueKey() {
         return dionysusMaxValue;
-    }
-
-    public ItemStack getItem() {
-        return item;
     }
 
     public static boolean hasTag(ItemStack item) {
@@ -244,14 +239,5 @@ public class CustomItemStack {
         }
         return CustomMaterial.getByName(item.getItemMeta().getPersistentDataContainer().get(CustomItemStack.getItemKey(), PersistentDataType.STRING));
     }
-
-    public static NamespacedKey getDescriptionKey() {
-        return descriptionKey;
-    }
-
-    public static NamespacedKey getItemKey() {
-        return itemKey;
-    }
-
 
 }

@@ -3,8 +3,8 @@ package fr.zelytra.daedalus.managers.structure;
 import java.util.ArrayList;
 
 public class StructureSurrounded {
-    private ArrayList<Structure> structures = new ArrayList<>();
-    private int areaSize = 20;
+    private final ArrayList<Structure> structures = new ArrayList<>();
+    private final int areaSize = 20;
 
     public StructureSurrounded() {
         structures.add(new Structure(StructureEnum.MINE1));

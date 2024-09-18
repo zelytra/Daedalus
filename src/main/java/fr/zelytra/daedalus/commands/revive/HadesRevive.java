@@ -99,21 +99,21 @@ public class HadesRevive implements CommandExecutor {
             player.addPotionEffects(GodsEnum.HADES.getGod().teamEffects());
         }
 
-        player.getInventory().setHelmet(Utils.EnchantedItemStack(Material.DIAMOND_HELMET, Enchantment.PROTECTION_ENVIRONMENTAL, 2));
-        player.getInventory().setChestplate(Utils.EnchantedItemStack(Material.DIAMOND_CHESTPLATE, Enchantment.PROTECTION_ENVIRONMENTAL, 2));
-        player.getInventory().setLeggings(Utils.EnchantedItemStack(Material.IRON_LEGGINGS, Enchantment.PROTECTION_ENVIRONMENTAL, 2));
-        player.getInventory().setBoots(Utils.EnchantedItemStack(Material.IRON_BOOTS, Enchantment.PROTECTION_ENVIRONMENTAL, 2));
+        player.getInventory().setHelmet(Utils.EnchantedItemStack(Material.DIAMOND_HELMET, Enchantment.PROTECTION, 2));
+        player.getInventory().setChestplate(Utils.EnchantedItemStack(Material.DIAMOND_CHESTPLATE, Enchantment.PROTECTION, 2));
+        player.getInventory().setLeggings(Utils.EnchantedItemStack(Material.IRON_LEGGINGS, Enchantment.PROTECTION, 2));
+        player.getInventory().setBoots(Utils.EnchantedItemStack(Material.IRON_BOOTS, Enchantment.PROTECTION, 2));
 
-        player.getInventory().setItemInMainHand(Utils.EnchantedItemStack(Material.DIAMOND_SWORD, Enchantment.DAMAGE_ALL, 2));
+        player.getInventory().setItemInMainHand(Utils.EnchantedItemStack(Material.DIAMOND_SWORD, Enchantment.SHARPNESS, 2));
         player.getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
 
 
-        player.getInventory().addItem(Utils.EnchantedItemStack(Material.IRON_PICKAXE, Enchantment.DIG_SPEED, 2));
+        player.getInventory().addItem(Utils.EnchantedItemStack(Material.IRON_PICKAXE, Enchantment.EFFICIENCY, 2));
         player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 20));
         player.getInventory().addItem(new ItemStack(Material.BOW));
         player.getInventory().addItem(new ItemStack(Material.ARROW, 16));
 
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 9, true, true, true));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 100, 9, true, true, true));
         player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 9, true, true, true));
 
     }

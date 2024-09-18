@@ -1,9 +1,12 @@
 package fr.zelytra.daedalus.managers.gods;
 
+import lombok.Setter;
+
 import java.util.UUID;
 
 public class MinosObject {
 
+    @Setter
     private UUID player;
     private boolean spawned;
     private boolean dead;
@@ -25,8 +28,5 @@ public class MinosObject {
         return player;
     }
 
-    public void setPlayer(UUID player) {
-        this.player = player;
-    }
 }
  

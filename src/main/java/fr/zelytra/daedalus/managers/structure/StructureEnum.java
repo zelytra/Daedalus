@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.managers.structure;
 
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
+import lombok.Getter;
 import org.bukkit.util.BlockVector;
 
 public enum StructureEnum {
@@ -48,10 +49,15 @@ public enum StructureEnum {
     DUNGEON3("dungeon3", -4, StructureType.DUNGEON, true, new BlockVector(0, -41, 0));
 
 
+    @Getter
     private final String name;
+    @Getter
     private final StructureType type;
+    @Getter
     private BlockVector origin;
+    @Getter
     private final BlockVector offset;
+    @Getter
     private GodsEnum god;
     private final Boolean canBlock;
     private final int id;
@@ -91,26 +97,6 @@ public enum StructureEnum {
         this.canBlock = canBlock;
         this.god = god;
         this.id = id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public StructureType getType() {
-        return this.type;
-    }
-
-    public BlockVector getOrigin() {
-        return this.origin;
-    }
-
-    public BlockVector getOffset() {
-        return this.offset;
-    }
-
-    public GodsEnum getGod() {
-        return god;
     }
 
     public StructureEnum getByName(String name) {

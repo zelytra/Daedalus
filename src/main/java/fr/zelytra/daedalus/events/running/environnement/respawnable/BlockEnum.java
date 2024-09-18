@@ -4,6 +4,7 @@ import fr.zelytra.daedalus.managers.game.settings.BlockCooldownEnum;
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.items.CustomItemStack;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
+import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -42,7 +43,9 @@ public enum BlockEnum {
     SPRUCE_LEAVES(BlockCooldownEnum.LEAVES.getSeconds(), Material.SPRUCE_LEAVES, new ItemStack(Material.APPLE)),
     BIRCH_LEAVES(BlockCooldownEnum.LEAVES.getSeconds(), Material.BIRCH_LEAVES, new ItemStack(Material.GOLDEN_APPLE));
 
+    @Getter
     private final int seconds;
+    @Getter
     private final Material material;
     private ItemStack itemStack;
 
@@ -55,14 +58,6 @@ public enum BlockEnum {
     BlockEnum(int seconds, Material material) {
         this.seconds = seconds;
         this.material = material;
-    }
-
-    public int getSeconds() {
-        return seconds;
-    }
-
-    public Material getMaterial() {
-        return material;
     }
 
     public ItemStack getItemStack() {

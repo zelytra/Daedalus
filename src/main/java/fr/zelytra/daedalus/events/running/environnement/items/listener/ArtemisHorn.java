@@ -63,12 +63,12 @@ public class ArtemisHorn implements Listener {
                 wolf.setAngry(true);
                 wolf.setOwner(playerFaction.getGod());
                 wolf.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(10);
-                wolf.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 9999999, 1, true, true));
+                wolf.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 9999999, 1, true, true));
                 PersistentDataContainer pdc = entity.getPersistentDataContainer();
                 pdc.set(artemisKey, PersistentDataType.STRING, playerFaction.getType().getName());
 
                 Location location = wolf.getLocation();
-                location.getWorld().spawnParticle(Particle.TOTEM, location, 300, 0.1, 0.1, 0.1);
+                location.getWorld().spawnParticle(Particle.TOTEM_OF_UNDYING, location, 300, 0.1, 0.1, 0.1);
 
             }
 

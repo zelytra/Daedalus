@@ -5,6 +5,7 @@ import fr.zelytra.daedalus.events.running.players.DeathHandler.listener.DeathLis
 import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.time.TimeManager;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -13,16 +14,16 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 public class FactionScoreBoard {
+    @Getter
     private final Scoreboard scoreboard;
     private final Objective objective;
     private final Faction faction;
-    private Team factionTeam;
 
     public FactionScoreBoard(Faction faction) {
         this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         this.objective = scoreboard.registerNewObjective(faction.getType().getName(), "dummy", "§6§lDAEDALUS");
         this.faction = faction;
-        this.factionTeam = registerAllTeams();
+        registerAllTeams();
         initialize();
     }
 
@@ -91,10 +92,6 @@ public class FactionScoreBoard {
 
     }
 
-    public Scoreboard getScoreboard() {
-        return scoreboard;
-    }
-
     private String getUID() {
         StringBuilder uid = new StringBuilder("§r");
         for (Team ignored : scoreboard.getTeams()) {
@@ -103,8 +100,7 @@ public class FactionScoreBoard {
         return uid.toString();
     }
 
-    private Team registerAllTeams() {
-        Team returnTeam = null;
+    private void registerAllTeams() {
         for (FactionsEnum factionsEnum : FactionsEnum.values()) {
             Team team = scoreboard.registerNewTeam(factionsEnum.getTag());
             team.setAllowFriendlyFire(GameSettings.FRIENDLY_FIRE);
@@ -114,10 +110,7 @@ public class FactionScoreBoard {
             team.setOption(org.bukkit.scoreboard.Team.Option.COLLISION_RULE, org.bukkit.scoreboard.Team.OptionStatus.NEVER);
             team.setOption(org.bukkit.scoreboard.Team.Option.DEATH_MESSAGE_VISIBILITY, org.bukkit.scoreboard.Team.OptionStatus.NEVER);
             team.setOption(org.bukkit.scoreboard.Team.Option.NAME_TAG_VISIBILITY, org.bukkit.scoreboard.Team.OptionStatus.ALWAYS);
-            if (factionsEnum == faction.getType())
-                returnTeam = team;
         }
-        return returnTeam;
     }
 
 

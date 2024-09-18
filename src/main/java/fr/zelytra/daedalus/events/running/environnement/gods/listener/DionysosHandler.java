@@ -25,7 +25,6 @@ public class DionysosHandler implements Listener {
 
     }
 
-
     private void vfx(Player player) {
         Bukkit.broadcastMessage(GameSettings.LANG.textOf("godSpawn.dionysus"));
         Utils.runTotemDisplay(player);

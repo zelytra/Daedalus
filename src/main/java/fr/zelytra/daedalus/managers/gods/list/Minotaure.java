@@ -47,7 +47,7 @@ public class Minotaure implements Gods {
     @Override
     public Collection<PotionEffect> godEffects() {
         Collection<PotionEffect> potions = new ArrayList<>();
-        potions.add(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 99999999, 0, false, false, true));
+        potions.add(new PotionEffect(PotionEffectType.RESISTANCE, 99999999, 0, false, false, true));
         return potions;
     }
 

@@ -4,6 +4,8 @@ import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.loottable.LootTableManager;
 import fr.zelytra.daedalus.managers.maze.Maze;
 import fr.zelytra.daedalus.managers.skrink.ShrinkManager;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.util.BoundingBox;
 
 import java.util.ArrayList;
@@ -13,14 +15,20 @@ import java.util.concurrent.ThreadLocalRandom;
 public class StructureManager {
     private ArrayList<Structure> temples;
     private ArrayList<Structure> dungeons;
-    private ArrayList<Structure> builds;
     private ArrayList<Structure> fixedStructures;
     private ArrayList<Structure> mine;
+    @Getter
     private ArrayList<Structure> generatedList;
+    @Getter
+    @Setter
     private HashMap<BoundingBox, Structure> structuresPosition;
+    @Getter
+    @Setter
     private Maze maze;
     public StructureSurrounded structureSurrounded;
+    @Getter
     private LootTableManager lootTableManager;
+    @Getter
     private ShrinkManager shrinkManager;
 
 
@@ -32,19 +40,10 @@ public class StructureManager {
         this.shrinkManager = new ShrinkManager();
     }
 
-    public ShrinkManager getShrinkManager() {
-        return shrinkManager;
-    }
-
-    public LootTableManager getLootTableManager() {
-        return lootTableManager;
-    }
-
     private void initialize() {
         this.structuresPosition = new HashMap<>();
         this.temples = new ArrayList<>();
         this.dungeons = new ArrayList<>();
-        this.builds = new ArrayList<>();
         this.mine = new ArrayList<>();
         this.fixedStructures = new ArrayList<>();
 
@@ -118,25 +117,5 @@ public class StructureManager {
             generatedList.add(new Structure(StructureEnum.HESPERIDES_GARDEN));
         }
 
-    }
-
-    public ArrayList<Structure> getGeneratedList() {
-        return this.generatedList;
-    }
-
-    public void setStructuresPosition(HashMap<BoundingBox, Structure> structuresPosition) {
-        this.structuresPosition = structuresPosition;
-    }
-
-    public HashMap<BoundingBox, Structure> getStructuresPosition() {
-        return structuresPosition;
-    }
-
-    public void setMaze(Maze maze) {
-        this.maze = maze;
-    }
-
-    public Maze getMaze() {
-        return maze;
     }
 }

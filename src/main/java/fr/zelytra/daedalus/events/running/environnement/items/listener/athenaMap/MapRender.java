@@ -25,9 +25,9 @@ public class MapRender extends MapRenderer {
         for (int pixelX = 0; pixelX < canvasSize; pixelX++) {
             for (int pixelZ = 0; pixelZ < canvasSize; pixelZ++) {
                 try {
-                    canvas.setPixel(pixelX, pixelZ, GridBlockEnum.getMapPalette(maze.getMaze()[matrixCoordinate.x - ((canvasSize / 2) - pixelX)][matrixCoordinate.z - ((canvasSize / 2) - pixelZ)]));
+                    canvas.setPixelColor(pixelX, pixelZ, GridBlockEnum.getMapPalette(maze.getMaze()[matrixCoordinate.x - ((canvasSize / 2) - pixelX)][matrixCoordinate.z - ((canvasSize / 2) - pixelZ)]));
                 } catch (Exception ignored) {
-                    canvas.setPixel(pixelX, pixelZ, GridBlockEnum.WALL.getMapPalette());
+                    canvas.setPixelColor(pixelX, pixelZ, GridBlockEnum.WALL.getMapPalette());
                 }
 
             }

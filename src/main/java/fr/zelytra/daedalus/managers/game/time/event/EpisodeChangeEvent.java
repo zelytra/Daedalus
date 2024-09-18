@@ -1,19 +1,20 @@
 package fr.zelytra.daedalus.managers.game.time.event;
 
+import lombok.Getter;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.jetbrains.annotations.NotNull;
 
 public class EpisodeChangeEvent extends Event implements Cancellable {
 
     private static final HandlerList HANDLERS_LIST = new HandlerList();
     private boolean isCancelled;
+    @Getter
     private int episode;
 
     public EpisodeChangeEvent(int episode) {
-
         this.episode = episode;
-
     }
 
     @Override
@@ -27,7 +28,7 @@ public class EpisodeChangeEvent extends Event implements Cancellable {
     }
 
     @Override
-    public HandlerList getHandlers() {
+    public @NotNull HandlerList getHandlers() {
         return HANDLERS_LIST;
     }
 
@@ -35,7 +36,4 @@ public class EpisodeChangeEvent extends Event implements Cancellable {
         return HANDLERS_LIST;
     }
 
-    public int getEpisode() {
-        return episode;
-    }
 }

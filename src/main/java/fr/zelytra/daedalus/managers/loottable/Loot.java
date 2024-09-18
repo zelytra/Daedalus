@@ -4,8 +4,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class Loot {
 
-    private ItemStack item;
-    private double luck;
+    private final ItemStack item;
+    private final double luck;
 
     /**
      * @param item Item looted

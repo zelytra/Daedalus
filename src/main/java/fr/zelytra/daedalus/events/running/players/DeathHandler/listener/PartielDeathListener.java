@@ -43,7 +43,7 @@ public class PartielDeathListener implements Listener {
     }
 
     @EventHandler
-    public void onPartielDeath(PartielDeathEvent e) {
+    public void onPartialDeath(PartielDeathEvent e) {
 
         Player player = e.getPlayer();
         List<ItemStack> activeItems = new ArrayList<>();

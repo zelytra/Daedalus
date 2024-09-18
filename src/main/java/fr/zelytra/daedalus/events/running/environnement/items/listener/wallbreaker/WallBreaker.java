@@ -38,7 +38,7 @@ public class WallBreaker implements Listener {
         if (maze == null) return;
 
         Player player = e.getPlayer();
-        Block block = player.getTargetBlock(10);
+        Block block = player.getTargetBlockExact(10);
         Vector2 matrixCoordinate = new Vector2((int) (block.getX() - maze.getOrigin().getX() + 1), (int) (block.getZ() - maze.getOrigin().getZ() + 1));
 
         if (maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z] != 1) {
@@ -94,7 +94,7 @@ public class WallBreaker implements Listener {
             Bukkit.getScheduler().runTaskLater(Daedalus.getInstance(), () -> {
 
                 target.getBlock().setType(Material.AIR);
-                target.getWorld().spawnParticle(Particle.BLOCK_CRACK, target, 50, target.getBlock().getBlockData());
+                target.getWorld().spawnParticle(Particle.BLOCK, target, 50, target.getBlock().getBlockData());
 
                 for (Player p : Bukkit.getOnlinePlayers())
                     p.playSound(target, Sound.BLOCK_BASALT_BREAK, (float) 0.6, (float) 0.1);
@@ -102,7 +102,7 @@ public class WallBreaker implements Listener {
                 Bukkit.getScheduler().runTaskLater(Daedalus.getInstance(), () -> {
 
                     blockState.update(true);
-                    target.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, target, 300, 1, 1, 1, 1);
+                    target.getWorld().spawnParticle(Particle.ENCHANT, target, 300, 1, 1, 1, 1);
 
                     for (Player p : Bukkit.getOnlinePlayers())
                         p.playSound(target, Sound.BLOCK_BASALT_PLACE, (float) 0.6, (float) 1);

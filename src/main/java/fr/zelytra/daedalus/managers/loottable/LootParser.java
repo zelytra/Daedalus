@@ -98,10 +98,6 @@ public class LootParser {
         }
     }
 
-    public List<LootTable> getLootTables() {
-        return lootTables;
-    }
-
     public LootTable getByName(String name) {
         for (LootTable table : lootTables) {
             if (table.getName().equalsIgnoreCase(name)) {

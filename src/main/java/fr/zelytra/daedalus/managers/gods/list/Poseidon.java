@@ -38,7 +38,7 @@ public class Poseidon implements Gods {
 
         ItemStack item = new ItemStack(Material.NETHERITE_BOOTS);
         item.addEnchantment(Enchantment.DEPTH_STRIDER, 3);
-        item.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
+        item.addEnchantment(Enchantment.PROTECTION, 3);
         ItemMeta meta = item.getItemMeta();
         meta.setUnbreakable(true);
 
@@ -51,7 +51,7 @@ public class Poseidon implements Gods {
         item = new ItemStack(Material.TRIDENT);
         item.addEnchantment(Enchantment.LOYALTY, 3);
         item.addEnchantment(Enchantment.IMPALING, 3);
-        item.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 3);
+        item.addUnsafeEnchantment(Enchantment.SHARPNESS, 3);
 
         meta = item.getItemMeta();
         itemData = meta.getPersistentDataContainer();
@@ -70,7 +70,7 @@ public class Poseidon implements Gods {
 
         ItemStack item = new ItemStack(Material.DIAMOND_BOOTS);
         item.addEnchantment(Enchantment.DEPTH_STRIDER, 1);
-        item.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+        item.addEnchantment(Enchantment.PROTECTION, 2);
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer itemData = meta.getPersistentDataContainer();
         itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");

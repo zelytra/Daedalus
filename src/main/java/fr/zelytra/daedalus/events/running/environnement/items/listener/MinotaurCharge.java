@@ -5,10 +5,7 @@ import fr.zelytra.daedalus.events.running.environnement.items.events.CustomItemU
 import fr.zelytra.daedalus.managers.cooldown.Cooldown;
 import fr.zelytra.daedalus.managers.faction.Faction;
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -48,7 +45,7 @@ public class MinotaurCharge implements Listener {
         Location loc2 = e.getPlayer().getLocation().clone();
         loc2.setY(loc2.getY() - 0.5);
         location.setY(location.getY() + 0.5);
-        location.getWorld().spawnParticle(org.bukkit.Particle.BLOCK_DUST, location, 250, loc2.getBlock().getBlockData());
+        location.getWorld().spawnParticle(Particle.BLOCK, location, 250, loc2.getBlock().getBlockData());
 
         //Item action
         final int chargeCoef = 4;

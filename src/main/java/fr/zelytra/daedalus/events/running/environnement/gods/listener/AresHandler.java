@@ -26,7 +26,6 @@ public class AresHandler implements Listener {
 
     }
 
-
     private void vfx(Player player) {
         Bukkit.broadcastMessage(GameSettings.LANG.textOf("godSpawn.ares"));
         Utils.runTotemDisplay(player);

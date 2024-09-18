@@ -9,6 +9,8 @@ import fr.zelytra.daedalus.managers.game.settings.GameSettings;
 import fr.zelytra.daedalus.managers.game.time.TimeManager;
 import fr.zelytra.daedalus.managers.maze.MazeHandler;
 import fr.zelytra.daedalus.utils.Message;
+import lombok.Getter;
+import lombok.Setter;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -20,9 +22,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameManager {
 
+    @Getter
     private final FactionManager factionManager;
+    @Getter
     private final TimeManager timeManager;
+    @Setter
+    @Getter
     private GameStatesEnum state;
+    @Setter
+    @Getter
     private boolean started = false;
     private int preStartRunnable;
 
@@ -34,22 +42,6 @@ public class GameManager {
 
     }
 
-    public FactionManager getFactionManager() {
-        return factionManager;
-    }
-
-
-    public TimeManager getTimeManager() {
-        return timeManager;
-    }
-
-    public GameStatesEnum getState() {
-        return state;
-    }
-
-    public void setState(GameStatesEnum state) {
-        this.state = state;
-    }
 
     public boolean isWaiting() {
         return state == GameStatesEnum.WAIT;
@@ -61,14 +53,6 @@ public class GameManager {
 
     public boolean isFinished() {
         return state == GameStatesEnum.FINISHED;
-    }
-
-    public boolean isStarted() {
-        return started;
-    }
-
-    public void setStarted(boolean started) {
-        this.started = started;
     }
 
     public void preStart() {

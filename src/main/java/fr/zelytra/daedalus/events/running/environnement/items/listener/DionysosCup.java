@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DionysosCup implements Listener {
-    private int itemCooldown = 60;
+    private final int itemCooldown = 60;
 
     @EventHandler
     public void onRightClick(CustomItemUseEvent e) {

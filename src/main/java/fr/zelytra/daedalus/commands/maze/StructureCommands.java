@@ -15,11 +15,10 @@ import org.jetbrains.annotations.NotNull;
 public class StructureCommands implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String msg, @NotNull String[] args) {
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             System.out.println(Message.getConsolePrefixe() + "You cannot execute this command.");
             return false;
         }
-        Player player = (Player) sender;
         if (!Bukkit.getServer().getPluginManager().isPluginEnabled("WorldEdit")) {
             player.sendMessage(Message.getPlayerPrefixe() + "§cWorldEdit is needed on the server to perform this command.");
             return false;

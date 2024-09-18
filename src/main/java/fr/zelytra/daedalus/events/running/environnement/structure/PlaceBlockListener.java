@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PlaceBlockListener implements Listener {
-    private List<Material> blacklist = new ArrayList<>();
+    private final List<Material> blacklist = new ArrayList<>();
     private static final int wallHigh = 20;
     private static final int limit = 4;
 

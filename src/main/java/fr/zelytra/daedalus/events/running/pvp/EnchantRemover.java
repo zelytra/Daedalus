@@ -10,26 +10,26 @@ import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class EnchantRemover implements Listener {
-    private final HashMap<Enchantment, Integer> blackList = new HashMap<>();
+    private final Map<Enchantment, List<Integer>> blackList = new HashMap<>();
 
     {
-        blackList.put(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
-        blackList.put(Enchantment.LOOT_BONUS_BLOCKS, 3);
-        blackList.put(Enchantment.LOOT_BONUS_BLOCKS, 2);
-        blackList.put(Enchantment.LOOT_BONUS_BLOCKS, 1);
-        blackList.put(Enchantment.FIRE_ASPECT, 2);
-        blackList.put(Enchantment.THORNS, 3);
+        blackList.put(Enchantment.PROTECTION, List.of(4));
+        blackList.put(Enchantment.FORTUNE, List.of(3, 2, 1));
+        blackList.put(Enchantment.FIRE_ASPECT, List.of(2));
+        blackList.put(Enchantment.THORNS, List.of(3));
     }
+
 
     @EventHandler
     public void onEnchant(EnchantItemEvent e) {
-        for (Map.Entry<Enchantment, Integer> entry : e.getEnchantsToAdd().entrySet()) {
-
-            if (blackList.containsKey(entry.getKey()) && blackList.get(entry.getKey()) == entry.getValue()) {
+        for (var entry : e.getEnchantsToAdd().entrySet()) {
+            if (isForbiddenEnchant(entry.getKey(), entry.getValue())) {
                 e.setCancelled(true);
                 e.getEnchanter().sendMessage(GameSettings.LANG.textOf("enchant.cantEnchant"));
             }
@@ -40,12 +40,17 @@ public class EnchantRemover implements Listener {
     public void onAnvil(PrepareAnvilEvent e) {
         if (e.getResult() == null) return;
         ItemMeta meta = e.getResult().getItemMeta();
-        for (Map.Entry<Enchantment, Integer> enchants : meta.getEnchants().entrySet())
-
-            if (blackList.containsKey(enchants.getKey()) && blackList.get(enchants.getKey()) == enchants.getValue()) {
+        for (var entry : meta.getEnchants().entrySet())
+            if (isForbiddenEnchant(entry.getKey(), entry.getValue())) {
                 e.setResult(new ItemStack(Material.AIR));
                 e.getView().getPlayer().sendMessage(GameSettings.LANG.textOf("enchant.cantFusion"));
             }
+    }
 
+    private boolean isForbiddenEnchant(Enchantment enchantment, int lvl) {
+        if (!blackList.containsKey(enchantment)) {
+            return false;
+        }
+        return blackList.get(enchantment).contains(lvl);
     }
 }

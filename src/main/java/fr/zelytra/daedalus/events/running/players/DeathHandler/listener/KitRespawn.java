@@ -30,13 +30,13 @@ public class KitRespawn implements Listener {
     }
 
     private void giveKit(Player player) {
-        player.getInventory().setHelmet(Utils.EnchantedItemStack(Material.DIAMOND_HELMET, Enchantment.PROTECTION_ENVIRONMENTAL, 1));
-        player.getInventory().setChestplate(Utils.EnchantedItemStack(Material.DIAMOND_CHESTPLATE, Enchantment.PROTECTION_ENVIRONMENTAL, 1));
-        player.getInventory().setLeggings(Utils.EnchantedItemStack(Material.DIAMOND_LEGGINGS, Enchantment.PROTECTION_ENVIRONMENTAL, 1));
-        player.getInventory().setBoots(Utils.EnchantedItemStack(Material.DIAMOND_BOOTS, Enchantment.PROTECTION_ENVIRONMENTAL, 1));
+        player.getInventory().setHelmet(Utils.EnchantedItemStack(Material.DIAMOND_HELMET, Enchantment.PROTECTION, 1));
+        player.getInventory().setChestplate(Utils.EnchantedItemStack(Material.DIAMOND_CHESTPLATE, Enchantment.PROTECTION, 1));
+        player.getInventory().setLeggings(Utils.EnchantedItemStack(Material.DIAMOND_LEGGINGS, Enchantment.PROTECTION, 1));
+        player.getInventory().setBoots(Utils.EnchantedItemStack(Material.DIAMOND_BOOTS, Enchantment.PROTECTION, 1));
 
-        player.getInventory().addItem(Utils.EnchantedItemStack(Material.DIAMOND_SWORD, Enchantment.DAMAGE_ALL, 2));
-        player.getInventory().addItem(Utils.EnchantedItemStack(Material.IRON_PICKAXE, Enchantment.DIG_SPEED, 2));
+        player.getInventory().addItem(Utils.EnchantedItemStack(Material.DIAMOND_SWORD, Enchantment.SHARPNESS, 2));
+        player.getInventory().addItem(Utils.EnchantedItemStack(Material.IRON_PICKAXE, Enchantment.EFFICIENCY, 2));
         player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 20));
         player.getInventory().addItem(new ItemStack(Material.BOW));
         player.getInventory().addItem(new ItemStack(Material.ARROW, 16));

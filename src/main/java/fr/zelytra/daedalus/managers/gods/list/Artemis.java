@@ -34,7 +34,7 @@ public class Artemis implements Gods {
     public ArrayList<ItemStack> godItems() {
         ArrayList<ItemStack> items = new ArrayList<>();
         ItemStack item = new ItemStack(Material.BOW);
-        item.addEnchantment(Enchantment.ARROW_DAMAGE, 5);
+        item.addEnchantment(Enchantment.POWER, 5);
         ItemMeta meta = item.getItemMeta();
         meta.setUnbreakable(true);
 
@@ -53,8 +53,8 @@ public class Artemis implements Gods {
 
         ItemStack item = new ItemStack(Material.ENCHANTED_BOOK);
         EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
-        meta.addStoredEnchant(Enchantment.ARROW_DAMAGE, 3, false);
-        meta.addStoredEnchant(Enchantment.ARROW_KNOCKBACK, 2, false);
+        meta.addStoredEnchant(Enchantment.POWER, 3, false);
+        meta.addStoredEnchant(Enchantment.PUNCH, 2, false);
         item.setItemMeta(meta);
         items.add(item);
         items.add(new ItemStack(Material.SPECTRAL_ARROW,64));

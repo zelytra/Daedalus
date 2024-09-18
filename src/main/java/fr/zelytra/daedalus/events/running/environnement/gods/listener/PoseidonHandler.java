@@ -32,7 +32,6 @@ public class PoseidonHandler implements Listener {
 
     }
 
-
     public void playerInWater() {
         Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
             for (Faction team : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
@@ -54,8 +53,6 @@ public class PoseidonHandler implements Listener {
                 }
             }
         }, 0, 10);
-
-
     }
 
     private void vfx(Player player) {
