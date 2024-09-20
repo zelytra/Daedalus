@@ -1,7 +1,6 @@
 name: Release
 
 on:
-  pull_request:
   push:
     tags:
       - '*'  # Trigger this workflow on all tag pushes
@@ -24,21 +23,12 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Get version from tag or set default for testing
+      - name: Get version from tag
         id: vars
         run: |
-          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
-            VERSION=${GITHUB_REF#refs/tags/}
-            IS_TAG=true
-          else
-            echo "GITHUB_REF is ${GITHUB_REF}"
-            # Set a default version for testing
-            VERSION="test-version"
-            IS_TAG=false
-          fi
+          VERSION=${GITHUB_REF#refs/tags/}
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "TAG_NAME=$VERSION" >> $GITHUB_ENV
-          echo "IS_TAG=$IS_TAG" >> $GITHUB_ENV
 
       - name: Rename JAR file
         run: |
