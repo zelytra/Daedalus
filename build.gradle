@@ -1,15 +1,17 @@
 buildscript {
     repositories {
-        mavenCentral()
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
     }
     dependencies {
-        classpath 'com.diffplug.spotless:spotless-plugin-gradle:6.21.0' // Use the latest version
+        classpath("com.diffplug.spotless:spotless-plugin-gradle:7.0.0.BETA2")
     }
 }
 
 plugins {
     id 'java'
-    id 'com.diffplug.spotless' version '6.21.0' // Use the latest version available
+    id("com.diffplug.spotless") version "7.0.0.BETA2"
 }
 
 group = 'fr.zelytra'
@@ -45,7 +47,13 @@ dependencies {
 
 spotless {
     java {
-        googleJavaFormat('1.17.0') // Specify the version of google-java-format
+        target 'src/main/java/**/*.java', 'src/test/java/**/*.java'
+        importOrder()
+        removeUnusedImports()
+        cleanthat()
+        trimTrailingWhitespace()
+        formatAnnotations()
+        eclipse()
     }
 }
 
