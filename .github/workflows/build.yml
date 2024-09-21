@@ -7,7 +7,7 @@ on:
       - master
 
 jobs:
-  backend-build:
+  backend-prettier:
     runs-on: ubuntu-latest
     name: Quarkus build test
     steps:
