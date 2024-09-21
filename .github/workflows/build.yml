@@ -9,7 +9,7 @@ on:
 jobs:
   backend-prettier:
     runs-on: ubuntu-latest
-    name: Quarkus build test
+    name: Quarkus prettier
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
