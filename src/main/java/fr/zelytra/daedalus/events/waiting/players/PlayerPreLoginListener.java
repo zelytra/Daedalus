@@ -6,12 +6,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
 public class PlayerPreLoginListener implements Listener {
-    @EventHandler
-    public void playerPreLogin(AsyncPlayerPreLoginEvent e){
+  @EventHandler
+  public void playerPreLogin(AsyncPlayerPreLoginEvent e) {
 
-        if(Daedalus.getInstance().getGameManager().isStarted()){
-            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER,"§cMaze is currently loading... please come back in few seconds");
-            return;
-        }
+    if (Daedalus.getInstance().getGameManager().isStarted()) {
+      e.disallow(
+          AsyncPlayerPreLoginEvent.Result.KICK_OTHER,
+          "§cMaze is currently loading... please come back in few seconds");
+      return;
     }
+  }
 }

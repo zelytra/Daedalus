@@ -18,67 +18,71 @@ import org.jetbrains.annotations.NotNull;
 
 public class Revive implements CommandExecutor {
 
+  @Override
+  public boolean onCommand(
+      @NotNull CommandSender sender,
+      @NotNull Command cmd,
+      @NotNull String label,
+      @NotNull String[] args) {
+    if (!(sender instanceof Player)) return false;
 
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
-        if (!(sender instanceof Player))
-            return false;
+    Player player = (Player) sender;
 
-        Player player = (Player) sender;
-
-        if (!player.isOp()) {
-            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.permissionDenied"));
-            return false;
-        }
-
-
-        if (args.length == 1) {
-            Player target = Bukkit.getPlayer(args[0]);
-            reviveToSpawn(player, target);
-            return true;
-        } else {
-            player.sendMessage(Message.getHelp(cmd.getName()));
-            return false;
-        }
-
+    if (!player.isOp()) {
+      player.sendMessage(
+          Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.permissionDenied"));
+      return false;
     }
 
-    private void reviveToSpawn(Player executor, Player target) {
+    if (args.length == 1) {
+      Player target = Bukkit.getPlayer(args[0]);
+      reviveToSpawn(player, target);
+      return true;
+    } else {
+      player.sendMessage(Message.getHelp(cmd.getName()));
+      return false;
+    }
+  }
 
-        if (target == null) {
-            executor.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.playerOffline"));
-            return;
-        }
+  private void reviveToSpawn(Player executor, Player target) {
 
-        Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
-        if (playerFaction.isAlive(target)) {
-            executor.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.playerStillAlive"));
-            return;
-        } else {
-            playerFaction.setPlayerStatus(target, PlayerStatus.ALIVE);
-            target.setGameMode(GameMode.SURVIVAL);
-
-            target.teleport(playerFaction.getType().getSpawn());
-            if (playerFaction.getGodsEnum() != null)
-                applyTeamEffect(target, playerFaction.getGodsEnum());
-
-            for (Player p : Bukkit.getOnlinePlayers()) {
-                p.playSound(p.getLocation(), Sound.ENTITY_WITCH_HURT, 2, 0.1f);
-            }
-
-            Bukkit.broadcastMessage(Message.getPlayerPrefixe() + playerFaction.getType().getChatColor() + target.getName() + GameSettings.LANG.textOf("command.revive"));
-        }
+    if (target == null) {
+      executor.sendMessage(
+          Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.playerOffline"));
+      return;
     }
 
+    Faction playerFaction =
+        Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
+    if (playerFaction.isAlive(target)) {
+      executor.sendMessage(
+          Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.playerStillAlive"));
+      return;
+    } else {
+      playerFaction.setPlayerStatus(target, PlayerStatus.ALIVE);
+      target.setGameMode(GameMode.SURVIVAL);
 
-    private void applyTeamEffect(Player player, GodsEnum godsEnum) {
+      target.teleport(playerFaction.getType().getSpawn());
+      if (playerFaction.getGodsEnum() != null) applyTeamEffect(target, playerFaction.getGodsEnum());
 
-        player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(godsEnum.getGod().teamHeart());
+      for (Player p : Bukkit.getOnlinePlayers()) {
+        p.playSound(p.getLocation(), Sound.ENTITY_WITCH_HURT, 2, 0.1f);
+      }
 
-
-        if (godsEnum.getGod().teamEffects() != null) {
-            player.addPotionEffects(godsEnum.getGod().teamEffects());
-        }
-
+      Bukkit.broadcastMessage(
+          Message.getPlayerPrefixe()
+              + playerFaction.getType().getChatColor()
+              + target.getName()
+              + GameSettings.LANG.textOf("command.revive"));
     }
+  }
+
+  private void applyTeamEffect(Player player, GodsEnum godsEnum) {
+
+    player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(godsEnum.getGod().teamHeart());
+
+    if (godsEnum.getGod().teamEffects() != null) {
+      player.addPotionEffects(godsEnum.getGod().teamEffects());
+    }
+  }
 }

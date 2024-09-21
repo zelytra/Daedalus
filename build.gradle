@@ -1,5 +1,15 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.diffplug.spotless:spotless-plugin-gradle:6.21.0' // Use the latest version
+    }
+}
+
 plugins {
     id 'java'
+    id 'com.diffplug.spotless' version '6.21.0' // Use the latest version available
 }
 
 group = 'fr.zelytra'
@@ -31,6 +41,12 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'io.papermc.paper:paper-api:1.21.0-R0.1-SNAPSHOT' // Replace with your Minecraft version
     implementation 'com.mojang:authlib:1.5.21' // Authlib dependency for GameProfile
+}
+
+spotless {
+    java {
+        googleJavaFormat('1.17.0') // Specify the version of google-java-format
+    }
 }
 
 def targetJavaVersion = 21

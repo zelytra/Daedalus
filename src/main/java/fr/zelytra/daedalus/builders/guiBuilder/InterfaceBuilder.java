@@ -8,28 +8,25 @@ import org.bukkit.inventory.ItemStack;
 
 public class InterfaceBuilder {
 
-    private Inventory inventory;
+  private Inventory inventory;
 
-    /**
-     * @param size Size of the interface
-     * @param name Name of the interface
-     */
+  /**
+   * @param size Size of the interface
+   * @param name Name of the interface
+   */
+  public InterfaceBuilder(int size, String name) {
+    this.inventory = Bukkit.createInventory(new CustomGUI(), size, name);
+  }
 
-    public InterfaceBuilder(int size, String name) {
-        this.inventory = Bukkit.createInventory(new CustomGUI(), size, name);
-    }
+  public InterfaceBuilder(InventoryType type, String name) {
+    this.inventory = Bukkit.createInventory(new CustomGUI(), type, name);
+  }
 
-    public InterfaceBuilder(InventoryType type, String name) {
-        this.inventory = Bukkit.createInventory(new CustomGUI(), type, name);
-    }
+  public void setContent(ItemStack[] content) {
+    this.inventory.setContents(content);
+  }
 
-    public void setContent(ItemStack[] content) {
-        this.inventory.setContents(content);
-    }
-
-    public void open(Player player) {
-        player.openInventory(this.inventory);
-    }
-
-
+  public void open(Player player) {
+    player.openInventory(this.inventory);
+  }
 }

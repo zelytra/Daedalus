@@ -15,123 +15,129 @@ import com.sk89q.worldedit.session.ClipboardHolder;
 import com.sk89q.worldedit.world.World;
 import com.sk89q.worldedit.world.block.BlockType;
 import fr.zelytra.daedalus.Daedalus;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 public class WorldEditHandler {
-    @Getter
-    private String structureName;
-    private Player player;
-    private Location location;
-    private Clipboard clipboard;
-    @Getter
-    private EditSession editSession;
+  @Getter private String structureName;
+  private Player player;
+  private Location location;
+  private Clipboard clipboard;
+  @Getter private EditSession editSession;
 
-    public WorldEditHandler(String structureName, Player player) {
-        this.structureName = structureName;
-        this.player = player;
+  public WorldEditHandler(String structureName, Player player) {
+    this.structureName = structureName;
+    this.player = player;
+  }
+
+  public WorldEditHandler(Location location, Clipboard clipboard) {
+    this.location = location;
+    this.clipboard = clipboard;
+  }
+
+  public WorldEditHandler(org.bukkit.World bukkitWorld) {
+    World world = BukkitAdapter.adapt(bukkitWorld);
+
+    // Create an edit session using the EditSessionBuilder
+    this.editSession =
+        WorldEdit.getInstance()
+            .newEditSessionBuilder()
+            .world(world)
+            .maxBlocks(-1) // -1 for unlimited block changes
+            .build();
+  }
+
+  public boolean saveStructure() {
+
+    Region region;
+    World world = BukkitAdapter.adapt(this.player.getLocation().getWorld());
+    // Getting player selection
+    region = getWorldEditRegion(this.player);
+    if (region == null) {
+      return false;
+    }
+    // Saving selection into clipboard
+    BlockArrayClipboard clipboard = new BlockArrayClipboard(region);
+    try (EditSession editSession =
+        WorldEdit.getInstance().getEditSessionFactory().getEditSession(world, -1)) {
+      ForwardExtentCopy forwardExtentCopy =
+          new ForwardExtentCopy(editSession, region, clipboard, region.getMinimumPoint());
+      Operations.complete(forwardExtentCopy);
+    } catch (WorldEditException e) {
+      return false;
     }
 
-    public WorldEditHandler(Location location, Clipboard clipboard) {
-        this.location = location;
-        this.clipboard = clipboard;
+    File file =
+        new File(
+            Daedalus.getInstance().getDataFolder()
+                + File.separator
+                + this.structureName
+                + ".struct");
+    File folder = new File(Daedalus.getInstance().getDataFolder().toString());
+    if (!folder.exists()) folder.mkdir();
+    if (!file.exists()) {
+      try {
+        file.createNewFile();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
 
-    public WorldEditHandler(org.bukkit.World bukkitWorld) {
-        World world = BukkitAdapter.adapt(bukkitWorld);
-
-        // Create an edit session using the EditSessionBuilder
-        this.editSession = WorldEdit.getInstance()
-                .newEditSessionBuilder()
-                .world(world)
-                .maxBlocks(-1) // -1 for unlimited block changes
-                .build();
+    try (ClipboardWriter writer =
+        BuiltInClipboardFormat.SPONGE_SCHEMATIC.getWriter(new FileOutputStream(file))) {
+      writer.write(clipboard);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+    return true;
+  }
 
-    public boolean saveStructure() {
-
-        Region region;
-        World world = BukkitAdapter.adapt(this.player.getLocation().getWorld());
-        //Getting player selection
-        region = getWorldEditRegion(this.player);
-        if (region == null) {
-            return false;
-
-        }
-        //Saving selection into clipboard
-        BlockArrayClipboard clipboard = new BlockArrayClipboard(region);
-        try (EditSession editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(world, -1)) {
-            ForwardExtentCopy forwardExtentCopy = new ForwardExtentCopy(editSession, region, clipboard, region.getMinimumPoint());
-            Operations.complete(forwardExtentCopy);
-        } catch (WorldEditException e) {
-            return false;
-
-        }
-
-        File file = new File(Daedalus.getInstance().getDataFolder() + File.separator + this.structureName + ".struct");
-        File folder = new File(Daedalus.getInstance().getDataFolder().toString());
-        if (!folder.exists()) folder.mkdir();
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-        try (ClipboardWriter writer = BuiltInClipboardFormat.SPONGE_SCHEMATIC.getWriter(new FileOutputStream(file))) {
-            writer.write(clipboard);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return true;
+  public void pasteStructure() {
+    World world = BukkitAdapter.adapt(this.location.getWorld());
+    try (EditSession editSession =
+        WorldEdit.getInstance().getEditSessionFactory().getEditSession(world, -1)) {
+      Operation operation =
+          new ClipboardHolder(this.clipboard)
+              .createPaste(editSession)
+              .to(BlockVector3.at(this.location.getX(), this.location.getY(), this.location.getZ()))
+              .build();
+      Operations.complete(operation);
+    } catch (WorldEditException e) {
+      e.printStackTrace();
     }
+  }
 
-    public void pasteStructure() {
-        World world = BukkitAdapter.adapt(this.location.getWorld());
-        try (EditSession editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(world, -1)) {
-            Operation operation = new ClipboardHolder(this.clipboard)
-                    .createPaste(editSession)
-                    .to(BlockVector3.at(this.location.getX(), this.location.getY(), this.location.getZ()))
-                    .build();
-            Operations.complete(operation);
-        } catch (WorldEditException e) {
-            e.printStackTrace();
-        }
-
+  private Region getWorldEditRegion(Player p) {
+    World world = BukkitAdapter.adapt(p.getLocation().getWorld());
+    com.sk89q.worldedit.entity.Player WEp = BukkitAdapter.adapt(p);
+    Region region = null;
+    try {
+      region =
+          WorldEdit.getInstance()
+              .getSessionManager()
+              .findByName(WEp.getSessionKey().getName())
+              .getSelection(world);
+    } catch (IncompleteRegionException e) {
 
     }
+    return region;
+  }
 
-    private Region getWorldEditRegion(Player p) {
-        World world = BukkitAdapter.adapt(p.getLocation().getWorld());
-        com.sk89q.worldedit.entity.Player WEp = BukkitAdapter.adapt(p);
-        Region region = null;
-        try {
-            region = WorldEdit.getInstance().getSessionManager().findByName(WEp.getSessionKey().getName()).getSelection(world);
-        } catch (IncompleteRegionException e) {
-
-        }
-        return region;
+  public void setBlock(Location location, BlockType material) {
+    try {
+      this.editSession.setBlock(
+          BlockVector3.at(location.getX(), location.getY(), location.getZ()),
+          material.getDefaultState());
+    } catch (MaxChangedBlocksException e) {
+      e.printStackTrace();
     }
+  }
 
-    public void setBlock(Location location, BlockType material) {
-        try {
-            this.editSession.setBlock(BlockVector3.at(location.getX(), location.getY(), location.getZ()), material.getDefaultState());
-        } catch (MaxChangedBlocksException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
-    public Region getSelection() {
-        return getWorldEditRegion(this.player);
-    }
+  public Region getSelection() {
+    return getWorldEditRegion(this.player);
+  }
 }
-

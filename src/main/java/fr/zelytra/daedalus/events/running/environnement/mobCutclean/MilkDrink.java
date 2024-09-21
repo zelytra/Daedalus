@@ -10,13 +10,14 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 public class MilkDrink implements Listener {
 
-    @EventHandler
-    public void onMilkDrink(PlayerItemConsumeEvent e) {
-        if (Daedalus.getInstance().getGameManager().isRunning()) {
-            if (e.getItem().getType() == Material.MILK_BUCKET) {
-                e.setCancelled(true);
-                e.getPlayer().sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.drinkMilk"));
-            }
-        }
+  @EventHandler
+  public void onMilkDrink(PlayerItemConsumeEvent e) {
+    if (Daedalus.getInstance().getGameManager().isRunning()) {
+      if (e.getItem().getType() == Material.MILK_BUCKET) {
+        e.setCancelled(true);
+        e.getPlayer()
+            .sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.drinkMilk"));
+      }
     }
+  }
 }

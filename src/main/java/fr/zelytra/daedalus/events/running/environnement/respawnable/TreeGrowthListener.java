@@ -6,9 +6,8 @@ import org.bukkit.event.world.StructureGrowEvent;
 
 public class TreeGrowthListener implements Listener {
 
-    @EventHandler
-    public void onGrowth(StructureGrowEvent e){
-        e.setCancelled(true);
-    }
+  @EventHandler
+  public void onGrowth(StructureGrowEvent e) {
+    e.setCancelled(true);
+  }
 }
- 

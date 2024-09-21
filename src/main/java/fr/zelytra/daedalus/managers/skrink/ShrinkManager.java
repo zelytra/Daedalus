@@ -14,103 +14,129 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitTask;
 
 public class ShrinkManager {
-    private static final Daedalus daedalus = Daedalus.getInstance();
-    @Getter
-    private final WorkloadThread workloadThread;
-    private final int offsetArea = 10;
-    private BukkitTask task;
+  private static final Daedalus daedalus = Daedalus.getInstance();
+  @Getter private final WorkloadThread workloadThread;
+  private final int offsetArea = 10;
+  private BukkitTask task;
 
-    public ShrinkManager() {
-        workloadThread = new WorkloadThread();
+  public ShrinkManager() {
+    workloadThread = new WorkloadThread();
+  }
+
+  public void startShrinking() {
+
+    if (!daedalus.getGameManager().isRunning()) {
+      return;
     }
 
-    public void startShrinking() {
+    if (daedalus.getStructureManager().getMaze().getMaze() == null) {
+      return;
+    }
 
-        if (!daedalus.getGameManager().isRunning()) {
-            return;
+    Bukkit.getScheduler().runTask(daedalus, workloadThread::run);
+
+    startBorderListener();
+  }
+
+  public int getBorderRadius() {
+    return workloadThread.getRadius();
+  }
+
+  private void startBorderListener() {
+    task =
+        Bukkit.getScheduler()
+            .runTaskTimerAsynchronously(
+                Daedalus.getInstance(),
+                () -> {
+                  for (Player player : Bukkit.getOnlinePlayers()) {
+                    if (Daedalus.getInstance()
+                                .getGameManager()
+                                .getFactionManager()
+                                .getFactionOf(player)
+                                .getType()
+                            == FactionsEnum.SPECTATOR
+                        || player.getGameMode() != GameMode.SURVIVAL) continue;
+
+                    if (isInWarningArea(player.getLocation())) {
+                      logPlayer(player, GameSettings.LANG.textOf("border.warning"));
+                      particleFX(player);
+                      continue;
+                    }
+                    if (isInDangerArea(player.getLocation())) {
+                      player.sendTitle(
+                          GameSettings.LANG.textOf("border.dangerTitle"),
+                          GameSettings.LANG.textOf("border.dangerSubTitle"),
+                          3,
+                          10,
+                          3);
+                      player.playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_DEATH, 1, 1);
+
+                      Bukkit.getScheduler()
+                          .runTask(
+                              Daedalus.getInstance(),
+                              () -> {
+                                player.addPotionEffect(
+                                    new PotionEffect(
+                                        PotionEffectType.WITHER, 50, 2, true, true, true));
+                                player.addPotionEffect(
+                                    new PotionEffect(
+                                        PotionEffectType.WEAKNESS, 40, 2, true, true, true));
+                                player.addPotionEffect(
+                                    new PotionEffect(
+                                        PotionEffectType.HUNGER, 40, 1, true, true, true));
+                              });
+
+                      particleFX(player);
+                    }
+                  }
+                },
+                0,
+                30);
+  }
+
+  private void particleFX(Player player) {
+    int radius = 8;
+    Location loc = player.getLocation();
+
+    for (int x = loc.getBlockX() - radius; x < loc.getBlockX() + radius; x++) {
+      for (int z = loc.getBlockZ() - radius; z < loc.getBlockZ() + radius; z++) {
+
+        if (isInDangerArea(new Location(player.getWorld(), x, loc.getY(), z))) {
+          for (int count = 0; count < 3; count++)
+            loc.getWorld()
+                .spawnParticle(
+                    Particle.LAVA,
+                    new Location(loc.getWorld(), x + 0.5, loc.getY(), z + 0.5),
+                    0,
+                    0,
+                    0,
+                    0,
+                    1);
         }
-
-        if (daedalus.getStructureManager().getMaze().getMaze() == null) {
-            return;
-        }
-
-        Bukkit.getScheduler().runTask(daedalus, workloadThread::run);
-
-        startBorderListener();
-
+      }
     }
+  }
 
-    public int getBorderRadius() {
-        return workloadThread.getRadius();
-    }
+  private void logPlayer(Player player, String msg) {
+    BaseComponent txt = new TextComponent(msg);
+    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, txt);
+  }
 
-    private void startBorderListener() {
-        task = Bukkit.getScheduler().runTaskTimerAsynchronously(Daedalus.getInstance(), () -> {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                if (Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player).getType() == FactionsEnum.SPECTATOR || player.getGameMode() != GameMode.SURVIVAL)
-                    continue;
+  private void stopBorderTask() {
+    if (task != null && !task.isCancelled()) task.cancel();
+  }
 
-                if (isInWarningArea(player.getLocation())) {
-                    logPlayer(player, GameSettings.LANG.textOf("border.warning"));
-                    particleFX(player);
-                    continue;
-                }
-                if (isInDangerArea(player.getLocation())) {
-                    player.sendTitle(GameSettings.LANG.textOf("border.dangerTitle"),GameSettings.LANG.textOf("border.dangerSubTitle") , 3, 10, 3);
-                    player.playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_DEATH, 1, 1);
+  private boolean isInWarningArea(Location location) {
+    if ((Math.abs(location.getX()) >= getBorderRadius()
+            && Math.abs(location.getX()) <= getBorderRadius() + offsetArea)
+        || (Math.abs(location.getZ()) >= getBorderRadius()
+            && Math.abs(location.getZ()) <= getBorderRadius() + offsetArea)) return true;
+    else return false;
+  }
 
-                    Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 50, 2, true, true, true));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 40, 2, true, true, true));
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 40, 1, true, true, true));
-                    });
-
-                    particleFX(player);
-
-                }
-            }
-
-        }, 0, 30);
-    }
-
-    private void particleFX(Player player) {
-        int radius = 8;
-        Location loc = player.getLocation();
-
-        for (int x = loc.getBlockX() - radius; x < loc.getBlockX() + radius; x++) {
-            for (int z = loc.getBlockZ() - radius; z < loc.getBlockZ() + radius; z++) {
-
-                if (isInDangerArea(new Location(player.getWorld(), x, loc.getY(), z))) {
-                    for (int count = 0; count < 3; count++)
-                        loc.getWorld().spawnParticle(Particle.LAVA, new Location(loc.getWorld(), x + 0.5, loc.getY(), z + 0.5), 0, 0, 0, 0, 1);
-                }
-
-            }
-        }
-    }
-
-    private void logPlayer(Player player, String msg) {
-        BaseComponent txt = new TextComponent(msg);
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, txt);
-    }
-
-    private void stopBorderTask() {
-        if (task != null && !task.isCancelled())
-            task.cancel();
-    }
-
-    private boolean isInWarningArea(Location location) {
-        if ((Math.abs(location.getX()) >= getBorderRadius() && Math.abs(location.getX()) <= getBorderRadius() + offsetArea) || (Math.abs(location.getZ()) >= getBorderRadius() && Math.abs(location.getZ()) <= getBorderRadius() + offsetArea))
-            return true;
-        else
-            return false;
-    }
-
-    private boolean isInDangerArea(Location location) {
-        if (Math.abs(location.getX()) >= getBorderRadius() + offsetArea || Math.abs(location.getZ()) >= getBorderRadius() + offsetArea)
-            return true;
-        else
-            return false;
-    }
+  private boolean isInDangerArea(Location location) {
+    if (Math.abs(location.getX()) >= getBorderRadius() + offsetArea
+        || Math.abs(location.getZ()) >= getBorderRadius() + offsetArea) return true;
+    else return false;
+  }
 }
-

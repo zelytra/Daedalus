@@ -7,11 +7,10 @@ import org.bukkit.event.entity.EntityTargetEvent;
 
 public class EntityTargetListener implements Listener {
 
-    @EventHandler
-    public void onTarget(EntityTargetEvent e) {
+  @EventHandler
+  public void onTarget(EntityTargetEvent e) {
 
-        if (Daedalus.getInstance().getGameManager().isWaiting() || Daedalus.getInstance().getGameManager().isStarted())
-            e.setCancelled(true);
-
-    }
+    if (Daedalus.getInstance().getGameManager().isWaiting()
+        || Daedalus.getInstance().getGameManager().isStarted()) e.setCancelled(true);
+  }
 }

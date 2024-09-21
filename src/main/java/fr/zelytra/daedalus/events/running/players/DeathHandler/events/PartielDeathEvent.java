@@ -13,46 +13,44 @@ import org.jetbrains.annotations.NotNull;
 
 public class PartielDeathEvent extends Event implements Cancellable {
 
-    private static final HandlerList HANDLERS_LIST = new HandlerList();
-    private boolean isCancelled;
-    @Getter
-    private Player player;
-    @Getter
-    private EntityDamageEvent event;
+  private static final HandlerList HANDLERS_LIST = new HandlerList();
+  private boolean isCancelled;
+  @Getter private Player player;
+  @Getter private EntityDamageEvent event;
 
-    public PartielDeathEvent(Player player, EntityDamageEvent e) {
-        this.player = player;
-        this.isCancelled = false;
-        this.event = e;
-    }
+  public PartielDeathEvent(Player player, EntityDamageEvent e) {
+    this.player = player;
+    this.isCancelled = false;
+    this.event = e;
+  }
 
-    @Override
-    public boolean isCancelled() {
-        return isCancelled;
-    }
+  @Override
+  public boolean isCancelled() {
+    return isCancelled;
+  }
 
-    @Override
-    public void setCancelled(boolean cancelled) {
-        this.isCancelled = cancelled;
-    }
+  @Override
+  public void setCancelled(boolean cancelled) {
+    this.isCancelled = cancelled;
+  }
 
-    @Override
-    public @NotNull HandlerList getHandlers() {
-        return HANDLERS_LIST;
-    }
+  @Override
+  public @NotNull HandlerList getHandlers() {
+    return HANDLERS_LIST;
+  }
 
-    public static HandlerList getHandlerList() {
-        return HANDLERS_LIST;
-    }
+  public static HandlerList getHandlerList() {
+    return HANDLERS_LIST;
+  }
 
-    public Faction getFaction() {
-        return Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(this.player);
-    }
+  public Faction getFaction() {
+    return Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(this.player);
+  }
 
-    public Player getKiller() {
-        if (event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK)
-            if (((EntityDamageByEntityEvent) event).getDamager() instanceof Player)
-                return (Player) ((EntityDamageByEntityEvent) event).getDamager();
-        return null;
-    }
+  public Player getKiller() {
+    if (event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK)
+      if (((EntityDamageByEntityEvent) event).getDamager() instanceof Player)
+        return (Player) ((EntityDamageByEntityEvent) event).getDamager();
+    return null;
+  }
 }
