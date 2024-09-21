@@ -14,69 +14,67 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.util.BoundingBox;
 
 public class BreakBlockListener implements Listener {
-  private static final ArrayList<Material> blacklist = new ArrayList<>();
+	private static final ArrayList<Material> blacklist = new ArrayList<>();
 
-  static {
-    blacklist.add(Material.SMOOTH_SANDSTONE);
-    blacklist.add(Material.BROWN_MUSHROOM_BLOCK);
-  }
+	static {
+		blacklist.add(Material.SMOOTH_SANDSTONE);
+		blacklist.add(Material.BROWN_MUSHROOM_BLOCK);
+	}
 
-  @EventHandler(priority = EventPriority.LOW)
-  public void onBreak(BlockBreakEvent e) {
-    if (!Daedalus.getInstance().getGameManager().isRunning()) {
-      return;
-    }
-    if (Daedalus.getInstance().getStructureManager().getStructuresPosition().isEmpty()) {
-      return;
-    }
+	@EventHandler(priority = EventPriority.LOW)
+	public void onBreak(BlockBreakEvent e) {
+		if (!Daedalus.getInstance().getGameManager().isRunning()) {
+			return;
+		}
+		if (Daedalus.getInstance().getStructureManager().getStructuresPosition().isEmpty()) {
+			return;
+		}
 
-    Maze maze = Daedalus.getInstance().getStructureManager().getMaze();
-    if (maze == null) {
-      return;
-    }
+		Maze maze = Daedalus.getInstance().getStructureManager().getMaze();
+		if (maze == null) {
+			return;
+		}
 
-    Vector2 matrixCoordinate =
-        new Vector2(
-            (int) (e.getBlock().getX() - maze.getOrigin().getX() + 1),
-            (int) (e.getBlock().getZ() - maze.getOrigin().getZ() + 1));
-    switch (maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z]) {
-        // Structure case
-      case -1:
-      case -2:
-      case -3:
-      case -4:
-      case -5:
-      case -6:
-      case -7:
-        // Loop structures
-        for (Map.Entry<BoundingBox, Structure> entry :
-            Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
-          if (entry
-              .getKey()
-              .contains(e.getBlock().getX(), e.getBlock().getY(), e.getBlock().getZ())) {
-            if (entry.getValue().canBlock()) {
-              if (blacklist.contains(e.getBlock().getType())) {
-                e.setCancelled(true);
-                break;
-              }
-              break;
-            }
-            e.setCancelled(true);
-            break;
-          }
-        }
-        break;
-        // Wall case
-      case 1:
-        e.setCancelled(true);
-        break;
-        // Corridor case
-      default:
-        if (blacklist.contains(e.getBlock().getType())) e.setCancelled(true);
+		Vector2 matrixCoordinate = new Vector2((int) (e.getBlock().getX() - maze.getOrigin().getX() + 1),
+				(int) (e.getBlock().getZ() - maze.getOrigin().getZ() + 1));
+		switch (maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z]) {
+			// Structure case
+			case -1 :
+			case -2 :
+			case -3 :
+			case -4 :
+			case -5 :
+			case -6 :
+			case -7 :
+				// Loop structures
+				for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager()
+						.getStructuresPosition().entrySet()) {
+					if (entry.getKey().contains(e.getBlock().getX(), e.getBlock().getY(), e.getBlock().getZ())) {
+						if (entry.getValue().canBlock()) {
+							if (blacklist.contains(e.getBlock().getType())) {
+								e.setCancelled(true);
+								break;
+							}
+							break;
+						}
+						e.setCancelled(true);
+						break;
+					}
+				}
+				break;
+			// Wall case
+			case 1 :
+				e.setCancelled(true);
+				break;
+			// Corridor case
+			default :
+				if (blacklist.contains(e.getBlock().getType()))
+					e.setCancelled(true);
 
-        int groundY = (int) maze.getOrigin().getY();
-        if (e.getBlock().getY() <= groundY - 1) e.setCancelled(true);
-        break;
-    }
-  }
+				int groundY = (int) maze.getOrigin().getY();
+				if (e.getBlock().getY() <= groundY - 1)
+					e.setCancelled(true);
+				break;
+		}
+	}
 }

@@ -8,48 +8,44 @@ import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
 
 public class WorkloadThread implements Runnable {
-  private static final int MAX_MS_PER_TICK = 35;
-  @Getter private int radius = 595;
+	private static final int MAX_MS_PER_TICK = 35;
 
-  private final ArrayDeque<Workload> workloadDeque;
-  private BukkitTask task;
+	@Getter
+	private int radius = 595;
 
-  public WorkloadThread() {
-    workloadDeque = Queues.newArrayDeque();
-  }
+	private final ArrayDeque<Workload> workloadDeque;
+	private BukkitTask task;
 
-  public void addLoad(Workload workload) {
-    workloadDeque.add(workload);
-  }
+	public WorkloadThread() {
+		workloadDeque = Queues.newArrayDeque();
+	}
 
-  @Override
-  public void run() {
+	public void addLoad(Workload workload) {
+		workloadDeque.add(workload);
+	}
 
-    task =
-        Bukkit.getScheduler()
-            .runTaskTimer(
-                Daedalus.getInstance(),
-                () -> {
-                  long stopTime = System.currentTimeMillis() + MAX_MS_PER_TICK;
-                  int count = 0;
-                  while (!workloadDeque.isEmpty()
-                      && System.currentTimeMillis() <= stopTime
-                      && count <= 150) {
+	@Override
+	public void run() {
 
-                    WallBreaker wallBreaker = (WallBreaker) workloadDeque.poll();
-                    wallBreaker.compute();
-                    if (wallBreaker.isMarker()) radius -= 1;
+		task = Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
+			long stopTime = System.currentTimeMillis() + MAX_MS_PER_TICK;
+			int count = 0;
+			while (!workloadDeque.isEmpty() && System.currentTimeMillis() <= stopTime && count <= 150) {
 
-                    count++;
-                  }
+				WallBreaker wallBreaker = (WallBreaker) workloadDeque.poll();
+				wallBreaker.compute();
+				if (wallBreaker.isMarker())
+					radius -= 1;
 
-                  if (workloadDeque.isEmpty()) cancelTask();
-                },
-                0,
-                1);
-  }
+				count++;
+			}
 
-  private void cancelTask() {
-    Bukkit.getScheduler().cancelTask(this.task.getTaskId());
-  }
+			if (workloadDeque.isEmpty())
+				cancelTask();
+		}, 0, 1);
+	}
+
+	private void cancelTask() {
+		Bukkit.getScheduler().cancelTask(this.task.getTaskId());
+	}
 }

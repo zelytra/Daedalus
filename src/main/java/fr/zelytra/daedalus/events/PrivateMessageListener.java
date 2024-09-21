@@ -9,21 +9,18 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 public class PrivateMessageListener implements Listener {
 
-  @EventHandler
-  public void onPrivateMessage(PlayerCommandPreprocessEvent e) {
+	@EventHandler
+	public void onPrivateMessage(PlayerCommandPreprocessEvent e) {
 
-    if (e.getMessage().contains("/me")
-        || e.getMessage().contains("/tell")
-        || e.getMessage().contains("/whisper")
-        || e.getMessage().equalsIgnoreCase("/bukkit:ver")) {
-      e.getPlayer()
-          .sendMessage(
-              Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.permissionDenied"));
-      e.setCancelled(true);
-    }
-    if (e.getMessage().contains("/msg")) {
-      e.setCancelled(true);
-      new PrivateMessage(e.getPlayer(), e.getMessage()).send();
-    }
-  }
+		if (e.getMessage().contains("/me") || e.getMessage().contains("/tell") || e.getMessage().contains("/whisper")
+				|| e.getMessage().equalsIgnoreCase("/bukkit:ver")) {
+			e.getPlayer()
+					.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.permissionDenied"));
+			e.setCancelled(true);
+		}
+		if (e.getMessage().contains("/msg")) {
+			e.setCancelled(true);
+			new PrivateMessage(e.getPlayer(), e.getMessage()).send();
+		}
+	}
 }

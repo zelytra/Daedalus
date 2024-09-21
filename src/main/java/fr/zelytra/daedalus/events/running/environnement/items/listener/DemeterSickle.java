@@ -20,52 +20,50 @@ import org.bukkit.potion.PotionEffectType;
 
 public class DemeterSickle implements Listener {
 
-  @EventHandler
-  public void onRightClick(CustomItemUseEvent e) {
-    int itemCooldown = 45;
-    int effectRadius = 10;
+	@EventHandler
+	public void onRightClick(CustomItemUseEvent e) {
+		int itemCooldown = 45;
+		int effectRadius = 10;
 
-    if (e.getMaterial() != CustomMaterial.DEMETER_SICKLE) return;
-    Player player = e.getPlayer();
+		if (e.getMaterial() != CustomMaterial.DEMETER_SICKLE)
+			return;
+		Player player = e.getPlayer();
 
-    // Item action
-    try {
-      Faction playerFaction =
-          Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
-      Collection<Entity> nearbyEntity =
-          player.getNearbyEntities(effectRadius, effectRadius, effectRadius);
-      ArrayList<Entity> targetList = new ArrayList<>();
-      for (Entity entity : nearbyEntity) {
-        if (entity instanceof LivingEntity) {
-          if (entity instanceof Player && ((Player) entity).getGameMode() == GameMode.SURVIVAL) {
-            Player target = (Player) entity;
-            Faction targetPlayerTeam =
-                Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
-            if (targetPlayerTeam.getType() == playerFaction.getType()) {
-              continue;
-            }
-            targetList.add(entity);
-          }
-        }
-      }
+		// Item action
+		try {
+			Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+			Collection<Entity> nearbyEntity = player.getNearbyEntities(effectRadius, effectRadius, effectRadius);
+			ArrayList<Entity> targetList = new ArrayList<>();
+			for (Entity entity : nearbyEntity) {
+				if (entity instanceof LivingEntity) {
+					if (entity instanceof Player && ((Player) entity).getGameMode() == GameMode.SURVIVAL) {
+						Player target = (Player) entity;
+						Faction targetPlayerTeam = Daedalus.getInstance().getGameManager().getFactionManager()
+								.getFactionOf(target);
+						if (targetPlayerTeam.getType() == playerFaction.getType()) {
+							continue;
+						}
+						targetList.add(entity);
+					}
+				}
+			}
 
-      if (targetList.isEmpty()) {
-        player.sendMessage(
-            Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.noPlayerToCurse"));
-        return;
-      }
-      // Cooldown check
-      if (!Cooldown.cooldownCheck(player, CustomMaterial.DEMETER_SICKLE.getName())) {
-        return;
-      }
-      new Cooldown(player, itemCooldown, CustomMaterial.DEMETER_SICKLE.getName());
+			if (targetList.isEmpty()) {
+				player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.noPlayerToCurse"));
+				return;
+			}
+			// Cooldown check
+			if (!Cooldown.cooldownCheck(player, CustomMaterial.DEMETER_SICKLE.getName())) {
+				return;
+			}
+			new Cooldown(player, itemCooldown, CustomMaterial.DEMETER_SICKLE.getName());
 
-      for (Entity entity : targetList) {
-        ((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 200, 9));
-      }
+			for (Entity entity : targetList) {
+				((Player) entity).addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 200, 9));
+			}
 
-    } catch (Exception exception) {
-      System.out.println("ERROR team not found");
-    }
-  }
+		} catch (Exception exception) {
+			System.out.println("ERROR team not found");
+		}
+	}
 }

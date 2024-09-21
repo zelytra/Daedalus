@@ -16,58 +16,67 @@ import org.bukkit.util.BlockVector;
 
 public class Structure {
 
-  private final StructureEnum structure;
-  @Getter private Clipboard clipboard;
-  @Getter private Region region;
-  @Setter private boolean firstEntrance = false;
-  @Getter @Setter private Location bossSpawnLocation;
+	private final StructureEnum structure;
 
-  public Structure(StructureEnum structure) {
-    this.structure = structure;
+	@Getter
+	private Clipboard clipboard;
 
-    if (Bukkit.getServer().getPluginManager().getPlugin("FastAsyncWorldEdit") == null) return;
+	@Getter
+	private Region region;
 
-    InputStream is =
-        Daedalus.getInstance().getResource("structures/" + this.structure.getName() + ".struct");
-    BuiltInClipboardFormat format = BuiltInClipboardFormat.SPONGE_SCHEMATIC;
-    try (ClipboardReader reader = format.getReader(is)) {
-      this.clipboard = reader.read();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+	@Setter
+	private boolean firstEntrance = false;
 
-    this.region = this.clipboard.getRegion();
-  }
+	@Getter
+	@Setter
+	private Location bossSpawnLocation;
 
-  public boolean hasFirstEntrance() {
-    return firstEntrance;
-  }
+	public Structure(StructureEnum structure) {
+		this.structure = structure;
 
-  public String getName() {
-    return this.structure.getName();
-  }
+		if (Bukkit.getServer().getPluginManager().getPlugin("FastAsyncWorldEdit") == null)
+			return;
 
-  public BlockVector getOrigin() {
-    return this.structure.getOrigin();
-  }
+		InputStream is = Daedalus.getInstance().getResource("structures/" + this.structure.getName() + ".struct");
+		BuiltInClipboardFormat format = BuiltInClipboardFormat.SPONGE_SCHEMATIC;
+		try (ClipboardReader reader = format.getReader(is)) {
+			this.clipboard = reader.read();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-  public StructureType getType() {
-    return this.structure.getType();
-  }
+		this.region = this.clipboard.getRegion();
+	}
 
-  public GodsEnum getGod() {
-    return this.structure.getGod();
-  }
+	public boolean hasFirstEntrance() {
+		return firstEntrance;
+	}
 
-  public BlockVector getOffset() {
-    return this.structure.getOffset();
-  }
+	public String getName() {
+		return this.structure.getName();
+	}
 
-  public boolean canBlock() {
-    return this.structure.canBlock();
-  }
+	public BlockVector getOrigin() {
+		return this.structure.getOrigin();
+	}
 
-  public int getID() {
-    return this.structure.getId();
-  }
+	public StructureType getType() {
+		return this.structure.getType();
+	}
+
+	public GodsEnum getGod() {
+		return this.structure.getGod();
+	}
+
+	public BlockVector getOffset() {
+		return this.structure.getOffset();
+	}
+
+	public boolean canBlock() {
+		return this.structure.canBlock();
+	}
+
+	public int getID() {
+		return this.structure.getId();
+	}
 }

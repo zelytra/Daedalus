@@ -18,60 +18,58 @@ import org.bukkit.event.Listener;
 
 public class AphroditeHandler implements Listener {
 
-  @EventHandler
-  public void godSpawn(GodSpawnEvent e) {
+	@EventHandler
+	public void godSpawn(GodSpawnEvent e) {
 
-    if (e.getGod() == GodsEnum.APHRODITE) {
+		if (e.getGod() == GodsEnum.APHRODITE) {
 
-      e.getFaction().setGod(e.getPlayer(), GodsEnum.APHRODITE);
-      new Aphrodite(e.getFaction());
-      vfx(e.getPlayer());
-    }
-  }
+			e.getFaction().setGod(e.getPlayer(), GodsEnum.APHRODITE);
+			new Aphrodite(e.getFaction());
+			vfx(e.getPlayer());
+		}
+	}
 
-  @EventHandler
-  public void playerPartielDeath(PartielDeathEvent e) {
-    aphroditeKill(e.getKiller());
-  }
+	@EventHandler
+	public void playerPartielDeath(PartielDeathEvent e) {
+		aphroditeKill(e.getKiller());
+	}
 
-  @EventHandler
-  public void playerDeath(DefinitiveDeathEvent e) {
-    aphroditeKill(e.getKiller());
-  }
+	@EventHandler
+	public void playerDeath(DefinitiveDeathEvent e) {
+		aphroditeKill(e.getKiller());
+	}
 
-  private void aphroditeKill(Player killer) {
-    if (killer == null) return;
+	private void aphroditeKill(Player killer) {
+		if (killer == null)
+			return;
 
-    if (Daedalus.getInstance().getGameManager().isRunning()) {
+		if (Daedalus.getInstance().getGameManager().isRunning()) {
 
-      try {
-        Faction killerFaction =
-            Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(killer);
-        if (killerFaction.getGod() == null) return;
+			try {
+				Faction killerFaction = Daedalus.getInstance().getGameManager().getFactionManager()
+						.getFactionOf(killer);
+				if (killerFaction.getGod() == null)
+					return;
 
-        if (killerFaction.getGodsEnum() == GodsEnum.APHRODITE) {
-          if (killerFaction.getGod().getName().equalsIgnoreCase(killer.getName())) {
-            if (killerFaction.getGod().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() + 2
-                <= 50)
-              killerFaction
-                  .getGod()
-                  .getAttribute(Attribute.GENERIC_MAX_HEALTH)
-                  .setBaseValue(
-                      killerFaction.getGod().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()
-                          + 2);
-          } else killer.setHealth(killer.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
-        }
-      } catch (Exception exception) {
-        System.out.println("ERROR team not found");
-      }
-    }
-  }
+				if (killerFaction.getGodsEnum() == GodsEnum.APHRODITE) {
+					if (killerFaction.getGod().getName().equalsIgnoreCase(killer.getName())) {
+						if (killerFaction.getGod().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() + 2 <= 50)
+							killerFaction.getGod().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(
+									killerFaction.getGod().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() + 2);
+					} else
+						killer.setHealth(killer.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+				}
+			} catch (Exception exception) {
+				System.out.println("ERROR team not found");
+			}
+		}
+	}
 
-  private void vfx(Player player) {
-    Bukkit.broadcastMessage(GameSettings.LANG.textOf("godSpawn.aphrodite"));
-    Utils.runTotemDisplay(player);
-    for (Player p : Bukkit.getOnlinePlayers()) {
-      p.playSound(p.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_MIRROR, 10, 0.1f);
-    }
-  }
+	private void vfx(Player player) {
+		Bukkit.broadcastMessage(GameSettings.LANG.textOf("godSpawn.aphrodite"));
+		Utils.runTotemDisplay(player);
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			p.playSound(p.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_MIRROR, 10, 0.1f);
+		}
+	}
 }

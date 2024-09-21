@@ -13,45 +13,46 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Hermes implements Gods {
 
-  public Hermes(Faction faction) {
-    init(faction);
-    Player god = faction.getGod();
-    ArrayList<Player> playerList = (ArrayList<Player>) faction.getPlayerList().clone();
-    god.setAllowFlight(true);
-    playerList.remove(god.getUniqueId());
-  }
+	public Hermes(Faction faction) {
+		init(faction);
+		Player god = faction.getGod();
+		ArrayList<Player> playerList = (ArrayList<Player>) faction.getPlayerList().clone();
+		god.setAllowFlight(true);
+		playerList.remove(god.getUniqueId());
+	}
 
-  public Hermes() {}
+	public Hermes() {
+	}
 
-  @Override
-  public double teamHeart() {
-    return 24;
-  }
+	@Override
+	public double teamHeart() {
+		return 24;
+	}
 
-  @Override
-  public ArrayList<ItemStack> godItems() {
-    ArrayList<ItemStack> items = new ArrayList<>();
-    items.add(new CustomItemStack(CustomMaterial.HERMES_CADUCEUS).getItem());
-    return items;
-  }
+	@Override
+	public ArrayList<ItemStack> godItems() {
+		ArrayList<ItemStack> items = new ArrayList<>();
+		items.add(new CustomItemStack(CustomMaterial.HERMES_CADUCEUS).getItem());
+		return items;
+	}
 
-  @Override
-  public ArrayList<ItemStack> teamItems() {
-    return null;
-  }
+	@Override
+	public ArrayList<ItemStack> teamItems() {
+		return null;
+	}
 
-  @Override
-  public Collection<PotionEffect> godEffects() {
-    Collection<PotionEffect> potions = new ArrayList<>();
-    potions.add(new PotionEffect(PotionEffectType.SPEED, 99999999, 1, false, false, true));
-    potions.add(new PotionEffect(PotionEffectType.SATURATION, 99999999, 9, false, false, true));
-    return potions;
-  }
+	@Override
+	public Collection<PotionEffect> godEffects() {
+		Collection<PotionEffect> potions = new ArrayList<>();
+		potions.add(new PotionEffect(PotionEffectType.SPEED, 99999999, 1, false, false, true));
+		potions.add(new PotionEffect(PotionEffectType.SATURATION, 99999999, 9, false, false, true));
+		return potions;
+	}
 
-  @Override
-  public Collection<PotionEffect> teamEffects() {
-    Collection<PotionEffect> potions = new ArrayList<>();
-    potions.add(new PotionEffect(PotionEffectType.SPEED, 99999999, 0, false, false, true));
-    return potions;
-  }
+	@Override
+	public Collection<PotionEffect> teamEffects() {
+		Collection<PotionEffect> potions = new ArrayList<>();
+		potions.add(new PotionEffect(PotionEffectType.SPEED, 99999999, 0, false, false, true));
+		return potions;
+	}
 }

@@ -11,18 +11,13 @@ import org.bukkit.potion.PotionEffectType;
 
 public class PlayerEatGoldenApple implements Listener {
 
-  @EventHandler
-  public void onGoldenApple(PlayerItemConsumeEvent e) {
-    if (Daedalus.getInstance().getGameManager().isRunning()
-        && e.getItem().getType() == Material.GOLDEN_APPLE
-        && !GameSettings.ABSORPTION) {
-      Bukkit.getScheduler()
-          .runTaskLater(
-              Daedalus.getInstance(),
-              () -> {
-                e.getPlayer().removePotionEffect(PotionEffectType.ABSORPTION);
-              },
-              1);
-    }
-  }
+	@EventHandler
+	public void onGoldenApple(PlayerItemConsumeEvent e) {
+		if (Daedalus.getInstance().getGameManager().isRunning() && e.getItem().getType() == Material.GOLDEN_APPLE
+				&& !GameSettings.ABSORPTION) {
+			Bukkit.getScheduler().runTaskLater(Daedalus.getInstance(), () -> {
+				e.getPlayer().removePotionEffect(PotionEffectType.ABSORPTION);
+			}, 1);
+		}
+	}
 }

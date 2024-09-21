@@ -21,82 +21,74 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 public class MinotaureHandler implements Listener {
-  private static ArrayList<Player> growlList = new ArrayList<>();
+	private static ArrayList<Player> growlList = new ArrayList<>();
 
-  @EventHandler
-  public void playerInteract(GodSpawnEvent e) {
+	@EventHandler
+	public void playerInteract(GodSpawnEvent e) {
 
-    if (e.getGod() == GodsEnum.MINOTAURE) {
+		if (e.getGod() == GodsEnum.MINOTAURE) {
 
-      e.getFaction().setGod(e.getPlayer(), GodsEnum.MINOTAURE);
-      new Minotaure(e.getFaction());
-      growlTask();
-      vfx(e.getPlayer());
-    }
-  }
+			e.getFaction().setGod(e.getPlayer(), GodsEnum.MINOTAURE);
+			new Minotaure(e.getFaction());
+			growlTask();
+			vfx(e.getPlayer());
+		}
+	}
 
-  public void growlTask() {
-    Bukkit.getScheduler()
-        .runTaskTimer(
-            Daedalus.getInstance(),
-            () -> {
-              for (Faction team :
-                  Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
-                if (team.getGodsEnum() != GodsEnum.MINOTAURE) {
-                  continue;
-                }
-                for (Player player : team.getPlayerList()) {
-                  if (player == null || !team.isAlive(player)) continue;
+	public void growlTask() {
+		Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
+			for (Faction team : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
+				if (team.getGodsEnum() != GodsEnum.MINOTAURE) {
+					continue;
+				}
+				for (Player player : team.getPlayerList()) {
+					if (player == null || !team.isAlive(player))
+						continue;
 
-                  List<Entity> entities = player.getNearbyEntities(50, 50, 50);
-                  for (Entity e : entities) {
-                    if (e instanceof Player && ((Player) e).getGameMode() == GameMode.SURVIVAL) {
-                      Player target = ((Player) e).getPlayer();
-                      Faction playerFaction =
-                          Daedalus.getInstance()
-                              .getGameManager()
-                              .getFactionManager()
-                              .getFactionOf(target);
-                      if (growlList.contains(player)) {
-                        return;
-                      }
+					List<Entity> entities = player.getNearbyEntities(50, 50, 50);
+					for (Entity e : entities) {
+						if (e instanceof Player && ((Player) e).getGameMode() == GameMode.SURVIVAL) {
+							Player target = ((Player) e).getPlayer();
+							Faction playerFaction = Daedalus.getInstance().getGameManager().getFactionManager()
+									.getFactionOf(target);
+							if (growlList.contains(player)) {
+								return;
+							}
 
-                      if (playerFaction.getGodsEnum() == null) {
-                        growlHandler(player);
-                        return;
-                      }
-                      if (playerFaction.getGodsEnum() != null
-                          && playerFaction.getGodsEnum() != GodsEnum.MINOTAURE) {
-                        if (playerFaction.getGod() != null
-                            && playerFaction.getGod().getUniqueId() != target.getUniqueId()) {
-                          growlHandler(player);
-                          return;
-                        }
-                      }
-                    }
-                  }
-                  if (growlList.contains(player)) {
-                    growlList.remove(player);
-                  }
-                }
-              }
-            },
-            0,
-            50);
-  }
+							if (playerFaction.getGodsEnum() == null) {
+								growlHandler(player);
+								return;
+							}
+							if (playerFaction.getGodsEnum() != null
+									&& playerFaction.getGodsEnum() != GodsEnum.MINOTAURE) {
+								if (playerFaction.getGod() != null
+										&& playerFaction.getGod().getUniqueId() != target.getUniqueId()) {
+									growlHandler(player);
+									return;
+								}
+							}
+						}
+					}
+					if (growlList.contains(player)) {
+						growlList.remove(player);
+					}
+				}
+			}
+		}, 0, 50);
+	}
 
-  private void growlHandler(Player player) {
-    BaseComponent txt = new TextComponent(GameSettings.LANG.textOf("event.minoSmell"));
-    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, txt);
-    player.playSound(player.getLocation(), Sound.ENTITY_ZOGLIN_ANGRY, 2, 0.6f);
-    growlList.add(player);
-  }
+	private void growlHandler(Player player) {
+		BaseComponent txt = new TextComponent(GameSettings.LANG.textOf("event.minoSmell"));
+		player.spigot().sendMessage(ChatMessageType.ACTION_BAR, txt);
+		player.playSound(player.getLocation(), Sound.ENTITY_ZOGLIN_ANGRY, 2, 0.6f);
+		growlList.add(player);
+	}
 
-  private void vfx(Player player) {
-    Bukkit.broadcastMessage(GameSettings.LANG.textOf("godSpawn.minotaur"));
-    Utils.runTotemDisplay(player);
-    for (Player p : Bukkit.getOnlinePlayers()) {
-      p.playSound(p.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_MIRROR, 10, 0.1f);
-    }
-  }
+	private void vfx(Player player) {
+		Bukkit.broadcastMessage(GameSettings.LANG.textOf("godSpawn.minotaur"));
+		Utils.runTotemDisplay(player);
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			p.playSound(p.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_MIRROR, 10, 0.1f);
+		}
+	}
 }

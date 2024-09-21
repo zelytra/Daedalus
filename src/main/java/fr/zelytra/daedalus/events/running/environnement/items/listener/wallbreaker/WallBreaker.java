@@ -21,145 +21,128 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class WallBreaker implements Listener {
-  int itemCooldown = 5;
+	int itemCooldown = 5;
 
-  @EventHandler
-  public void onCustomItemUse(CustomItemUseEvent e) {
+	@EventHandler
+	public void onCustomItemUse(CustomItemUseEvent e) {
 
-    if (e.getMaterial() != CustomMaterial.WALL_BREAKER) return;
+		if (e.getMaterial() != CustomMaterial.WALL_BREAKER)
+			return;
 
-    if (!Daedalus.getInstance().getGameManager().isRunning()) return;
+		if (!Daedalus.getInstance().getGameManager().isRunning())
+			return;
 
-    if (Daedalus.getInstance().getStructureManager().getStructuresPosition().isEmpty()) return;
+		if (Daedalus.getInstance().getStructureManager().getStructuresPosition().isEmpty())
+			return;
 
-    Maze maze = Daedalus.getInstance().getStructureManager().getMaze();
-    if (maze == null) return;
+		Maze maze = Daedalus.getInstance().getStructureManager().getMaze();
+		if (maze == null)
+			return;
 
-    Player player = e.getPlayer();
-    Block block = player.getTargetBlockExact(10);
-    Vector2 matrixCoordinate =
-        new Vector2(
-            (int) (block.getX() - maze.getOrigin().getX() + 1),
-            (int) (block.getZ() - maze.getOrigin().getZ() + 1));
+		Player player = e.getPlayer();
+		Block block = player.getTargetBlockExact(10);
+		Vector2 matrixCoordinate = new Vector2((int) (block.getX() - maze.getOrigin().getX() + 1),
+				(int) (block.getZ() - maze.getOrigin().getZ() + 1));
 
-    if (maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z] != 1) {
-      player.sendMessage(
-          Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.wallBreakerNotAWall"));
-      return;
-    }
+		if (maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z] != 1) {
+			player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.wallBreakerNotAWall"));
+			return;
+		}
 
-    for (int x = -1; x <= 1; x++)
-      for (int z = -1; z <= 1; z++)
-        if (maze.getMaze()[matrixCoordinate.x + x][matrixCoordinate.z + z] < 0) {
-          player.sendMessage(
-              Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.wallBreakerNotAWall"));
-          return;
-        }
+		for (int x = -1; x <= 1; x++)
+			for (int z = -1; z <= 1; z++)
+				if (maze.getMaze()[matrixCoordinate.x + x][matrixCoordinate.z + z] < 0) {
+					player.sendMessage(
+							Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.wallBreakerNotAWall"));
+					return;
+				}
 
-    // Cooldown check
-    if (!Cooldown.cooldownCheck(e.getPlayer(), CustomMaterial.WALL_BREAKER.getName())) return;
-    new Cooldown(e.getPlayer(), itemCooldown, CustomMaterial.WALL_BREAKER.getName());
+		// Cooldown check
+		if (!Cooldown.cooldownCheck(e.getPlayer(), CustomMaterial.WALL_BREAKER.getName()))
+			return;
+		new Cooldown(e.getPlayer(), itemCooldown, CustomMaterial.WALL_BREAKER.getName());
 
-    for (WallShape shape : WallShape.values()) {
-      if (block.getY() + shape.getY() < maze.getOrigin().getY()) continue;
+		for (WallShape shape : WallShape.values()) {
+			if (block.getY() + shape.getY() < maze.getOrigin().getY())
+				continue;
 
-      switch (player.getFacing()) {
-        case NORTH:
-        case SOUTH:
-          matrixCoordinate =
-              new Vector2(
-                  (int) (block.getX() + shape.getX() - maze.getOrigin().getX() + 1),
-                  (int) (block.getZ() - maze.getOrigin().getZ() + 1));
-          if (maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z] != 1) continue;
-          Location target =
-              new Location(
-                  player.getWorld(),
-                  block.getX() + shape.getX(),
-                  block.getY() + shape.getY(),
-                  block.getZ());
-          breakBlockTask(target, shape);
-          break;
+			switch (player.getFacing()) {
+				case NORTH :
+				case SOUTH :
+					matrixCoordinate = new Vector2((int) (block.getX() + shape.getX() - maze.getOrigin().getX() + 1),
+							(int) (block.getZ() - maze.getOrigin().getZ() + 1));
+					if (maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z] != 1)
+						continue;
+					Location target = new Location(player.getWorld(), block.getX() + shape.getX(),
+							block.getY() + shape.getY(), block.getZ());
+					breakBlockTask(target, shape);
+					break;
 
-        case EAST:
-        case WEST:
-          matrixCoordinate =
-              new Vector2(
-                  (int) (block.getX() - maze.getOrigin().getX() + 1),
-                  (int) (block.getZ() + shape.getX() - maze.getOrigin().getZ() + 1));
-          if (maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z] != 1) continue;
-          target =
-              new Location(
-                  player.getWorld(),
-                  block.getX(),
-                  block.getY() + shape.getY(),
-                  block.getZ() + shape.getX());
-          breakBlockTask(target, shape);
-          break;
-      }
-    }
-    removeHeldItem(e.getEvent(), CustomMaterial.WALL_BREAKER);
-  }
+				case EAST :
+				case WEST :
+					matrixCoordinate = new Vector2((int) (block.getX() - maze.getOrigin().getX() + 1),
+							(int) (block.getZ() + shape.getX() - maze.getOrigin().getZ() + 1));
+					if (maze.getMaze()[matrixCoordinate.x][matrixCoordinate.z] != 1)
+						continue;
+					target = new Location(player.getWorld(), block.getX(), block.getY() + shape.getY(),
+							block.getZ() + shape.getX());
+					breakBlockTask(target, shape);
+					break;
+			}
+		}
+		removeHeldItem(e.getEvent(), CustomMaterial.WALL_BREAKER);
+	}
 
-  private void breakBlockTask(Location target, WallShape wallShape) {
+	private void breakBlockTask(Location target, WallShape wallShape) {
 
-    BlockState blockState = target.getBlock().getState();
+		BlockState blockState = target.getBlock().getState();
 
-    if (Math.random() * 100 <= wallShape.getLuck()) {
-      Bukkit.getScheduler()
-          .runTaskLater(
-              Daedalus.getInstance(),
-              () -> {
-                target.getBlock().setType(Material.AIR);
-                target
-                    .getWorld()
-                    .spawnParticle(Particle.BLOCK, target, 50, target.getBlock().getBlockData());
+		if (Math.random() * 100 <= wallShape.getLuck()) {
+			Bukkit.getScheduler().runTaskLater(Daedalus.getInstance(), () -> {
+				target.getBlock().setType(Material.AIR);
+				target.getWorld().spawnParticle(Particle.BLOCK, target, 50, target.getBlock().getBlockData());
 
-                for (Player p : Bukkit.getOnlinePlayers())
-                  p.playSound(target, Sound.BLOCK_BASALT_BREAK, (float) 0.6, (float) 0.1);
+				for (Player p : Bukkit.getOnlinePlayers())
+					p.playSound(target, Sound.BLOCK_BASALT_BREAK, (float) 0.6, (float) 0.1);
 
-                Bukkit.getScheduler()
-                    .runTaskLater(
-                        Daedalus.getInstance(),
-                        () -> {
-                          blockState.update(true);
-                          target
-                              .getWorld()
-                              .spawnParticle(Particle.ENCHANT, target, 300, 1, 1, 1, 1);
+				Bukkit.getScheduler().runTaskLater(Daedalus.getInstance(), () -> {
+					blockState.update(true);
+					target.getWorld().spawnParticle(Particle.ENCHANT, target, 300, 1, 1, 1, 1);
 
-                          for (Player p : Bukkit.getOnlinePlayers())
-                            p.playSound(target, Sound.BLOCK_BASALT_PLACE, (float) 0.6, (float) 1);
-                        },
-                        (long) wallShape.getTime() * 20 + new Random().nextInt(10));
-              },
-              new Random().nextInt(10));
-    }
-  }
+					for (Player p : Bukkit.getOnlinePlayers())
+						p.playSound(target, Sound.BLOCK_BASALT_PLACE, (float) 0.6, (float) 1);
+				}, (long) wallShape.getTime() * 20 + new Random().nextInt(10));
+			}, new Random().nextInt(10));
+		}
+	}
 
-  private void removeHeldItem(PlayerInteractEvent e, CustomMaterial material) {
+	private void removeHeldItem(PlayerInteractEvent e, CustomMaterial material) {
 
-    switch (Objects.requireNonNull(e.getHand())) {
-      case HAND:
-        if (CustomItemStack.hasCustomItemInMainHand(material.getName(), e.getPlayer())) {
-          if (e.getPlayer().getInventory().getItemInMainHand().getAmount() > 1) {
-            ItemStack newItem = e.getPlayer().getInventory().getItemInMainHand();
-            newItem.setAmount(newItem.getAmount() - 1);
-            e.getPlayer().getInventory().setItemInMainHand(newItem);
+		switch (Objects.requireNonNull(e.getHand())) {
+			case HAND :
+				if (CustomItemStack.hasCustomItemInMainHand(material.getName(), e.getPlayer())) {
+					if (e.getPlayer().getInventory().getItemInMainHand().getAmount() > 1) {
+						ItemStack newItem = e.getPlayer().getInventory().getItemInMainHand();
+						newItem.setAmount(newItem.getAmount() - 1);
+						e.getPlayer().getInventory().setItemInMainHand(newItem);
 
-          } else e.getPlayer().getInventory().setItemInMainHand(new ItemStack(Material.AIR));
-        }
-        break;
-      case OFF_HAND:
-        if (CustomItemStack.hasCustomItemInOffHand(material.getName(), e.getPlayer())) {
-          if (e.getPlayer().getInventory().getItemInOffHand().getAmount() > 1) {
-            ItemStack newItem = e.getPlayer().getInventory().getItemInOffHand();
-            newItem.setAmount(newItem.getAmount() - 1);
-            e.getPlayer().getInventory().setItemInOffHand(newItem);
-            return;
-          } else e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.AIR));
-        }
-        break;
-      default:
-        break;
-    }
-  }
+					} else
+						e.getPlayer().getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+				}
+				break;
+			case OFF_HAND :
+				if (CustomItemStack.hasCustomItemInOffHand(material.getName(), e.getPlayer())) {
+					if (e.getPlayer().getInventory().getItemInOffHand().getAmount() > 1) {
+						ItemStack newItem = e.getPlayer().getInventory().getItemInOffHand();
+						newItem.setAmount(newItem.getAmount() - 1);
+						e.getPlayer().getInventory().setItemInOffHand(newItem);
+						return;
+					} else
+						e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.AIR));
+				}
+				break;
+			default :
+				break;
+		}
+	}
 }

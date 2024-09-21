@@ -13,27 +13,24 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class GodSummonTab implements TabCompleter {
-  @Override
-  public @Nullable List<String> onTabComplete(
-      @NotNull CommandSender sender,
-      @NotNull Command command,
-      @NotNull String alias,
-      @NotNull String[] args) {
+	@Override
+	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
+			@NotNull String alias, @NotNull String[] args) {
 
-    List<String> commandsList = new ArrayList<>();
-    if (args.length == 1) {
-      for (GodsEnum god : GodsEnum.values()) {
-        commandsList.add(god.name().toLowerCase());
-      }
-      commandsList = Utils.dynamicTab(commandsList, args[0]);
-    }
+		List<String> commandsList = new ArrayList<>();
+		if (args.length == 1) {
+			for (GodsEnum god : GodsEnum.values()) {
+				commandsList.add(god.name().toLowerCase());
+			}
+			commandsList = Utils.dynamicTab(commandsList, args[0]);
+		}
 
-    if (args.length == 2) {
-      for (Player p : Bukkit.getOnlinePlayers()) {
-        commandsList.add(p.getName());
-      }
-      commandsList = Utils.dynamicTab(commandsList, args[1]);
-    }
-    return commandsList;
-  }
+		if (args.length == 2) {
+			for (Player p : Bukkit.getOnlinePlayers()) {
+				commandsList.add(p.getName());
+			}
+			commandsList = Utils.dynamicTab(commandsList, args[1]);
+		}
+		return commandsList;
+	}
 }

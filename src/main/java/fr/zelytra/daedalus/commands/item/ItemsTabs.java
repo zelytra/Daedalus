@@ -11,19 +11,16 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemsTabs implements TabCompleter {
-  @Override
-  public @Nullable List<String> onTabComplete(
-      @NotNull CommandSender sender,
-      @NotNull Command command,
-      @NotNull String alias,
-      @NotNull String[] args) {
-    List<String> commandsList = new ArrayList<>();
-    if (args.length == 1) {
-      for (CustomMaterial material : CustomMaterial.values()) {
-        commandsList.add(material.getName());
-      }
-      commandsList = Utils.dynamicTab(commandsList, args[0]);
-    }
-    return commandsList;
-  }
+	@Override
+	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
+			@NotNull String alias, @NotNull String[] args) {
+		List<String> commandsList = new ArrayList<>();
+		if (args.length == 1) {
+			for (CustomMaterial material : CustomMaterial.values()) {
+				commandsList.add(material.getName());
+			}
+			commandsList = Utils.dynamicTab(commandsList, args[0]);
+		}
+		return commandsList;
+	}
 }

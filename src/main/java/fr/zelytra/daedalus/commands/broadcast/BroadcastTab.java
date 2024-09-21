@@ -10,21 +10,20 @@ import org.jetbrains.annotations.NotNull;
 
 public class BroadcastTab implements TabCompleter {
 
-  @Override
-  public List<String> onTabComplete(
-      CommandSender sender, @NotNull Command cmd, String msg, String[] arg) {
-    List<String> commandsList = new ArrayList<>();
+	@Override
+	public List<String> onTabComplete(CommandSender sender, @NotNull Command cmd, String msg, String[] arg) {
+		List<String> commandsList = new ArrayList<>();
 
-    if (arg.length == 1) {
-      commandsList.add("all");
-      commandsList.add("msg");
-      commandsList.add("title");
-      commandsList.add("hotbar");
-      commandsList = Utils.dynamicTab(commandsList, arg[0]);
+		if (arg.length == 1) {
+			commandsList.add("all");
+			commandsList.add("msg");
+			commandsList.add("title");
+			commandsList.add("hotbar");
+			commandsList = Utils.dynamicTab(commandsList, arg[0]);
 
-      return commandsList;
-    }
+			return commandsList;
+		}
 
-    return commandsList;
-  }
+		return commandsList;
+	}
 }

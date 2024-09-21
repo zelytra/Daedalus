@@ -6,9 +6,9 @@ import org.bukkit.event.player.PlayerPortalEvent;
 
 public class PortalListener implements Listener {
 
-  @EventHandler
-  public void onPortal(PlayerPortalEvent e) {
-    e.setCanCreatePortal(false);
-    e.setCancelled(true);
-  }
+	@EventHandler
+	public void onPortal(PlayerPortalEvent e) {
+		e.setCanCreatePortal(false);
+		e.setCancelled(true);
+	}
 }

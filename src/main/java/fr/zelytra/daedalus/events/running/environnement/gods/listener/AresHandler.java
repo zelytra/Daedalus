@@ -13,22 +13,22 @@ import org.bukkit.event.Listener;
 
 public class AresHandler implements Listener {
 
-  @EventHandler
-  public void playerInteract(GodSpawnEvent e) {
+	@EventHandler
+	public void playerInteract(GodSpawnEvent e) {
 
-    if (e.getGod() == GodsEnum.ARES) {
+		if (e.getGod() == GodsEnum.ARES) {
 
-      e.getFaction().setGod(e.getPlayer(), GodsEnum.ARES);
-      new Ares(e.getFaction());
-      vfx(e.getPlayer());
-    }
-  }
+			e.getFaction().setGod(e.getPlayer(), GodsEnum.ARES);
+			new Ares(e.getFaction());
+			vfx(e.getPlayer());
+		}
+	}
 
-  private void vfx(Player player) {
-    Bukkit.broadcastMessage(GameSettings.LANG.textOf("godSpawn.ares"));
-    Utils.runTotemDisplay(player);
-    for (Player p : Bukkit.getOnlinePlayers()) {
-      p.playSound(p.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_MIRROR, 10, 0.1f);
-    }
-  }
+	private void vfx(Player player) {
+		Bukkit.broadcastMessage(GameSettings.LANG.textOf("godSpawn.ares"));
+		Utils.runTotemDisplay(player);
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			p.playSound(p.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_MIRROR, 10, 0.1f);
+		}
+	}
 }

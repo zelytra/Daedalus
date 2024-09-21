@@ -9,42 +9,44 @@ import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 
 public class BucketListener implements Listener {
-  private static final int wallHigh = 20;
-  private static final int limit = 4;
+	private static final int wallHigh = 20;
+	private static final int limit = 4;
 
-  @EventHandler
-  public void onBucket(PlayerBucketFillEvent e) {
-    if (Daedalus.getInstance().getGameManager().getState() != GameStatesEnum.RUNNING) {
-      return;
-    }
-    if (Daedalus.getInstance().getStructureManager().getStructuresPosition().isEmpty()) {
-      return;
-    }
+	@EventHandler
+	public void onBucket(PlayerBucketFillEvent e) {
+		if (Daedalus.getInstance().getGameManager().getState() != GameStatesEnum.RUNNING) {
+			return;
+		}
+		if (Daedalus.getInstance().getStructureManager().getStructuresPosition().isEmpty()) {
+			return;
+		}
 
-    Maze maze = Daedalus.getInstance().getStructureManager().getMaze();
-    if (maze == null) {
-      return;
-    }
-    int groundY = (int) maze.getOrigin().getY();
+		Maze maze = Daedalus.getInstance().getStructureManager().getMaze();
+		if (maze == null) {
+			return;
+		}
+		int groundY = (int) maze.getOrigin().getY();
 
-    if (e.getBlock().getY() >= groundY + (wallHigh - limit)) e.setCancelled(true);
-  }
+		if (e.getBlock().getY() >= groundY + (wallHigh - limit))
+			e.setCancelled(true);
+	}
 
-  @EventHandler
-  public void onBucket(PlayerBucketEmptyEvent e) {
-    if (Daedalus.getInstance().getGameManager().getState() != GameStatesEnum.RUNNING) {
-      return;
-    }
-    if (Daedalus.getInstance().getStructureManager().getStructuresPosition().isEmpty()) {
-      return;
-    }
+	@EventHandler
+	public void onBucket(PlayerBucketEmptyEvent e) {
+		if (Daedalus.getInstance().getGameManager().getState() != GameStatesEnum.RUNNING) {
+			return;
+		}
+		if (Daedalus.getInstance().getStructureManager().getStructuresPosition().isEmpty()) {
+			return;
+		}
 
-    Maze maze = Daedalus.getInstance().getStructureManager().getMaze();
-    if (maze == null) {
-      return;
-    }
-    int groundY = (int) maze.getOrigin().getY();
+		Maze maze = Daedalus.getInstance().getStructureManager().getMaze();
+		if (maze == null) {
+			return;
+		}
+		int groundY = (int) maze.getOrigin().getY();
 
-    if (e.getBlock().getY() >= groundY + (wallHigh - limit)) e.setCancelled(true);
-  }
+		if (e.getBlock().getY() >= groundY + (wallHigh - limit))
+			e.setCancelled(true);
+	}
 }

@@ -8,30 +8,32 @@ import org.jetbrains.annotations.NotNull;
 
 public class EpisodeChangeEvent extends Event implements Cancellable {
 
-  private static final HandlerList HANDLERS_LIST = new HandlerList();
-  private boolean isCancelled;
-  @Getter private int episode;
+	private static final HandlerList HANDLERS_LIST = new HandlerList();
+	private boolean isCancelled;
 
-  public EpisodeChangeEvent(int episode) {
-    this.episode = episode;
-  }
+	@Getter
+	private int episode;
 
-  @Override
-  public boolean isCancelled() {
-    return isCancelled;
-  }
+	public EpisodeChangeEvent(int episode) {
+		this.episode = episode;
+	}
 
-  @Override
-  public void setCancelled(boolean cancelled) {
-    this.isCancelled = cancelled;
-  }
+	@Override
+	public boolean isCancelled() {
+		return isCancelled;
+	}
 
-  @Override
-  public @NotNull HandlerList getHandlers() {
-    return HANDLERS_LIST;
-  }
+	@Override
+	public void setCancelled(boolean cancelled) {
+		this.isCancelled = cancelled;
+	}
 
-  public static HandlerList getHandlerList() {
-    return HANDLERS_LIST;
-  }
+	@Override
+	public @NotNull HandlerList getHandlers() {
+		return HANDLERS_LIST;
+	}
+
+	public static HandlerList getHandlerList() {
+		return HANDLERS_LIST;
+	}
 }

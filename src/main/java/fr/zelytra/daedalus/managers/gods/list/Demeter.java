@@ -17,61 +17,62 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Demeter implements Gods {
 
-  public Demeter(Faction team) {
-    init(team);
-  }
+	public Demeter(Faction team) {
+		init(team);
+	}
 
-  public Demeter() {}
+	public Demeter() {
+	}
 
-  @Override
-  public double teamHeart() {
-    return 20;
-  }
+	@Override
+	public double teamHeart() {
+		return 20;
+	}
 
-  @Override
-  public ArrayList<ItemStack> godItems() {
-    ArrayList<ItemStack> items = new ArrayList<>();
-    items.add(new CustomItemStack(CustomMaterial.DEMETER_SICKLE).getItem());
-    ItemStack hoe = new ItemStack(Material.NETHERITE_HOE);
-    ItemMeta meta = hoe.getItemMeta();
-    meta.addEnchant(Enchantment.KNOCKBACK, 7, true);
+	@Override
+	public ArrayList<ItemStack> godItems() {
+		ArrayList<ItemStack> items = new ArrayList<>();
+		items.add(new CustomItemStack(CustomMaterial.DEMETER_SICKLE).getItem());
+		ItemStack hoe = new ItemStack(Material.NETHERITE_HOE);
+		ItemMeta meta = hoe.getItemMeta();
+		meta.addEnchant(Enchantment.KNOCKBACK, 7, true);
 
-    PersistentDataContainer itemData = meta.getPersistentDataContainer();
-    itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
+		PersistentDataContainer itemData = meta.getPersistentDataContainer();
+		itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
 
-    hoe.setItemMeta(meta);
-    items.add(hoe);
-    return items;
-  }
+		hoe.setItemMeta(meta);
+		items.add(hoe);
+		return items;
+	}
 
-  @Override
-  public ArrayList<ItemStack> teamItems() {
+	@Override
+	public ArrayList<ItemStack> teamItems() {
 
-    ArrayList<ItemStack> items = new ArrayList<>();
-    ItemStack hoe = new ItemStack(Material.NETHERITE_HOE);
-    ItemMeta meta = hoe.getItemMeta();
-    meta.addEnchant(Enchantment.KNOCKBACK, 3, true);
+		ArrayList<ItemStack> items = new ArrayList<>();
+		ItemStack hoe = new ItemStack(Material.NETHERITE_HOE);
+		ItemMeta meta = hoe.getItemMeta();
+		meta.addEnchant(Enchantment.KNOCKBACK, 3, true);
 
-    PersistentDataContainer itemData = meta.getPersistentDataContainer();
-    itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
+		PersistentDataContainer itemData = meta.getPersistentDataContainer();
+		itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
 
-    hoe.setItemMeta(meta);
-    items.add(hoe);
-    return items;
-  }
+		hoe.setItemMeta(meta);
+		items.add(hoe);
+		return items;
+	}
 
-  @Override
-  public Collection<PotionEffect> godEffects() {
-    Collection<PotionEffect> potions = new ArrayList<>();
-    potions.add(new PotionEffect(PotionEffectType.REGENERATION, 99999999, 0, false, false, true));
-    potions.add(new PotionEffect(PotionEffectType.SATURATION, 99999999, 0, false, false, true));
-    return potions;
-  }
+	@Override
+	public Collection<PotionEffect> godEffects() {
+		Collection<PotionEffect> potions = new ArrayList<>();
+		potions.add(new PotionEffect(PotionEffectType.REGENERATION, 99999999, 0, false, false, true));
+		potions.add(new PotionEffect(PotionEffectType.SATURATION, 99999999, 0, false, false, true));
+		return potions;
+	}
 
-  @Override
-  public Collection<PotionEffect> teamEffects() {
-    Collection<PotionEffect> potions = new ArrayList<>();
-    potions.add(new PotionEffect(PotionEffectType.SATURATION, 99999999, 0, false, false, true));
-    return potions;
-  }
+	@Override
+	public Collection<PotionEffect> teamEffects() {
+		Collection<PotionEffect> potions = new ArrayList<>();
+		potions.add(new PotionEffect(PotionEffectType.SATURATION, 99999999, 0, false, false, true));
+		return potions;
+	}
 }

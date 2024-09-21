@@ -17,74 +17,65 @@ import org.bukkit.util.Vector;
 
 public class PoseidonCoche implements Listener {
 
-  @EventHandler
-  public void onRightClick(CustomItemUseEvent e) {
-    int itemCooldown = 30;
+	@EventHandler
+	public void onRightClick(CustomItemUseEvent e) {
+		int itemCooldown = 30;
 
-    if (e.getMaterial() != CustomMaterial.POSEIDON_CONCH) return;
+		if (e.getMaterial() != CustomMaterial.POSEIDON_CONCH)
+			return;
 
-    Player player = e.getPlayer();
+		Player player = e.getPlayer();
 
-    // Item action
-    try {
-      // Cooldown check
-      if (!Cooldown.cooldownCheck(player, CustomMaterial.POSEIDON_CONCH.getName())) return;
+		// Item action
+		try {
+			// Cooldown check
+			if (!Cooldown.cooldownCheck(player, CustomMaterial.POSEIDON_CONCH.getName()))
+				return;
 
-      new Cooldown(player, itemCooldown, CustomMaterial.POSEIDON_CONCH.getName());
+			new Cooldown(player, itemCooldown, CustomMaterial.POSEIDON_CONCH.getName());
 
-      Location center = e.getPlayer().getLocation().clone();
+			Location center = e.getPlayer().getLocation().clone();
 
-      List<Entity> tridents = e.getPlayer().getNearbyEntities(15, 15, 15);
-      for (Entity entity : tridents)
-        if (entity instanceof Trident) if (((Trident) entity).isInBlock()) entity.remove();
+			List<Entity> tridents = e.getPlayer().getNearbyEntities(15, 15, 15);
+			for (Entity entity : tridents)
+				if (entity instanceof Trident)
+					if (((Trident) entity).isInBlock())
+						entity.remove();
 
-      Bukkit.getScheduler()
-          .runTaskAsynchronously(
-              Daedalus.getInstance(),
-              () -> {
-                for (int size = 2; size <= 10; size++) {
-                  double rand = Math.random() * 10;
-                  for (double angle = rand; angle <= rand + 15; angle++) {
-                    Location ballLoc =
-                        new Location(
-                            center.getWorld(), center.getX(), center.getY(), center.getZ());
-                    ballLoc.setX(center.getX() + Math.cos(angle) * size);
-                    ballLoc.setZ(center.getZ() + Math.sin(angle) * size);
-                    ballLoc.setY(ballLoc.getY() + 10);
-                    Bukkit.getScheduler()
-                        .runTask(
-                            Daedalus.getInstance(),
-                            () -> {
-                              Trident trident =
-                                  (Trident)
-                                      center.getWorld().spawnEntity(ballLoc, EntityType.TRIDENT);
-                              trident.setPickupStatus(AbstractArrow.PickupStatus.DISALLOWED);
-                              trident.setVelocity(new Vector(0, -2, 0));
-                            });
-                  }
-                  try {
-                    Thread.sleep(100);
-                  } catch (InterruptedException exception) {
-                    exception.printStackTrace();
-                  }
-                }
-              });
+			Bukkit.getScheduler().runTaskAsynchronously(Daedalus.getInstance(), () -> {
+				for (int size = 2; size <= 10; size++) {
+					double rand = Math.random() * 10;
+					for (double angle = rand; angle <= rand + 15; angle++) {
+						Location ballLoc = new Location(center.getWorld(), center.getX(), center.getY(), center.getZ());
+						ballLoc.setX(center.getX() + Math.cos(angle) * size);
+						ballLoc.setZ(center.getZ() + Math.sin(angle) * size);
+						ballLoc.setY(ballLoc.getY() + 10);
+						Bukkit.getScheduler().runTask(Daedalus.getInstance(), () -> {
+							Trident trident = (Trident) center.getWorld().spawnEntity(ballLoc, EntityType.TRIDENT);
+							trident.setPickupStatus(AbstractArrow.PickupStatus.DISALLOWED);
+							trident.setVelocity(new Vector(0, -2, 0));
+						});
+					}
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException exception) {
+						exception.printStackTrace();
+					}
+				}
+			});
 
-    } catch (Exception exception) {
-      System.out.println("ERROR team not found");
-    }
-  }
+		} catch (Exception exception) {
+			System.out.println("ERROR team not found");
+		}
+	}
 
-  @EventHandler
-  public void onTridentDamage(ProjectileHitEvent e) {
-    if (e.getEntity() instanceof Trident && e.getHitEntity() instanceof Player) {
-      Faction faction =
-          Daedalus.getInstance()
-              .getGameManager()
-              .getFactionManager()
-              .getFactionOf((Player) e.getHitEntity());
-      if (faction.getGodsEnum() != null && faction.getGodsEnum() == GodsEnum.POSEIDON)
-        e.setCancelled(true);
-    }
-  }
+	@EventHandler
+	public void onTridentDamage(ProjectileHitEvent e) {
+		if (e.getEntity() instanceof Trident && e.getHitEntity() instanceof Player) {
+			Faction faction = Daedalus.getInstance().getGameManager().getFactionManager()
+					.getFactionOf((Player) e.getHitEntity());
+			if (faction.getGodsEnum() != null && faction.getGodsEnum() == GodsEnum.POSEIDON)
+				e.setCancelled(true);
+		}
+	}
 }

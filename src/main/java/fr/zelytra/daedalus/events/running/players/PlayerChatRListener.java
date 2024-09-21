@@ -12,62 +12,57 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class PlayerChatRListener implements Listener {
 
-  @EventHandler
-  public void onChat(AsyncPlayerChatEvent e) {
+	@EventHandler
+	public void onChat(AsyncPlayerChatEvent e) {
 
-    if (Daedalus.getInstance().getGameManager().isRunning()
-        || Daedalus.getInstance().getGameManager().isFinished()) {
+		if (Daedalus.getInstance().getGameManager().isRunning()
+				|| Daedalus.getInstance().getGameManager().isFinished()) {
 
-      final Player p = e.getPlayer();
-      final Faction t = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(p);
+			final Player p = e.getPlayer();
+			final Faction t = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(p);
 
-      if (t.getType() != FactionsEnum.SPECTATOR && t.isAlive(p)) {
+			if (t.getType() != FactionsEnum.SPECTATOR && t.isAlive(p)) {
 
-        if (e.getMessage().startsWith("!")) {
+				if (e.getMessage().startsWith("!")) {
 
-          MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.GLOBAL, t);
-          message.playerSendMessage();
+					MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.GLOBAL, t);
+					message.playerSendMessage();
 
-        } else {
+				} else {
 
-          MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.TEAM, t);
-          message.playerSendMessage();
-        }
-      } else if (!t.isAlive(p)) {
+					MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.TEAM, t);
+					message.playerSendMessage();
+				}
+			} else if (!t.isAlive(p)) {
 
-        MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.SPECTATOR, t);
-        message.playerSendMessage();
+				MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.SPECTATOR, t);
+				message.playerSendMessage();
 
-      } else {
+			} else {
 
-        Faction spec =
-            Daedalus.getInstance()
-                .getGameManager()
-                .getFactionManager()
-                .getFactionOf(FactionsEnum.SPECTATOR);
-        if (!p.isOp()) {
+				Faction spec = Daedalus.getInstance().getGameManager().getFactionManager()
+						.getFactionOf(FactionsEnum.SPECTATOR);
+				if (!p.isOp()) {
 
-          MessageManager message =
-              new MessageManager(p, e.getMessage(), ChannelEnum.SPECTATOR, spec);
-          message.playerSendMessage();
+					MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.SPECTATOR, spec);
+					message.playerSendMessage();
 
-        } else {
+				} else {
 
-          if (e.getMessage().startsWith("!")) {
+					if (e.getMessage().startsWith("!")) {
 
-            MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.GLOBAL, t);
-            message.playerSendMessage();
+						MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.GLOBAL, t);
+						message.playerSendMessage();
 
-          } else {
+					} else {
 
-            MessageManager message =
-                new MessageManager(p, e.getMessage(), ChannelEnum.SPECTATOR, t);
-            message.playerSendMessage();
-          }
-        }
-      }
+						MessageManager message = new MessageManager(p, e.getMessage(), ChannelEnum.SPECTATOR, t);
+						message.playerSendMessage();
+					}
+				}
+			}
 
-      e.setCancelled(true);
-    }
-  }
+			e.setCancelled(true);
+		}
+	}
 }

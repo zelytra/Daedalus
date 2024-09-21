@@ -10,42 +10,34 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 
 public class ForcedTexturePack implements Listener {
-  private final String url =
-      "https://raw.githubusercontent.com/zelytra/Daedalus/master/resources/Daedalus_1.8.zip";
+	private final String url = "https://raw.githubusercontent.com/zelytra/Daedalus/master/resources/Daedalus_1.8.zip";
 
-  @EventHandler
-  public void joinListener(PlayerJoinEvent e) {
+	@EventHandler
+	public void joinListener(PlayerJoinEvent e) {
 
-    Bukkit.getScheduler()
-        .runTaskLater(
-            Daedalus.getInstance(),
-            () -> {
-              e.getPlayer().setResourcePack(url);
-            },
-            15);
-  }
+		Bukkit.getScheduler().runTaskLater(Daedalus.getInstance(), () -> {
+			e.getPlayer().setResourcePack(url);
+		}, 15);
+	}
 
-  @EventHandler
-  public void resourcePackStatus(PlayerResourcePackStatusEvent e) {
-    switch (e.getStatus()) {
-      case ACCEPTED:
-        e.getPlayer()
-            .sendMessage(
-                Message.getPlayerPrefixe() + GameSettings.LANG.textOf("player.loadTexturePack"));
-        break;
-      case DECLINED:
-        e.getPlayer().kickPlayer(GameSettings.LANG.textOf("player.declinedTexturePack"));
-        break;
-      case FAILED_DOWNLOAD:
-        e.getPlayer()
-            .sendMessage(
-                Message.getPlayerPrefixe() + GameSettings.LANG.textOf("player.failedTexturePack"));
-        break;
-      case SUCCESSFULLY_LOADED:
-        e.getPlayer()
-            .sendMessage(
-                Message.getPlayerPrefixe() + GameSettings.LANG.textOf("player.successTexturePack"));
-        break;
-    }
-  }
+	@EventHandler
+	public void resourcePackStatus(PlayerResourcePackStatusEvent e) {
+		switch (e.getStatus()) {
+			case ACCEPTED :
+				e.getPlayer()
+						.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("player.loadTexturePack"));
+				break;
+			case DECLINED :
+				e.getPlayer().kickPlayer(GameSettings.LANG.textOf("player.declinedTexturePack"));
+				break;
+			case FAILED_DOWNLOAD :
+				e.getPlayer()
+						.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("player.failedTexturePack"));
+				break;
+			case SUCCESSFULLY_LOADED :
+				e.getPlayer().sendMessage(
+						Message.getPlayerPrefixe() + GameSettings.LANG.textOf("player.successTexturePack"));
+				break;
+		}
+	}
 }

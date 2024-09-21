@@ -13,46 +13,31 @@ import org.bukkit.util.BoundingBox;
 
 public class StructureListener {
 
-  public StructureListener() {
-    Bukkit.getScheduler()
-        .scheduleAsyncRepeatingTask(
-            Daedalus.getInstance(),
-            () -> {
-              if (Daedalus.getInstance().getGameManager() != null
-                  && Daedalus.getInstance().getGameManager().isRunning()) {
+	public StructureListener() {
+		Bukkit.getScheduler().scheduleAsyncRepeatingTask(Daedalus.getInstance(), () -> {
+			if (Daedalus.getInstance().getGameManager() != null
+					&& Daedalus.getInstance().getGameManager().isRunning()) {
 
-                for (Map.Entry<BoundingBox, Structure> entry :
-                    Daedalus.getInstance()
-                        .getStructureManager()
-                        .getStructuresPosition()
-                        .entrySet()) {
-                  if (entry.getValue().getType() != StructureType.TEMPLE
-                      || entry.getValue().hasFirstEntrance()) {
-                    continue;
-                  }
-                  List<Player> players = new ArrayList<>();
-                  for (Player player : Bukkit.getOnlinePlayers()) {
-                    if (entry
-                        .getKey()
-                        .contains(
-                            player.getLocation().getX(),
-                            player.getLocation().getY(),
-                            player.getLocation().getZ())) {
-                      players.add(player);
-                    }
-                  }
-                  if (!players.isEmpty()) {
-                    entry.getValue().setFirstEntrance(true);
-                    Bukkit.getScheduler()
-                        .runTask(
-                            Daedalus.getInstance(),
-                            () -> new Guardian(entry.getValue().getBossSpawnLocation()));
-                    return;
-                  }
-                }
-              }
-            },
-            0,
-            2 * 20);
-  }
+				for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager()
+						.getStructuresPosition().entrySet()) {
+					if (entry.getValue().getType() != StructureType.TEMPLE || entry.getValue().hasFirstEntrance()) {
+						continue;
+					}
+					List<Player> players = new ArrayList<>();
+					for (Player player : Bukkit.getOnlinePlayers()) {
+						if (entry.getKey().contains(player.getLocation().getX(), player.getLocation().getY(),
+								player.getLocation().getZ())) {
+							players.add(player);
+						}
+					}
+					if (!players.isEmpty()) {
+						entry.getValue().setFirstEntrance(true);
+						Bukkit.getScheduler().runTask(Daedalus.getInstance(),
+								() -> new Guardian(entry.getValue().getBossSpawnLocation()));
+						return;
+					}
+				}
+			}
+		}, 0, 2 * 20);
+	}
 }

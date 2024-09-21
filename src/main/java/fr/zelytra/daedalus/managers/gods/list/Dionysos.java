@@ -11,39 +11,40 @@ import org.bukkit.potion.PotionEffect;
 
 public class Dionysos implements Gods {
 
-  public Dionysos(Faction team) {
-    init(team);
-  }
+	public Dionysos(Faction team) {
+		init(team);
+	}
 
-  public Dionysos() {}
+	public Dionysos() {
+	}
 
-  @Override
-  public double teamHeart() {
-    return 20;
-  }
+	@Override
+	public double teamHeart() {
+		return 20;
+	}
 
-  @Override
-  public ArrayList<ItemStack> godItems() {
-    ArrayList<ItemStack> items = new ArrayList<>();
-    items.add(new CustomItemStack(CustomMaterial.DIONYSUS_CUP).getItem());
-    items.add(new CustomItemStack(CustomMaterial.DIONYSUS_THYRSUS).getItem());
-    return items;
-  }
+	@Override
+	public ArrayList<ItemStack> godItems() {
+		ArrayList<ItemStack> items = new ArrayList<>();
+		items.add(new CustomItemStack(CustomMaterial.DIONYSUS_CUP).getItem());
+		items.add(new CustomItemStack(CustomMaterial.DIONYSUS_THYRSUS).getItem());
+		return items;
+	}
 
-  @Override
-  public ArrayList<ItemStack> teamItems() {
-    ArrayList<ItemStack> items = new ArrayList<>();
-    items.add(new CustomItemStack(CustomMaterial.DIONYSUS_CUP).getItem());
-    return items;
-  }
+	@Override
+	public ArrayList<ItemStack> teamItems() {
+		ArrayList<ItemStack> items = new ArrayList<>();
+		items.add(new CustomItemStack(CustomMaterial.DIONYSUS_CUP).getItem());
+		return items;
+	}
 
-  @Override
-  public Collection<PotionEffect> godEffects() {
-    return null;
-  }
+	@Override
+	public Collection<PotionEffect> godEffects() {
+		return null;
+	}
 
-  @Override
-  public Collection<PotionEffect> teamEffects() {
-    return null;
-  }
+	@Override
+	public Collection<PotionEffect> teamEffects() {
+		return null;
+	}
 }

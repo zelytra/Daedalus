@@ -12,47 +12,39 @@ import org.bukkit.inventory.EquipmentSlot;
 
 public class CustomItemUseHandler implements Listener {
 
-  @EventHandler
-  public void onCustomItemUse(PlayerInteractEvent e) {
+	@EventHandler
+	public void onCustomItemUse(PlayerInteractEvent e) {
 
-    if (Daedalus.getInstance().getGameManager().isRunning()) {
-      if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+		if (Daedalus.getInstance().getGameManager().isRunning()) {
+			if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 
-        if (e.getPlayer().isOp()
-            && (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK)
-            && e.getPlayer().getInventory().getItemInMainHand().getType() == Material.COMPASS) {
-          e.setCancelled(true);
-        }
+				if (e.getPlayer().isOp()
+						&& (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK)
+						&& e.getPlayer().getInventory().getItemInMainHand().getType() == Material.COMPASS) {
+					e.setCancelled(true);
+				}
 
-        if (e.getHand() == EquipmentSlot.OFF_HAND
-            && CustomItemStack.hasTag(e.getPlayer().getInventory().getItemInOffHand())) {
+				if (e.getHand() == EquipmentSlot.OFF_HAND
+						&& CustomItemStack.hasTag(e.getPlayer().getInventory().getItemInOffHand())) {
 
-          CustomItemUseEvent customItemUseEvent =
-              new CustomItemUseEvent(
-                  e.getPlayer(),
-                  CustomItemStack.getCustomMaterial(
-                      e.getPlayer().getInventory().getItemInOffHand()),
-                  e.getPlayer().getInventory().getItemInOffHand(),
-                  e);
-          Bukkit.getPluginManager().callEvent(customItemUseEvent);
+					CustomItemUseEvent customItemUseEvent = new CustomItemUseEvent(e.getPlayer(),
+							CustomItemStack.getCustomMaterial(e.getPlayer().getInventory().getItemInOffHand()),
+							e.getPlayer().getInventory().getItemInOffHand(), e);
+					Bukkit.getPluginManager().callEvent(customItemUseEvent);
 
-          return;
+					return;
 
-        } else if ((e.getHand() == EquipmentSlot.HAND
-            && CustomItemStack.hasTag(e.getPlayer().getInventory().getItemInMainHand()))) {
+				} else if ((e.getHand() == EquipmentSlot.HAND
+						&& CustomItemStack.hasTag(e.getPlayer().getInventory().getItemInMainHand()))) {
 
-          CustomItemUseEvent customItemUseEvent =
-              new CustomItemUseEvent(
-                  e.getPlayer(),
-                  CustomItemStack.getCustomMaterial(
-                      e.getPlayer().getInventory().getItemInMainHand()),
-                  e.getPlayer().getInventory().getItemInMainHand(),
-                  e);
-          Bukkit.getPluginManager().callEvent(customItemUseEvent);
+					CustomItemUseEvent customItemUseEvent = new CustomItemUseEvent(e.getPlayer(),
+							CustomItemStack.getCustomMaterial(e.getPlayer().getInventory().getItemInMainHand()),
+							e.getPlayer().getInventory().getItemInMainHand(), e);
+					Bukkit.getPluginManager().callEvent(customItemUseEvent);
 
-          return;
-        }
-      }
-    }
-  }
+					return;
+				}
+			}
+		}
+	}
 }

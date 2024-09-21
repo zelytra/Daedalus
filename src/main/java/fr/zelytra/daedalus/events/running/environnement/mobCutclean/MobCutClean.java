@@ -11,23 +11,23 @@ import org.bukkit.inventory.ItemStack;
 
 public class MobCutClean implements Listener {
 
-  @EventHandler
-  public void onMobDeath(EntityDeathEvent e) {
-    if (e.getEntity() instanceof Player) {
-      return;
-    }
-    if (GameSettings.CUT_CLEAN && FoodEnum.containMob(e.getEntityType())) {
-      FoodEnum animal = FoodEnum.getByMob(e.getEntityType());
-      List<ItemStack> loots = new ArrayList<>();
-      for (ItemStack item : e.getDrops()) {
-        if (item.getType() == animal.getRaw()) {
-          loots.add(new ItemStack(animal.getCooked(), item.getAmount()));
-          continue;
-        }
-        loots.add(item);
-      }
-      e.getDrops().clear();
-      e.getDrops().addAll(loots);
-    }
-  }
+	@EventHandler
+	public void onMobDeath(EntityDeathEvent e) {
+		if (e.getEntity() instanceof Player) {
+			return;
+		}
+		if (GameSettings.CUT_CLEAN && FoodEnum.containMob(e.getEntityType())) {
+			FoodEnum animal = FoodEnum.getByMob(e.getEntityType());
+			List<ItemStack> loots = new ArrayList<>();
+			for (ItemStack item : e.getDrops()) {
+				if (item.getType() == animal.getRaw()) {
+					loots.add(new ItemStack(animal.getCooked(), item.getAmount()));
+					continue;
+				}
+				loots.add(item);
+			}
+			e.getDrops().clear();
+			e.getDrops().addAll(loots);
+		}
+	}
 }

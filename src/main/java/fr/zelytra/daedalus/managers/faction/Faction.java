@@ -15,132 +15,125 @@ import org.bukkit.entity.Player;
 
 public class Faction {
 
-  private final HashMap<String, PlayerStatus> factionMembers;
-  private final FactionsEnum factionsEnum;
-  @Getter private FactionScoreBoard factionScoreBoard;
-  @Getter private GodsEnum godsEnum;
-  private String god;
+	private final HashMap<String, PlayerStatus> factionMembers;
+	private final FactionsEnum factionsEnum;
 
-  public Faction(FactionsEnum factionsEnum) {
-    this.factionsEnum = factionsEnum;
-    this.factionMembers = new HashMap<>();
-    this.factionScoreBoard = new FactionScoreBoard(this);
-  }
+	@Getter
+	private FactionScoreBoard factionScoreBoard;
 
-  public void add(Player player) {
-    Faction otherFaction =
-        Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
-    if (otherFaction != null) {
-      if (otherFaction.getType() != factionsEnum) {
-        otherFaction.remove(player);
-      } else {
-        this.remove(player);
-        if (Daedalus.getInstance().getGameManager().isWaiting())
-          Daedalus.getInstance()
-              .getGameManager()
-              .getFactionManager()
-              .getFactionOf(FactionsEnum.SPECTATOR)
-              .add(player);
-        return;
-      }
-    }
+	@Getter
+	private GodsEnum godsEnum;
 
-    factionMembers.put(player.getName(), PlayerStatus.ALIVE);
-    player.setPlayerListName(
-        factionsEnum.getPrefix() + player.getName() + factionsEnum.getSuffix());
-    FactionScoreBoard.addEntry(player, factionsEnum);
-    FactionScoreBoard.setScoreboardsForPlayer();
-    joinTeamFX(player, factionsEnum);
-  }
+	private String god;
 
-  private void remove(Player player) {
-    factionMembers.remove(player.getName());
-    player.setPlayerListName(player.getName());
-    FactionScoreBoard.removeEntry(player, factionsEnum);
-    FactionScoreBoard.setScoreboardsForPlayer();
-  }
+	public Faction(FactionsEnum factionsEnum) {
+		this.factionsEnum = factionsEnum;
+		this.factionMembers = new HashMap<>();
+		this.factionScoreBoard = new FactionScoreBoard(this);
+	}
 
-  @Nullable
-  public Player getGod() {
-    if (this.god != null) return Bukkit.getPlayer(god);
-    return null;
-  }
+	public void add(Player player) {
+		Faction otherFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+		if (otherFaction != null) {
+			if (otherFaction.getType() != factionsEnum) {
+				otherFaction.remove(player);
+			} else {
+				this.remove(player);
+				if (Daedalus.getInstance().getGameManager().isWaiting())
+					Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(FactionsEnum.SPECTATOR)
+							.add(player);
+				return;
+			}
+		}
 
-  public boolean has(Player player) {
-    return factionMembers.containsKey(player.getName());
-  }
+		factionMembers.put(player.getName(), PlayerStatus.ALIVE);
+		player.setPlayerListName(factionsEnum.getPrefix() + player.getName() + factionsEnum.getSuffix());
+		FactionScoreBoard.addEntry(player, factionsEnum);
+		FactionScoreBoard.setScoreboardsForPlayer();
+		joinTeamFX(player, factionsEnum);
+	}
 
-  public boolean is(FactionsEnum factionsEnum) {
-    return this.factionsEnum == factionsEnum;
-  }
+	private void remove(Player player) {
+		factionMembers.remove(player.getName());
+		player.setPlayerListName(player.getName());
+		FactionScoreBoard.removeEntry(player, factionsEnum);
+		FactionScoreBoard.setScoreboardsForPlayer();
+	}
 
-  public boolean isAlive(Player player) {
-    if (factionMembers.containsKey(player.getName())) {
-      return factionMembers.get(player.getName()) == PlayerStatus.ALIVE;
-    }
-    return false;
-  }
+	@Nullable
+	public Player getGod() {
+		if (this.god != null)
+			return Bukkit.getPlayer(god);
+		return null;
+	}
 
-  public ArrayList<Player> getPlayerList() {
-    ArrayList<Player> playerList = new ArrayList<>();
-    for (String name : factionMembers.keySet()) {
-      if (Bukkit.getPlayer(name) != null) playerList.add(Bukkit.getPlayer(name));
-    }
-    return playerList;
-  }
+	public boolean has(Player player) {
+		return factionMembers.containsKey(player.getName());
+	}
 
-  public int getPlayerAmount() {
-    return factionMembers.size();
-  }
+	public boolean is(FactionsEnum factionsEnum) {
+		return this.factionsEnum == factionsEnum;
+	}
 
-  public int getAliveCount() {
-    int count = 0;
-    for (PlayerStatus status : factionMembers.values()) {
-      if (status == PlayerStatus.ALIVE) count++;
-    }
-    return count;
-  }
+	public boolean isAlive(Player player) {
+		if (factionMembers.containsKey(player.getName())) {
+			return factionMembers.get(player.getName()) == PlayerStatus.ALIVE;
+		}
+		return false;
+	}
 
-  public FactionsEnum getType() {
-    return factionsEnum;
-  }
+	public ArrayList<Player> getPlayerList() {
+		ArrayList<Player> playerList = new ArrayList<>();
+		for (String name : factionMembers.keySet()) {
+			if (Bukkit.getPlayer(name) != null)
+				playerList.add(Bukkit.getPlayer(name));
+		}
+		return playerList;
+	}
 
-  public void setPlayerStatus(Player player, PlayerStatus status) {
-    if (factionMembers.containsKey(player.getName())) {
-      factionMembers.put(player.getName(), status);
-    }
-  }
+	public int getPlayerAmount() {
+		return factionMembers.size();
+	}
 
-  public void setGod(Player player, GodsEnum godsEnum) {
-    god = player.getName();
-    this.godsEnum = godsEnum;
-  }
+	public int getAliveCount() {
+		int count = 0;
+		for (PlayerStatus status : factionMembers.values()) {
+			if (status == PlayerStatus.ALIVE)
+				count++;
+		}
+		return count;
+	}
 
-  public void removeGod() {
-    this.god = null;
-  }
+	public FactionsEnum getType() {
+		return factionsEnum;
+	}
 
-  private void joinTeamFX(Player player, FactionsEnum factionsEnum) {
-    player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
-    player.sendMessage(
-        Message.getPlayerPrefixe()
-            + GameSettings.LANG.textOf("team.joinPrefix")
-            + factionsEnum.getPrefix()
-            + factionsEnum.getName()
-            + GameSettings.LANG.textOf("team.joinSuffix"));
-    if (Daedalus.getInstance().getGameManager().isWaiting()) {
-      if (player.isOp())
-        player
-            .getInventory()
-            .setItem(
-                8,
-                new VisualItemStack(factionsEnum.getBanner(), "§7Team selection", false).getItem());
-      else
-        player
-            .getInventory()
-            .setItem(
-                4,
-                new VisualItemStack(factionsEnum.getBanner(), "§7Team selection", false).getItem());
-    }
-  }
+	public void setPlayerStatus(Player player, PlayerStatus status) {
+		if (factionMembers.containsKey(player.getName())) {
+			factionMembers.put(player.getName(), status);
+		}
+	}
+
+	public void setGod(Player player, GodsEnum godsEnum) {
+		god = player.getName();
+		this.godsEnum = godsEnum;
+	}
+
+	public void removeGod() {
+		this.god = null;
+	}
+
+	private void joinTeamFX(Player player, FactionsEnum factionsEnum) {
+		player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
+		player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("team.joinPrefix")
+				+ factionsEnum.getPrefix() + factionsEnum.getName() + GameSettings.LANG.textOf("team.joinSuffix"));
+		if (Daedalus.getInstance().getGameManager().isWaiting()) {
+			if (player.isOp())
+				player.getInventory().setItem(8,
+						new VisualItemStack(factionsEnum.getBanner(), "§7Team selection", false).getItem());
+			else
+				player.getInventory().setItem(4,
+						new VisualItemStack(factionsEnum.getBanner(), "§7Team selection", false).getItem());
+		}
+	}
 }

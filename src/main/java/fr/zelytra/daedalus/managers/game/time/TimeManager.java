@@ -21,107 +21,101 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.BoundingBox;
 
 public class TimeManager {
-  private int time = 0;
-  @Getter private String timer = "00:00";
-  public static int episode = 1;
-  private int runnable;
-  @Getter @Setter private boolean pause = false;
+	private int time = 0;
 
-  public TimeManager() {}
+	@Getter
+	private String timer = "00:00";
 
-  public void start() {
+	public static int episode = 1;
+	private int runnable;
 
-    runnable =
-        Bukkit.getScheduler()
-            .scheduleSyncRepeatingTask(
-                Daedalus.getInstance(),
-                () -> {
-                  if (time == GameSettings.TIME_PER_EPISODE) next();
+	@Getter
+	@Setter
+	private boolean pause = false;
 
-                  if (!isPause()) time++;
-                  updateTimer();
+	public TimeManager() {
+	}
 
-                  for (Faction faction :
-                      Daedalus.getInstance()
-                          .getGameManager()
-                          .getFactionManager()
-                          .getFactionList()) {
-                    faction.getFactionScoreBoard().update(this);
-                  }
-                },
-                0L,
-                20L);
-  }
+	public void start() {
 
-  public void stop() {
-    Bukkit.getScheduler().cancelTask(runnable);
-  }
+		runnable = Bukkit.getScheduler().scheduleSyncRepeatingTask(Daedalus.getInstance(), () -> {
+			if (time == GameSettings.TIME_PER_EPISODE)
+				next();
 
-  private void next() {
-    time = 0;
-    episode++;
-    episodeChangeEvent();
-  }
+			if (!isPause())
+				time++;
+			updateTimer();
 
-  private void episodeChangeEvent() {
-    Bukkit.broadcastMessage("");
-    Bukkit.broadcastMessage(
-        Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.episode") + episode);
+			for (Faction faction : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
+				faction.getFactionScoreBoard().update(this);
+			}
+		}, 0L, 20L);
+	}
 
-    EpisodeChangeEvent event = new EpisodeChangeEvent(episode);
-    Bukkit.getPluginManager().callEvent(event);
+	public void stop() {
+		Bukkit.getScheduler().cancelTask(runnable);
+	}
 
-    switch (episode) {
-      case 2:
-        Bukkit.broadcastMessage(
-            Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.minoRelease"));
+	private void next() {
+		time = 0;
+		episode++;
+		episodeChangeEvent();
+	}
 
-        for (Player player : Bukkit.getOnlinePlayers()) {
-          player.playSound(player.getLocation(), Sound.ENTITY_WITHER_AMBIENT, 1, 0.5F);
-        }
+	private void episodeChangeEvent() {
+		Bukkit.broadcastMessage("");
+		Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.episode") + episode);
 
-        for (Map.Entry<BoundingBox, Structure> entry :
-            Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
-          if (entry.getValue().getName() == StructureEnum.MINOTAURE.getName()) {
-            Doors doors = new Doors(entry.getKey());
-            doors.open(DoorsDirection.ALL);
-          }
-        }
-        break;
+		EpisodeChangeEvent event = new EpisodeChangeEvent(episode);
+		Bukkit.getPluginManager().callEvent(event);
 
-      case 4:
-        Bukkit.broadcastMessage(
-            Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.lifeSharing"));
-        break;
+		switch (episode) {
+			case 2 :
+				Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.minoRelease"));
 
-      case 6:
-        Bukkit.broadcastMessage(
-            Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.mazeFalling"));
-        Daedalus.getInstance().getStructureManager().getShrinkManager().startShrinking();
-        break;
+				for (Player player : Bukkit.getOnlinePlayers()) {
+					player.playSound(player.getLocation(), Sound.ENTITY_WITHER_AMBIENT, 1, 0.5F);
+				}
 
-      case 8:
-        Bukkit.broadcastMessage(GameSettings.LANG.textOf("event.playerShine"));
-        for (Faction faction :
-            Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
-          for (Player player : faction.getPlayerList())
-            if (faction.isAlive(player))
-              player.addPotionEffect(
-                  new PotionEffect(PotionEffectType.GLOWING, 9999999, 0, true, false, true));
-        }
-        break;
+				for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager()
+						.getStructuresPosition().entrySet()) {
+					if (entry.getValue().getName() == StructureEnum.MINOTAURE.getName()) {
+						Doors doors = new Doors(entry.getKey());
+						doors.open(DoorsDirection.ALL);
+					}
+				}
+				break;
 
-      default:
-        break;
-    }
-    Bukkit.broadcastMessage("");
-  }
+			case 4 :
+				Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.lifeSharing"));
+				break;
 
-  public int getEpisode() {
-    return episode;
-  }
+			case 6 :
+				Bukkit.broadcastMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("event.mazeFalling"));
+				Daedalus.getInstance().getStructureManager().getShrinkManager().startShrinking();
+				break;
 
-  private void updateTimer() {
-    timer = (new SimpleDateFormat("mm:ss")).format(time * 1000);
-  }
+			case 8 :
+				Bukkit.broadcastMessage(GameSettings.LANG.textOf("event.playerShine"));
+				for (Faction faction : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
+					for (Player player : faction.getPlayerList())
+						if (faction.isAlive(player))
+							player.addPotionEffect(
+									new PotionEffect(PotionEffectType.GLOWING, 9999999, 0, true, false, true));
+				}
+				break;
+
+			default :
+				break;
+		}
+		Bukkit.broadcastMessage("");
+	}
+
+	public int getEpisode() {
+		return episode;
+	}
+
+	private void updateTimer() {
+		timer = (new SimpleDateFormat("mm:ss")).format(time * 1000);
+	}
 }

@@ -17,235 +17,229 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 public class CustomItemStack {
-  @Getter
-  private static final NamespacedKey itemKey =
-      new NamespacedKey(Daedalus.getInstance(), "daedalus");
+	@Getter
+	private static final NamespacedKey itemKey = new NamespacedKey(Daedalus.getInstance(), "daedalus");
 
-  private static final NamespacedKey descriptionKey =
-      new NamespacedKey(Daedalus.getInstance(), "description");
+	private static final NamespacedKey descriptionKey = new NamespacedKey(Daedalus.getInstance(), "description");
 
-  private static final NamespacedKey dionysusValue =
-      new NamespacedKey(Daedalus.getInstance(), "value");
-  private static final NamespacedKey dionysusMaxValue =
-      new NamespacedKey(Daedalus.getInstance(), "maxValue");
+	private static final NamespacedKey dionysusValue = new NamespacedKey(Daedalus.getInstance(), "value");
+	private static final NamespacedKey dionysusMaxValue = new NamespacedKey(Daedalus.getInstance(), "maxValue");
 
-  @Getter private final ItemStack item;
-  private final CustomMaterial customMaterial;
+	@Getter
+	private final ItemStack item;
 
-  /**
-   * @param material Custom material of the item
-   * @param amount Item amount
-   */
-  public CustomItemStack(CustomMaterial material, int amount) {
+	private final CustomMaterial customMaterial;
 
-    this.customMaterial = material;
-    if (Objects.requireNonNull(material.getItemType()) == ItemType.ARMOR) {
-      this.item = new ItemStack(this.customMaterial.getVanillaMaterial(), amount);
-      ItemMeta meta = this.item.getItemMeta();
-      assert meta != null;
-      meta.setCustomModelData(this.customMaterial.getCustomModelData());
-      meta.setDisplayName(this.customMaterial.getDisplayName());
+	/**
+	 * @param material
+	 *            Custom material of the item
+	 * @param amount
+	 *            Item amount
+	 */
+	public CustomItemStack(CustomMaterial material, int amount) {
 
-      meta.addAttributeModifier(
-          Attribute.GENERIC_ARMOR,
-          AttributeGenerator.armor(material.getArmor(), material.getSlot().getGroup()));
-      meta.addAttributeModifier(
-          Attribute.GENERIC_MAX_HEALTH,
-          AttributeGenerator.extraHeart(material.getExtraHeart(), material.getSlot().getGroup()));
+		this.customMaterial = material;
+		if (Objects.requireNonNull(material.getItemType()) == ItemType.ARMOR) {
+			this.item = new ItemStack(this.customMaterial.getVanillaMaterial(), amount);
+			ItemMeta meta = this.item.getItemMeta();
+			assert meta != null;
+			meta.setCustomModelData(this.customMaterial.getCustomModelData());
+			meta.setDisplayName(this.customMaterial.getDisplayName());
 
-      PersistentDataContainer itemData = meta.getPersistentDataContainer();
-      itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
-      // itemData.set(descriptionKey, PersistentDataType.STRING, );
-      // meta.setLore(lore);
-      this.item.setItemMeta(meta);
-    } else {
-      ItemMeta meta;
-      PersistentDataContainer itemData;
-      this.item = new ItemStack(this.customMaterial.getVanillaMaterial(), amount);
-      meta = this.item.getItemMeta();
-      assert meta != null;
-      meta.setCustomModelData(this.customMaterial.getCustomModelData());
-      meta.setDisplayName(this.customMaterial.getDisplayName());
-      itemData = meta.getPersistentDataContainer();
-      itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
-      // itemData.set(descriptionKey, PersistentDataType.STRING, );
-      // meta.setLore(lore);
-      this.item.setItemMeta(meta);
+			meta.addAttributeModifier(Attribute.GENERIC_ARMOR,
+					AttributeGenerator.armor(material.getArmor(), material.getSlot().getGroup()));
+			meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH,
+					AttributeGenerator.extraHeart(material.getExtraHeart(), material.getSlot().getGroup()));
 
-      if (material == CustomMaterial.DIONYSUS_CUP) dionysosMugInit();
-    }
-  }
+			PersistentDataContainer itemData = meta.getPersistentDataContainer();
+			itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
+			// itemData.set(descriptionKey, PersistentDataType.STRING, );
+			// meta.setLore(lore);
+			this.item.setItemMeta(meta);
+		} else {
+			ItemMeta meta;
+			PersistentDataContainer itemData;
+			this.item = new ItemStack(this.customMaterial.getVanillaMaterial(), amount);
+			meta = this.item.getItemMeta();
+			assert meta != null;
+			meta.setCustomModelData(this.customMaterial.getCustomModelData());
+			meta.setDisplayName(this.customMaterial.getDisplayName());
+			itemData = meta.getPersistentDataContainer();
+			itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
+			// itemData.set(descriptionKey, PersistentDataType.STRING, );
+			// meta.setLore(lore);
+			this.item.setItemMeta(meta);
 
-  /**
-   * @param material Custom material of the item
-   */
-  public CustomItemStack(CustomMaterial material) {
+			if (material == CustomMaterial.DIONYSUS_CUP)
+				dionysosMugInit();
+		}
+	}
 
-    this.customMaterial = material;
-    switch (material.getItemType()) {
-      case ARMOR:
-        this.item = new ItemStack(this.customMaterial.getVanillaMaterial());
-        ItemMeta meta = this.item.getItemMeta();
-        assert meta != null;
-        meta.setCustomModelData(this.customMaterial.getCustomModelData());
-        meta.setDisplayName(this.customMaterial.getDisplayName());
+	/**
+	 * @param material
+	 *            Custom material of the item
+	 */
+	public CustomItemStack(CustomMaterial material) {
 
-        meta.addAttributeModifier(
-            Attribute.GENERIC_ARMOR,
-            AttributeGenerator.armor(material.getArmor(), material.getSlot().getGroup()));
-        meta.addAttributeModifier(
-            Attribute.GENERIC_MAX_HEALTH,
-            AttributeGenerator.extraHeart(material.getExtraHeart(), material.getSlot().getGroup()));
+		this.customMaterial = material;
+		switch (material.getItemType()) {
+			case ARMOR :
+				this.item = new ItemStack(this.customMaterial.getVanillaMaterial());
+				ItemMeta meta = this.item.getItemMeta();
+				assert meta != null;
+				meta.setCustomModelData(this.customMaterial.getCustomModelData());
+				meta.setDisplayName(this.customMaterial.getDisplayName());
 
-        PersistentDataContainer itemData = meta.getPersistentDataContainer();
-        itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
-        // itemData.set(descriptionKey, PersistentDataType.STRING, );
-        // meta.setLore(lore);
-        this.item.setItemMeta(meta);
-        break;
+				meta.addAttributeModifier(Attribute.GENERIC_ARMOR,
+						AttributeGenerator.armor(material.getArmor(), material.getSlot().getGroup()));
+				meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH,
+						AttributeGenerator.extraHeart(material.getExtraHeart(), material.getSlot().getGroup()));
 
-      default:
-        this.item = new ItemStack(this.customMaterial.getVanillaMaterial());
-        meta = this.item.getItemMeta();
-        assert meta != null;
-        meta.setCustomModelData(this.customMaterial.getCustomModelData());
-        meta.setDisplayName(this.customMaterial.getDisplayName());
-        itemData = meta.getPersistentDataContainer();
-        itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
-        // itemData.set(descriptionKey, PersistentDataType.STRING, );
-        // meta.setLore(lore);
-        this.item.setItemMeta(meta);
+				PersistentDataContainer itemData = meta.getPersistentDataContainer();
+				itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
+				// itemData.set(descriptionKey, PersistentDataType.STRING, );
+				// meta.setLore(lore);
+				this.item.setItemMeta(meta);
+				break;
 
-        if (material == CustomMaterial.DIONYSUS_CUP) dionysosMugInit();
+			default :
+				this.item = new ItemStack(this.customMaterial.getVanillaMaterial());
+				meta = this.item.getItemMeta();
+				assert meta != null;
+				meta.setCustomModelData(this.customMaterial.getCustomModelData());
+				meta.setDisplayName(this.customMaterial.getDisplayName());
+				itemData = meta.getPersistentDataContainer();
+				itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
+				// itemData.set(descriptionKey, PersistentDataType.STRING, );
+				// meta.setLore(lore);
+				this.item.setItemMeta(meta);
 
-        break;
-    }
-  }
+				if (material == CustomMaterial.DIONYSUS_CUP)
+					dionysosMugInit();
 
-  public CustomItemStack(CustomMaterial material, Lang lang) {
+				break;
+		}
+	}
 
-    this.customMaterial = material;
-    switch (material.getItemType()) {
-      case ARMOR:
-        this.item = new ItemStack(this.customMaterial.getVanillaMaterial());
-        ItemMeta meta = this.item.getItemMeta();
-        assert meta != null;
-        meta.setCustomModelData(this.customMaterial.getCustomModelData());
-        meta.setDisplayName(this.customMaterial.getDisplayName(lang));
+	public CustomItemStack(CustomMaterial material, Lang lang) {
 
-        meta.addAttributeModifier(
-            Attribute.GENERIC_ARMOR,
-            AttributeGenerator.armor(material.getArmor(), material.getSlot().getGroup()));
-        meta.addAttributeModifier(
-            Attribute.GENERIC_MAX_HEALTH,
-            AttributeGenerator.extraHeart(material.getExtraHeart(), material.getSlot().getGroup()));
+		this.customMaterial = material;
+		switch (material.getItemType()) {
+			case ARMOR :
+				this.item = new ItemStack(this.customMaterial.getVanillaMaterial());
+				ItemMeta meta = this.item.getItemMeta();
+				assert meta != null;
+				meta.setCustomModelData(this.customMaterial.getCustomModelData());
+				meta.setDisplayName(this.customMaterial.getDisplayName(lang));
 
-        PersistentDataContainer itemData = meta.getPersistentDataContainer();
-        itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
-        // itemData.set(descriptionKey, PersistentDataType.STRING, );
-        // meta.setLore(lore);
-        this.item.setItemMeta(meta);
-        break;
+				meta.addAttributeModifier(Attribute.GENERIC_ARMOR,
+						AttributeGenerator.armor(material.getArmor(), material.getSlot().getGroup()));
+				meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH,
+						AttributeGenerator.extraHeart(material.getExtraHeart(), material.getSlot().getGroup()));
 
-      default:
-        this.item = new ItemStack(this.customMaterial.getVanillaMaterial());
-        meta = this.item.getItemMeta();
-        assert meta != null;
-        meta.setCustomModelData(this.customMaterial.getCustomModelData());
-        meta.setDisplayName(this.customMaterial.getDisplayName(lang));
-        itemData = meta.getPersistentDataContainer();
-        itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
-        // itemData.set(descriptionKey, PersistentDataType.STRING, );
-        // meta.setLore(lore);
-        this.item.setItemMeta(meta);
+				PersistentDataContainer itemData = meta.getPersistentDataContainer();
+				itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
+				// itemData.set(descriptionKey, PersistentDataType.STRING, );
+				// meta.setLore(lore);
+				this.item.setItemMeta(meta);
+				break;
 
-        if (material == CustomMaterial.DIONYSUS_CUP) dionysosMugInit();
+			default :
+				this.item = new ItemStack(this.customMaterial.getVanillaMaterial());
+				meta = this.item.getItemMeta();
+				assert meta != null;
+				meta.setCustomModelData(this.customMaterial.getCustomModelData());
+				meta.setDisplayName(this.customMaterial.getDisplayName(lang));
+				itemData = meta.getPersistentDataContainer();
+				itemData.set(itemKey, PersistentDataType.STRING, this.customMaterial.getName());
+				// itemData.set(descriptionKey, PersistentDataType.STRING, );
+				// meta.setLore(lore);
+				this.item.setItemMeta(meta);
 
-        break;
-    }
-  }
+				if (material == CustomMaterial.DIONYSUS_CUP)
+					dionysosMugInit();
 
-  private void dionysosMugInit() {
-    ItemMeta meta = this.item.getItemMeta();
-    PersistentDataContainer itemData = meta.getPersistentDataContainer();
-    itemData.set(dionysusValue, PersistentDataType.INTEGER, 1);
-    itemData.set(dionysusMaxValue, PersistentDataType.INTEGER, 1);
+				break;
+		}
+	}
 
-    List<String> lore = new ArrayList<>();
-    lore.add("");
-    lore.add(GameSettings.LANG.textOf("item.dionysusSlip") + 1 + "§6/§a" + 1);
-    lore.add("");
-    meta.setLore(lore);
+	private void dionysosMugInit() {
+		ItemMeta meta = this.item.getItemMeta();
+		PersistentDataContainer itemData = meta.getPersistentDataContainer();
+		itemData.set(dionysusValue, PersistentDataType.INTEGER, 1);
+		itemData.set(dionysusMaxValue, PersistentDataType.INTEGER, 1);
 
-    this.item.setItemMeta(meta);
-  }
+		List<String> lore = new ArrayList<>();
+		lore.add("");
+		lore.add(GameSettings.LANG.textOf("item.dionysusSlip") + 1 + "§6/§a" + 1);
+		lore.add("");
+		meta.setLore(lore);
 
-  public static NamespacedKey getDionysusValueKey() {
-    return dionysusValue;
-  }
+		this.item.setItemMeta(meta);
+	}
 
-  public static NamespacedKey getDionysusMaxValueKey() {
-    return dionysusMaxValue;
-  }
+	public static NamespacedKey getDionysusValueKey() {
+		return dionysusValue;
+	}
 
-  public static boolean hasTag(ItemStack item) {
-    if (item != null && item.getItemMeta() != null) {
-      ItemMeta meta = item.getItemMeta();
-      PersistentDataContainer itemData = meta.getPersistentDataContainer();
-      return itemData.has(itemKey, PersistentDataType.STRING);
-    } else {
-      return false;
-    }
-  }
+	public static NamespacedKey getDionysusMaxValueKey() {
+		return dionysusMaxValue;
+	}
 
-  public static boolean hasTag(ItemStack item, CustomMaterial customMaterial) {
+	public static boolean hasTag(ItemStack item) {
+		if (item != null && item.getItemMeta() != null) {
+			ItemMeta meta = item.getItemMeta();
+			PersistentDataContainer itemData = meta.getPersistentDataContainer();
+			return itemData.has(itemKey, PersistentDataType.STRING);
+		} else {
+			return false;
+		}
+	}
 
-    if (CustomItemStack.hasTag(item)) {
-      ItemMeta meta = item.getItemMeta();
-      assert meta != null;
-      PersistentDataContainer itemData = meta.getPersistentDataContainer();
-      return Objects.requireNonNull(itemData.get(itemKey, PersistentDataType.STRING))
-          .equalsIgnoreCase(customMaterial.getName());
-    }
+	public static boolean hasTag(ItemStack item, CustomMaterial customMaterial) {
 
-    return false;
-  }
+		if (CustomItemStack.hasTag(item)) {
+			ItemMeta meta = item.getItemMeta();
+			assert meta != null;
+			PersistentDataContainer itemData = meta.getPersistentDataContainer();
+			return Objects.requireNonNull(itemData.get(itemKey, PersistentDataType.STRING))
+					.equalsIgnoreCase(customMaterial.getName());
+		}
 
-  public static boolean hasCustomItemInMainHand(String name, Player player) {
-    player.getInventory().getItemInMainHand();
-    if (player.getInventory().getItemInMainHand().getType() != Material.AIR) {
-      if (CustomItemStack.hasTag(player.getInventory().getItemInMainHand())) {
-        ItemMeta meta = player.getInventory().getItemInMainHand().getItemMeta();
-        assert meta != null;
-        PersistentDataContainer itemData = meta.getPersistentDataContainer();
-        return Objects.requireNonNull(itemData.get(itemKey, PersistentDataType.STRING))
-            .equalsIgnoreCase(name);
-      }
-    }
-    return false;
-  }
+		return false;
+	}
 
-  public static boolean hasCustomItemInOffHand(String name, Player player) {
-    player.getInventory().getItemInOffHand();
-    if (player.getInventory().getItemInOffHand().getType() != Material.AIR) {
-      if (CustomItemStack.hasTag(player.getInventory().getItemInOffHand())) {
-        ItemMeta meta = player.getInventory().getItemInOffHand().getItemMeta();
-        assert meta != null;
-        PersistentDataContainer itemData = meta.getPersistentDataContainer();
-        return Objects.requireNonNull(itemData.get(itemKey, PersistentDataType.STRING))
-            .equalsIgnoreCase(name);
-      }
-    }
-    return false;
-  }
+	public static boolean hasCustomItemInMainHand(String name, Player player) {
+		player.getInventory().getItemInMainHand();
+		if (player.getInventory().getItemInMainHand().getType() != Material.AIR) {
+			if (CustomItemStack.hasTag(player.getInventory().getItemInMainHand())) {
+				ItemMeta meta = player.getInventory().getItemInMainHand().getItemMeta();
+				assert meta != null;
+				PersistentDataContainer itemData = meta.getPersistentDataContainer();
+				return Objects.requireNonNull(itemData.get(itemKey, PersistentDataType.STRING)).equalsIgnoreCase(name);
+			}
+		}
+		return false;
+	}
 
-  public static CustomMaterial getCustomMaterial(ItemStack item) {
-    if (!hasTag(item)) {
-      return null;
-    }
-    return CustomMaterial.getByName(
-        item.getItemMeta()
-            .getPersistentDataContainer()
-            .get(CustomItemStack.getItemKey(), PersistentDataType.STRING));
-  }
+	public static boolean hasCustomItemInOffHand(String name, Player player) {
+		player.getInventory().getItemInOffHand();
+		if (player.getInventory().getItemInOffHand().getType() != Material.AIR) {
+			if (CustomItemStack.hasTag(player.getInventory().getItemInOffHand())) {
+				ItemMeta meta = player.getInventory().getItemInOffHand().getItemMeta();
+				assert meta != null;
+				PersistentDataContainer itemData = meta.getPersistentDataContainer();
+				return Objects.requireNonNull(itemData.get(itemKey, PersistentDataType.STRING)).equalsIgnoreCase(name);
+			}
+		}
+		return false;
+	}
+
+	public static CustomMaterial getCustomMaterial(ItemStack item) {
+		if (!hasTag(item)) {
+			return null;
+		}
+		return CustomMaterial.getByName(item.getItemMeta().getPersistentDataContainer()
+				.get(CustomItemStack.getItemKey(), PersistentDataType.STRING));
+	}
 }

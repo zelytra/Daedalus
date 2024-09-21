@@ -16,56 +16,57 @@ import org.bukkit.potion.PotionEffect;
 
 public class Athena implements Gods {
 
-  public Athena(Faction team) {
-    init(team);
-  }
+	public Athena(Faction team) {
+		init(team);
+	}
 
-  public Athena() {}
+	public Athena() {
+	}
 
-  @Override
-  public double teamHeart() {
-    return 20;
-  }
+	@Override
+	public double teamHeart() {
+		return 20;
+	}
 
-  @Override
-  public ArrayList<ItemStack> godItems() {
-    ArrayList<ItemStack> items = new ArrayList<>();
+	@Override
+	public ArrayList<ItemStack> godItems() {
+		ArrayList<ItemStack> items = new ArrayList<>();
 
-    ItemStack item = new ItemStack(Material.NETHERITE_SWORD);
-    item.addEnchantment(Enchantment.SHARPNESS, 4);
-    ItemMeta meta = item.getItemMeta();
-    PersistentDataContainer itemData = meta.getPersistentDataContainer();
-    itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
-    item.setItemMeta(meta);
-    items.add(item);
+		ItemStack item = new ItemStack(Material.NETHERITE_SWORD);
+		item.addEnchantment(Enchantment.SHARPNESS, 4);
+		ItemMeta meta = item.getItemMeta();
+		PersistentDataContainer itemData = meta.getPersistentDataContainer();
+		itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
+		item.setItemMeta(meta);
+		items.add(item);
 
-    item = new ItemStack(Material.SHIELD);
-    meta = item.getItemMeta();
-    meta.setUnbreakable(true);
-    item.setItemMeta(meta);
+		item = new ItemStack(Material.SHIELD);
+		meta = item.getItemMeta();
+		meta.setUnbreakable(true);
+		item.setItemMeta(meta);
 
-    itemData = meta.getPersistentDataContainer();
-    itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
-    item.setItemMeta(meta);
-    items.add(item);
-    items.add(new CustomItemStack(CustomMaterial.ATHENA_MAP).getItem());
-    return items;
-  }
+		itemData = meta.getPersistentDataContainer();
+		itemData.set(CustomItemStack.getItemKey(), PersistentDataType.STRING, "teamsItem");
+		item.setItemMeta(meta);
+		items.add(item);
+		items.add(new CustomItemStack(CustomMaterial.ATHENA_MAP).getItem());
+		return items;
+	}
 
-  @Override
-  public ArrayList<ItemStack> teamItems() {
-    ArrayList<ItemStack> items = new ArrayList<>();
-    items.add(new ItemStack(Material.NETHERITE_SCRAP, 3));
-    return items;
-  }
+	@Override
+	public ArrayList<ItemStack> teamItems() {
+		ArrayList<ItemStack> items = new ArrayList<>();
+		items.add(new ItemStack(Material.NETHERITE_SCRAP, 3));
+		return items;
+	}
 
-  @Override
-  public Collection<PotionEffect> godEffects() {
-    return null;
-  }
+	@Override
+	public Collection<PotionEffect> godEffects() {
+		return null;
+	}
 
-  @Override
-  public Collection<PotionEffect> teamEffects() {
-    return null;
-  }
+	@Override
+	public Collection<PotionEffect> teamEffects() {
+		return null;
+	}
 }

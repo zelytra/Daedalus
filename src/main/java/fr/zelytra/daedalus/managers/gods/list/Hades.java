@@ -13,45 +13,44 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Hades implements Gods {
 
-  public Hades(Faction faction) {
-    init(faction);
-    Player god = faction.getGod();
-    ArrayList<Player> playerList = (ArrayList<Player>) faction.getPlayerList().clone();
-    playerList.remove(god.getUniqueId());
-  }
+	public Hades(Faction faction) {
+		init(faction);
+		Player god = faction.getGod();
+		ArrayList<Player> playerList = (ArrayList<Player>) faction.getPlayerList().clone();
+		playerList.remove(god.getUniqueId());
+	}
 
-  public Hades() {}
+	public Hades() {
+	}
 
-  @Override
-  public double teamHeart() {
-    return 22;
-  }
+	@Override
+	public double teamHeart() {
+		return 22;
+	}
 
-  @Override
-  public ArrayList<ItemStack> godItems() {
-    ArrayList<ItemStack> items = new ArrayList<>();
-    items.add(new CustomItemStack(CustomMaterial.HADES_SCEPTER).getItem());
-    return items;
-  }
+	@Override
+	public ArrayList<ItemStack> godItems() {
+		ArrayList<ItemStack> items = new ArrayList<>();
+		items.add(new CustomItemStack(CustomMaterial.HADES_SCEPTER).getItem());
+		return items;
+	}
 
-  @Override
-  public ArrayList<ItemStack> teamItems() {
-    return null;
-  }
+	@Override
+	public ArrayList<ItemStack> teamItems() {
+		return null;
+	}
 
-  @Override
-  public Collection<PotionEffect> godEffects() {
-    Collection<PotionEffect> potions = new ArrayList<>();
-    potions.add(
-        new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 99999999, 0, false, false, true));
-    return potions;
-  }
+	@Override
+	public Collection<PotionEffect> godEffects() {
+		Collection<PotionEffect> potions = new ArrayList<>();
+		potions.add(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 99999999, 0, false, false, true));
+		return potions;
+	}
 
-  @Override
-  public Collection<PotionEffect> teamEffects() {
-    Collection<PotionEffect> potions = new ArrayList<>();
-    potions.add(
-        new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 99999999, 0, false, false, true));
-    return potions;
-  }
+	@Override
+	public Collection<PotionEffect> teamEffects() {
+		Collection<PotionEffect> potions = new ArrayList<>();
+		potions.add(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 99999999, 0, false, false, true));
+		return potions;
+	}
 }

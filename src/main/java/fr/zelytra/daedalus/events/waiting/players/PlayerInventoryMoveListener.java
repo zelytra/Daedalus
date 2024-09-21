@@ -10,23 +10,25 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 public class PlayerInventoryMoveListener implements Listener {
 
-  @EventHandler
-  public void onMoveItem(InventoryClickEvent e) {
+	@EventHandler
+	public void onMoveItem(InventoryClickEvent e) {
 
-    if (Daedalus.getInstance().getGameManager().isWaiting())
-      if (e.getClickedInventory() != null
-          && e.getClickedInventory().getType() == InventoryType.PLAYER) e.setCancelled(true);
-  }
+		if (Daedalus.getInstance().getGameManager().isWaiting())
+			if (e.getClickedInventory() != null && e.getClickedInventory().getType() == InventoryType.PLAYER)
+				e.setCancelled(true);
+	}
 
-  @EventHandler
-  public void onItemDrop(PlayerDropItemEvent e) {
+	@EventHandler
+	public void onItemDrop(PlayerDropItemEvent e) {
 
-    if (Daedalus.getInstance().getGameManager().isWaiting()) e.setCancelled(true);
-  }
+		if (Daedalus.getInstance().getGameManager().isWaiting())
+			e.setCancelled(true);
+	}
 
-  @EventHandler
-  public void onSwapItem(PlayerSwapHandItemsEvent e) {
+	@EventHandler
+	public void onSwapItem(PlayerSwapHandItemsEvent e) {
 
-    if (Daedalus.getInstance().getGameManager().isWaiting()) e.setCancelled(true);
-  }
+		if (Daedalus.getInstance().getGameManager().isWaiting())
+			e.setCancelled(true);
+	}
 }

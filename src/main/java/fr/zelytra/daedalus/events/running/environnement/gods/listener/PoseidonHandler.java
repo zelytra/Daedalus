@@ -18,50 +18,47 @@ import org.bukkit.potion.PotionEffectType;
 
 public class PoseidonHandler implements Listener {
 
-  @EventHandler
-  public void playerInteract(GodSpawnEvent e) {
+	@EventHandler
+	public void playerInteract(GodSpawnEvent e) {
 
-    if (e.getGod() == GodsEnum.POSEIDON) {
+		if (e.getGod() == GodsEnum.POSEIDON) {
 
-      e.getFaction().setGod(e.getPlayer(), GodsEnum.POSEIDON);
-      new Poseidon(e.getFaction());
-      playerInWater();
-      vfx(e.getPlayer());
-    }
-  }
+			e.getFaction().setGod(e.getPlayer(), GodsEnum.POSEIDON);
+			new Poseidon(e.getFaction());
+			playerInWater();
+			vfx(e.getPlayer());
+		}
+	}
 
-  public void playerInWater() {
-    Bukkit.getScheduler()
-        .runTaskTimer(
-            Daedalus.getInstance(),
-            () -> {
-              for (Faction team :
-                  Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
-                if (team.getGodsEnum() != GodsEnum.POSEIDON) {
-                  continue;
-                }
-                for (Player player : team.getPlayerList()) {
-                  if (player == null || team.getGod() == null) continue;
+	public void playerInWater() {
+		Bukkit.getScheduler().runTaskTimer(Daedalus.getInstance(), () -> {
+			for (Faction team : Daedalus.getInstance().getGameManager().getFactionManager().getFactionList()) {
+				if (team.getGodsEnum() != GodsEnum.POSEIDON) {
+					continue;
+				}
+				for (Player player : team.getPlayerList()) {
+					if (player == null || team.getGod() == null)
+						continue;
 
-                  if (player.getName() != team.getGod().getName()) continue;
+					if (player.getName() != team.getGod().getName())
+						continue;
 
-                  if (player.getLocation().getBlock().getType() == Material.WATER) {
-                    if (player.getPotionEffect(PotionEffectType.REGENERATION) != null) continue;
-                    player.addPotionEffect(
-                        new PotionEffect(PotionEffectType.REGENERATION, 50, 0, false, true, true));
-                  }
-                }
-              }
-            },
-            0,
-            10);
-  }
+					if (player.getLocation().getBlock().getType() == Material.WATER) {
+						if (player.getPotionEffect(PotionEffectType.REGENERATION) != null)
+							continue;
+						player.addPotionEffect(
+								new PotionEffect(PotionEffectType.REGENERATION, 50, 0, false, true, true));
+					}
+				}
+			}
+		}, 0, 10);
+	}
 
-  private void vfx(Player player) {
-    Bukkit.broadcastMessage(GameSettings.LANG.textOf("godSpawn.poseidon"));
-    Utils.runTotemDisplay(player);
-    for (Player p : Bukkit.getOnlinePlayers()) {
-      p.playSound(p.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_MIRROR, 10, 0.1f);
-    }
-  }
+	private void vfx(Player player) {
+		Bukkit.broadcastMessage(GameSettings.LANG.textOf("godSpawn.poseidon"));
+		Utils.runTotemDisplay(player);
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			p.playSound(p.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_MIRROR, 10, 0.1f);
+		}
+	}
 }

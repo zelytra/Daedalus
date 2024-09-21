@@ -11,38 +11,45 @@ import org.bukkit.inventory.ItemStack;
 
 public class CustomItemUseEvent extends Event implements Cancellable {
 
-  private static final HandlerList HANDLERS_LIST = new HandlerList();
-  private boolean isCancelled;
-  @Getter private CustomMaterial material;
-  @Getter private final Player player;
-  @Getter private final ItemStack item;
-  @Getter private final PlayerInteractEvent event;
+	private static final HandlerList HANDLERS_LIST = new HandlerList();
+	private boolean isCancelled;
 
-  public CustomItemUseEvent(
-      Player player, CustomMaterial material, ItemStack item, PlayerInteractEvent event) {
+	@Getter
+	private CustomMaterial material;
 
-    this.material = material;
-    this.player = player;
-    this.item = item;
-    this.event = event;
-  }
+	@Getter
+	private final Player player;
 
-  @Override
-  public boolean isCancelled() {
-    return isCancelled;
-  }
+	@Getter
+	private final ItemStack item;
 
-  @Override
-  public void setCancelled(boolean cancelled) {
-    this.isCancelled = cancelled;
-  }
+	@Getter
+	private final PlayerInteractEvent event;
 
-  @Override
-  public HandlerList getHandlers() {
-    return HANDLERS_LIST;
-  }
+	public CustomItemUseEvent(Player player, CustomMaterial material, ItemStack item, PlayerInteractEvent event) {
 
-  public static HandlerList getHandlerList() {
-    return HANDLERS_LIST;
-  }
+		this.material = material;
+		this.player = player;
+		this.item = item;
+		this.event = event;
+	}
+
+	@Override
+	public boolean isCancelled() {
+		return isCancelled;
+	}
+
+	@Override
+	public void setCancelled(boolean cancelled) {
+		this.isCancelled = cancelled;
+	}
+
+	@Override
+	public HandlerList getHandlers() {
+		return HANDLERS_LIST;
+	}
+
+	public static HandlerList getHandlerList() {
+		return HANDLERS_LIST;
+	}
 }

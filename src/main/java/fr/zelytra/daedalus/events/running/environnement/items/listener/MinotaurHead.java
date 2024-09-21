@@ -11,17 +11,21 @@ import org.bukkit.event.inventory.InventoryType;
 
 public class MinotaurHead implements Listener {
 
-  @EventHandler
-  public void onHeadRemove(InventoryClickEvent e) {
-    if (!Daedalus.getInstance().getGameManager().isRunning()) return;
+	@EventHandler
+	public void onHeadRemove(InventoryClickEvent e) {
+		if (!Daedalus.getInstance().getGameManager().isRunning())
+			return;
 
-    if (e.getWhoClicked().getGameMode() != GameMode.SURVIVAL) return;
+		if (e.getWhoClicked().getGameMode() != GameMode.SURVIVAL)
+			return;
 
-    if (e.getInventory().getType() != InventoryType.CRAFTING) return;
+		if (e.getInventory().getType() != InventoryType.CRAFTING)
+			return;
 
-    if (e.getCurrentItem() == null) return;
+		if (e.getCurrentItem() == null)
+			return;
 
-    if (CustomItemStack.getCustomMaterial(e.getCurrentItem()) == CustomMaterial.MINOTAUR_HEAD)
-      e.setCancelled(true);
-  }
+		if (CustomItemStack.getCustomMaterial(e.getCurrentItem()) == CustomMaterial.MINOTAUR_HEAD)
+			e.setCancelled(true);
+	}
 }

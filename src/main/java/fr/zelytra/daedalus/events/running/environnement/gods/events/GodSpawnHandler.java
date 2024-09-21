@@ -23,79 +23,82 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.BoundingBox;
 
 public class GodSpawnHandler implements Listener {
-  private final Material invocationBlock = Material.LODESTONE;
+	private final Material invocationBlock = Material.LODESTONE;
 
-  @EventHandler
-  public void onPlayerInvocGod(PlayerInteractEvent e) {
+	@EventHandler
+	public void onPlayerInvocGod(PlayerInteractEvent e) {
 
-    if (!Daedalus.getInstance().getGameManager().isRunning()) return;
-    if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
-    if (Objects.requireNonNull(e.getClickedBlock()).getType() != invocationBlock) return;
-    if (e.getHand() != EquipmentSlot.HAND) return;
+		if (!Daedalus.getInstance().getGameManager().isRunning())
+			return;
+		if (e.getAction() != Action.RIGHT_CLICK_BLOCK)
+			return;
+		if (Objects.requireNonNull(e.getClickedBlock()).getType() != invocationBlock)
+			return;
+		if (e.getHand() != EquipmentSlot.HAND)
+			return;
 
-    Player player = e.getPlayer();
+		Player player = e.getPlayer();
 
-    for (GodsEnum god : GodsEnum.values()) {
-      if (e.getHand() == EquipmentSlot.HAND
-          && !CustomItemStack.hasCustomItemInMainHand(god.getTotem().getName(), player)) continue;
+		for (GodsEnum god : GodsEnum.values()) {
+			if (e.getHand() == EquipmentSlot.HAND
+					&& !CustomItemStack.hasCustomItemInMainHand(god.getTotem().getName(), player))
+				continue;
 
-      for (Map.Entry<BoundingBox, Structure> entry :
-          Daedalus.getInstance().getStructureManager().getStructuresPosition().entrySet()) {
+			for (Map.Entry<BoundingBox, Structure> entry : Daedalus.getInstance().getStructureManager()
+					.getStructuresPosition().entrySet()) {
 
-        if (!entry
-            .getKey()
-            .contains(
-                e.getClickedBlock().getX(), e.getClickedBlock().getY(), e.getClickedBlock().getZ()))
-          continue;
+				if (!entry.getKey().contains(e.getClickedBlock().getX(), e.getClickedBlock().getY(),
+						e.getClickedBlock().getZ()))
+					continue;
 
-        if (god == GodsEnum.MINOTAURE) {
-          if (entry.getValue().getType() != StructureType.BASE) continue;
-        } else {
-          if (entry.getValue().getType() != StructureType.TEMPLE) continue;
-        }
-        if (entry.getValue().getGod() != god) continue;
+				if (god == GodsEnum.MINOTAURE) {
+					if (entry.getValue().getType() != StructureType.BASE)
+						continue;
+				} else {
+					if (entry.getValue().getType() != StructureType.TEMPLE)
+						continue;
+				}
+				if (entry.getValue().getGod() != god)
+					continue;
 
-        Faction playerFaction;
-        try {
-          playerFaction =
-              Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
-        } catch (Exception exception) {
-          exception.printStackTrace();
-          System.out.println("ERROR team not found");
-          return;
-        }
+				Faction playerFaction;
+				try {
+					playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(player);
+				} catch (Exception exception) {
+					exception.printStackTrace();
+					System.out.println("ERROR team not found");
+					return;
+				}
 
-        if (playerFaction.getGod() != null) {
-          player.sendMessage(
-              Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.cannotSummonMore"));
-          return;
-        }
+				if (playerFaction.getGod() != null) {
+					player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.cannotSummonMore"));
+					return;
+				}
 
-        GodSpawnEvent event = new GodSpawnEvent(god, playerFaction, player);
-        Bukkit.getPluginManager().callEvent(event);
+				GodSpawnEvent event = new GodSpawnEvent(god, playerFaction, player);
+				Bukkit.getPluginManager().callEvent(event);
 
-        removeHeldItem(e, god.getTotem());
-        e.getClickedBlock().setType(Material.ANDESITE);
-        return;
-      }
-      player.sendMessage(
-          Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.cannotSummonHere"));
-      return;
-    }
-  }
+				removeHeldItem(e, god.getTotem());
+				e.getClickedBlock().setType(Material.ANDESITE);
+				return;
+			}
+			player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.cannotSummonHere"));
+			return;
+		}
+	}
 
-  private void removeHeldItem(PlayerInteractEvent e, CustomMaterial material) {
-    switch (Objects.requireNonNull(e.getHand())) {
-      case HAND:
-        if (CustomItemStack.hasCustomItemInMainHand(material.getName(), e.getPlayer()))
-          e.getPlayer().getInventory().setItemInMainHand(new ItemStack(Material.AIR));
-        break;
-      case OFF_HAND:
-        if (CustomItemStack.hasCustomItemInOffHand(material.getName(), e.getPlayer()))
-          e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.AIR));
-        break;
-      default:
-        break;
-    }
-  }
+	private void removeHeldItem(PlayerInteractEvent e, CustomMaterial material) {
+		switch (Objects.requireNonNull(e.getHand())) {
+			case HAND :
+				if (CustomItemStack.hasCustomItemInMainHand(material.getName(), e.getPlayer()))
+					e.getPlayer().getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+				break;
+			case OFF_HAND :
+				if (CustomItemStack.hasCustomItemInOffHand(material.getName(), e.getPlayer()))
+					e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.AIR));
+				break;
+			default :
+				break;
+		}
+	}
 }

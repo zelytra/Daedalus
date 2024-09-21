@@ -6,8 +6,8 @@ import org.bukkit.event.entity.EntityResurrectEvent;
 
 public class EntityResurect implements Listener {
 
-  @EventHandler
-  public void onResurect(EntityResurrectEvent e) {
-    e.setCancelled(true);
-  }
+	@EventHandler
+	public void onResurect(EntityResurrectEvent e) {
+		e.setCancelled(true);
+	}
 }
