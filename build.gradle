@@ -1,17 +1,6 @@
-buildscript {
-    repositories {
-        maven {
-            url = uri("https://plugins.gradle.org/m2/")
-        }
-    }
-    dependencies {
-        classpath("com.diffplug.spotless:spotless-plugin-gradle:7.0.0.BETA2")
-    }
-}
-
 plugins {
     id 'java'
-    id("com.diffplug.spotless") version "7.0.0.BETA2"
+    id 'com.diffplug.spotless' version '6.25.0'
 }
 
 group = 'fr.zelytra'
@@ -45,18 +34,6 @@ dependencies {
     implementation 'com.mojang:authlib:1.5.21' // Authlib dependency for GameProfile
 }
 
-spotless {
-    java {
-        target 'src/main/java/**/*.java', 'src/test/java/**/*.java'
-        importOrder()
-        removeUnusedImports()
-        cleanthat()
-        trimTrailingWhitespace()
-        formatAnnotations()
-        eclipse()
-    }
-}
-
 def targetJavaVersion = 21
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
@@ -64,6 +41,20 @@ java {
     targetCompatibility = javaVersion
     if (JavaVersion.current() < javaVersion) {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+spotless {
+    java {
+        target fileTree('.') {
+            include '**/*.java'
+            exclude '**/build/**', '**/build-*/**'
+        }
+        toggleOffOn()
+        eclipse()
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        endWithNewline()
     }
 }
 
