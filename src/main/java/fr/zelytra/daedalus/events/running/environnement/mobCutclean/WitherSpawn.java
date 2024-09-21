@@ -6,10 +6,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
 
 public class WitherSpawn implements Listener {
-    @EventHandler
-    public void onWitherSpawn(EntitySpawnEvent e){
-        if(e.getEntityType()== EntityType.WITHER){
-            e.setCancelled(true);
-        }
-    }
+	@EventHandler
+	public void onWitherSpawn(EntitySpawnEvent e) {
+		if (e.getEntityType() == EntityType.WITHER) {
+			e.setCancelled(true);
+		}
+	}
 }

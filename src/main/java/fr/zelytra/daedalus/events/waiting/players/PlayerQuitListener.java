@@ -9,12 +9,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerQuitListener implements Listener {
 
-    @EventHandler
-    public void playerQuit(PlayerQuitEvent e) {
+	@EventHandler
+	public void playerQuit(PlayerQuitEvent e) {
 
-        final Player p = e.getPlayer();
-        Utils.setTabFX(Daedalus.getInstance().getServer().getOnlinePlayers().size() - 1);
-        e.setQuitMessage("§8[§c-§8] §f" + p.getName());
-
-    }
+		final Player p = e.getPlayer();
+		Utils.setTabFX(Daedalus.getInstance().getServer().getOnlinePlayers().size() - 1);
+		e.setQuitMessage("§8[§c-§8] §f" + p.getName());
+	}
 }

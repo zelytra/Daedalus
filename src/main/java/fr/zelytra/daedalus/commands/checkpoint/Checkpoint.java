@@ -10,18 +10,19 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class Checkpoint implements CommandExecutor {
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        Player player = (Player) sender;
+	@Override
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+			@NotNull String[] args) {
+		Player player = (Player) sender;
 
-        if(!Daedalus.getInstance().getGameManager().isWaiting())
-            return false;
+		if (!Daedalus.getInstance().getGameManager().isWaiting())
+			return false;
 
-        if(JumpCheckPoint.jumpCP.containsKey(player.getName()))
-            player.teleport(JumpCheckPoint.jumpCP.get(player.getName()));
-        else
-            player.sendMessage(GameSettings.LANG.textOf("event.jumpCPNotFound"));
+		if (JumpCheckPoint.jumpCP.containsKey(player.getName()))
+			player.teleport(JumpCheckPoint.jumpCP.get(player.getName()));
+		else
+			player.sendMessage(GameSettings.LANG.textOf("event.jumpCPNotFound"));
 
-        return true;
-    }
+		return true;
+	}
 }

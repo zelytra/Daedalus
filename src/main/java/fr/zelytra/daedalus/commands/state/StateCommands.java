@@ -13,31 +13,30 @@ import org.jetbrains.annotations.NotNull;
 
 public class StateCommands implements CommandExecutor {
 
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+	@Override
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+			@NotNull String[] args) {
 
-        if (sender instanceof Player && sender.isOp()) {
+		if (sender instanceof Player && sender.isOp()) {
 
-            if (!sender.isOp()){
-                sender.sendMessage(Message.getPlayerPrefixe()+ GameSettings.LANG.textOf("command.permissionDenied"));
-                return false;
-            }
+			if (!sender.isOp()) {
+				sender.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.permissionDenied"));
+				return false;
+			}
 
-            if (args.length == 1) {
+			if (args.length == 1) {
 
-                try {
-                    Daedalus.getInstance().getGameManager().setState(GameStatesEnum.valueOf(args[0]));
-                } catch (IllegalArgumentException ignored) {
-                    sender.sendMessage(Message.getPlayerPrefixe() + "§cWrong state.");
-                }
+				try {
+					Daedalus.getInstance().getGameManager().setState(GameStatesEnum.valueOf(args[0]));
+				} catch (IllegalArgumentException ignored) {
+					sender.sendMessage(Message.getPlayerPrefixe() + "§cWrong state.");
+				}
 
-                Bukkit.broadcastMessage(Message.getPlayerPrefixe()+"§6Game state changed into -> §l" + args[0]);
-                return true;
-            }
+				Bukkit.broadcastMessage(Message.getPlayerPrefixe() + "§6Game state changed into -> §l" + args[0]);
+				return true;
+			}
+		}
 
-        }
-
-        return false;
-    }
+		return false;
+	}
 }
- 

@@ -9,13 +9,13 @@ import org.bukkit.inventory.EquipmentSlot;
 
 public class PlayerHotelClick implements Listener {
 
-    @EventHandler
-    public void onPlayerClick(PlayerInteractEvent e) {
-        if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.LODESTONE) {
-            if (e.getHand() == EquipmentSlot.HAND && e.getPlayer().getInventory().getItemInMainHand().getType() == Material.TOTEM_OF_UNDYING)
-                return;
-            e.getPlayer().openWorkbench(e.getClickedBlock().getLocation(), true);
-
-        }
-    }
+	@EventHandler
+	public void onPlayerClick(PlayerInteractEvent e) {
+		if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.LODESTONE) {
+			if (e.getHand() == EquipmentSlot.HAND
+					&& e.getPlayer().getInventory().getItemInMainHand().getType() == Material.TOTEM_OF_UNDYING)
+				return;
+			e.getPlayer().openWorkbench(e.getClickedBlock().getLocation(), true);
+		}
+	}
 }

@@ -1,6 +1,7 @@
 package fr.zelytra.daedalus.events.running.environnement.items.events;
 
 import fr.zelytra.daedalus.managers.items.CustomMaterial;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -10,54 +11,45 @@ import org.bukkit.inventory.ItemStack;
 
 public class CustomItemUseEvent extends Event implements Cancellable {
 
-    private static final HandlerList HANDLERS_LIST = new HandlerList();
-    private boolean isCancelled;
-    private CustomMaterial material;
-    private final Player player;
-    private final ItemStack item;
-    private final PlayerInteractEvent event;
+	private static final HandlerList HANDLERS_LIST = new HandlerList();
+	private boolean isCancelled;
 
-    public CustomItemUseEvent(Player player, CustomMaterial material, ItemStack item, PlayerInteractEvent event) {
+	@Getter
+	private CustomMaterial material;
 
-        this.material = material;
-        this.player = player;
-        this.item = item;
-        this.event = event;
+	@Getter
+	private final Player player;
 
-    }
+	@Getter
+	private final ItemStack item;
 
-    @Override
-    public boolean isCancelled() {
-        return isCancelled;
-    }
+	@Getter
+	private final PlayerInteractEvent event;
 
-    @Override
-    public void setCancelled(boolean cancelled) {
-        this.isCancelled = cancelled;
-    }
+	public CustomItemUseEvent(Player player, CustomMaterial material, ItemStack item, PlayerInteractEvent event) {
 
-    @Override
-    public HandlerList getHandlers() {
-        return HANDLERS_LIST;
-    }
+		this.material = material;
+		this.player = player;
+		this.item = item;
+		this.event = event;
+	}
 
-    public static HandlerList getHandlerList() {
-        return HANDLERS_LIST;
-    }
+	@Override
+	public boolean isCancelled() {
+		return isCancelled;
+	}
 
-    public CustomMaterial getMaterial() {
-        return material;
-    }
+	@Override
+	public void setCancelled(boolean cancelled) {
+		this.isCancelled = cancelled;
+	}
 
-    public Player getPlayer() {
-        return player;
-    }
+	@Override
+	public HandlerList getHandlers() {
+		return HANDLERS_LIST;
+	}
 
-    public ItemStack getItem() {
-        return item;
-    }
-
-    public PlayerInteractEvent getEvent() {
-        return event;
-    }
+	public static HandlerList getHandlerList() {
+		return HANDLERS_LIST;
+	}
 }

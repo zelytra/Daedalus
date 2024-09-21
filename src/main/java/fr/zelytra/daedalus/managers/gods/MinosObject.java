@@ -1,32 +1,30 @@
 package fr.zelytra.daedalus.managers.gods;
 
 import java.util.UUID;
+import lombok.Setter;
 
 public class MinosObject {
 
-    private UUID player;
-    private boolean spawned;
-    private boolean dead;
+	@Setter
+	private UUID player;
 
-    public MinosObject(){
-        this.spawned = false;
-        this.dead = false;
-    }
+	private boolean spawned;
+	private boolean dead;
 
-    public boolean isDead() {
-        return dead;
-    }
+	public MinosObject() {
+		this.spawned = false;
+		this.dead = false;
+	}
 
-    public boolean isSpawned() {
-        return spawned;
-    }
+	public boolean isDead() {
+		return dead;
+	}
 
-    public UUID getPlayer() {
-        return player;
-    }
+	public boolean isSpawned() {
+		return spawned;
+	}
 
-    public void setPlayer(UUID player) {
-        this.player = player;
-    }
+	public UUID getPlayer() {
+		return player;
+	}
 }
- 

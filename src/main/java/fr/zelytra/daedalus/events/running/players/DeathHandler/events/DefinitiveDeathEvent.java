@@ -2,6 +2,7 @@ package fr.zelytra.daedalus.events.running.players.DeathHandler.events;
 
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.faction.Faction;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -11,52 +12,48 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class DefinitiveDeathEvent extends Event implements Cancellable {
 
-    private static final HandlerList HANDLERS_LIST = new HandlerList();
-    private boolean isCancelled;
-    private Player player;
-    private EntityDamageEvent event;
+	private static final HandlerList HANDLERS_LIST = new HandlerList();
+	private boolean isCancelled;
 
-    public DefinitiveDeathEvent(Player player, EntityDamageEvent e) {
-        this.player = player;
-        this.isCancelled = false;
-        this.event = e;
-    }
+	@Getter
+	private Player player;
 
-    @Override
-    public boolean isCancelled() {
-        return isCancelled;
-    }
+	@Getter
+	private EntityDamageEvent event;
 
-    @Override
-    public void setCancelled(boolean cancelled) {
-        this.isCancelled = cancelled;
-    }
+	public DefinitiveDeathEvent(Player player, EntityDamageEvent e) {
+		this.player = player;
+		this.isCancelled = false;
+		this.event = e;
+	}
 
-    @Override
-    public HandlerList getHandlers() {
-        return HANDLERS_LIST;
-    }
+	@Override
+	public boolean isCancelled() {
+		return isCancelled;
+	}
 
-    public static HandlerList getHandlerList() {
-        return HANDLERS_LIST;
-    }
+	@Override
+	public void setCancelled(boolean cancelled) {
+		this.isCancelled = cancelled;
+	}
 
-    public Player getPlayer() {
-        return player;
-    }
+	@Override
+	public HandlerList getHandlers() {
+		return HANDLERS_LIST;
+	}
 
-    public Faction getFaction() {
-        return Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(this.player);
-    }
+	public static HandlerList getHandlerList() {
+		return HANDLERS_LIST;
+	}
 
-    public EntityDamageEvent getEvent() {
-        return event;
-    }
+	public Faction getFaction() {
+		return Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(this.player);
+	}
 
-    public Player getKiller() {
-        if (event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK)
-            if (((EntityDamageByEntityEvent) event).getDamager() instanceof Player)
-                return (Player) ((EntityDamageByEntityEvent) event).getDamager();
-        return null;
-    }
+	public Player getKiller() {
+		if (event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK)
+			if (((EntityDamageByEntityEvent) event).getDamager() instanceof Player)
+				return (Player) ((EntityDamageByEntityEvent) event).getDamager();
+		return null;
+	}
 }

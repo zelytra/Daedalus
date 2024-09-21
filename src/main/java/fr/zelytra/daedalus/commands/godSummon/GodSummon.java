@@ -14,64 +14,61 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class GodSummon implements CommandExecutor {
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+	@Override
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+			@NotNull String[] args) {
 
-        if (!(sender instanceof Player)) return false;
+		if (!(sender instanceof Player player))
+			return false;
 
-        Player player = (Player) sender;
+		if (!player.isOp()) {
+			player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.permissionDenied"));
+			return false;
+		}
 
-        if (!player.isOp()) {
-            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.permissionDenied"));
-            return false;
-        }
+		if (!Daedalus.getInstance().getGameManager().isRunning()) {
+			player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.pauseState"));
+			return false;
+		}
 
-        if (!Daedalus.getInstance().getGameManager().isRunning()) {
-            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.pauseState"));
-            return false;
-        }
+		if (args.length != 2) {
+			player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.noArguments"));
+			return false;
+		}
 
+		Player target = Bukkit.getPlayer(args[1]);
 
-        if (args.length != 2) {
-            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.noArguments"));
-            return false;
-        }
+		if (target == null) {
+			player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.playerOffline"));
+			return false;
+		}
 
-        Player target = Bukkit.getPlayer(args[1]);
+		Faction playerFaction;
+		try {
+			playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
+		} catch (Exception exception) {
+			exception.printStackTrace();
+			System.out.println("ERROR team not found");
+			return false;
+		}
 
-        if (target == null) {
-            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("command.playerOffline"));
-            return false;
-        }
+		if (playerFaction.getGod() != null) {
+			player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.cannotSummonMore"));
+			return false;
+		}
 
-        Faction playerFaction;
-        try {
-            playerFaction = Daedalus.getInstance().getGameManager().getFactionManager().getFactionOf(target);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            System.out.println("ERROR team not found");
-            return false;
-        }
+		GodsEnum god;
 
-        if (playerFaction.getGod() != null) {
-            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.cannotSummonMore"));
-            return false;
-        }
+		try {
+			god = GodsEnum.valueOf(args[0].toUpperCase());
+		} catch (Exception ignored) {
+			player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.noGodFound"));
+			return false;
+		}
 
-        GodsEnum god;
+		GodSpawnEvent event = new GodSpawnEvent(god, playerFaction, target);
+		Bukkit.getPluginManager().callEvent(event);
 
-        try {
-            god = GodsEnum.valueOf(args[0].toUpperCase());
-        } catch (Exception ignored) {
-            player.sendMessage(Message.getPlayerPrefixe() + GameSettings.LANG.textOf("god.noGodFound"));
-            return false;
-        }
-
-        GodSpawnEvent event = new GodSpawnEvent(god, playerFaction, target);
-        Bukkit.getPluginManager().callEvent(event);
-
-        return true;
-
-
-    }
+		return true;
+	}
 }

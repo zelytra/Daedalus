@@ -18,161 +18,157 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
 public class DeathListener implements Listener {
-    private Daedalus daedalus = Daedalus.getInstance();
-    public static boolean hasMinoSpawn = false;
-    private boolean isMinoDead = false;
+	private final Daedalus daedalus = Daedalus.getInstance();
+	public static boolean hasMinoSpawn = false;
+	private boolean isMinoDead = false;
 
-    @EventHandler
-    public void onCustomDeath(EntityDamageEvent e) {
+	@EventHandler
+	public void onCustomDeath(EntityDamageEvent e) {
 
-        if (!(e.getEntity() instanceof Player))
-            return;
+		if (!(e.getEntity() instanceof Player player))
+			return;
 
-        Player player = (Player) e.getEntity();
-        boolean isDead = player.getHealth() - e.getFinalDamage() <= 0;
+		boolean isDead = player.getHealth() - e.getFinalDamage() <= 0;
 
-        if (daedalus.getGameManager().isRunning() && isDead) {
-            e.setCancelled(true);
-            player.setHealth(player.getMaxHealth());
-            boolean shrinkHasReachSpawn = daedalus.getStructureManager().getShrinkManager().getBorderRadius() <= 495;
-            boolean killByAMino = false;
+		if (daedalus.getGameManager().isRunning() && isDead) {
+			e.setCancelled(true);
+			player.setHealth(player.getMaxHealth());
+			boolean shrinkHasReachSpawn = daedalus.getStructureManager().getShrinkManager().getBorderRadius() <= 495;
+			boolean killByAMino = false;
 
-            if (e instanceof EntityDamageByEntityEvent) {
-                EntityDamageByEntityEvent damageByEntityEvent = (EntityDamageByEntityEvent) e;
-                ProjectileSource projectileSource = null;
+			if (e instanceof EntityDamageByEntityEvent) {
+				EntityDamageByEntityEvent damageByEntityEvent = (EntityDamageByEntityEvent) e;
+				ProjectileSource projectileSource = null;
 
-                if (damageByEntityEvent.getDamager() instanceof Projectile)
-                    projectileSource = ((Projectile) damageByEntityEvent.getDamager()).getShooter();
+				if (damageByEntityEvent.getDamager() instanceof Projectile)
+					projectileSource = ((Projectile) damageByEntityEvent.getDamager()).getShooter();
 
-                if (damageByEntityEvent.getDamager() instanceof Player) { //Kill by a player
+				if (damageByEntityEvent.getDamager() instanceof Player) { // Kill by a player
 
-                    Player killer = (Player) damageByEntityEvent.getDamager();
-                    killByAMino = daedalus.getGameManager().getFactionManager().getFactionOf(killer).getGodsEnum() == GodsEnum.MINOTAURE; //Tuer par un mino
+					Player killer = (Player) damageByEntityEvent.getDamager();
+					killByAMino = daedalus.getGameManager().getFactionManager().getFactionOf(killer)
+							.getGodsEnum() == GodsEnum.MINOTAURE; // Tuer par un mino
 
-                } else if (projectileSource != null && projectileSource instanceof Player) {// Kill by projectil
+				} else if (projectileSource != null && projectileSource instanceof Player) { // Kill by projectil
 
-                    Player killer = (Player) projectileSource;
-                    killByAMino = daedalus.getGameManager().getFactionManager().getFactionOf(killer).getGodsEnum() == GodsEnum.MINOTAURE; //Tuer par un mino
+					Player killer = (Player) projectileSource;
+					killByAMino = daedalus.getGameManager().getFactionManager().getFactionOf(killer)
+							.getGodsEnum() == GodsEnum.MINOTAURE; // Tuer par un mino
+				}
+			}
+			if (e.getCause() == EntityDamageEvent.DamageCause.FALL) { // Kill by falling
+				if ((e.getEntity().getLastDamageCause()) instanceof EntityDamageByEntityEvent
+						&& ((EntityDamageByEntityEvent) e.getEntity().getLastDamageCause())
+								.getDamager() instanceof Player) {
+					Player killer = (Player) ((EntityDamageByEntityEvent) e.getEntity().getLastDamageCause())
+							.getDamager();
+					killByAMino = daedalus.getGameManager().getFactionManager().getFactionOf(killer)
+							.getGodsEnum() == GodsEnum.MINOTAURE; // Tuer par un mino
+				}
+			}
 
-                }
+			boolean isMemberOfMino = daedalus.getGameManager().getFactionManager().getFactionOf(player)
+					.getGodsEnum() == GodsEnum.MINOTAURE; // Quand on est un mino
 
-            }
-            if (e.getCause() == EntityDamageEvent.DamageCause.FALL) { //Kill by falling
-                if ((e.getEntity().getLastDamageCause()) instanceof EntityDamageByEntityEvent && ((EntityDamageByEntityEvent) e.getEntity().getLastDamageCause()).getDamager() instanceof Player) {
-                    Player killer = (Player) ((EntityDamageByEntityEvent) e.getEntity().getLastDamageCause()).getDamager();
-                    killByAMino = daedalus.getGameManager().getFactionManager().getFactionOf(killer).getGodsEnum() == GodsEnum.MINOTAURE; //Tuer par un mino
-                }
-            }
+			// Mino PVE partiel death
+			if (isMemberOfMino && isPVEDeath(e)) {
 
-            boolean isMemberOfMino = daedalus.getGameManager().getFactionManager().getFactionOf(player).getGodsEnum() == GodsEnum.MINOTAURE;//Quand on est un mino
+				PartielDeathEvent event = new PartielDeathEvent(player, e);
+				Bukkit.getPluginManager().callEvent(event);
+				return;
+			}
 
+			if (hasMinoSpawn && !isMinoDead && daedalus.getGameManager().getFactionManager()
+					.getFactionOf(FactionsEnum.MINOTAUR).getGod() != null) {
+				if (player.getUniqueId() == daedalus.getGameManager().getFactionManager()
+						.getFactionOf(FactionsEnum.MINOTAUR).getGod().getUniqueId()) {
+					isMinoDead = true;
+					minotaursDeathFX();
+				}
+			}
 
-            //Mino PVE partiel death
-            if (isMemberOfMino && isPVEDeath(e)) {
+			if ((hasMinoSpawn && isMinoDead) || killByAMino || shrinkHasReachSpawn || isMemberOfMino) {
 
-                PartielDeathEvent event = new PartielDeathEvent(player, e);
-                Bukkit.getPluginManager().callEvent(event);
-                return;
+				DefinitiveDeathEvent event = new DefinitiveDeathEvent(player, e);
+				Bukkit.getPluginManager().callEvent(event);
+				winListener();
 
-            }
+			} else {
 
-            if (hasMinoSpawn && !isMinoDead && daedalus.getGameManager().getFactionManager().getFactionOf(FactionsEnum.MINOTAUR).getGod() != null) {
-                if (player.getUniqueId() == daedalus.getGameManager().getFactionManager().getFactionOf(FactionsEnum.MINOTAUR).getGod().getUniqueId()) {
-                    isMinoDead = true;
-                    minotaursDeathFX();
-                }
-            }
+				PartielDeathEvent event = new PartielDeathEvent(player, e);
+				Bukkit.getPluginManager().callEvent(event);
+			}
+		}
+	}
 
-            if ((hasMinoSpawn && isMinoDead) || killByAMino || shrinkHasReachSpawn || isMemberOfMino) {
+	private boolean isPVEDeath(EntityDamageEvent e) {
 
-                DefinitiveDeathEvent event = new DefinitiveDeathEvent(player, e);
-                Bukkit.getPluginManager().callEvent(event);
-                winListener();
+		ProjectileSource projectileSource = null;
 
-            } else {
+		if (e instanceof EntityDamageByEntityEvent) {
+			EntityDamageByEntityEvent damageByEntityEvent = (EntityDamageByEntityEvent) e;
+			if (damageByEntityEvent.getDamager() instanceof Projectile)
+				projectileSource = ((Projectile) damageByEntityEvent.getDamager()).getShooter();
 
-                PartielDeathEvent event = new PartielDeathEvent(player, e);
-                Bukkit.getPluginManager().callEvent(event);
+			if (projectileSource != null && projectileSource instanceof Player) // Shoot by a mob
+				return false;
 
-            }
+			if (damageByEntityEvent.getDamager() instanceof Player)
+				return false;
 
+			if (e.getCause() == EntityDamageEvent.DamageCause.FALL && e.getEntity().getLastDamageCause() != null
+					&& ((EntityDamageByEntityEvent) e.getEntity().getLastDamageCause().getEntity())
+							.getDamager() instanceof Player) // Kill by falling
+				return false;
+		}
 
-        }
+		return true;
+	}
 
+	@EventHandler
+	public void onMinoSpawn(GodSpawnEvent e) {
+		if (e.getGod() == GodsEnum.MINOTAURE)
+			hasMinoSpawn = true;
+	}
 
-    }
+	private void minotaursDeathFX() {
+		Bukkit.broadcastMessage("");
+		Bukkit.broadcastMessage(GameSettings.LANG.textOf("death.minotaur"));
+		Bukkit.broadcastMessage("");
+	}
 
-    private boolean isPVEDeath(EntityDamageEvent e) {
+	private void winListener() {
+		Faction winner = null;
+		int teamAliveCount = 0;
+		if (daedalus.getGameManager().isRunning()) {
+			for (Faction team : daedalus.getGameManager().getFactionManager().getFactionList()) {
+				if (team.getType() == FactionsEnum.SPECTATOR) {
+					continue;
+				}
+				int playerCount = 0;
+				for (Player player : team.getPlayerList()) {
+					if (team.isAlive(player) && player.isOnline()) {
+						playerCount++;
+					}
+				}
+				if (playerCount > 0) {
+					winner = team;
+					teamAliveCount++;
+				}
+			}
+			if (teamAliveCount == 1) {
+				daedalus.getGameManager().stop();
+				winFX(winner);
+			}
+		}
+	}
 
-
-        ProjectileSource projectileSource = null;
-
-        if (e instanceof EntityDamageByEntityEvent) {
-            EntityDamageByEntityEvent damageByEntityEvent = (EntityDamageByEntityEvent) e;
-            if (damageByEntityEvent.getDamager() instanceof Projectile)
-                projectileSource = ((Projectile) damageByEntityEvent.getDamager()).getShooter();
-
-            if (projectileSource != null && projectileSource instanceof Player)//Shoot by a mob
-                return false;
-
-            if (damageByEntityEvent.getDamager() instanceof Player)
-                return false;
-
-            if (e.getCause() == EntityDamageEvent.DamageCause.FALL
-                    && e.getEntity().getLastDamageCause() != null
-                    && ((EntityDamageByEntityEvent) e.getEntity().getLastDamageCause().getEntity()).getDamager() instanceof Player) //Kill by falling
-                return false;
-        }
-
-        return true;
-
-    }
-
-    @EventHandler
-    public void onMinoSpawn(GodSpawnEvent e) {
-        if (e.getGod() == GodsEnum.MINOTAURE)
-            hasMinoSpawn = true;
-    }
-
-    private void minotaursDeathFX() {
-        Bukkit.broadcastMessage("");
-        Bukkit.broadcastMessage(GameSettings.LANG.textOf("death.minotaur"));
-        Bukkit.broadcastMessage("");
-    }
-
-    private void winListener() {
-        Faction winner = null;
-        int teamAliveCount = 0;
-        if (daedalus.getGameManager().isRunning()) {
-            for (Faction team : daedalus.getGameManager().getFactionManager().getFactionList()) {
-                if (team.getType() == FactionsEnum.SPECTATOR) {
-                    continue;
-                }
-                int playerCount = 0;
-                for (Player player : team.getPlayerList()) {
-                    if (team.isAlive(player) && player.isOnline()) {
-                        playerCount++;
-                    }
-                }
-                if (playerCount > 0) {
-                    winner = team;
-                    teamAliveCount++;
-                }
-            }
-            if (teamAliveCount == 1) {
-                daedalus.getGameManager().stop();
-                winFX(winner);
-            }
-        }
-    }
-
-    private void winFX(Faction team) {
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            p.sendTitle("§l" + team.getType().getChatColor() + team.getType().getName() + GameSettings.LANG.textOf("event.victoryTitle"), GameSettings.LANG.textOf("event.victorySubTitle"), 5, 100, 5);
-        }
-
-
-    }
-
-
+	private void winFX(Faction team) {
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			p.sendTitle(
+					"§l" + team.getType().getChatColor() + team.getType().getName()
+							+ GameSettings.LANG.textOf("event.victoryTitle"),
+					GameSettings.LANG.textOf("event.victorySubTitle"), 5, 100, 5);
+		}
+	}
 }

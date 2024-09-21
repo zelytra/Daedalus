@@ -1,0 +1,77 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'  # Trigger this workflow on all tag pushes
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensure the full history is fetched to get previous tags
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Grant execute permission for Gradle wrapper
+        run: chmod +x ./gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Get version from tag
+        id: vars
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "TAG_NAME=$VERSION" >> $GITHUB_ENV
+
+      - name: Rename JAR file
+        run: |
+          JAR_FILE=$(find build/libs -name "*.jar" | head -n 1)
+          mv $JAR_FILE "daedalus-${VERSION}.jar"
+          echo "JAR_NAME=daedalus-${VERSION}.jar" >> $GITHUB_ENV
+
+      - name: Get previous tag
+        id: prev_tag
+        run: |
+          PREV_TAG=$(git tag --sort=-creatordate | grep -v $VERSION | head -n 1)
+          echo "PREV_TAG=$PREV_TAG" >> $GITHUB_ENV
+
+      - name: Generate release notes
+        id: release_notes
+        run: |
+          if [ -z "$PREV_TAG" ]; then
+            git log --pretty=format:"- %s" > release_notes.txt
+          else
+            git log $PREV_TAG..HEAD --pretty=format:"- %s" > release_notes.txt
+          fi
+          echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+          cat release_notes.txt >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          release_name: Release ${{ env.TAG_NAME }}
+          body: ${{ env.RELEASE_NOTES }}
+          draft: true
+          prerelease: false
+
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./daedalus-${{ env.VERSION }}.jar
+          asset_name: daedalus-${{ env.VERSION }}.jar
+          asset_content_type: application/java-archive

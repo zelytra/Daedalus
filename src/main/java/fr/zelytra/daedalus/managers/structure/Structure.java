@@ -6,88 +6,77 @@ import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
 import com.sk89q.worldedit.regions.Region;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.managers.gods.GodsEnum;
+import java.io.IOException;
+import java.io.InputStream;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.util.BlockVector;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 public class Structure {
 
-    private final StructureEnum structure;
-    private Clipboard clipboard;
-    private Region region;
-    private boolean firstEntrance = false;
-    private Location bossSpawnLocation;
+	private final StructureEnum structure;
 
+	@Getter
+	private Clipboard clipboard;
 
-    public Structure(StructureEnum structure) {
-        this.structure = structure;
+	@Getter
+	private Region region;
 
-        if (Bukkit.getServer().getPluginManager().getPlugin("FastAsyncWorldEdit") == null)
-            return;
+	@Setter
+	private boolean firstEntrance = false;
 
-        InputStream is = Daedalus.getInstance().getResource("structures/" + this.structure.getName() + ".struct");
-        BuiltInClipboardFormat format = BuiltInClipboardFormat.SPONGE_SCHEMATIC;
-        try (ClipboardReader reader = format.getReader(is)) {
-            this.clipboard = reader.read();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+	@Getter
+	@Setter
+	private Location bossSpawnLocation;
 
-        this.region = this.clipboard.getRegion();
-    }
+	public Structure(StructureEnum structure) {
+		this.structure = structure;
 
-    public boolean hasFirstEntrance() {
-        return firstEntrance;
-    }
+		if (Bukkit.getServer().getPluginManager().getPlugin("FastAsyncWorldEdit") == null)
+			return;
 
-    public void setFirstEntrance(boolean entrance) {
-        this.firstEntrance = entrance;
-    }
+		InputStream is = Daedalus.getInstance().getResource("structures/" + this.structure.getName() + ".struct");
+		BuiltInClipboardFormat format = BuiltInClipboardFormat.SPONGE_SCHEMATIC;
+		try (ClipboardReader reader = format.getReader(is)) {
+			this.clipboard = reader.read();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-    public String getName() {
-        return this.structure.getName();
-    }
+		this.region = this.clipboard.getRegion();
+	}
 
-    public BlockVector getOrigin() {
-        return this.structure.getOrigin();
-    }
+	public boolean hasFirstEntrance() {
+		return firstEntrance;
+	}
 
-    public StructureType getType() {
-        return this.structure.getType();
-    }
+	public String getName() {
+		return this.structure.getName();
+	}
 
-    public Clipboard getClipboard() {
-        return clipboard;
-    }
+	public BlockVector getOrigin() {
+		return this.structure.getOrigin();
+	}
 
-    public Region getRegion() {
-        return region;
-    }
+	public StructureType getType() {
+		return this.structure.getType();
+	}
 
-    public GodsEnum getGod() {
-        return this.structure.getGod();
-    }
+	public GodsEnum getGod() {
+		return this.structure.getGod();
+	}
 
-    public BlockVector getOffset() {
-        return this.structure.getOffset();
-    }
+	public BlockVector getOffset() {
+		return this.structure.getOffset();
+	}
 
-    public boolean canBlock() {
-        return this.structure.canBlock();
-    }
+	public boolean canBlock() {
+		return this.structure.canBlock();
+	}
 
-    public int getID() {
-        return this.structure.getId();
-    }
-
-    public void setBossSpawnLocation(Location bossSpawnLocation) {
-        this.bossSpawnLocation = bossSpawnLocation;
-    }
-
-    public Location getBossSpawnLocation() {
-        return bossSpawnLocation;
-    }
+	public int getID() {
+		return this.structure.getId();
+	}
 }
