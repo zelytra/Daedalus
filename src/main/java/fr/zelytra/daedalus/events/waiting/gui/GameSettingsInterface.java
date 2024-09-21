@@ -1,7 +1,7 @@
 package fr.zelytra.daedalus.events.waiting.gui;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
+import com.destroystokyo.paper.profile.PlayerProfile;
+import com.destroystokyo.paper.profile.ProfileProperty;
 import fr.zelytra.daedalus.Daedalus;
 import fr.zelytra.daedalus.builders.guiBuilder.Interface;
 import fr.zelytra.daedalus.builders.guiBuilder.InterfaceBuilder;
@@ -27,8 +27,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scoreboard.Team;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.UUID;
 
@@ -98,24 +96,19 @@ public class GameSettingsInterface implements Listener, Interface {
         return content;
     }
 
-    public static void setHeadTexture(ItemStack head, String url) {
-        if (head == null || url == null || url.isEmpty()) return;
+    public static void setHeadTexture(ItemStack head, String base64Texture) {
+        if (head == null || base64Texture == null || base64Texture.isEmpty()) return;
 
-        // Create a new GameProfile with a random UUID (you can use any UUID)
         SkullMeta skullMeta = (SkullMeta) head.getItemMeta();
-        GameProfile profile = new GameProfile(UUID.randomUUID(), null);
 
-        // Add the texture property to the profile
-        profile.getProperties().put("textures", new Property("textures", url));
+        // Create a new PlayerProfile with a random UUID
+        PlayerProfile playerProfile = Bukkit.createProfile(UUID.randomUUID(), "customHead");
 
-        try {
-            // Use reflection to set the GameProfile on the SkullMeta
-            Method setProfileMethod = skullMeta.getClass().getDeclaredMethod("setProfile", GameProfile.class);
-            setProfileMethod.setAccessible(true);
-            setProfileMethod.invoke(skullMeta, profile);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        // Add the base64 encoded texture to the profile
+        playerProfile.setProperty(new ProfileProperty("textures", base64Texture));
+
+        // Set the PlayerProfile in SkullMeta
+        skullMeta.setOwnerProfile(playerProfile);
 
         // Apply the modified SkullMeta back to the ItemStack
         head.setItemMeta(skullMeta);
